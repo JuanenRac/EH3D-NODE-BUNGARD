@@ -34,6 +34,24 @@
 | Pile technique | C++17, ESP-IDF 5.5, ESP32-S3 |
 | Sur du matériel réel | Non : les deux images du micrologiciel se compilent, mais rien n'a encore tourné sur une carte |
 
+## 🚦 État du projet
+
+Chaque ligne est une partie de ce dépôt et le feu dit où elle en est aujourd'hui. Elle est écrite d'après ce que le dépôt peut montrer (tests, compilations, exécutions), pas d'après ce qui est prévu.
+
+🟢 Fait et vérifié · 🟡 Fonctionne, avec des limites connues · 🟠 À moitié fait ou pas encore vérifié · 🔴 Pas fait ou ne fonctionne pas
+
+| Domaine | État | Ce que cela veut dire ici |
+|---|---|---|
+| Logiciel | 🟡 | Le firmware pour l'ESP32-S3 (ESP-IDF 5.5, C++17) se compile sans avertissement pour les deux cartes, Ethernet et Wi-Fi ; aucune image n'a été flashée. |
+| Tests | 🟢 | 9 programmes de test sur le PC réussissent (`ctest`), environ 2 200 vérifications : la liaison, les réglages, les règles de la machine, la base partagée, les textes du panneau et la sûreté des tâches. |
+| Liaison de commande | 🟡 | Le protocole à trames (CRC, connexion par jeton, armement, file d'octets, arrêt quand la session se tait) est couvert par les tests sur PC ; aucun programme n'a parlé à un vrai nœud. |
+| Panneau web | 🟡 | Le panneau web (huit langues : installation, utilisateurs, réseau, réglages, mise à jour) a ses textes vérifiés et est essayé contre une maquette du nœud ; il n'a jamais été servi depuis une carte. |
+| Broche et voyants | 🟠 | Le signal de vitesse 0-10 V, les lignes de marche et de sens (pas d'inversion pendant la rotation) et les cinq entrées de voyants sont testés sur PC ; aucun variateur ni machine n'a été branché. |
+| Mises à jour | 🟠 | Le téléversement dans l'un des deux emplacements de firmware avec retour arrière et confirmation est testé sur PC ; une mise à jour n'a jamais tourné sur une carte. |
+| Sécurité | 🟡 | Code de mise en service sur la console USB, jeton d'accès, utilisateurs et rôles, HTTPS facultatif et rien de secret compilé ; il s'arrête tout seul si la liaison tombe. Pas encore d'entrée d'arrêt d'urgence ni de revue indépendante. |
+| Matériel réel | 🔴 | Aucune carte n'a exécuté ce firmware, et la carte porteuse avec le convertisseur RS-232, les entrées de voyants et le variateur de broche n'est qu'un dessin sur papier. |
+| Documentation | 🟢 | README en huit langues, le protocole, le firmware, le câblage et la conception de la carte porteuse. |
+
 ## 🎯 Vue d'ensemble
 
 * La **liaison de commande** (TCP, port 5800 par défaut) : un protocole à trames avec CRC, une connexion par jeton d'accès, l'armement, une file d'octets pour l'unité de commande et un arrêt quand la session se tait ou tombe. Le programme envoie les octets d'un déplacement déjà espacés et l'UART du nœud les met sur la ligne avec exactitude, ce qu'un adaptateur USB-série ne sait pas faire à vitesse élevée.
@@ -59,6 +77,7 @@ EH3D-NODE-BUNGARD/
 ├── panel/        le panneau web, intégré au micrologiciel
 ├── tests/        tests d'hôte et vérifications des textes du panneau
 ├── tools/        build_node.sh, pack_panel.py, check_sdkconfig.py, ci_validate.py, panel_mock.mjs
+├── CMakeLists.txt, partitions.csv, sdkconfig.defaults, sdkconfig.board.*  le projet ESP-IDF, la répartition de la flash et les réglages de chaque carte (s3-eth, s3-wifi)
 ├── docs/         PROTOCOL, NODE_FIRMWARE, WIRING et BOARD
 ├── images/       bannière
 └── eh3d.project.json

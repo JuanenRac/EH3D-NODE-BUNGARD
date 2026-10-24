@@ -34,6 +34,24 @@
 | Stack tecnologico | C++17, ESP-IDF 5.5, ESP32-S3 |
 | Su hardware reale | No: le due immagini del firmware si compilano, ma nulla è ancora girato su una scheda |
 
+## 🚦 Stato del progetto
+
+Ogni riga è una parte di questo repository e il semaforo dice a che punto è oggi. È scritta in base a ciò che il repository può mostrare (test, compilazioni, esecuzioni), non a ciò che è previsto.
+
+🟢 Fatto e verificato · 🟡 Funziona, con limiti noti · 🟠 Fatto a metà o non ancora verificato · 🔴 Non fatto o non funzionante
+
+| Area | Stato | Cosa significa qui |
+|---|---|---|
+| Software | 🟡 | Il firmware per l'ESP32-S3 (ESP-IDF 5.5, C++17) compila senza avvisi per entrambe le schede, Ethernet e Wi-Fi; nessuna immagine è stata scritta. |
+| Test | 🟢 | 9 programmi di test sul PC passano (`ctest`), circa 2.200 controlli: il collegamento, le impostazioni, le regole della macchina, la base condivisa, i testi del pannello e la sicurezza dei task. |
+| Collegamento di controllo | 🟡 | Il protocollo a frame (CRC, accesso con token, armamento, coda di byte, arresto quando la sessione tace) è coperto dai test sul PC; nessun programma ha parlato con un nodo reale. |
+| Pannello web | 🟡 | Il pannello web (otto lingue: configurazione, utenti, rete, impostazioni, aggiornamento) ha i testi verificati ed è provato contro una simulazione del nodo; non è mai stato servito da una scheda. |
+| Mandrino e spie | 🟠 | Il segnale di velocità 0-10 V, le linee di marcia e di senso (nessuna inversione durante la rotazione) e i cinque ingressi delle spie sono testati sul PC; nessun azionamento né macchina è stato collegato. |
+| Aggiornamenti | 🟠 | Il caricamento in uno dei due slot firmware con ripristino e conferma è testato sul PC; un aggiornamento non è mai stato eseguito su una scheda. |
+| Sicurezza | 🟡 | Codice di configurazione sulla console USB, token di accesso, utenti e ruoli, HTTPS facoltativo e niente di segreto compilato; si ferma da solo se il collegamento cade. Non ha ancora un ingresso di arresto di emergenza né una revisione indipendente. |
+| Hardware reale | 🔴 | Nessuna scheda ha eseguito questo firmware, e la scheda portante con il convertitore RS-232, gli ingressi delle spie e l'azionamento del mandrino è solo un progetto su carta. |
+| Documentazione | 🟢 | README in otto lingue, il protocollo, il firmware, il cablaggio e il progetto della scheda portante. |
+
 ## 🎯 Panoramica
 
 * Il **collegamento di controllo** (TCP, porta 5800 predefinita): un protocollo a frame con CRC, un accesso con token, l'armamento, una coda di byte per l'unità di controllo e un arresto quando la sessione tace o cade. Il programma invia i byte di un movimento già spaziati e la UART del nodo li porta sulla linea con esattezza, cosa che un adattatore USB-seriale non riesce a fare ad alta velocità.
@@ -59,6 +77,7 @@ EH3D-NODE-BUNGARD/
 ├── panel/        il pannello web, integrato nel firmware
 ├── tests/        test di host e verifiche dei testi del pannello
 ├── tools/        build_node.sh, pack_panel.py, check_sdkconfig.py, ci_validate.py, panel_mock.mjs
+├── CMakeLists.txt, partitions.csv, sdkconfig.defaults, sdkconfig.board.*  il progetto ESP-IDF, la mappa della flash e le impostazioni di ogni scheda (s3-eth, s3-wifi)
 ├── docs/         PROTOCOL, NODE_FIRMWARE, WIRING e BOARD
 ├── images/       banner
 └── eh3d.project.json

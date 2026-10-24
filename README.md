@@ -34,6 +34,24 @@
 | Stack | C++17, ESP-IDF 5.5, ESP32-S3 |
 | On real hardware | No: both firmware images build, but nothing has run on a board yet |
 
+## 🚦 Project status
+
+Each line is one part of this repository and the light says how far it is today. It is written from what the repository can show (tests, builds, runs), not from what is planned.
+
+🟢 Done and verified · 🟡 Works, with known limits · 🟠 Partly done or not verified yet · 🔴 Not done or not working
+
+| Area | State | What it means here |
+|---|---|---|
+| Software | 🟡 | The firmware for the ESP32-S3 (ESP-IDF 5.5, C++17) builds without warnings for both boards, Ethernet and Wi-Fi; no image has been flashed. |
+| Tests | 🟢 | 9 host test programs pass (`ctest`), about 2,200 checks: the link, the settings, the machine rules, the shared base, the panel texts and the task safety. |
+| Control link | 🟡 | The framed protocol (CRC, token login, arming, byte queue, stop when the session goes quiet) is covered by the host tests; no program has talked to a real node. |
+| Web panel | 🟡 | The web panel (eight languages: set-up, users, network, settings, update) has its texts checked and is exercised against a mock of the node; it has never been served from a board. |
+| Spindle and lamps | 🟠 | The 0-10 V speed signal, the run and direction lines (no reversing while turning) and the five lamp inputs are tested on the host; no spindle drive or machine has been connected. |
+| Updates | 🟠 | Upload into one of two firmware slots with rollback and confirmation is tested on the host; an update has never run on a board. |
+| Security | 🟡 | Set-up code on the USB console, access token, users and roles, optional HTTPS, and nothing secret compiled in; it stops by itself when the link drops. It has no emergency-stop input yet and no independent review. |
+| Real hardware | 🔴 | No board has run this firmware, and the carrier board with the RS-232 converter, the lamp inputs and the spindle drive is only a design on paper. |
+| Documentation | 🟢 | README in eight languages, the protocol, the firmware, the wiring and the carrier-board design. |
+
 ## 🎯 Overview
 
 * The **control link** (TCP, port 5800 by default): a framed protocol with a CRC, a login with an access token, arming, a queue of bytes for the control unit and a stop when the session goes quiet or drops. The program sends the bytes of a move already spaced and the node's UART puts them on the line exactly, which a USB serial adapter cannot do at speed.
@@ -59,6 +77,7 @@ EH3D-NODE-BUNGARD/
 ├── panel/        the web panel, packed into the firmware
 ├── tests/        host tests and the checks of the panel's texts
 ├── tools/        build_node.sh, pack_panel.py, check_sdkconfig.py, ci_validate.py, panel_mock.mjs
+├── CMakeLists.txt, partitions.csv, sdkconfig.defaults, sdkconfig.board.*  the ESP-IDF project, the flash layout and the settings of each board (s3-eth, s3-wifi)
 ├── docs/         PROTOCOL, NODE_FIRMWARE, WIRING and BOARD
 ├── images/       banner
 └── eh3d.project.json

@@ -34,6 +34,24 @@
 | Tecnologias | C++17, ESP-IDF 5.5, ESP32-S3 |
 | Em hardware real | Não: as duas imagens de firmware compilam, mas ainda nada correu numa placa |
 
+## 🚦 Estado do projeto
+
+Cada linha é uma parte deste repositório e a luz diz até onde chega hoje. É escrita com o que o repositório consegue demonstrar (testes, compilações, execuções), não com o que está previsto.
+
+🟢 Feito e verificado · 🟡 Funciona, com limites conhecidos · 🟠 Feito a meio ou ainda por verificar · 🔴 Por fazer ou a não funcionar
+
+| Área | Estado | O que significa aqui |
+|---|---|---|
+| Software | 🟡 | O firmware para o ESP32-S3 (ESP-IDF 5.5, C++17) compila sem avisos para as duas placas, Ethernet e Wi-Fi; nenhuma imagem foi gravada. |
+| Testes | 🟢 | Passam 9 programas de teste no PC (`ctest`), cerca de 2200 verificações: a ligação, as definições, as regras da máquina, a base partilhada, os textos do painel e a segurança das tarefas. |
+| Ligação de controlo | 🟡 | O protocolo por tramas (CRC, início de sessão com token, armar, fila de bytes, paragem quando a sessão se cala) está coberto pelos testes no PC; nenhum programa falou com um nó real. |
+| Painel web | 🟡 | O painel web (oito idiomas: configuração, utilizadores, rede, definições, atualização) tem os textos verificados e é experimentado contra uma simulação do nó; nunca foi servido por uma placa. |
+| Fuso e luzes | 🟠 | O sinal de velocidade de 0-10 V, as linhas de marcha e sentido (sem inverter enquanto roda) e as cinco entradas de luzes são testados no PC; nenhum variador nem máquina foi ligado. |
+| Atualizações | 🟠 | O envio para um de dois espaços de firmware com reversão e confirmação é testado no PC; uma atualização nunca correu numa placa. |
+| Segurança | 🟡 | Código de configuração na consola USB, token de acesso, utilizadores e papéis, HTTPS opcional e nada de secreto compilado; para sozinho se a ligação cair. Ainda não tem entrada de paragem de emergência nem revisão independente. |
+| Hardware real | 🔴 | Nenhuma placa correu este firmware, e a placa de suporte com o conversor RS-232, as entradas de luzes e o variador do fuso é só um desenho em papel. |
+| Documentação | 🟢 | README em oito idiomas, o protocolo, o firmware, a cablagem e o desenho da placa de suporte. |
+
 ## 🎯 Descrição geral
 
 * A **ligação de controlo** (TCP, porta 5800 por omissão): um protocolo de tramas com CRC, uma entrada com token de acesso, o armar, uma fila de bytes para a unidade de controlo e uma paragem quando a sessão se cala ou cai. O programa envia os bytes de um movimento já espaçados e a UART do nó coloca-os na linha com exatidão, o que um adaptador USB-série não consegue a velocidade.
@@ -59,6 +77,7 @@ EH3D-NODE-BUNGARD/
 ├── panel/        o painel web, empacotado no firmware
 ├── tests/        testes de anfitrião e verificações dos textos do painel
 ├── tools/        build_node.sh, pack_panel.py, check_sdkconfig.py, ci_validate.py, panel_mock.mjs
+├── CMakeLists.txt, partitions.csv, sdkconfig.defaults, sdkconfig.board.*  o projeto ESP-IDF, a disposição da flash e as definições de cada placa (s3-eth, s3-wifi)
 ├── docs/         PROTOCOL, NODE_FIRMWARE, WIRING e BOARD
 ├── images/       banner
 └── eh3d.project.json

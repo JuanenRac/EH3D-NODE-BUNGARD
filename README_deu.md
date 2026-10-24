@@ -34,6 +34,24 @@
 | Technologie-Stack | C++17, ESP-IDF 5.5, ESP32-S3 |
 | Auf echter Hardware | Nein: beide Firmware-Images bauen, aber noch nichts lief auf einer Platine |
 
+## 🚦 Projektstatus
+
+Jede Zeile ist ein Teil dieses Repositorys, und die Ampel sagt, wie weit er heute ist. Sie beruht auf dem, was das Repository zeigen kann (Tests, Builds, Läufe), nicht auf dem, was geplant ist.
+
+🟢 Fertig und überprüft · 🟡 Funktioniert, mit bekannten Grenzen · 🟠 Teilweise fertig oder noch nicht überprüft · 🔴 Nicht gemacht oder funktioniert nicht
+
+| Bereich | Stand | Was das hier bedeutet |
+|---|---|---|
+| Software | 🟡 | Die Firmware für den ESP32-S3 (ESP-IDF 5.5, C++17) baut ohne Warnungen für beide Platinen, Ethernet und WLAN; kein Image wurde geflasht. |
+| Tests | 🟢 | 9 Testprogramme auf dem PC bestehen (`ctest`), rund 2.200 Prüfungen: die Verbindung, die Einstellungen, die Maschinenregeln, die gemeinsame Basis, die Panel-Texte und die Task-Sicherheit. |
+| Steuerverbindung | 🟡 | Das Rahmenprotokoll (CRC, Token-Anmeldung, Scharfschalten, Byte-Warteschlange, Stopp bei stiller Sitzung) ist durch die Host-Tests abgedeckt; kein Programm hat mit einem echten Knoten gesprochen. |
+| Web-Panel | 🟡 | Das Web-Panel (acht Sprachen: Einrichtung, Benutzer, Netzwerk, Einstellungen, Update) hat geprüfte Texte und wird gegen eine Attrappe des Knotens erprobt; es wurde nie von einer Platine ausgeliefert. |
+| Spindel und Lampen | 🟠 | Das 0-10-V-Drehzahlsignal, die Lauf- und Richtungsleitungen (keine Umkehr während der Drehung) und die fünf Lampeneingänge sind am Host getestet; weder ein Spindelantrieb noch eine Maschine wurde angeschlossen. |
+| Updates | 🟠 | Der Upload in einen von zwei Firmware-Slots mit Rollback und Bestätigung ist am Host getestet; ein Update lief nie auf einer Platine. |
+| Sicherheit | 🟡 | Einrichtungscode auf der USB-Konsole, Zugriffstoken, Benutzer und Rollen, optionales HTTPS und nichts Geheimes im Image; er hält von selbst an, wenn die Verbindung abreißt. Es gibt noch keinen Not-Halt-Eingang und keine unabhängige Prüfung. |
+| Echte Hardware | 🔴 | Keine Platine hat diese Firmware ausgeführt, und die Trägerplatine mit dem RS-232-Wandler, den Lampeneingängen und dem Spindelantrieb ist nur ein Entwurf auf Papier. |
+| Dokumentation | 🟢 | README in acht Sprachen, das Protokoll, die Firmware, die Verdrahtung und der Entwurf der Trägerplatine. |
+
 ## 🎯 Überblick
 
 * Die **Steuerverbindung** (TCP, Standardport 5800): ein Protokoll mit Rahmen und CRC, eine Anmeldung mit Zugriffstoken, das Scharfschalten, eine Warteschlange von Bytes für die Steuereinheit und ein Stopp, wenn die Sitzung verstummt oder abbricht. Das Programm sendet die Bytes einer Bewegung bereits getaktet, und die UART des Knotens legt sie exakt auf die Leitung, was ein USB-Seriell-Adapter bei hoher Geschwindigkeit nicht schafft.
@@ -59,6 +77,7 @@ EH3D-NODE-BUNGARD/
 ├── panel/        das Web-Panel, in die Firmware gepackt
 ├── tests/        Host-Tests und Prüfungen der Panel-Texte
 ├── tools/        build_node.sh, pack_panel.py, check_sdkconfig.py, ci_validate.py, panel_mock.mjs
+├── CMakeLists.txt, partitions.csv, sdkconfig.defaults, sdkconfig.board.*  das ESP-IDF-Projekt, die Flash-Aufteilung und die Einstellungen jeder Platine (s3-eth, s3-wifi)
 ├── docs/         PROTOCOL, NODE_FIRMWARE, WIRING und BOARD
 ├── images/       Banner
 └── eh3d.project.json
