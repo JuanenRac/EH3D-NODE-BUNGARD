@@ -1,0 +1,217 @@
+// EH3D-NODE-BUNGARD - what the node keeps in flash: its settings and its panel users.
+// Copyright (C) 2026 JuanenRac (Electro Hobby 3D). GPL-3.0-or-later.
+#include "node_store.hpp"
+
+#include <cctype>
+#include <cstring>
+#include <mutex>
+extern "C" {
+#include "esp_log.h"
+#include "esp_mac.h"
+#include "mbedtls/md.h"
+#include "mbedtls/pkcs5.h"
+#include "nvs.h"
+#include "nvs_flash.h"
+#include "sdkconfig.h"
+}
+#include "entropy.hpp"
+
+namespace eh3d::store {
+namespace {
+constexpr char kTag[] = "eh3d-store";
+constexpr char kNamespace[] = "eh3d";
+constexpr char kSettingsKey[] = "config";
+constexpr char kUsersKey[] = "users";
+constexpr char kSetupCodeKey[] = "setup_code";
+constexpr unsigned kHashIterations = 10000;
+
+std::mutex g_lock;
+config::Settings g_settings;
+bool g_stored = false;
+auth::UserStore g_users;
+std::string g_setup_code;
+std::uint8_t g_mac[6]{};
+
+// PBKDF2-HMAC-SHA256, 10 000 rounds, 32 bytes, written as hexadecimal. The salt (text) is used as it is.
+std::string hash_password(std::string_view password, std::string_view salt) {
+  std::uint8_t out[32];
+  const int rc = mbedtls_pkcs5_pbkdf2_hmac_ext(MBEDTLS_MD_SHA256, reinterpret_cast<const unsigned char*>(password.data()), password.size(),
+                                              reinterpret_cast<const unsigned char*>(salt.data()), salt.size(), kHashIterations, sizeof out, out);
+  if (rc != 0) return "";
+  return auth::to_hex(out, sizeof out);
+}
+
+std::string new_salt() {
+  std::uint8_t bytes[16];
+  random_bytes(bytes, sizeof bytes);
+  return auth::to_hex(bytes, sizeof bytes);
+}
+
+bool read_blob(const char* key, std::string& out) {
+  nvs_handle_t handle;
+  if (nvs_open(kNamespace, NVS_READONLY, &handle) != ESP_OK) return false;
+  std::size_t size = 0;
+  bool ok = false;
+  if (nvs_get_blob(handle, key, nullptr, &size) == ESP_OK && size > 0 && size <= 32 * 1024) {
+    out.resize(size);
+    ok = nvs_get_blob(handle, key, out.data(), &size) == ESP_OK;
+  }
+  nvs_close(handle);
+  return ok;
+}
+
+bool write_blob(const char* key, const std::string& value) {
+  nvs_handle_t handle;
+  if (nvs_open(kNamespace, NVS_READWRITE, &handle) != ESP_OK) return false;
+  bool ok = nvs_set_blob(handle, key, value.data(), value.size()) == ESP_OK && nvs_commit(handle) == ESP_OK;
+  nvs_close(handle);
+  return ok;
+}
+
+// The first settings: the factory defaults, with the identity and the time server a build may give.
+config::Settings first_settings() {
+  config::Settings s = config::default_settings(mac_tail());
+  if (std::strlen(CONFIG_EH3D_NODE_ID) > 0 && node_id_is_valid(CONFIG_EH3D_NODE_ID)) { s.node_id = CONFIG_EH3D_NODE_ID; s.node_name = CONFIG_EH3D_NODE_ID; }
+  s.time.ntp = CONFIG_EH3D_NTP_SERVER;
+  return s;
+}
+}  // namespace
+
+void init() {
+  esp_err_t err = nvs_flash_init();
+  if (err == ESP_ERR_NVS_NO_FREE_PAGES || err == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+    ESP_LOGW(kTag, "the NVS partition is unusable (%s): erasing it", esp_err_to_name(err));
+    const esp_err_t erased = nvs_flash_erase();
+    if (erased != ESP_OK) ESP_LOGE(kTag, "the NVS partition could not be erased: %s", esp_err_to_name(erased));
+    err = nvs_flash_init();
+  }
+  // Without storage the node still starts, on the default settings and without remembering anything: it can be reached and set up again, which a node that aborts in a loop cannot.
+  if (err != ESP_OK) ESP_LOGE(kTag, "the settings storage could not be started (%s): running on the defaults, nothing will be kept", esp_err_to_name(err));
+  esp_read_mac(g_mac, ESP_MAC_WIFI_STA);
+
+  std::lock_guard<std::mutex> guard(g_lock);
+  std::string text;
+  g_settings = first_settings();
+  if (read_blob(kSettingsKey, text)) {
+    config::Settings loaded;
+    config::Problems dropped;
+    // Settings written by another version of the firmware are read as far as they can be: members this version does not know are ignored, and one that it cannot accept is left at its first value
+    // (the rest is kept), so an update never sends the node back to its first settings.
+    if (config::load_stored(text, first_settings(), loaded, dropped)) {
+      g_settings = loaded;
+      g_stored = true;
+      for (const config::Problem& problem : dropped) ESP_LOGW(kTag, "stored setting %s left at its first value (%s)", problem.path.c_str(), problem.code.c_str());
+    } else {
+      ESP_LOGE(kTag, "the stored settings could not be read: using the first settings");
+      for (const config::Problem& problem : dropped) ESP_LOGE(kTag, "  %s at %s", problem.code.c_str(), problem.path.c_str());
+    }
+  }
+  if (read_blob(kUsersKey, text) && !g_users.from_json(text)) ESP_LOGE(kTag, "the stored users could not be read: the node is back in setup");
+  // The board's code: first the one built into the image (if the build gave one), and last a random one that is kept in flash so it is the same at every start. It only ever opens a node with no
+  // administrator yet (the panel refuses it once there is one) and, afterwards, the node's rescue network (network.cpp), which needs a password that still exists and that the owner can
+  // learn - the old way erased it the moment the administrator was created, and the rescue network could then not start.
+  if (std::strlen(CONFIG_EH3D_SETUP_CODE) >= 8) {
+    g_setup_code = CONFIG_EH3D_SETUP_CODE;
+    for (char& c : g_setup_code) c = static_cast<char>(std::toupper(static_cast<unsigned char>(c)));   // the panel's form writes the code in capitals, so a code typed in lower case here would never match
+  }
+  else if (read_blob(kSetupCodeKey, text) && text.size() >= 8) g_setup_code = text;
+  else {
+    std::uint8_t bytes[8];
+    random_bytes(bytes, sizeof bytes);
+    g_setup_code = auth::setup_code_from(bytes, sizeof bytes);
+    write_blob(kSetupCodeKey, g_setup_code);
+  }
+}
+
+std::string mac_tail() { return auth::to_hex(g_mac + 3, 3); }
+unsigned mac_sum() { unsigned sum = 0; for (std::uint8_t b : g_mac) sum += b; return sum; }
+
+config::Settings settings() {
+  std::lock_guard<std::mutex> guard(g_lock);
+  return g_settings;
+}
+bool settings_are_stored() {
+  std::lock_guard<std::mutex> guard(g_lock);
+  return g_stored;
+}
+
+bool save_settings(const config::Settings& s) {
+  std::lock_guard<std::mutex> guard(g_lock);
+  if (!write_blob(kSettingsKey, config::to_json(s, true))) return false;
+  g_settings = s;
+  g_stored = true;
+  return true;
+}
+
+bool blob_read(const char* key, std::string& out) { return read_blob(key, out); }
+bool blob_write(const char* key, const std::string& value) { return write_blob(key, value); }
+
+bool users_empty() {
+  std::lock_guard<std::mutex> guard(g_lock);
+  return g_users.empty();
+}
+
+std::string users_json() {
+  std::lock_guard<std::mutex> guard(g_lock);
+  json::Writer w;
+  w.begin_array();
+  for (const auth::User& user : g_users.users()) w.begin_object().field("name", user.name).field("role", auth::to_text(user.role)).end_object();
+  w.end_array();
+  return w.str();
+}
+
+namespace {
+bool persist_users() { return write_blob(kUsersKey, g_users.to_json()); }
+}  // namespace
+
+// A change of the users is made on the list, written to flash, and kept only if the write worked: when it did not, the list is what it was (the change used to stay in memory, and the
+// first administrator of a node that could not write would vanish at the next restart without anybody having been told).
+auth::Result user_add(std::string_view name, std::string_view password, auth::Role role) {
+  std::lock_guard<std::mutex> guard(g_lock);
+  const auth::UserStore before = g_users;
+  const auth::Result result = g_users.add(name, password, role, new_salt(), hash_password);
+  if (result == auth::Result::kOk && !persist_users()) { g_users = before; return auth::Result::kStorage; }
+  return result;
+}
+
+bool user_verify(std::string_view name, std::string_view password, auth::Role& role) {
+  std::lock_guard<std::mutex> guard(g_lock);
+  return g_users.verify(name, password, hash_password, role);
+}
+
+auth::Result user_set_password(std::string_view name, std::string_view password) {
+  std::lock_guard<std::mutex> guard(g_lock);
+  const auth::UserStore before = g_users;
+  const auth::Result result = g_users.set_password(name, password, new_salt(), hash_password);
+  if (result == auth::Result::kOk && !persist_users()) { g_users = before; return auth::Result::kStorage; }
+  return result;
+}
+
+auth::Result user_set_role(std::string_view name, auth::Role role) {
+  std::lock_guard<std::mutex> guard(g_lock);
+  const auth::UserStore before = g_users;
+  const auth::Result result = g_users.set_role(name, role);
+  if (result == auth::Result::kOk && !persist_users()) { g_users = before; return auth::Result::kStorage; }
+  return result;
+}
+
+auth::Result user_remove(std::string_view name) {
+  std::lock_guard<std::mutex> guard(g_lock);
+  const auth::UserStore before = g_users;
+  const auth::Result result = g_users.remove(name);
+  if (result == auth::Result::kOk && !persist_users()) { g_users = before; return auth::Result::kStorage; }
+  return result;
+}
+
+bool factory_reset() {
+  std::lock_guard<std::mutex> guard(g_lock);
+  nvs_handle_t handle;
+  if (nvs_open(kNamespace, NVS_READWRITE, &handle) != ESP_OK) return false;
+  const bool ok = nvs_erase_all(handle) == ESP_OK && nvs_commit(handle) == ESP_OK;
+  nvs_close(handle);
+  return ok;
+}
+
+const std::string& setup_code() { return g_setup_code; }
+
+}  // namespace eh3d::store

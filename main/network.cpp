@@ -1,0 +1,546 @@
+// EH3D-NODE-BUNGARD - the node's network: the Ethernet port of the s3-eth board, the Wi-Fi station and the Wi-Fi access point.
+// Copyright (C) 2026 JuanenRac (Electro Hobby 3D). GPL-3.0-or-later.
+//
+// Nothing here has run on a board. The station joins the network of the settings and joins it again 3 seconds after any loss; the access point (the setup
+// one, or the one the settings ask for) has its own address range (192.168.4.x) and the node's own panel is on 192.168.4.1. On the s3-eth board the Ethernet
+// port carries the node's address (DHCP or a fixed one); the access point is not bridged to it: it is a network of its own, for reaching the node from a phone.
+#include "network.hpp"
+
+#include <algorithm>
+#include <cstdio>
+#include <cstring>
+#include <atomic>
+#include <mutex>
+extern "C" {
+#include "esp_event.h"
+#include "esp_log.h"
+#include "esp_mac.h"
+#include "esp_netif.h"
+#include "esp_random.h"
+#include "esp_timer.h"
+#include "esp_wifi.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "sdkconfig.h"
+}
+#if defined(EH3D_BOARD_S3_ETH)
+#include "board_ethernet.hpp"
+#endif
+#include "core/backoff.hpp"
+#include "core/net_text.hpp"
+
+namespace eh3d::network {
+namespace {
+constexpr char kTag[] = "eh3d-net";
+
+std::mutex g_lock;
+Status g_status;
+netplan::Plan g_plan;
+config::Settings g_settings;
+esp_netif_t* g_ip_netif = nullptr;   // the interface that holds the node's address
+#if defined(EH3D_BOARD_S3_ETH)
+esp_eth_handle_t g_eth = nullptr;
+#endif
+esp_timer_handle_t g_reconnect_timer = nullptr;
+bool g_wifi_running = false;   // the driver was started by start()
+std::mutex g_scan_lock;
+std::atomic<bool> g_scan_switched_mode{false};   // true while scan() has changed the mode of the radio only to be able to search
+
+// Which saved network the station is on now (0: the one above, 1..: settings.sta.backup[index-1]) and how many times in a row
+// it has failed to connect since the last success or switch. After enough failures, and only when another saved network
+// exists, the next one in the list is tried - the same backup networks a phone or laptop would remember, tried in order.
+int g_sta_index = 0;
+int g_sta_attempts = 0;
+retry::Backoff g_wifi_backoff(1000, 30000);   // the wait between tries of the same network grows from 1 s to 30 s (with a little scatter)
+// While the rescue access point is the only way into the node and someone is on it, the station stays quiet: every try at a Wi-Fi network that is not
+// there scans all channels, the access point shares the radio, and the person's phone loses the network in the middle of whatever it was doing (found
+// on a bench: the rescue network vanished right after signing in to the panel).
+std::atomic<bool> g_rescue_open{false};
+std::atomic<int> g_ap_clients{0};
+constexpr std::int64_t kStationPauseUs = 10 * 1000 * 1000;
+// The quiet is not for ever: somebody who stays on the rescue network (or a device that only pretends to) must not keep the node off its own Wi-Fi indefinitely. After ten minutes the
+// station tries again, whoever is still on the rescue network.
+constexpr std::int64_t kStationMaxPauseUs = 10LL * 60 * 1000 * 1000;
+std::atomic<std::int64_t> g_pause_since_us{0};
+
+bool station_should_wait() {
+  if (!(g_rescue_open && g_ap_clients > 0)) { g_pause_since_us = 0; return false; }
+  const std::int64_t now = esp_timer_get_time();
+  if (g_pause_since_us == 0) g_pause_since_us = now;
+  return now - g_pause_since_us <= kStationMaxPauseUs;
+}
+constexpr int kStaAttemptsBeforeSwitch = 4;
+
+config::Network station_network(const config::Settings& s, int index) {
+  if (index <= 0 || static_cast<std::size_t>(index) > s.sta.backup.size()) return {s.sta.ssid, s.sta.password};
+  return s.sta.backup[static_cast<std::size_t>(index) - 1];
+}
+int station_network_count(const config::Settings& s) { return 1 + static_cast<int>(s.sta.backup.size()); }
+void apply_station_network(int index);   // defined below, after the Wi-Fi config helpers it uses
+
+std::string text_of(const esp_ip4_addr_t& address) {
+  char text[16];
+  std::snprintf(text, sizeof text, IPSTR, IP2STR(&address));
+  return text;
+}
+
+std::string mac_text(const std::uint8_t* mac) {
+  char text[18];
+  std::snprintf(text, sizeof text, "%02x:%02x:%02x:%02x:%02x:%02x", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+  return text;
+}
+
+void refresh_ip(esp_netif_t* netif) {
+  esp_netif_ip_info_t info{};
+  if (netif == nullptr || esp_netif_get_ip_info(netif, &info) != ESP_OK) return;
+  std::lock_guard<std::mutex> guard(g_lock);
+  g_status.ip = text_of(info.ip);
+  g_status.netmask = text_of(info.netmask);
+  g_status.gateway = text_of(info.gw);
+  esp_netif_dns_info_t dns{};
+  if (esp_netif_get_dns_info(netif, ESP_NETIF_DNS_MAIN, &dns) == ESP_OK) g_status.dns = text_of(dns.ip.u_addr.ip4);
+  g_status.has_ip = info.ip.addr != 0;
+}
+
+void on_ip_event(void*, esp_event_base_t, int32_t, void* data) {
+  const auto* event = static_cast<ip_event_got_ip_t*>(data);
+  {
+    std::lock_guard<std::mutex> guard(g_lock);
+    g_status.ip = text_of(event->ip_info.ip);
+    g_status.netmask = text_of(event->ip_info.netmask);
+    g_status.gateway = text_of(event->ip_info.gw);
+    g_status.has_ip = true;
+  }
+  refresh_ip(event->esp_netif);
+  ESP_LOGI(kTag, "address %s, gateway " IPSTR ", netmask " IPSTR, g_status.ip.c_str(), IP2STR(&event->ip_info.gw), IP2STR(&event->ip_info.netmask));
+}
+
+void on_ip_lost(void*, esp_event_base_t, int32_t, void*) {
+  std::lock_guard<std::mutex> guard(g_lock);
+  g_status.has_ip = false;
+  g_status.ip.clear();
+}
+
+#if defined(EH3D_BOARD_S3_ETH)
+void on_eth_event(void*, esp_event_base_t, int32_t event_id, void*) {
+  switch (event_id) {
+    case ETHERNET_EVENT_CONNECTED: {
+      {
+        std::lock_guard<std::mutex> guard(g_lock);
+        g_status.link_up = true;
+      }
+      ESP_LOGI(kTag, "link up");
+      // A fixed address gets no DHCP event: it is usable as soon as the link is.
+      if (!g_settings.ip.dhcp && g_settings.uplink == config::Uplink::kEthernet) refresh_ip(g_ip_netif);
+      break;
+    }
+    case ETHERNET_EVENT_DISCONNECTED: {
+      std::lock_guard<std::mutex> guard(g_lock);
+      g_status.link_up = false;
+      g_status.has_ip = false;
+      ESP_LOGW(kTag, "link down (cable, switch or PoE injector)");
+      break;
+    }
+    case ETHERNET_EVENT_START: ESP_LOGI(kTag, "Ethernet driver started, waiting for the link"); break;
+    default: break;
+  }
+}
+
+#endif
+
+// The name, and either DHCP or the fixed address, mask, gateway and DNS of the settings.
+void apply_ip(esp_netif_t* netif, const config::Settings& s, const std::string& hostname) {
+  esp_netif_set_hostname(netif, hostname.c_str());
+  if (s.ip.dhcp) return;
+  esp_netif_ip_info_t info{};
+  std::uint32_t address = 0, mask = 0, gateway = 0;
+  if (!net::parse_ipv4(s.ip.address, address) || !net::parse_ipv4(s.ip.netmask, mask) || !net::parse_ipv4(s.ip.gateway, gateway)) {
+    ESP_LOGE(kTag, "the fixed address, mask or gateway in the settings is not valid: asking for an address by DHCP instead");
+    return;
+  }
+  info.ip.addr = esp_netif_htonl(address);
+  info.netmask.addr = esp_netif_htonl(mask);
+  info.gw.addr = esp_netif_htonl(gateway);
+  const esp_err_t stopped = esp_netif_dhcpc_stop(netif);
+  if (stopped != ESP_OK && stopped != ESP_ERR_ESP_NETIF_DHCP_ALREADY_STOPPED) { ESP_LOGE(kTag, "the DHCP client could not be stopped (%s): the address is asked for by DHCP", esp_err_to_name(stopped)); return; }
+  if (esp_netif_set_ip_info(netif, &info) != ESP_OK) { ESP_LOGE(kTag, "the fixed address could not be set: asking for an address by DHCP instead"); esp_netif_dhcpc_start(netif); return; }
+  const std::string servers[2] = {s.ip.dns1.empty() ? s.ip.gateway : s.ip.dns1, s.ip.dns2};
+  const esp_netif_dns_type_t kinds[2] = {ESP_NETIF_DNS_MAIN, ESP_NETIF_DNS_BACKUP};
+  for (int i = 0; i < 2; ++i) {
+    std::uint32_t value = 0;
+    if (servers[i].empty() || !net::parse_ipv4(servers[i], value)) continue;
+    esp_netif_dns_info_t dns{};
+    dns.ip.type = ESP_IPADDR_TYPE_V4;
+    dns.ip.u_addr.ip4.addr = esp_netif_htonl(value);
+    esp_netif_set_dns_info(netif, kinds[i], &dns);
+  }
+}
+
+void reconnect_station(void*) {
+  if (station_should_wait()) { esp_timer_start_once(g_reconnect_timer, kStationPauseUs); return; }
+  esp_wifi_connect();
+}
+
+void on_wifi_event(void*, esp_event_base_t, int32_t event_id, void* data) {
+  switch (event_id) {
+    case WIFI_EVENT_AP_START: ESP_LOGI(kTag, "access point \"%s\" started on channel %d", g_plan.ap.ssid.c_str(), g_plan.ap.channel); break;
+    case WIFI_EVENT_AP_STACONNECTED: {
+      const auto* event = static_cast<wifi_event_ap_staconnected_t*>(data);
+      g_ap_clients += 1;
+      ESP_LOGI(kTag, "a client joined the access point: %s", mac_text(event->mac).c_str());
+      break;
+    }
+    case WIFI_EVENT_AP_STADISCONNECTED: {
+      const auto* event = static_cast<wifi_event_ap_stadisconnected_t*>(data);
+      if (g_ap_clients > 0) g_ap_clients -= 1;
+      ESP_LOGI(kTag, "a client left the access point: %s", mac_text(event->mac).c_str());
+      break;
+    }
+    case WIFI_EVENT_STA_START:
+      // The search of the access point mode (below) starts the station only to look around: it has no network to join, and a station that is "connecting" refuses the search.
+      if (!g_scan_switched_mode) esp_wifi_connect();
+      break;
+    case WIFI_EVENT_STA_CONNECTED: {
+      g_sta_attempts = 0;   // forget past failures of this network now that it has worked
+      g_wifi_backoff.reset();
+      std::string ssid;
+      {
+      std::lock_guard<std::mutex> guard(g_lock);
+      g_status.link_up = true;
+      g_status.sta_connected = true;
+      g_status.sta_ssid = station_network(g_settings, g_sta_index).ssid;
+      g_status.sta_error.clear();
+      ssid = g_status.sta_ssid;
+      }
+      ESP_LOGI(kTag, "joined the Wi-Fi network \"%s\"", ssid.c_str());
+      if (!g_settings.ip.dhcp && g_ip_netif != nullptr) refresh_ip(g_ip_netif);   // a fixed address gets no DHCP event (called outside the lock: it takes it)
+      break;
+    }
+    case WIFI_EVENT_STA_DISCONNECTED: {
+      const auto* event = static_cast<wifi_event_sta_disconnected_t*>(data);
+      const char* error = "failed";
+      switch (event->reason) {
+        case WIFI_REASON_NO_AP_FOUND: error = "network_not_found"; break;
+        case WIFI_REASON_AUTH_FAIL: case WIFI_REASON_AUTH_EXPIRE: case WIFI_REASON_ASSOC_FAIL: case WIFI_REASON_HANDSHAKE_TIMEOUT: case WIFI_REASON_4WAY_HANDSHAKE_TIMEOUT: error = "wrong_password"; break;
+        // The network is there but does not accept the security this station asks for - what a secured network answers when the saved password is empty.
+        case WIFI_REASON_NO_AP_FOUND_W_COMPATIBLE_SECURITY: case WIFI_REASON_NO_AP_FOUND_IN_AUTHMODE_THRESHOLD: error = "wrong_password"; break;
+        default: break;
+      }
+      std::string ssid;
+      int total;
+      {
+        std::lock_guard<std::mutex> guard(g_lock);
+        g_status.link_up = false;
+        g_status.sta_connected = false;
+        g_status.has_ip = false;
+        g_status.sta_error = error;
+        ssid = g_status.sta_ssid;
+        total = station_network_count(g_settings);
+      }
+      if (g_reconnect_timer != nullptr && station_should_wait()) {   // someone is using the rescue network: no scanning now (for ten minutes at most)
+        esp_timer_start_once(g_reconnect_timer, kStationPauseUs);
+        break;
+      }
+      g_sta_attempts += 1;
+      // Enough tries on this one, and there is somewhere else to try: the same backup networks a phone would remember.
+      if (g_sta_attempts >= kStaAttemptsBeforeSwitch && total > 1) {
+        g_sta_attempts = 0;
+        g_sta_index = (g_sta_index + 1) % total;
+        apply_station_network(g_sta_index);
+        break;
+      }
+      const std::uint32_t wait_ms = g_wifi_backoff.next(esp_random());
+      ESP_LOGW(kTag, "the Wi-Fi network \"%s\" is not reachable (%s, reason %u): trying again in %.1f s", ssid.c_str(), error, static_cast<unsigned>(event->reason), wait_ms / 1000.0);
+      if (g_reconnect_timer != nullptr) esp_timer_start_once(g_reconnect_timer, static_cast<std::uint64_t>(wait_ms) * 1000ULL);
+      break;
+    }
+    default: break;
+  }
+}
+
+wifi_auth_mode_t auth_mode(config::WifiSecurity security) {
+  switch (security) {
+    case config::WifiSecurity::kOpen: return WIFI_AUTH_OPEN;
+    case config::WifiSecurity::kWpa2: return WIFI_AUTH_WPA2_PSK;
+    case config::WifiSecurity::kWpa3: return WIFI_AUTH_WPA3_PSK;
+    case config::WifiSecurity::kWpa2Wpa3: return WIFI_AUTH_WPA2_WPA3_PSK;
+  }
+  return WIFI_AUTH_WPA2_PSK;
+}
+
+bool set_access_point(const netplan::Plan& plan) {
+  wifi_config_t ap{};
+  // A name of 32 bytes is allowed and has no end mark in the field: it is copied whole, with its length (strncpy of 31 left the last byte as a zero).
+  const std::size_t ssid_length = std::min(plan.ap.ssid.size(), sizeof ap.ap.ssid);
+  std::memcpy(ap.ap.ssid, plan.ap.ssid.data(), ssid_length);
+  ap.ap.ssid_len = static_cast<std::uint8_t>(ssid_length);
+  if (plan.ap.security != config::WifiSecurity::kOpen) std::strncpy(reinterpret_cast<char*>(ap.ap.password), plan.ap.password.c_str(), sizeof ap.ap.password - 1);
+  ap.ap.channel = static_cast<std::uint8_t>(plan.ap.channel);
+  ap.ap.authmode = auth_mode(plan.ap.security);
+  ap.ap.ssid_hidden = plan.ap.hidden ? 1 : 0;
+  ap.ap.max_connection = static_cast<std::uint8_t>(plan.ap.max_clients);
+  ap.ap.beacon_interval = 100;
+  if (plan.ap.security == config::WifiSecurity::kWpa3) ap.ap.pmf_cfg.required = true;
+  if (plan.ap.security == config::WifiSecurity::kWpa2Wpa3) ap.ap.pmf_cfg.capable = true;
+  if (esp_wifi_set_config(WIFI_IF_AP, &ap) != ESP_OK) { ESP_LOGE(kTag, "the access point settings were refused"); return false; }
+  return true;
+}
+
+wifi_config_t station_wifi_config(const config::Network& network) {
+  wifi_config_t sta{};
+  std::memcpy(sta.sta.ssid, network.ssid.data(), std::min(network.ssid.size(), sizeof sta.sta.ssid));
+  std::strncpy(reinterpret_cast<char*>(sta.sta.password), network.password.c_str(), sizeof sta.sta.password - 1);
+  sta.sta.threshold.authmode = network.password.empty() ? WIFI_AUTH_OPEN : WIFI_AUTH_WPA_PSK;
+  sta.sta.pmf_cfg.capable = true;
+  sta.sta.pmf_cfg.required = false;
+  return sta;
+}
+
+bool wifi_setup(const config::Settings& s, const netplan::Plan& plan) {
+  wifi_init_config_t init = WIFI_INIT_CONFIG_DEFAULT();
+  if (esp_wifi_init(&init) != ESP_OK) { ESP_LOGE(kTag, "the Wi-Fi driver could not be initialised"); return false; }
+  esp_wifi_set_storage(WIFI_STORAGE_RAM);  // the settings live in this node's own flash store, not in the driver's
+  const std::string& country = plan.ap.enabled ? plan.ap.country : s.ap.country;
+  if (esp_wifi_set_country_code(country.c_str(), true) != ESP_OK) ESP_LOGW(kTag, "the country code %s was not accepted: the default channels apply", country.c_str());
+
+  const bool access_point = plan.ap.enabled;
+  esp_wifi_set_mode(plan.station && access_point ? WIFI_MODE_APSTA : (plan.station ? WIFI_MODE_STA : WIFI_MODE_AP));
+  if (access_point && !set_access_point(plan)) return false;
+  if (plan.station) {
+    g_sta_index = 0;
+    g_sta_attempts = 0;
+    wifi_config_t sta = station_wifi_config(station_network(s, g_sta_index));
+    { std::lock_guard<std::mutex> guard(g_lock); g_status.sta_ssid = station_network(s, g_sta_index).ssid; }
+    if (esp_wifi_set_config(WIFI_IF_STA, &sta) != ESP_OK) { ESP_LOGE(kTag, "the station settings were refused"); return false; }
+  }
+  esp_wifi_set_ps(WIFI_PS_NONE);  // an access point that sleeps answers late
+  return true;
+}
+
+void wifi_tune(const netplan::Plan& plan) {
+  if (!plan.ap.enabled) return;
+  esp_wifi_set_bandwidth(WIFI_IF_AP, plan.ap.bandwidth_mhz == 40 ? WIFI_BW_HT40 : WIFI_BW_HT20);
+  esp_wifi_set_max_tx_power(static_cast<std::int8_t>(plan.ap.tx_power_dbm * 4));  // the driver counts in quarter dBm
+}
+
+// Switches the station to the saved network at `index` (wrapping through the main one and every backup) and connects to it;
+// called only after the current one has failed enough times in a row.
+void apply_station_network(int index) {
+  config::Network network;
+  {
+    std::lock_guard<std::mutex> guard(g_lock);
+    network = station_network(g_settings, index);
+    g_status.sta_ssid = network.ssid;
+  }
+  wifi_config_t sta = station_wifi_config(network);
+  esp_wifi_set_config(WIFI_IF_STA, &sta);
+  ESP_LOGW(kTag, "trying the next saved Wi-Fi network: \"%s\"", network.ssid.c_str());
+  esp_wifi_connect();
+}
+
+netplan::Plan g_rescue;
+int g_rescue_after_s = 0;
+
+// A node with no address (no cable, no Wi-Fi network of its own that it can join) and no access point of its own cannot be reached by anyone, and a person who
+// has just set it up would think it vanished. After a while without an address it opens the set-up access point again, protected with the set-up code.
+void open_rescue_access_point() {
+  const netplan::Plan& plan = g_rescue;
+  ESP_LOGW(kTag, "no address after %d s and no access point: opening \"%s\" (password: the set-up code) so the node can be reached", g_rescue_after_s, plan.ap.ssid.c_str());
+  esp_netif_create_default_wifi_ap();
+  if (!g_wifi_running) {
+    if (!wifi_setup(g_settings, plan)) return;
+    if (esp_wifi_start() != ESP_OK) { ESP_LOGE(kTag, "the rescue access point could not be started"); return; }
+    g_wifi_running = true;
+  } else {
+    esp_wifi_set_mode(WIFI_MODE_APSTA);
+    if (!set_access_point(plan)) return;
+  }
+  wifi_tune(plan);
+  g_rescue_open = true;
+  std::lock_guard<std::mutex> guard(g_lock);
+  g_status.ap_active = true;
+  g_status.ap_setup = true;
+  g_status.ap_ssid = plan.ap.ssid;
+  g_status.ap_channel = plan.ap.channel;
+}
+
+void rescue_task(void*) {
+  vTaskDelay(pdMS_TO_TICKS(g_rescue_after_s * 1000));
+  bool reachable;
+  {
+    std::lock_guard<std::mutex> guard(g_lock);
+    reachable = g_status.has_ip || g_status.ap_active;
+  }
+  if (!reachable) open_rescue_access_point();
+  vTaskDelete(nullptr);
+}
+}  // namespace
+
+void arm_rescue(const netplan::Plan& rescue_plan, int after_seconds) {
+  if (!rescue_plan.ap.enabled || after_seconds <= 0) return;
+  g_rescue = rescue_plan;
+  g_rescue_after_s = after_seconds;
+  xTaskCreate(rescue_task, "net-rescue", 6144, nullptr, 2, nullptr);
+}
+
+bool start(const config::Settings& s, const netplan::Plan& plan) {
+  g_plan = plan;
+  g_settings = s;
+  g_status.layout = netplan::to_text(plan.layout);
+  g_status.ap_active = plan.ap.enabled;
+  g_status.ap_setup = plan.ap.setup;
+  g_status.ap_ssid = plan.ap.ssid;
+  g_status.ap_channel = plan.ap.enabled ? plan.ap.channel : 0;
+  g_status.ethernet_available = board::kHasEthernet;
+  g_status.board = board::kId;
+  std::uint8_t mac[6]{};
+  esp_read_mac(mac, plan.wired ? ESP_MAC_ETH : ESP_MAC_WIFI_STA);
+  g_status.mac = mac_text(mac);
+
+  // A step that fails is said and makes start() answer false: the caller goes on without a network (the node stays reachable by the serial port) instead of the whole
+  // node aborting and restarting in a loop.
+  const auto step = [](esp_err_t result, const char* what) { if (result != ESP_OK) ESP_LOGE(kTag, "%s failed: %s", what, esp_err_to_name(result)); return result == ESP_OK; };
+  if (!step(esp_netif_init(), "the network stack")) return false;
+  if (!step(esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &on_wifi_event, nullptr), "the Wi-Fi events")) return false;
+  if (!step(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &on_ip_event, nullptr), "the address events")) return false;
+  if (!step(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_LOST_IP, &on_ip_lost, nullptr), "the address-lost events")) return false;
+#if defined(EH3D_BOARD_S3_ETH)
+  if (!step(esp_event_handler_register(ETH_EVENT, ESP_EVENT_ANY_ID, &on_eth_event, nullptr), "the cable events")) return false;
+  if (!step(esp_event_handler_register(IP_EVENT, IP_EVENT_ETH_GOT_IP, &on_ip_event, nullptr), "the cable address events")) return false;
+  if (!step(esp_event_handler_register(IP_EVENT, IP_EVENT_ETH_LOST_IP, &on_ip_lost, nullptr), "the cable address-lost events")) return false;
+#endif
+
+  if (plan.station) {
+    esp_timer_create_args_t timer{};
+    timer.callback = &reconnect_station;
+    timer.name = "wifi-reconnect";
+    esp_timer_create(&timer, &g_reconnect_timer);
+  }
+#if defined(EH3D_BOARD_S3_ETH)
+  if (plan.wired) {
+    g_eth = ethernet_driver_create();
+    if (g_eth == nullptr) {
+      g_status.ethernet_ok = false;
+      if (!plan.ap.enabled) return false;   // no cable and no access point: nothing to reach the node by
+    } else {
+      esp_netif_config_t eth_config = ESP_NETIF_DEFAULT_ETH();
+      esp_netif_t* eth_netif = esp_netif_new(&eth_config);
+      if (!step(esp_netif_attach(eth_netif, esp_eth_new_netif_glue(g_eth)), "attaching the cable")) {
+        g_status.ethernet_ok = false;
+        if (!plan.ap.enabled) return false;
+      } else {
+        g_ip_netif = eth_netif;
+        apply_ip(eth_netif, s, plan.hostname);
+      }
+    }
+  }
+#endif
+  const bool wifi = plan.ap.enabled || plan.station;
+  if (plan.ap.enabled) esp_netif_create_default_wifi_ap();
+  if (plan.station) {
+    esp_netif_t* sta_netif = esp_netif_create_default_wifi_sta();
+    apply_ip(sta_netif, s, plan.hostname);
+    g_ip_netif = sta_netif;
+  }
+  if (wifi && !wifi_setup(s, plan)) return false;
+#if defined(EH3D_BOARD_S3_ETH)
+  if (g_eth != nullptr && !step(esp_eth_start(g_eth), "starting the cable")) { g_status.ethernet_ok = false; if (!wifi) return false; }
+#endif
+  if (wifi) {
+    if (!step(esp_wifi_start(), "starting Wi-Fi")) return false;
+    wifi_tune(plan);
+    g_wifi_running = true;
+  }
+  return true;
+}
+
+namespace {
+const char* security_text(wifi_auth_mode_t mode) {
+  switch (mode) {
+    case WIFI_AUTH_OPEN: return "open";
+    case WIFI_AUTH_WEP: return "wep";
+    case WIFI_AUTH_WPA_PSK: return "wpa";
+    case WIFI_AUTH_WPA2_PSK: return "wpa2";
+    case WIFI_AUTH_WPA_WPA2_PSK: return "wpa2";
+    case WIFI_AUTH_WPA3_PSK: return "wpa3";
+    case WIFI_AUTH_WPA2_WPA3_PSK: return "wpa2wpa3";
+    case WIFI_AUTH_WPA2_ENTERPRISE: case WIFI_AUTH_WPA3_ENTERPRISE: case WIFI_AUTH_WPA2_WPA3_ENTERPRISE: return "enterprise";
+    default: return "wpa2";
+  }
+}
+}  // namespace
+
+bool scan(std::vector<ScanEntry>& out, std::string& error) {
+  out.clear();
+  std::unique_lock<std::mutex> guard(g_scan_lock, std::try_to_lock);
+  if (!guard.owns_lock()) { error = "wifi_busy"; return false; }
+  if (!g_wifi_running) { error = "wifi_unavailable"; return false; }
+  wifi_mode_t previous = WIFI_MODE_NULL;
+  esp_wifi_get_mode(&previous);
+  if (previous == WIFI_MODE_AP) { g_scan_switched_mode = true; esp_wifi_set_mode(WIFI_MODE_APSTA); }   // an access point alone cannot search
+  wifi_scan_config_t config{};
+  config.show_hidden = false;
+  config.scan_type = WIFI_SCAN_TYPE_ACTIVE;
+  config.scan_time.active.min = 80;
+  config.scan_time.active.max = 200;
+  const esp_err_t result = esp_wifi_scan_start(&config, true);   // blocks until the search is over
+  bool ok = result == ESP_OK;
+  if (ok) {
+    std::uint16_t count = 0;
+    esp_wifi_scan_get_ap_num(&count);
+    if (count > 40) count = 40;
+    std::vector<wifi_ap_record_t> records(count);
+    if (count > 0) esp_wifi_scan_get_ap_records(&count, records.data());
+    records.resize(count);
+    std::sort(records.begin(), records.end(), [](const wifi_ap_record_t& a, const wifi_ap_record_t& b) { return a.rssi > b.rssi; });
+    for (const wifi_ap_record_t& record : records) {
+      const std::string name(reinterpret_cast<const char*>(record.ssid));
+      if (name.empty() || out.size() >= 25) continue;
+      if (std::any_of(out.begin(), out.end(), [&](const ScanEntry& e) { return e.ssid == name; })) continue;   // the strongest of a name is kept
+      out.push_back({name, record.rssi, record.primary, security_text(record.authmode)});
+    }
+  } else {
+    esp_wifi_clear_ap_list();
+    error = result == ESP_ERR_WIFI_STATE ? "wifi_busy" : "scan_failed";
+  }
+  if (previous == WIFI_MODE_AP) { esp_wifi_set_mode(WIFI_MODE_AP); g_scan_switched_mode = false; }
+  return ok;
+}
+
+bool has_ip() {
+  std::lock_guard<std::mutex> guard(g_lock);
+  return g_status.has_ip;
+}
+
+// The node can be reached when its station has an address, or an access point is up.
+bool reachable() {
+  std::lock_guard<std::mutex> guard(g_lock);
+  return g_status.has_ip || g_status.ap_active;
+}
+
+void disconnect_before_restart() {
+  wifi_mode_t mode;
+  if (esp_wifi_get_mode(&mode) != ESP_OK) return;   // Wi-Fi was never started
+  if (mode != WIFI_MODE_STA && mode != WIFI_MODE_APSTA) return;
+  esp_wifi_disconnect();
+  vTaskDelay(pdMS_TO_TICKS(100));   // give the deauthentication frame a moment to actually go out before the radio powers down
+}
+
+Status status() {
+  Status copy;
+  {
+    std::lock_guard<std::mutex> guard(g_lock);
+    copy = g_status;
+  }
+  if (copy.ap_active) {
+    wifi_sta_list_t list{};
+    if (esp_wifi_ap_get_sta_list(&list) == ESP_OK) copy.ap_clients = list.num;
+  }
+  if (copy.sta_connected) {
+    wifi_ap_record_t record{};
+    if (esp_wifi_sta_get_ap_info(&record) == ESP_OK) copy.sta_rssi = record.rssi;
+  }
+  return copy;
+}
+
+}  // namespace eh3d::network

@@ -1,0 +1,34 @@
+// EH3D-NODE-BUNGARD - the node's clock: the time zone, the time server (SNTP) and, when the time server is off, setting the time by hand.
+// Copyright (C) 2026 JuanenRac (Electro Hobby 3D). GPL-3.0-or-later.
+//
+// The zone applies at start and the time server starts as soon as the network has an address.
+#pragma once
+#include <cstdint>
+#include <string>
+
+#include "core/bungard_config.hpp"
+
+namespace eh3d::clocksync {
+
+// Applies the zone and, when the settings ask for a time server, starts SNTP once the network has an address.
+void start(const config::Settings& settings);
+
+// Makes a new zone rule (a POSIX TZ string, already checked by the settings) the one in use at once: saving it in the panel needs no restart.
+void set_zone(const std::string& zone);
+
+bool is_set();   // the clock holds a real date (not the 1970 of a board that has just powered on)
+
+// Sets the clock to `seconds` since 1970, for a node with no time server. False for a date before the firmware existed or absurdly far.
+bool set_unix(std::int64_t seconds);
+
+struct Info {
+  bool set = false;
+  bool synced = false;          // a time server has answered since the start
+  std::int64_t epoch = 0;       // seconds since 1970 (UTC)
+  int utc_offset_min = 0;       // the zone's offset right now, summer time included
+  std::string local;            // "2000-01-01 10:31:07"
+  std::string zone;             // the zone rule in use
+};
+Info info();
+
+}  // namespace eh3d::clocksync
