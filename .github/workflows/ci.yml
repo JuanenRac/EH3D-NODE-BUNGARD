@@ -1,3 +1,4 @@
+# Checks the repository on every push to main and on every pull request.
 name: EH3D CI baseline
 
 on:
