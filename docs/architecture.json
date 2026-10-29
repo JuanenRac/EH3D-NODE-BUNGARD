@@ -1,0 +1,195 @@
+{
+  "repo": "EH3D-NODE-BUNGARD",
+  "ecosystem": "eh3d",
+  "tagline": "An ESP32-S3 node that puts the RS-232 port of a Bungard CCD control unit on the network.",
+  "description": "EH3D-NODE-BUNGARD is firmware in C++17 for the ESP32-S3 (ESP-IDF 5.5) with two board profiles, Ethernet and Wi-Fi. A program connects over TCP with an access token, arms the node and sends the bytes of a move; the node queues them and puts them on the serial line at the line's own pace, reads the machine's lamps and drives a spindle through a 0-10 V signal. A web panel with a side menu in eight languages sets it up. The rules are tested on a computer and both images build; nothing has been flashed or run on a board.",
+  "columns": [
+    "WHO TALKS TO IT",
+    "THIS REPOSITORY",
+    "WHAT IT DRIVES"
+  ],
+  "nodes": [
+    {
+      "id": "programs",
+      "column": 0,
+      "level": "external",
+      "title": "DRILLPRO, ROUTEPRO",
+      "lines": [
+        "connection = node: send the",
+        "bytes of a move over TCP 5800"
+      ]
+    },
+    {
+      "id": "server",
+      "column": 0,
+      "level": "external",
+      "title": "EH3D-SERVER",
+      "lines": [
+        "runs the jobs of all clients",
+        "through the node's link"
+      ]
+    },
+    {
+      "id": "person",
+      "column": 0,
+      "level": "external",
+      "title": "A person at the panel",
+      "lines": [
+        "a browser on port 80 or 443:",
+        "administrator or viewer"
+      ]
+    },
+    {
+      "id": "link",
+      "column": 1,
+      "level": "tested",
+      "title": "Control link",
+      "lines": [
+        "framed protocol with CRC, token",
+        "login, arming, stop when quiet"
+      ],
+      "code": [
+        "core/frame.hpp",
+        "core/session.hpp",
+        "main/link_server.cpp"
+      ]
+    },
+    {
+      "id": "machine",
+      "column": 1,
+      "level": "untested",
+      "title": "Serial, lamps, spindle",
+      "lines": [
+        "byte queue to the UART, five",
+        "lamps in, speed PWM and run out"
+      ],
+      "code": [
+        "main/central_uart.cpp",
+        "main/lamps.cpp",
+        "main/spindle.cpp"
+      ]
+    },
+    {
+      "id": "panel",
+      "column": 1,
+      "level": "tested",
+      "title": "Web panel",
+      "lines": [
+        "side menu, eight languages: set-up,",
+        "machine, network, users, update"
+      ],
+      "code": [
+        "panel/app.js::navMachine",
+        "main/web_server.cpp"
+      ]
+    },
+    {
+      "id": "base",
+      "column": 1,
+      "level": "contract",
+      "title": "Firmware base",
+      "lines": [
+        "settings, users, update with",
+        "rollback, log, self-protection;",
+        "a copy kept by EH3D-COMMON"
+      ],
+      "code": [
+        "core/node_settings.hpp",
+        "main/node_store.cpp"
+      ]
+    },
+    {
+      "id": "unit",
+      "column": 2,
+      "level": "untested",
+      "title": "Control unit (RS-232)",
+      "lines": [
+        "38400 baud 8N1, DTR, DCD, RI;",
+        "never connected to a machine"
+      ],
+      "code": [
+        "docs/WIRING.md"
+      ]
+    },
+    {
+      "id": "vfd",
+      "column": 2,
+      "level": "untested",
+      "title": "Spindle drive",
+      "lines": [
+        "0-10 V speed, run and direction;",
+        "no drive has been connected"
+      ],
+      "code": [
+        "docs/BOARD.md"
+      ]
+    },
+    {
+      "id": "boards",
+      "column": 2,
+      "level": "config",
+      "title": "ESP32-S3 boards",
+      "lines": [
+        "s3-eth and s3-wifi: both images",
+        "build; none has been flashed"
+      ],
+      "code": [
+        "sdkconfig.board.s3-eth",
+        "sdkconfig.board.s3-wifi"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "programs",
+      "to": "link",
+      "label": "TCP",
+      "level": "tested"
+    },
+    {
+      "from": "server",
+      "to": "link",
+      "level": "tested"
+    },
+    {
+      "from": "person",
+      "to": "panel",
+      "label": "HTTP(S)",
+      "level": "tested"
+    },
+    {
+      "from": "link",
+      "to": "machine",
+      "level": "untested"
+    },
+    {
+      "from": "panel",
+      "to": "base",
+      "level": "tested"
+    },
+    {
+      "from": "machine",
+      "to": "unit",
+      "label": "RS-232",
+      "level": "untested"
+    },
+    {
+      "from": "machine",
+      "to": "vfd",
+      "level": "untested"
+    },
+    {
+      "from": "base",
+      "to": "boards",
+      "level": "config"
+    }
+  ],
+  "legend": {
+    "tested": "rules covered by tests on a computer",
+    "contract": "shared base, kept identical by a tool",
+    "config": "builds, never flashed",
+    "untested": "has not run on real hardware",
+    "external": "a program, a person or another repository"
+  },
+  "footer": "Nothing has run on a board or on a machine yet."
+}
