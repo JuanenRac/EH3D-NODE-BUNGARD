@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- **The build, build-test and test scripts show a live panel:** a banner with the name and version, one line per step with its time, the number of tests that passed and a summary at the end, with the whole output kept in a log file. `test.sh` and `test.bat` run only the tests and never change the version; without `tools/pretty_run.py` the scripts behave as they always did.
 - **The layout of the README is checked in the CI:** the validator runs `tools/universal_readme_check.py` and lists, as a warning, what differs from the universal layout of the README.
 - **The panel has its menu on the left, like the panels of the ARMOR nodes:** on a wide screen the pages are a column on the left (with an icon each), the brand, the language, the theme and the sign-out above them; on a narrow screen, a phone, the menu goes on top as a row that slides sideways. The Machine page keeps the parameters of the Bungard machine (control link, RS-232 unit, lamps and spindle).
 
