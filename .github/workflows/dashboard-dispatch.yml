@@ -50,3 +50,4 @@ jobs:
             --data "${payload}"
 
           echo "Dashboard refresh requested for ${{ github.repository }} at ${{ github.sha }}."
+
