@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "ecosystem": "EH3D",
   "name": "EH3D-NODE-BUNGARD",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "role": "node",
   "stack": "C++17 (host-tested core); ESP-IDF firmware for the ESP32-S3 (Ethernet with PoE, or Wi-Fi)",
   "technologies": [
@@ -17,7 +17,7 @@
   "family": "CNC Workflow Tools",
   "parent": null,
   "build": "cmake -S tests -B build/host && cmake --build build/host && ctest --test-dir build/host -C Debug",
-  "notes": "Scaffolding v0.0.2: a thin network pipe to the RS-232 control unit of the Bungard CCD MTC and CCD/2 MTC drilling and routing machines (serial-port control units of the DOS software 4.6). A program on the network sends the bytes of a move over a framed TCP link; the node sends them out of its UART at the line's own pace, so the timing no longer depends on a PC or a USB adapter. The rules that keep the machine from moving by accident (login with a token, arming, a stop when the link goes quiet or drops) are in the host-tested core. The firmware has not been built or flashed yet and nothing has been connected to a machine; the protocol itself was tried on a CCD MTC through a USB adapter.",
+  "notes": "Scaffolding v0.0.3: a thin network pipe to the RS-232 control unit of the Bungard CCD MTC and CCD/2 MTC drilling and routing machines (serial-port control units of the DOS software 4.6). A program on the network sends the bytes of a move over a framed TCP link; the node sends them out of its UART at the line's own pace, so the timing no longer depends on a PC or a USB adapter. The rules that keep the machine from moving by accident (login with a token, arming, a stop when the link goes quiet or drops) are in the host-tested core. The firmware has not been built or flashed yet and nothing has been connected to a machine; the protocol itself was tried on a CCD MTC through a USB adapter.",
   "native_version": {
     "file": "eh3d.project.json",
     "pattern": "\"version\"\\s*:\\s*\"(\\d+\\.\\d+\\.\\d+)\""
