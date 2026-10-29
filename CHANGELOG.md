@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- **The layout of the README is checked in the CI:** the validator runs `tools/universal_readme_check.py` and lists, as a warning, what differs from the universal layout of the README.
 - **The panel has its menu on the left, like the panels of the ARMOR nodes:** on a wide screen the pages are a column on the left (with an icon each), the brand, the language, the theme and the sign-out above them; on a narrow screen, a phone, the menu goes on top as a row that slides sideways. The Machine page keeps the parameters of the Bungard machine (control link, RS-232 unit, lamps and spindle).
 
 ## [0.0.2] - Settings, web panel, update with rollback, stop button and finishing the held job
