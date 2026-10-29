@@ -24,6 +24,8 @@ Holding the BOOT button for eight seconds in the first thirty after power-up era
 
 HTTP on port 80 and HTTPS on port 443 (the node makes its own certificate the first time; the panel's mode `http`, `both` or `https` is a setting, `both` by default, and HTTP redirects to HTTPS when the mode is `https`). Eight languages: English, Spanish, German, French, Italian, Japanese, Chinese and European Portuguese, chosen by the browser and changeable. Two roles: **administrator** (everything) and **viewer** (reads). A wrong password is slowed down and a source address that keeps failing is blocked for a while.
 
+The menu is on the left of a wide screen (the same layout as the panels of the ARMOR nodes) and on top of a narrow one, a phone, with the language, theme and sign-out next to it.
+
 | Page | What it does |
 |---|---|
 | Status | Live: the link (program connected, logged in, armed), the queue and the bytes sent, the five lamps, the control unit's input lines, the spindle's speed and direction, and a warning while the node is finishing a job it holds. The only thing it does to the machine is the **stop button** (administrators): it empties the queue and switches the spindle and the drivers off, with or without a program connected |

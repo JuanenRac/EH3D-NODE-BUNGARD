@@ -326,13 +326,13 @@ async function reboot() {
 // ---- pages: shared pieces -------------------------------------------------------------------------------------------------------------
 
 const PAGES = [
-  { id: "status", label: "navStatus" },
-  { id: "machine", label: "navMachine" },
-  { id: "network", label: "navNetwork" },
-  { id: "users", label: "navUsers" },
-  { id: "update", label: "navUpdate" },
-  { id: "log", label: "navLog" },
-  { id: "system", label: "navSystem" },
+  { id: "status", icon: "◎", label: "navStatus" },
+  { id: "machine", icon: "⚙", label: "navMachine" },
+  { id: "network", icon: "⌁", label: "navNetwork" },
+  { id: "users", icon: "☺", label: "navUsers" },
+  { id: "update", icon: "⇪", label: "navUpdate" },
+  { id: "log", icon: "≣", label: "navLog" },
+  { id: "system", icon: "▣", label: "navSystem" },
 ];
 
 const card = (title, ...kids) => el("section", { class: "card" }, title ? el("h2", {}, title) : null, ...kids);
@@ -724,18 +724,19 @@ function updatePills() {
 }
 
 function shell(content) {
-  const nav = el("nav", { class: "nav", "aria-label": t("navMenu") }, PAGES.map(p => el("button", { type: "button", class: p.id === S.page ? "active" : "", "aria-current": p.id === S.page ? "page" : undefined, onclick: () => go(p.id) }, t(p.label))));
+  const nav = el("nav", { class: "nav", "aria-label": t("navMenu") }, PAGES.map(p => el("button", { type: "button", class: p.id === S.page ? "active" : "", "aria-current": p.id === S.page ? "page" : undefined, onclick: () => go(p.id) }, el("span", { class: "ico", "aria-hidden": "true" }, p.icon), el("span", { class: "nav-label" }, t(p.label)))));
   const page = PAGES.find(p => p.id === S.page);
   barNode = el("div", { class: "savebar", hidden: true });
   return el("div", { class: "shell" },
     el("a", { class: "skip", href: "#main", onclick: e => { e.preventDefault(); const m = document.getElementById("main"); if (m) m.focus(); } }, t("skip")),
-    el("header", { class: "top" },
+    // the menu is on the left of a wide screen and on top of a narrow one (a phone): the brand, the tools of the person and the pages
+    el("aside", { class: "side" },
       el("div", { class: "brand" }, el("span", { class: "brand-mark", "aria-hidden": "true" }, "EH3D"), el("div", {}, el("strong", {}, t("appName")), el("small", {}, S.session.node_id))),
       el("div", { class: "tools" },
         el("span", { class: "who" }, S.session.user + " · " + roleName(S.session.role)),
         langPicker(true), themeButton(),
-        el("button", { class: "b", type: "button", onclick: async () => { await api("POST", "logout", {}); S.session.authenticated = false; start(); } }, t("signOut")))),
-    nav,
+        el("button", { class: "b", type: "button", onclick: async () => { await api("POST", "logout", {}); S.session.authenticated = false; start(); } }, t("signOut"))),
+      nav),
     el("main", { id: "main", tabIndex: -1 }, el("div", { class: "page-head" }, el("h1", {}, t(page.label)), el("div", { class: "pills", id: "pills" })), content),
     barNode);
 }
