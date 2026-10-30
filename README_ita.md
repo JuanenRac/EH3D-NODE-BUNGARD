@@ -45,14 +45,14 @@ Ogni riga è una parte di questo repository e il semaforo dice a che punto è og
 | Area | Stato | Cosa significa qui |
 |---|---|---|
 | Software | 🟡 | Il firmware per l'ESP32-S3 (ESP-IDF 5.5, C++17) compila senza avvisi per entrambe le schede, Ethernet e Wi-Fi; nessuna immagine è stata scritta. |
-| Test | 🟢 | Passano 9 programmi di test su computer (`ctest`): 2209 controlli contati su collegamento, impostazioni, regole della macchina e base condivisa, più il controllo dei testi del pannello (315 righe in 8 lingue) e degli stack dei task (10 task). |
+| Test | 🟡 | Passano 9 programmi di test su computer (`ctest`): 2209 controlli contati su collegamento, impostazioni, regole della macchina e base condivisa, più il controllo dei testi del pannello (315 righe in 8 lingue) e degli stack dei task (10 task). |
 | Collegamento di controllo | 🟡 | Il protocollo a frame (CRC, login con token, armamento, coda di byte, stop quando la sessione tace) è coperto dai test su computer; nessun programma ha parlato con un nodo reale. |
 | Pannello web | 🟡 | Il pannello web (menu laterale, otto lingue: configurazione, macchina, rete, utenti, aggiornamento, registro, sistema) ha i testi controllati ed è provato contro una simulazione del nodo in un browser; non è mai stato servito da una scheda. |
 | Mandrino e LED | 🟠 | Il segnale di velocità 0-10 V, le linee di marcia e direzione (nessuna inversione mentre gira) e i cinque ingressi dei LED sono provati sul computer; nessun variatore né macchina è stato collegato. |
 | Aggiornamenti | 🟠 | Il caricamento in uno dei due slot del firmware con ripristino e conferma è provato sul computer; un aggiornamento non è mai stato eseguito su una scheda. |
 | Sicurezza | 🟡 | Codice di configurazione sulla console USB, token di accesso, utenti e ruoli, HTTPS facoltativo e nulla di segreto compilato; si ferma da solo quando il collegamento cade. Non ha ancora un ingresso di arresto di emergenza né una revisione indipendente. |
 | Hardware reale | 🔴 | Nessuna scheda ha eseguito questo firmware, e la scheda portante con il convertitore RS-232, gli ingressi dei LED e il variatore del mandrino è solo un progetto su carta. |
-| Documentazione | 🟢 | README in otto lingue, il protocollo, il firmware, il cablaggio e il progetto della scheda portante. |
+| Documentazione | 🟡 | README in otto lingue, il protocollo, il firmware, il cablaggio e il progetto della scheda portante. |
 
 ## 🎯 Panoramica
 

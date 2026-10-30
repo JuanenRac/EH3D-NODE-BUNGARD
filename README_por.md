@@ -45,14 +45,14 @@ Cada linha é uma parte deste repositório e a luz diz até onde chega hoje. É 
 | Área | Estado | O que significa aqui |
 |---|---|---|
 | Software | 🟡 | O firmware para o ESP32-S3 (ESP-IDF 5.5, C++17) compila sem avisos para as duas placas, Ethernet e Wi-Fi; nenhuma imagem foi gravada. |
-| Testes | 🟢 | Passam 9 programas de teste no computador (`ctest`): 2209 verificações contadas na ligação, nas definições, nas regras da máquina e na base partilhada, mais a verificação dos textos do painel (315 linhas em 8 idiomas) e das pilhas das tarefas (10 tarefas). |
+| Testes | 🟡 | Passam 9 programas de teste no computador (`ctest`): 2209 verificações contadas na ligação, nas definições, nas regras da máquina e na base partilhada, mais a verificação dos textos do painel (315 linhas em 8 idiomas) e das pilhas das tarefas (10 tarefas). |
 | Ligação de controlo | 🟡 | O protocolo com tramas (CRC, início de sessão com token, armamento, fila de bytes, paragem quando a sessão se cala) está coberto pelos testes no computador; nenhum programa falou com um nó real. |
 | Painel web | 🟡 | O painel web (menu lateral, oito idiomas: configuração inicial, máquina, rede, utilizadores, atualização, registo, sistema) tem os textos verificados e é exercitado contra uma simulação do nó num navegador; nunca foi servido a partir de uma placa. |
 | Fuso e LED | 🟠 | O sinal de velocidade de 0-10 V, as linhas de marcha e sentido (sem inverter enquanto roda) e as cinco entradas de LED são testados no computador; nenhum variador nem máquina foi ligado. |
 | Atualizações | 🟠 | O carregamento para um dos dois espaços de firmware com reversão e confirmação é testado no computador; uma atualização nunca correu numa placa. |
 | Segurança | 🟡 | Código de configuração na consola USB, token de acesso, utilizadores e papéis, HTTPS opcional e nada de secreto compilado; pára sozinho quando a ligação cai. Ainda não tem entrada de paragem de emergência nem revisão independente. |
 | Hardware real | 🔴 | Nenhuma placa executou este firmware, e a placa de suporte com o conversor RS-232, as entradas dos LED e o variador do fuso é apenas um projeto em papel. |
-| Documentação | 🟢 | README em oito idiomas, o protocolo, o firmware, a cablagem e o projeto da placa de suporte. |
+| Documentação | 🟡 | README em oito idiomas, o protocolo, o firmware, a cablagem e o projeto da placa de suporte. |
 
 ## 🎯 Visão geral
 

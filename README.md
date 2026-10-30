@@ -45,14 +45,14 @@ Each line is one part of this repository and the light says how far it is today.
 | Area | State | What it means here |
 |---|---|---|
 | Software | 🟡 | The firmware for the ESP32-S3 (ESP-IDF 5.5, C++17) builds without warnings for both boards, Ethernet and Wi-Fi; no image has been flashed. |
-| Tests | 🟢 | 9 host test programs pass (`ctest`): 2,209 checks counted in the link, settings, machine rules and the shared base, plus the check of the panel texts (315 rows in 8 languages) and of the task stacks (10 tasks). |
+| Tests | 🟡 | 9 host test programs pass (`ctest`): 2,209 checks counted in the link, settings, machine rules and the shared base, plus the check of the panel texts (315 rows in 8 languages) and of the task stacks (10 tasks). |
 | Control link | 🟡 | The framed protocol (CRC, token login, arming, byte queue, stop when the session goes quiet) is covered by the host tests; no program has talked to a real node. |
 | Web panel | 🟡 | The web panel (side menu, eight languages: set-up, machine, network, users, update, log, system) has its texts checked and is exercised against a mock of the node in a browser; it has never been served from a board. |
 | Spindle and lamps | 🟠 | The 0-10 V speed signal, the run and direction lines (no reversing while turning) and the five lamp inputs are tested on the host; no spindle drive or machine has been connected. |
 | Updates | 🟠 | Upload into one of two firmware slots with rollback and confirmation is tested on the host; an update has never run on a board. |
 | Security | 🟡 | Set-up code on the USB console, access token, users and roles, optional HTTPS, and nothing secret compiled in; it stops by itself when the link drops. It has no emergency-stop input yet and no independent review. |
 | Real hardware | 🔴 | No board has run this firmware, and the carrier board with the RS-232 converter, the lamp inputs and the spindle drive is only a design on paper. |
-| Documentation | 🟢 | README in eight languages, the protocol, the firmware, the wiring and the carrier-board design. |
+| Documentation | 🟡 | README in eight languages, the protocol, the firmware, the wiring and the carrier-board design. |
 
 ## 🎯 Overview
 

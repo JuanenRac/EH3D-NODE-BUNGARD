@@ -45,14 +45,14 @@ Chaque ligne est une partie de ce dépôt et le feu dit où elle en est aujourd'
 | Domaine | État | Ce que cela veut dire ici |
 |---|---|---|
 | Logiciel | 🟡 | Le firmware pour l'ESP32-S3 (ESP-IDF 5.5, C++17) se compile sans avertissement pour les deux cartes, Ethernet et Wi-Fi ; aucune image n'a été flashée. |
-| Tests | 🟢 | 9 programmes de test sur ordinateur réussissent (`ctest`) : 2209 vérifications comptées sur le lien, les réglages, les règles de la machine et la base partagée, plus le contrôle des textes du panneau (315 lignes en 8 langues) et des piles des tâches (10 tâches). |
+| Tests | 🟡 | 9 programmes de test sur ordinateur réussissent (`ctest`) : 2209 vérifications comptées sur le lien, les réglages, les règles de la machine et la base partagée, plus le contrôle des textes du panneau (315 lignes en 8 langues) et des piles des tâches (10 tâches). |
 | Lien de commande | 🟡 | Le protocole par trames (CRC, connexion par jeton, armement, file d'octets, arrêt quand la session se tait) est couvert par les tests sur ordinateur ; aucun programme n'a parlé à un vrai nœud. |
 | Panneau web | 🟡 | Le panneau web (menu latéral, huit langues : mise en service, machine, réseau, utilisateurs, mise à jour, journal, système) a ses textes contrôlés et est exercé contre une maquette du nœud dans un navigateur ; il n'a jamais été servi depuis une carte. |
 | Broche et voyants | 🟠 | Le signal de vitesse 0-10 V, les lignes de marche et de sens (pas d'inversion pendant la rotation) et les cinq entrées de voyants sont testés sur l'ordinateur ; aucun variateur ni aucune machine n'a été branché. |
 | Mises à jour | 🟠 | Le téléversement dans l'un des deux emplacements de firmware avec retour arrière et confirmation est testé sur l'ordinateur ; une mise à jour n'a jamais tourné sur une carte. |
 | Sécurité | 🟡 | Code de mise en service sur la console USB, jeton d'accès, utilisateurs et rôles, HTTPS facultatif et rien de secret compilé ; il s'arrête de lui-même quand le lien tombe. Il n'a pas encore d'entrée d'arrêt d'urgence ni de revue indépendante. |
 | Matériel réel | 🔴 | Aucune carte n'a exécuté ce firmware, et la carte porteuse avec le convertisseur RS-232, les entrées de voyants et le variateur de la broche n'est qu'un projet sur papier. |
-| Documentation | 🟢 | README en huit langues, le protocole, le firmware, le câblage et le projet de la carte porteuse. |
+| Documentation | 🟡 | README en huit langues, le protocole, le firmware, le câblage et le projet de la carte porteuse. |
 
 ## 🎯 Présentation
 

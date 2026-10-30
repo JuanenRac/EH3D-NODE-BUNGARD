@@ -45,14 +45,14 @@ Cada línea es una parte de este repositorio y la luz dice hasta dónde llega ho
 | Área | Estado | Qué significa aquí |
 |---|---|---|
 | Software | 🟡 | El firmware para el ESP32-S3 (ESP-IDF 5.5, C++17) compila sin avisos para las dos placas, Ethernet y Wi-Fi; no se ha grabado ninguna imagen. |
-| Pruebas | 🟢 | Pasan 9 programas de prueba en el ordenador (`ctest`): 2209 comprobaciones contadas del enlace, los ajustes, las reglas de la máquina y la base compartida, más la comprobación de los textos del panel (315 filas en 8 idiomas) y de las pilas de las tareas (10 tareas). |
+| Pruebas | 🟡 | Pasan 9 programas de prueba en el ordenador (`ctest`): 2209 comprobaciones contadas del enlace, los ajustes, las reglas de la máquina y la base compartida, más la comprobación de los textos del panel (315 filas en 8 idiomas) y de las pilas de las tareas (10 tareas). |
 | Enlace de control | 🟡 | El protocolo con tramas (CRC, inicio de sesión con token, armado, cola de bytes, parada cuando la sesión calla) está cubierto por las pruebas en el ordenador; ningún programa ha hablado con un nodo real. |
 | Panel web | 🟡 | El panel web (menú lateral, ocho idiomas: puesta en marcha, máquina, red, usuarios, actualización, registro, sistema) tiene sus textos comprobados y se ejercita contra una simulación del nodo en un navegador; nunca se ha servido desde una placa. |
 | Husillo y LED | 🟠 | La señal de velocidad de 0-10 V, las líneas de marcha y sentido (sin invertir mientras gira) y las cinco entradas de LED se prueban en el ordenador; no se ha conectado ningún variador ni máquina. |
 | Actualizaciones | 🟠 | La subida a una de las dos ranuras de firmware con vuelta atrás y confirmación se prueba en el ordenador; una actualización nunca se ha ejecutado en una placa. |
 | Seguridad | 🟡 | Código de puesta en marcha en la consola USB, token de acceso, usuarios y roles, HTTPS opcional y nada secreto compilado; se detiene solo cuando el enlace se cae. Todavía no tiene entrada de parada de emergencia ni revisión independiente. |
 | Hardware real | 🔴 | Ninguna placa ha ejecutado este firmware, y la placa portadora con el convertidor RS-232, las entradas de LED y el variador del husillo es solo un diseño sobre el papel. |
-| Documentación | 🟢 | README en ocho idiomas, el protocolo, el firmware, el cableado y el diseño de la placa portadora. |
+| Documentación | 🟡 | README en ocho idiomas, el protocolo, el firmware, el cableado y el diseño de la placa portadora. |
 
 ## 🎯 Resumen
 
