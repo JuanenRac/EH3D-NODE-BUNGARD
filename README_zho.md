@@ -78,6 +78,20 @@ EH3D-NODE-BUNGARD 是 EH3D 程序与机床之间的最后一级：目前 EH3D-DR
 
 本仓库各部分如何协作：谁在使用它、它包含什么、它依赖什么。图片由 `docs/architecture.json` 绘制，并与代码核对。
 
+## 🖼️ 屏幕截图
+
+<p align="center">
+  <img src="images/screenshots/panel-status.png" alt="status page of the web panel" width="100%">
+</p>
+
+<p align="center"><em>网页面板的“状态”页，由开发时使用的替身节点提供：尚无电路板运行过该固件。</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-machine.png" alt="machine page of the web panel" width="100%">
+</p>
+
+<p align="center"><em>“机床”页：控制链路、RS-232 引脚、指示灯和访问令牌。</em></p>
+
 ## ✨ 功能
 
 * **带侧边菜单的面板：** 七个页面（状态、机床、网络、用户、固件、日志、系统），宽屏时菜单在左侧，手机上在顶部，语言、主题和退出登录在旁边。

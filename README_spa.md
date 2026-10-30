@@ -78,6 +78,20 @@ EH3D-NODE-BUNGARD es la última etapa entre los programas EH3D y la máquina: EH
 
 Cómo encajan las partes de este repositorio: quién lo usa, qué contiene y de qué depende. La imagen se dibuja desde `docs/architecture.json` y se comprueba contra el código.
 
+## 🖼️ Capturas de pantalla
+
+<p align="center">
+  <img src="images/screenshots/panel-status.png" alt="status page of the web panel" width="100%">
+</p>
+
+<p align="center"><em>La página Estado del panel web, servida por el nodo de pruebas con el que se desarrolla: ninguna placa ha ejecutado todavía el firmware.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-machine.png" alt="machine page of the web panel" width="100%">
+</p>
+
+<p align="center"><em>La página Máquina: el enlace de control, los pines RS-232, los indicadores y el token de acceso.</em></p>
+
 ## ✨ Funciones
 
 * **Un panel con menú lateral:** siete páginas (Estado, Máquina, Red, Usuarios, Firmware, Registro, Sistema), el menú a la izquierda en pantalla ancha y arriba en un teléfono, con el idioma, el tema y el cierre de sesión a su lado.

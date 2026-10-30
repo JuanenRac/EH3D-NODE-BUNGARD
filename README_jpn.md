@@ -78,6 +78,20 @@ EH3D-NODE-BUNGARD は、EH3D のプログラムと機械のあいだの最終段
 
 このリポジトリの各部分の関係：誰が使い、何を持ち、何に依存するか。図は `docs/architecture.json` から描かれ、コードと照合されます。
 
+## 🖼️ スクリーンショット
+
+<p align="center">
+  <img src="images/screenshots/panel-status.png" alt="status page of the web panel" width="100%">
+</p>
+
+<p align="center"><em>Web パネルの「ステータス」ページ。開発用の代替ノードが配信しています。まだどのボードもこのファームウェアを実行していません。</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-machine.png" alt="machine page of the web panel" width="100%">
+</p>
+
+<p align="center"><em>「マシン」ページ：制御リンク、RS-232 のピン、ランプ、アクセストークン。</em></p>
+
 ## ✨ 機能
 
 * **サイド メニュー付きパネル：** 7 ページ（ステータス、機械、ネットワーク、ユーザー、ファームウェア、ログ、システム）。広い画面ではメニューが左、スマートフォンでは上にあり、言語、テーマ、サインアウトが隣にあります。
