@@ -81,16 +81,40 @@ Cómo encajan las partes de este repositorio: quién lo usa, qué contiene y de 
 ## 🖼️ Capturas de pantalla
 
 <p align="center">
-  <img src="images/screenshots/panel-status.png" alt="status page of the web panel" width="100%">
+  <img src="images/screenshots/panel-status.png" alt="panel-status" width="100%">
 </p>
 
-<p align="center"><em>La página Estado del panel web, servida por el nodo de pruebas con el que se desarrolla: ninguna placa ha ejecutado todavía el firmware.</em></p>
+<p align="center"><em>La página Estado, en el tema Forge de los demás programas de EH3D: el enlace de control, los indicadores de la máquina, las líneas de la unidad de control y el husillo. La sirve el nodo de pruebas con el que se desarrolla el panel: ninguna placa ha ejecutado todavía el firmware.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-machine.png" alt="machine page of the web panel" width="100%">
+  <img src="images/screenshots/panel-machine.png" alt="panel-machine" width="100%">
 </p>
 
 <p align="center"><em>La página Máquina: el enlace de control, los pines RS-232, los indicadores y el token de acceso.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-network.png" alt="panel-network" width="100%">
+</p>
+
+<p align="center"><em>La página Red: cómo llega el nodo a la red.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-users.png" alt="panel-users" width="100%">
+</p>
+
+<p align="center"><em>La página Usuarios: las personas que pueden abrir el panel y su rol.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-firmware.png" alt="panel-firmware" width="100%">
+</p>
+
+<p align="center"><em>La página Firmware: las dos ranuras, la que está en marcha y la actualización con vuelta atrás.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-system.png" alt="panel-system" width="100%">
+</p>
+
+<p align="center"><em>La página Sistema: la identidad del nodo, el reinicio y el restablecimiento de fábrica.</em></p>
 
 ## ✨ Funciones
 

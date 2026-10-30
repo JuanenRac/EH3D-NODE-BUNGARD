@@ -81,16 +81,40 @@ How the parts of this repository fit together: who uses it, what it holds and wh
 ## 🖼️ Screenshots
 
 <p align="center">
-  <img src="images/screenshots/panel-status.png" alt="status page of the web panel" width="100%">
+  <img src="images/screenshots/panel-status.png" alt="panel-status" width="100%">
 </p>
 
-<p align="center"><em>The Status page of the web panel, served by the stand-in node that is used to develop it: no board has run the firmware yet.</em></p>
+<p align="center"><em>The Status page, in the Forge theme of the other EH3D programs: the control link, the lamps of the machine, the lines of the control unit and the spindle. It is served by the stand-in node used to develop the panel: no board has run the firmware yet.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-machine.png" alt="machine page of the web panel" width="100%">
+  <img src="images/screenshots/panel-machine.png" alt="panel-machine" width="100%">
 </p>
 
 <p align="center"><em>The Machine page: the control link, the RS-232 pins, the lamps and the access token.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-network.png" alt="panel-network" width="100%">
+</p>
+
+<p align="center"><em>The Network page: how the node reaches the network.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-users.png" alt="panel-users" width="100%">
+</p>
+
+<p align="center"><em>The Users page: the people who may open the panel and their role.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-firmware.png" alt="panel-firmware" width="100%">
+</p>
+
+<p align="center"><em>The Firmware page: the two slots, the one that runs and the update with rollback.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-system.png" alt="panel-system" width="100%">
+</p>
+
+<p align="center"><em>The System page: the identity of the node, the restart and the factory reset.</em></p>
 
 ## ✨ Features
 

@@ -1,16 +1,16 @@
-/* EH3D-NODE-BUNGARD panel - the look of the EH3D status page: dark slate cards on a slate background, with a light theme. Copyright (C) 2026 JuanenRac (Electro Hobby 3D). GPL-3.0-or-later.
+/* EH3D-NODE-BUNGARD panel - the look of EH3D-BUNGARD-GUI and EH3D-STUDIO (the Forge theme: warm black, amber, cards with two cut corners), with a light theme. Copyright (C) 2026 JuanenRac (Electro Hobby 3D). GPL-3.0-or-later.
    No external font or image: the panel works with no Internet. The theme is chosen by the data-theme attribute of the page (dark until the person or the browser says light). */
 :root {
-  --bg: #10151c; --card: #1a222d; --field: #121922; --ink: #e6edf3; --strong: #ffffff; --dim: #8b98a8; --line: #2b3644; --line-strong: #3d4b5e;
-  --accent: #4c9aff; --accent-ink: #0b1220; --ok: #3fb950; --warn: #d29922; --bad: #f85149; --info-bg: #16263a; --warn-bg: #2f2710; --bad-bg: #3a1a1c;
-  --lamp-off: #2a3441; --lamp-home: #f0b429; --lamp-enable: #3fb950; --lamp-tool: #4c9aff;
-  --sans: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --bg: #14110d; --card: #181410; --field: #211b13; --ink: #f0e6d0; --strong: #ffffff; --dim: #a89878; --line: #3a2f1e; --line-strong: #5a4a2e;
+  --accent: #ffb300; --accent-ink: #1a1200; --ok: #9be564; --warn: #ff9100; --bad: #ff5252; --info-bg: #3a2a00; --warn-bg: #3a2a10; --bad-bg: #3a1512;
+  --lamp-off: #2a2218; --lamp-home: #ffb300; --lamp-enable: #9be564; --lamp-tool: #5cc8ff; --cut: 14px;
+  --sans: "Ubuntu", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
   --mono: ui-monospace, "Cascadia Mono", Consolas, Menlo, monospace;
 }
 :root[data-theme="light"] {
-  --bg: #f4f6f9; --card: #ffffff; --field: #ffffff; --ink: #14202e; --strong: #000000; --dim: #5b6878; --line: #d6dde6; --line-strong: #aeb9c6;
-  --accent: #0969da; --accent-ink: #ffffff; --ok: #1a7f37; --warn: #9a6700; --bad: #cf222e; --info-bg: #e6f0fc; --warn-bg: #fff4d6; --bad-bg: #fde8ea;
-  --lamp-off: #cdd5df; --lamp-home: #d98e00; --lamp-enable: #1a7f37; --lamp-tool: #0969da;
+  --bg: #f4efe4; --card: #fffdf7; --field: #fffdf7; --ink: #2a2418; --strong: #000000; --dim: #75694f; --line: #cdbf9f; --line-strong: #a89868;
+  --accent: #b36b00; --accent-ink: #ffffff; --ok: #2e7d32; --warn: #c25e00; --bad: #c62828; --info-bg: #fbe9c8; --warn-bg: #fff0d0; --bad-bg: #fde8e4;
+  --lamp-off: #d8ccb0; --lamp-home: #d98e00; --lamp-enable: #2e7d32; --lamp-tool: #0b6fb0;
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -140,3 +140,10 @@ pre.log { margin: 0; max-height: 420px; overflow: auto; padding: .7rem; border: 
   .big { font-size: 1.6rem; }
 }
 @media (prefers-reduced-motion: reduce) { .progress i, .bar-track .fill { transition: none; } }
+
+/* ---- the Forge look: cards with two cut corners, an amber outline, cut-corner buttons ---- */
+.card { border: 1.5px solid var(--accent); border-radius: 0; clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut)); }
+.card > h2, .card > h3:first-child { color: var(--accent); font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
+.brand-mark { border-radius: 0; clip-path: polygon(0 0, 78% 0, 100% 22%, 100% 100%, 22% 100%, 0 78%); }
+.side { background: var(--card); }
+.nav button.active { background: var(--field); }

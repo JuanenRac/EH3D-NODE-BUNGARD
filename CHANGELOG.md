@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- **The panel in the look of EH3D-BUNGARD-GUI and EH3D-STUDIO:** the Forge theme by default (warm black, amber, cards with two cut corners) and Paper as the light theme; the pictures of the README are taken again with it, six pages, by `tools/panel_shots.mjs` against the stand-in node.
 ## [0.0.3] - A left menu for the web panel and the live panel of the scripts
 
 - **Security policy and support page of the node:** they described a file reader; they now describe the control link, the panel, what is tested and what is not.

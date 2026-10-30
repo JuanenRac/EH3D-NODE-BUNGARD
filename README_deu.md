@@ -81,16 +81,40 @@ Wie die Teile dieses Repositorys zusammenpassen: wer es nutzt, was es enthält u
 ## 🖼️ Screenshots
 
 <p align="center">
-  <img src="images/screenshots/panel-status.png" alt="status page of the web panel" width="100%">
+  <img src="images/screenshots/panel-status.png" alt="panel-status" width="100%">
 </p>
 
-<p align="center"><em>Die Seite Status des Web-Panels, ausgeliefert vom Ersatzknoten, mit dem entwickelt wird: Noch keine Platine hat die Firmware ausgeführt.</em></p>
+<p align="center"><em>Die Seite Status im Thema Forge der übrigen EH3D-Programme: die Steuerverbindung, die Lampen der Maschine, die Leitungen der Steuereinheit und die Spindel. Sie wird vom Ersatzknoten ausgeliefert, mit dem das Panel entwickelt wird: Noch keine Platine hat die Firmware ausgeführt.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-machine.png" alt="machine page of the web panel" width="100%">
+  <img src="images/screenshots/panel-machine.png" alt="panel-machine" width="100%">
 </p>
 
 <p align="center"><em>Die Seite Maschine: die Steuerverbindung, die RS-232-Pins, die Lampen und das Zugriffstoken.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-network.png" alt="panel-network" width="100%">
+</p>
+
+<p align="center"><em>Die Seite Netzwerk: wie der Knoten das Netz erreicht.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-users.png" alt="panel-users" width="100%">
+</p>
+
+<p align="center"><em>Die Seite Benutzer: die Personen, die das Panel öffnen dürfen, und ihre Rolle.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-firmware.png" alt="panel-firmware" width="100%">
+</p>
+
+<p align="center"><em>Die Seite Firmware: die zwei Slots, der laufende und das Update mit Rückfall.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-system.png" alt="panel-system" width="100%">
+</p>
+
+<p align="center"><em>Die Seite System: die Identität des Knotens, der Neustart und das Zurücksetzen auf Werkseinstellungen.</em></p>
 
 ## ✨ Funktionen
 

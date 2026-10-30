@@ -81,16 +81,40 @@ Come si incastrano le parti di questo repository: chi lo usa, che cosa contiene 
 ## 🖼️ Schermate
 
 <p align="center">
-  <img src="images/screenshots/panel-status.png" alt="status page of the web panel" width="100%">
+  <img src="images/screenshots/panel-status.png" alt="panel-status" width="100%">
 </p>
 
-<p align="center"><em>La pagina Stato del pannello web, servita dal nodo sostitutivo con cui si sviluppa: nessuna scheda ha ancora eseguito il firmware.</em></p>
+<p align="center"><em>La pagina Stato, nel tema Forge degli altri programmi EH3D: il collegamento di controllo, le spie della macchina, le linee dell'unità di controllo e il mandrino. È servita dal nodo sostitutivo con cui si sviluppa il pannello: nessuna scheda ha ancora eseguito il firmware.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-machine.png" alt="machine page of the web panel" width="100%">
+  <img src="images/screenshots/panel-machine.png" alt="panel-machine" width="100%">
 </p>
 
 <p align="center"><em>La pagina Macchina: il collegamento di controllo, i pin RS-232, le spie e il token di accesso.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-network.png" alt="panel-network" width="100%">
+</p>
+
+<p align="center"><em>La pagina Rete: come il nodo raggiunge la rete.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-users.png" alt="panel-users" width="100%">
+</p>
+
+<p align="center"><em>La pagina Utenti: le persone che possono aprire il pannello e il loro ruolo.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-firmware.png" alt="panel-firmware" width="100%">
+</p>
+
+<p align="center"><em>La pagina Firmware: i due slot, quello in esecuzione e l'aggiornamento con ripristino.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-system.png" alt="panel-system" width="100%">
+</p>
+
+<p align="center"><em>La pagina Sistema: l'identità del nodo, il riavvio e il ripristino di fabbrica.</em></p>
 
 ## ✨ Funzionalità
 

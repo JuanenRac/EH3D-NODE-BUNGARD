@@ -81,16 +81,40 @@ EH3D-NODE-BUNGARD は、EH3D のプログラムと機械のあいだの最終段
 ## 🖼️ スクリーンショット
 
 <p align="center">
-  <img src="images/screenshots/panel-status.png" alt="status page of the web panel" width="100%">
+  <img src="images/screenshots/panel-status.png" alt="panel-status" width="100%">
 </p>
 
-<p align="center"><em>Web パネルの「ステータス」ページ。開発用の代替ノードが配信しています。まだどのボードもこのファームウェアを実行していません。</em></p>
+<p align="center"><em>「ステータス」ページ。ほかの EH3D プログラムと同じ Forge テーマで、制御リンク、マシンのランプ、コントロールユニットのライン、スピンドルを表示します。パネルの開発用代替ノードが配信しており、まだどのボードもこのファームウェアを実行していません。</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-machine.png" alt="machine page of the web panel" width="100%">
+  <img src="images/screenshots/panel-machine.png" alt="panel-machine" width="100%">
 </p>
 
 <p align="center"><em>「マシン」ページ：制御リンク、RS-232 のピン、ランプ、アクセストークン。</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-network.png" alt="panel-network" width="100%">
+</p>
+
+<p align="center"><em>「ネットワーク」ページ：ノードがネットワークに接続する方法。</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-users.png" alt="panel-users" width="100%">
+</p>
+
+<p align="center"><em>「ユーザー」ページ：パネルを開けるユーザーとそのロール。</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-firmware.png" alt="panel-firmware" width="100%">
+</p>
+
+<p align="center"><em>「ファームウェア」ページ：2 つのスロット、実行中のスロット、ロールバック付きの更新。</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-system.png" alt="panel-system" width="100%">
+</p>
+
+<p align="center"><em>「システム」ページ：ノードの識別情報、再起動、工場出荷時へのリセット。</em></p>
 
 ## ✨ 機能
 

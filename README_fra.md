@@ -81,16 +81,40 @@ Comment les parties de ce dépôt s'articulent : qui l'utilise, ce qu'il contien
 ## 🖼️ Captures d'écran
 
 <p align="center">
-  <img src="images/screenshots/panel-status.png" alt="status page of the web panel" width="100%">
+  <img src="images/screenshots/panel-status.png" alt="panel-status" width="100%">
 </p>
 
-<p align="center"><em>La page État du panneau web, servie par le nœud de remplacement avec lequel on développe : aucune carte n'a encore exécuté le firmware.</em></p>
+<p align="center"><em>La page État, dans le thème Forge des autres programmes EH3D : la liaison de contrôle, les voyants de la machine, les lignes de l'unité de commande et la broche. Elle est servie par le nœud de remplacement avec lequel on développe le panneau : aucune carte n'a encore exécuté le firmware.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-machine.png" alt="machine page of the web panel" width="100%">
+  <img src="images/screenshots/panel-machine.png" alt="panel-machine" width="100%">
 </p>
 
 <p align="center"><em>La page Machine : la liaison de contrôle, les broches RS-232, les voyants et le jeton d'accès.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-network.png" alt="panel-network" width="100%">
+</p>
+
+<p align="center"><em>La page Réseau : comment le nœud atteint le réseau.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-users.png" alt="panel-users" width="100%">
+</p>
+
+<p align="center"><em>La page Utilisateurs : les personnes qui peuvent ouvrir le panneau et leur rôle.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-firmware.png" alt="panel-firmware" width="100%">
+</p>
+
+<p align="center"><em>La page Firmware : les deux emplacements, celui qui tourne et la mise à jour avec retour arrière.</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-system.png" alt="panel-system" width="100%">
+</p>
+
+<p align="center"><em>La page Système : l'identité du nœud, le redémarrage et la réinitialisation d'usine.</em></p>
 
 ## ✨ Fonctionnalités
 

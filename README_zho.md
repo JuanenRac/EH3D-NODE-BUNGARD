@@ -81,16 +81,40 @@ EH3D-NODE-BUNGARD 是 EH3D 程序与机床之间的最后一级：目前 EH3D-DR
 ## 🖼️ 屏幕截图
 
 <p align="center">
-  <img src="images/screenshots/panel-status.png" alt="status page of the web panel" width="100%">
+  <img src="images/screenshots/panel-status.png" alt="panel-status" width="100%">
 </p>
 
-<p align="center"><em>网页面板的“状态”页，由开发时使用的替身节点提供：尚无电路板运行过该固件。</em></p>
+<p align="center"><em>“状态”页，使用其他 EH3D 程序的 Forge 主题：控制链路、机床指示灯、控制单元线路和主轴。由开发面板所用的替身节点提供：尚无电路板运行过该固件。</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-machine.png" alt="machine page of the web panel" width="100%">
+  <img src="images/screenshots/panel-machine.png" alt="panel-machine" width="100%">
 </p>
 
 <p align="center"><em>“机床”页：控制链路、RS-232 引脚、指示灯和访问令牌。</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-network.png" alt="panel-network" width="100%">
+</p>
+
+<p align="center"><em>“网络”页：节点如何接入网络。</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-users.png" alt="panel-users" width="100%">
+</p>
+
+<p align="center"><em>“用户”页：可以打开面板的人员及其角色。</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-firmware.png" alt="panel-firmware" width="100%">
+</p>
+
+<p align="center"><em>“固件”页：两个槽位、正在运行的槽位以及可回滚的更新。</em></p>
+
+<p align="center">
+  <img src="images/screenshots/panel-system.png" alt="panel-system" width="100%">
+</p>
+
+<p align="center"><em>“系统”页：节点标识、重启和恢复出厂设置。</em></p>
 
 ## ✨ 功能
 
