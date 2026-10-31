@@ -90,6 +90,20 @@
           },
           "name": "netplan.hpp  json.hpp",
           "tree_name": "netplan.hpp json.hpp"
+        },
+        {
+          "desc": {
+            "en": "which file of a release is this board's image",
+            "es": "qué fichero de una versión es la imagen de esta placa",
+            "it": "quale file di una versione è l'immagine di questa scheda",
+            "de": "welche Datei eines Releases das Image dieser Platine ist",
+            "fr": "quel fichier d'une version est l'image de cette carte",
+            "pt": "qual ficheiro de uma versão é a imagem desta placa",
+            "zh": "发布中哪个文件是这块板子的镜像",
+            "ja": "リリースのどのファイルがこのボードのイメージか"
+          },
+          "name": "release_assets.hpp  semver.hpp",
+          "tree_name": "release_assets.hpp semver.hpp"
         }
       ],
       "sub": {
@@ -177,6 +191,20 @@
           },
           "name": "node_store.cpp  node_guard.cpp",
           "tree_name": "node_store.cpp node_guard.cpp"
+        },
+        {
+          "desc": {
+            "en": "the update from GitHub and the copy of a slot",
+            "es": "la actualización desde GitHub y la copia de una ranura",
+            "it": "l'aggiornamento da GitHub e la copia di uno slot",
+            "de": "das Update von GitHub und das Kopieren eines Slots",
+            "fr": "la mise à jour depuis GitHub et la copie d'un emplacement",
+            "pt": "a atualização a partir do GitHub e a cópia de um slot",
+            "zh": "来自 GitHub 的更新和槽位复制",
+            "ja": "GitHub からの更新とスロットのコピー"
+          },
+          "name": "github_update.cpp  entropy.cpp",
+          "tree_name": "github_update.cpp entropy.cpp"
         }
       ],
       "sub": {
@@ -281,6 +309,20 @@
           },
           "name": "check_panel_text.py  check_task_safety.py",
           "tree_name": "check_panel_text.py check_task_safety.py"
+        },
+        {
+          "desc": {
+            "en": "the update from GitHub",
+            "es": "la actualización desde GitHub",
+            "it": "l'aggiornamento da GitHub",
+            "de": "das Update von GitHub",
+            "fr": "la mise à jour depuis GitHub",
+            "pt": "a atualização a partir do GitHub",
+            "zh": "来自 GitHub 的更新",
+            "ja": "GitHub からの更新"
+          },
+          "name": "test_release.cpp  test_base.cpp",
+          "tree_name": "test_release.cpp test_base.cpp"
         }
       ],
       "tree": {

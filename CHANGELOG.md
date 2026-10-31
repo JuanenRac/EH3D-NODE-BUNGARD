@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.0.4] - A panel like the ARMOR nodes have it, and the update from GitHub
+
+- **The panel of the node as the nodes of A.R.M.O.R. have it:** the menu in groups with the language and the sign-out at its foot, the Summary, the Wi-Fi page with up to three backup networks, the complete Help and the About page.
+- **The update from GitHub and the copy of a slot:** the node looks for the newest release of its project, checks the SHA-256 that the release publishes, installs it in the other slot and restarts (an administrator asks for each step); `core/release_assets.hpp` picks the image of the board and refuses any address that is not a file of the repository's own releases; the running firmware can be copied into the other slot. The releases are not signed yet.
+- **Tests:** `test_release` (26 checks: the addresses that may be downloaded from, the image of each board and of each node of the family, the versions).
+
 - **The panel in the look of EH3D-BUNGARD-GUI and EH3D-STUDIO:** the Forge theme by default (warm black, amber, cards with two cut corners) and Paper as the light theme; the pictures of the README are taken again with it, six pages, by `tools/panel_shots.mjs` against the stand-in node.
 ## [0.0.3] - A left menu for the web panel and the live panel of the scripts
 

@@ -86,11 +86,11 @@
 <text x="900" y="173.25" font-family="'Segoe UI','Noto Sans','Noto Sans CJK SC','Microsoft YaHei','Yu Gothic','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#8B949E" text-anchor="middle">RS-232</text>
 <rect x="36" y="548" width="14" height="14" rx="3" fill="none" stroke="#00E5FF" stroke-width="2"/>
 <text x="58" y="560" font-family="'Segoe UI','Noto Sans','Noto Sans CJK SC','Microsoft YaHei','Yu Gothic','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#C9D1D9" text-anchor="start">rules covered by tests on a computer</text>
-<rect x="308.96000000000004" y="548" width="14" height="14" rx="3" fill="none" stroke="#4DA3FF" stroke-width="2"/>
+<rect x="308.9599999999999" y="548" width="14" height="14" rx="3" fill="none" stroke="#4DA3FF" stroke-width="2"/>
 <text x="330.96" y="560" font-family="'Segoe UI','Noto Sans','Noto Sans CJK SC','Microsoft YaHei','Yu Gothic','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#C9D1D9" text-anchor="start">shared base, kept identical by a tool</text>
-<rect x="573.04" y="548" width="14" height="14" rx="3" fill="none" stroke="#FFB020" stroke-width="2" stroke-dasharray="3 2"/>
+<rect x="573.0399999999998" y="548" width="14" height="14" rx="3" fill="none" stroke="#FFB020" stroke-width="2" stroke-dasharray="3 2"/>
 <text x="595.04" y="560" font-family="'Segoe UI','Noto Sans','Noto Sans CJK SC','Microsoft YaHei','Yu Gothic','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#C9D1D9" text-anchor="start">builds, never flashed</text>
-<rect x="747.8399999999999" y="548" width="14" height="14" rx="3" fill="#FF6B6B" opacity="0.7"/>
+<rect x="747.8399999999998" y="548" width="14" height="14" rx="3" fill="#FF6B6B" opacity="0.7"/>
 <text x="769.84" y="560" font-family="'Segoe UI','Noto Sans','Noto Sans CJK SC','Microsoft YaHei','Yu Gothic','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#C9D1D9" text-anchor="start">has not run on real hardware</text>
 <rect x="36" y="568" width="14" height="14" rx="3" fill="none" stroke="#30363D" stroke-width="2"/>
 <text x="58" y="580" font-family="'Segoe UI','Noto Sans','Noto Sans CJK SC','Microsoft YaHei','Yu Gothic','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#C9D1D9" text-anchor="start">a program, a person or another repository</text>

@@ -147,3 +147,28 @@ pre.log { margin: 0; max-height: 420px; overflow: auto; padding: .7rem; border: 
 .brand-mark { border-radius: 0; clip-path: polygon(0 0, 78% 0, 100% 22%, 100% 100%, 22% 100%, 0 78%); }
 .side { background: var(--card); }
 .nav button.active { background: var(--field); }
+
+/* ---- the menu in groups, the foot of the menu, the help and the framed lists of the summary */
+.nav-title { padding: .55rem .75rem 0; color: var(--dim); font: 700 .62rem var(--mono); letter-spacing: .2em; text-transform: uppercase; }
+.side-foot { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line); display: grid; gap: 8px; color: var(--dim); font-size: .82rem; }
+.side-foot .lang, .side-foot .b { width: 100%; }
+.side-foot .who { display: flex; align-items: center; gap: 8px; overflow-wrap: anywhere; }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--dim); }
+.dot.ok { background: var(--ok, #2e9d5b); } .dot.bad { background: var(--bad, #d64545); }
+.eyebrow { margin: 0 0 4px; font: 600 .66rem var(--mono); letter-spacing: .14em; color: var(--accent); text-transform: uppercase; }
+.page-head h1 { margin: 0; }
+.help { display: flex; gap: 14px; align-items: start; }
+.help-nav { display: flex; flex-direction: column; gap: 4px; flex: 0 0 180px; }
+.help-nav button { text-align: left; border: 0; background: none; color: var(--dim); padding: .5rem .65rem; border-radius: 8px; font: inherit; font-size: .85rem; cursor: pointer; }
+.help-nav button:hover { background: var(--field); }
+.help-nav button.active { background: var(--info-bg); color: inherit; font-weight: 600; box-shadow: inset 3px 0 var(--accent); }
+.help .card { flex: 1; min-width: 0; }
+.kv.framed { grid-template-columns: max-content minmax(0, 1fr); align-items: start; }
+.kv.framed dd { justify-self: end; width: fit-content; max-width: 100%; text-align: right; padding: 3px 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--field); }
+@media (max-width: 760px) {
+  .help { flex-direction: column; } .help-nav { flex-direction: row; flex-wrap: wrap; flex: 0 0 auto; }
+  .nav-title { display: none; }
+  .side-foot { margin-top: 0; padding-top: 0; border-top: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .side-foot .lang, .side-foot .b { width: auto; } .side-foot .who { display: none; }
+  .kv.framed { grid-template-columns: minmax(0, 1fr); } .kv.framed dd { justify-self: start; text-align: left; margin-bottom: 6px; }
+}

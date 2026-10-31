@@ -12,13 +12,13 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Stack-C%2B%2B17%20%2B%20ESP--IDF-00599C.svg" alt="C++17 and ESP-IDF">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.3-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.4-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
 ---
 
-**Vérification d'honnêteté - ce qui tourne aujourd'hui :** firmware en C++17 pour l'ESP32-S3 (ESP-IDF 5.5) qui transforme le port RS-232 de l'unité de commande d'une machine Bungard CCD en port réseau : un programme se connecte en TCP avec un jeton d'accès, arme la machine et envoie les octets d'un mouvement, que le nœud met en file et envoie sur la ligne au rythme propre de la ligne. Il lit aussi les voyants de la machine (HOME X, Y et Z, ENABLE, TOOL), pilote une broche par un signal de vitesse 0-10 V et des lignes de marche et de sens, et possède un panneau web avec menu latéral (huit langues) pour la mise en service, les utilisateurs, le réseau, la mise à jour et les réglages propres à la machine. Les règles du lien et les réglages sont testés sur un ordinateur (9 programmes de test, 2209 vérifications comptées) et le firmware se compile sans avertissement pour les deux cartes. **Il n'a pas encore été flashé ni exécuté sur une carte**, rien n'a été branché à une machine, et la carte porteuse qui réunit le convertisseur RS-232, les entrées des voyants et le variateur de la broche est un projet sur papier.
+**Vérification d'honnêteté - ce qui tourne aujourd'hui :** firmware en C++17 pour l'ESP32-S3 (ESP-IDF 5.5) qui transforme le port RS-232 de l'unité de commande d'une machine Bungard CCD en port réseau : un programme se connecte en TCP avec un jeton d'accès, arme la machine et envoie les octets d'un mouvement, que le nœud met en file et envoie sur la ligne au rythme propre de la ligne. Il lit aussi les voyants de la machine (HOME X, Y et Z, ENABLE, TOOL), pilote une broche par un signal de vitesse 0-10 V et des lignes de marche et de sens, et possède un panneau web avec menu latéral (huit langues) pour la mise en service, les utilisateurs, le réseau, la mise à jour et les réglages propres à la machine. Les règles du lien et les réglages sont testés sur un ordinateur (10 programmes de test, 2235 vérifications comptées) et le firmware se compile sans avertissement pour les deux cartes. **Il n'a pas encore été flashé ni exécuté sur une carte**, rien n'a été branché à une machine, et la carte porteuse qui réunit le convertisseur RS-232, les entrées des voyants et le variateur de la broche est un projet sur papier.
 
 ---
 
@@ -28,9 +28,9 @@
 
 | | |
 |---|---|
-| Version | `0.0.3` |
+| Version | `0.0.4` |
 | Maturité | Échafaudage |
-| Tests | 9 programmes de test sur ordinateur (2209 vérifications comptées) |
+| Tests | 10 programmes de test sur ordinateur (2235 vérifications comptées) |
 | Pile technique | C++17, ESP-IDF 5.5, ESP32-S3 |
 | Sur du matériel réel | Non : les deux images de firmware se compilent, mais rien n'a été flashé ni exécuté sur une carte et rien n'a été branché à une machine |
 
@@ -45,7 +45,7 @@ Chaque ligne est une partie de ce dépôt et le feu dit où elle en est aujourd'
 | Domaine | État | Ce que cela veut dire ici |
 |---|---|---|
 | Logiciel | 🟡 | Le firmware pour l'ESP32-S3 (ESP-IDF 5.5, C++17) se compile sans avertissement pour les deux cartes, Ethernet et Wi-Fi ; aucune image n'a été flashée. |
-| Tests | 🟡 | 9 programmes de test sur ordinateur réussissent (`ctest`) : 2209 vérifications comptées sur le lien, les réglages, les règles de la machine et la base partagée, plus le contrôle des textes du panneau (315 lignes en 8 langues) et des piles des tâches (10 tâches). |
+| Tests | 🟡 | 10 programmes de test sur ordinateur réussissent (`ctest`) : 2235 vérifications comptées sur le lien, les réglages, les règles de la machine et la base partagée, plus le contrôle des textes du panneau (315 lignes en 8 langues) et des piles des tâches (10 tâches). |
 | Lien de commande | 🟡 | Le protocole par trames (CRC, connexion par jeton, armement, file d'octets, arrêt quand la session se tait) est couvert par les tests sur ordinateur ; aucun programme n'a parlé à un vrai nœud. |
 | Panneau web | 🟡 | Le panneau web (menu latéral, huit langues : mise en service, machine, réseau, utilisateurs, mise à jour, journal, système) a ses textes contrôlés et est exercé contre une maquette du nœud dans un navigateur ; il n'a jamais été servi depuis une carte. |
 | Broche et voyants | 🟠 | Le signal de vitesse 0-10 V, les lignes de marche et de sens (pas d'inversion pendant la rotation) et les cinq entrées de voyants sont testés sur l'ordinateur ; aucun variateur ni aucune machine n'a été branché. |
@@ -81,40 +81,40 @@ Comment les parties de ce dépôt s'articulent : qui l'utilise, ce qu'il contien
 ## 🖼️ Captures d'écran
 
 <p align="center">
+  <img src="images/screenshots/panel-overview.png" alt="panel-overview" width="100%">
+</p>
+
+<p align="center"><em>La page Résumé : le nœud, son matériel, son horloge, sa flash avec les deux slots de firmware et son réseau.</em></p>
+
+<p align="center">
   <img src="images/screenshots/panel-status.png" alt="panel-status" width="100%">
 </p>
 
-<p align="center"><em>La page État, dans le thème Forge des autres programmes EH3D : la liaison de contrôle, les voyants de la machine, les lignes de l'unité de commande et la broche. Elle est servie par le nœud de remplacement avec lequel on développe le panneau : aucune carte n'a encore exécuté le firmware.</em></p>
+<p align="center"><em>La page État, dans le thème Forge des autres programmes EH3D.</em></p>
 
 <p align="center">
   <img src="images/screenshots/panel-machine.png" alt="panel-machine" width="100%">
 </p>
 
-<p align="center"><em>La page Machine : la liaison de contrôle, les broches RS-232, les voyants et le jeton d'accès.</em></p>
+<p align="center"><em>La page Machine : la liaison de commande, les broches RS-232, les voyants, la broche et le jeton d'accès.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-network.png" alt="panel-network" width="100%">
+  <img src="images/screenshots/panel-wifi.png" alt="panel-wifi" width="100%">
 </p>
 
-<p align="center"><em>La page Réseau : comment le nœud atteint le réseau.</em></p>
+<p align="center"><em>La page Wi-Fi : le réseau que le nœud rejoint et jusqu'à trois réseaux de secours en cas de perte.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-users.png" alt="panel-users" width="100%">
+  <img src="images/screenshots/panel-update.png" alt="panel-update" width="100%">
 </p>
 
-<p align="center"><em>La page Utilisateurs : les personnes qui peuvent ouvrir le panneau et leur rôle.</em></p>
+<p align="center"><em>La page Firmware : la mise à jour depuis GitHub, le téléversement d'un fichier et les deux slots, avec la copie de l'un sur l'autre.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-firmware.png" alt="panel-firmware" width="100%">
+  <img src="images/screenshots/panel-help.png" alt="panel-help" width="100%">
 </p>
 
-<p align="center"><em>La page Firmware : les deux emplacements, celui qui tourne et la mise à jour avec retour arrière.</em></p>
-
-<p align="center">
-  <img src="images/screenshots/panel-system.png" alt="panel-system" width="100%">
-</p>
-
-<p align="center"><em>La page Système : l'identité du nœud, le redémarrage et la réinitialisation d'usine.</em></p>
+<p align="center"><em>La page Aide : un sujet pour chaque page du panneau.</em></p>
 
 ## ✨ Fonctionnalités
 
@@ -125,6 +125,7 @@ Comment les parties de ce dépôt s'articulent : qui l'utilise, ce qu'il contien
 * **Broche avec garde-fous :** vitesse plafonnée à la vitesse maximale pour laquelle le nœud a été construit, pas d'inversion pendant la rotation ni juste après l'arrêt, arrêt avec la machine.
 * **Mise à jour avec retour arrière :** une image va dans l'emplacement qui ne tourne pas et reste à l'essai tant que le nœud n'est pas joignable ; le chargeur de démarrage revient en arrière quand il ne l'est pas.
 * **Il veille sur lui-même :** un gardien surveille les tâches et la mémoire, et un nœud sans adresse après quatre-vingt-dix secondes rouvre le réseau de mise en service pour ne pas rester injoignable.
+* **Le panneau du nœud comme l'ont les nœuds d'A.R.M.O.R. :** un menu en groupes (nœud, réseau, système) avec la langue et la déconnexion en pied ; un Résumé (le nœud, son matériel, son horloge, sa flash et son réseau), une page Wi-Fi avec jusqu'à trois réseaux de secours que le nœud essaie quand le principal est perdu, une Aide complète et une page À propos et, dans Firmware, la mise à jour depuis GitHub (elle cherche la dernière version du projet, vérifie son SHA-256 et l'installe dans l'autre emplacement), le passage d'un emplacement à l'autre et la copie de celui qui tourne dans l'autre.
 
 ## 🔒 Sécurité et protection
 
@@ -141,7 +142,7 @@ Comment les parties de ce dépôt s'articulent : qui l'utilise, ce qu'il contien
 | Un nœud qui manque de mémoire ou se bloque | un gardien surveille les tâches et la mémoire interne et redémarre sans former de boucle ; une porte à l'entrée du panneau quand la mémoire manque |
 | Quelqu'un qui a le nœud entre les mains | maintenir BOOT huit secondes dans les trente premières après la mise sous tension efface les réglages et les utilisateurs (l'accès physique est une réinitialisation par conception) |
 
-**Ce qui n'est pas défendu :** le nœud n'a pas encore d'entrée d'arrêt d'urgence et ne voit les fins de course que par les voyants ; la mise à jour n'est pas signée (la mise à jour depuis GitHub n'est pas construite : elle exige une clé de signature) ; le certificat fait maison du panneau HTTPS fait avertir un navigateur ; rien n'a tourné sur une carte et il n'y a pas eu de revue indépendante. Signale une vulnérabilité en privé (voir [SECURITY.md](SECURITY.md)).
+**Ce qui n'est pas défendu :** le nœud n'a pas encore d'entrée d'arrêt d'urgence et ne voit les fins de course que par les voyants ; la mise à jour n'est pas signée (la mise à jour depuis GitHub vérifie le SHA-256 que la version publie, en HTTPS, et seulement quand un administrateur le demande ; une clé de signature manque encore) ; le certificat fait maison du panneau HTTPS fait avertir un navigateur ; rien n'a tourné sur une carte et il n'y a pas eu de revue indépendante. Signale une vulnérabilité en privé (voir [SECURITY.md](SECURITY.md)).
 
 ## 🔌 Interfaces
 
@@ -191,11 +192,11 @@ python -I tools/ci_validate.py
 
 ## 🧪 Tests
 
-Les tests sur ordinateur (`build.bat` ou `./build.sh`, puis `ctest`) sont 9 programmes et tous réussissent : `core_tests` (104 vérifications : les trames et les règles de session), `test_base` (382), `test_clock` (affiche ok), `test_settings` (392), `test_machine` (75), `test_shared` (627) et `test_shared_eth` (629, le profil de la carte Ethernet) - 2209 vérifications comptées - plus `panel_text` (315 lignes en 8 langues, 265 clés utilisées, 36 codes d'erreur du firmware avec un texte) et `task_safety` (10 tâches, aucune grosse copie des réglages sur une petite pile). Ils couvrent le CRC et le décodeur qui se resynchronise après un dégât, la connexion par jeton, l'armement, l'arrêt sur silence, les règles de la broche (plafond, pas d'inversion, délai), les réglages et leurs plages, les conflits de broches et les broches réservées, utilisateurs et sessions, le plan réseau, l'horloge et JSON. Le panneau a aussi été exercé dans un navigateur contre `tools/panel_mock.mjs`, un nœud de substitution qui le sert sans carte. La CI exécute `python -I tools/ci_validate.py` et les tests sur ordinateur sous Linux avec les avertissements en erreurs. La compilation des deux images de firmware (ESP-IDF 5.5.5) se fait à la main et ne fait pas partie de la CI ; rien ne tourne sur une carte.
+Les tests sur ordinateur (`build.bat` ou `./build.sh`, puis `ctest`) sont 10 programmes et tous réussissent : `core_tests` (104 vérifications : les trames et les règles de session), `test_base` (382), `test_clock` (affiche ok), `test_settings` (392), `test_machine` (75), `test_shared` (627) et `test_shared_eth` (629, le profil de la carte Ethernet) - 2235 vérifications comptées - plus `panel_text` (315 lignes en 8 langues, 265 clés utilisées, 36 codes d'erreur du firmware avec un texte) et `task_safety` (10 tâches, aucune grosse copie des réglages sur une petite pile). Ils couvrent le CRC et le décodeur qui se resynchronise après un dégât, la connexion par jeton, l'armement, l'arrêt sur silence, les règles de la broche (plafond, pas d'inversion, délai), les réglages et leurs plages, les conflits de broches et les broches réservées, utilisateurs et sessions, le plan réseau, l'horloge et JSON. Le panneau a aussi été exercé dans un navigateur contre `tools/panel_mock.mjs`, un nœud de substitution qui le sert sans carte. La CI exécute `python -I tools/ci_validate.py` et les tests sur ordinateur sous Linux avec les avertissements en erreurs. La compilation des deux images de firmware (ESP-IDF 5.5.5) se fait à la main et ne fait pas partie de la CI ; rien ne tourne sur une carte.
 
 ## 🏗️ Compilation et publication
 
-La version se trouve dans `eh3d.project.json` et dans la compilation, et chaque version a son entrée dans [CHANGELOG.md](CHANGELOG.md). `build.sh` / `build.bat` compilent et exécutent les tests sur ordinateur et `test.sh` / `test.bat` n'exécutent que les tests, chacun dans un panneau en direct ; aucun ne change la version. Les images de firmware viennent de `tools/build_node.sh` (ou d'ESP-IDF 5.5.5 sous Windows) et s'appellent `eh3d-node-bungard-<version>-<carte>-{app,complete}.bin`. Aucune version n'a encore été publiée et aucune image n'a été flashée. La mise à jour depuis GitHub n'est pas construite : elle exige une clé de signature.
+La version se trouve dans `eh3d.project.json` et dans la compilation, et chaque version a son entrée dans [CHANGELOG.md](CHANGELOG.md). `build.sh` / `build.bat` compilent et exécutent les tests sur ordinateur et `test.sh` / `test.bat` n'exécutent que les tests, chacun dans un panneau en direct ; aucun ne change la version. Les images de firmware viennent de `tools/build_node.sh` (ou d'ESP-IDF 5.5.5 sous Windows) et s'appellent `eh3d-node-bungard-<version>-<carte>-{app,complete}.bin`. Aucune version n'a encore été publiée et aucune image n'a été flashée. La mise à jour depuis GitHub est construite et n'a jamais tourné contre le vrai GitHub sur une carte ; les versions ne sont pas signées, donc elle se fie à l'empreinte qu'elles publient.
 
 ## 🩺 Dépannage
 
@@ -226,13 +227,15 @@ EH3D-NODE-BUNGARD/
 │   ├── byte_queue.hpp drain.hpp                 file d'octets, fin du travail
 │   ├── bungard_config.hpp                       réglages machine et broches
 │   ├── node_settings.hpp auth.hpp               réglages, utilisateurs (base)
-│   └── netplan.hpp json.hpp                     plan réseau et JSON (base)
+│   ├── netplan.hpp json.hpp                     plan réseau et JSON (base)
+│   └── release_assets.hpp semver.hpp            quel fichier d'une version est l'image de cette carte
 ├── main/
 │   ├── app_main.cpp link_server.cpp             démarrage et lien de commande
 │   ├── central_uart.cpp lamps.cpp               ligne série et voyants
 │   ├── spindle.cpp machine_api.cpp              sorties broche, API
 │   ├── web_server.cpp network.cpp               serveur du panneau, réseau (base)
-│   └── node_store.cpp node_guard.cpp            stockage, gardien (base)
+│   ├── node_store.cpp node_guard.cpp            stockage, gardien (base)
+│   └── github_update.cpp entropy.cpp            la mise à jour depuis GitHub et la copie d'un emplacement
 ├── panel/
 │   ├── index.html style.css                     la page et la disposition du menu latéral
 │   └── app.js text.js                           les pages et les textes en huit langues
@@ -260,7 +263,7 @@ EH3D-NODE-BUNGARD/
 * Rien n'a tourné sur une carte : aucune image n'a été flashée, aucune mise en service faite sur un vrai nœud, aucun programme ne lui a parlé et rien n'a été branché à une machine.
 * La carte porteuse avec le convertisseur RS-232, les entrées de voyants et le variateur de la broche est un projet sur papier (`docs/BOARD.md`).
 * Le nœud n'a pas d'entrée d'arrêt d'urgence (la carte porteuse a une place pour un bouton-poussoir) et ne voit les fins de course que par les voyants.
-* La mise à jour depuis GitHub n'est pas construite : elle exige une clé de signature. Le panneau a été vu dans un navigateur contre un nœud de substitution, pas servi depuis une carte.
+* La mise à jour depuis GitHub est construite et n'a jamais tourné contre le vrai GitHub sur une carte ; les versions ne sont pas signées, donc elle se fie à l'empreinte qu'elles publient. Le panneau a été vu dans un navigateur contre un nœud de substitution, pas servi depuis une carte.
 * La fin du travail retenu n'a pas tourné sur une carte ; ses règles sont testées sur un ordinateur.
 * Seules les machines Bungard CCD MTC et CCD/2 MTC sont visées ; les modèles ATC ne sont pas couverts.
 
@@ -269,7 +272,7 @@ EH3D-NODE-BUNGARD/
 * Flasher une image sur chaque carte, faire la première mise en service et vérifier le lien avec la bibliothèque Rust.
 * Dessiner et construire la carte porteuse, et brancher un variateur de broche et une machine.
 * Ajouter l'entrée de bouton-poussoir pour un arrêt physique.
-* Signer les mises à jour et les récupérer depuis GitHub.
+* Signer les versions et vérifier la signature dans la mise à jour depuis GitHub.
 
 ## 🌍 Langues
 

@@ -12,13 +12,13 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Stack-C%2B%2B17%20%2B%20ESP--IDF-00599C.svg" alt="C++17 and ESP-IDF">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.3-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.4-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
 ---
 
-**Verificação de honestidade - o que funciona hoje:** firmware em C++17 para o ESP32-S3 (ESP-IDF 5.5) que transforma a porta RS-232 da unidade de controlo de uma máquina Bungard CCD numa porta de rede: um programa liga-se por TCP com um token de acesso, arma a máquina e envia os bytes de um movimento, que o nó põe em fila e envia para a linha ao ritmo próprio da linha. Também lê os LED da máquina (HOME X, Y e Z, ENABLE, TOOL), comanda um fuso com um sinal de velocidade de 0-10 V e linhas de marcha e sentido, e tem um painel web com menu lateral (oito idiomas) para a configuração inicial, os utilizadores, a rede, a atualização e as definições da própria máquina. As regras da ligação e as definições são testadas num computador (9 programas de teste, 2209 verificações contadas) e o firmware compila sem avisos para as duas placas. **Ainda não foi gravado nem executado numa placa**, nada foi ligado a uma máquina, e a placa de suporte que reúne o conversor RS-232, as entradas dos LED e o variador do fuso é um projeto em papel.
+**Verificação de honestidade - o que funciona hoje:** firmware em C++17 para o ESP32-S3 (ESP-IDF 5.5) que transforma a porta RS-232 da unidade de controlo de uma máquina Bungard CCD numa porta de rede: um programa liga-se por TCP com um token de acesso, arma a máquina e envia os bytes de um movimento, que o nó põe em fila e envia para a linha ao ritmo próprio da linha. Também lê os LED da máquina (HOME X, Y e Z, ENABLE, TOOL), comanda um fuso com um sinal de velocidade de 0-10 V e linhas de marcha e sentido, e tem um painel web com menu lateral (oito idiomas) para a configuração inicial, os utilizadores, a rede, a atualização e as definições da própria máquina. As regras da ligação e as definições são testadas num computador (10 programas de teste, 2235 verificações contadas) e o firmware compila sem avisos para as duas placas. **Ainda não foi gravado nem executado numa placa**, nada foi ligado a uma máquina, e a placa de suporte que reúne o conversor RS-232, as entradas dos LED e o variador do fuso é um projeto em papel.
 
 ---
 
@@ -28,9 +28,9 @@
 
 | | |
 |---|---|
-| Versão | `0.0.3` |
+| Versão | `0.0.4` |
 | Maturidade | Estrutura inicial |
-| Testes | 9 programas de teste no computador (2209 verificações contadas) |
+| Testes | 10 programas de teste no computador (2235 verificações contadas) |
 | Tecnologias | C++17, ESP-IDF 5.5, ESP32-S3 |
 | Em hardware real | Não: as duas imagens de firmware compilam, mas nada foi gravado nem executado numa placa e nada foi ligado a uma máquina |
 
@@ -45,7 +45,7 @@ Cada linha é uma parte deste repositório e a luz diz até onde chega hoje. É 
 | Área | Estado | O que significa aqui |
 |---|---|---|
 | Software | 🟡 | O firmware para o ESP32-S3 (ESP-IDF 5.5, C++17) compila sem avisos para as duas placas, Ethernet e Wi-Fi; nenhuma imagem foi gravada. |
-| Testes | 🟡 | Passam 9 programas de teste no computador (`ctest`): 2209 verificações contadas na ligação, nas definições, nas regras da máquina e na base partilhada, mais a verificação dos textos do painel (315 linhas em 8 idiomas) e das pilhas das tarefas (10 tarefas). |
+| Testes | 🟡 | Passam 10 programas de teste no computador (`ctest`): 2235 verificações contadas na ligação, nas definições, nas regras da máquina e na base partilhada, mais a verificação dos textos do painel (315 linhas em 8 idiomas) e das pilhas das tarefas (10 tarefas). |
 | Ligação de controlo | 🟡 | O protocolo com tramas (CRC, início de sessão com token, armamento, fila de bytes, paragem quando a sessão se cala) está coberto pelos testes no computador; nenhum programa falou com um nó real. |
 | Painel web | 🟡 | O painel web (menu lateral, oito idiomas: configuração inicial, máquina, rede, utilizadores, atualização, registo, sistema) tem os textos verificados e é exercitado contra uma simulação do nó num navegador; nunca foi servido a partir de uma placa. |
 | Fuso e LED | 🟠 | O sinal de velocidade de 0-10 V, as linhas de marcha e sentido (sem inverter enquanto roda) e as cinco entradas de LED são testados no computador; nenhum variador nem máquina foi ligado. |
@@ -81,40 +81,40 @@ Como as partes deste repositório se encaixam: quem o usa, o que contém e de qu
 ## 🖼️ Capturas de ecrã
 
 <p align="center">
+  <img src="images/screenshots/panel-overview.png" alt="panel-overview" width="100%">
+</p>
+
+<p align="center"><em>A página Resumo: o nó, o seu hardware, o seu relógio, a sua flash com os dois slots de firmware e a sua rede.</em></p>
+
+<p align="center">
   <img src="images/screenshots/panel-status.png" alt="panel-status" width="100%">
 </p>
 
-<p align="center"><em>A página Estado, no tema Forge dos outros programas EH3D: a ligação de controlo, os indicadores da máquina, as linhas da unidade de controlo e o fuso. É servida pelo nó de teste com que se desenvolve o painel: nenhuma placa executou ainda o firmware.</em></p>
+<p align="center"><em>A página Estado, no tema Forge dos outros programas EH3D.</em></p>
 
 <p align="center">
   <img src="images/screenshots/panel-machine.png" alt="panel-machine" width="100%">
 </p>
 
-<p align="center"><em>A página Máquina: a ligação de controlo, os pinos RS-232, os indicadores e o token de acesso.</em></p>
+<p align="center"><em>A página Máquina: a ligação de controlo, os pinos RS-232, as lâmpadas, o fuso e o token de acesso.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-network.png" alt="panel-network" width="100%">
+  <img src="images/screenshots/panel-wifi.png" alt="panel-wifi" width="100%">
 </p>
 
-<p align="center"><em>A página Rede: como o nó chega à rede.</em></p>
+<p align="center"><em>A página Wi-Fi: a rede a que o nó se liga e até três redes de reserva para quando se perde.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-users.png" alt="panel-users" width="100%">
+  <img src="images/screenshots/panel-update.png" alt="panel-update" width="100%">
 </p>
 
-<p align="center"><em>A página Utilizadores: as pessoas que podem abrir o painel e o seu perfil.</em></p>
+<p align="center"><em>A página Firmware: a atualização a partir do GitHub, o envio de um ficheiro e os dois slots, com a cópia de um sobre o outro.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-firmware.png" alt="panel-firmware" width="100%">
+  <img src="images/screenshots/panel-help.png" alt="panel-help" width="100%">
 </p>
 
-<p align="center"><em>A página Firmware: as duas ranhuras, a que está em execução e a atualização com regresso.</em></p>
-
-<p align="center">
-  <img src="images/screenshots/panel-system.png" alt="panel-system" width="100%">
-</p>
-
-<p align="center"><em>A página Sistema: a identidade do nó, o reinício e o restabelecimento de fábrica.</em></p>
+<p align="center"><em>A página Ajuda: um tema para cada página do painel.</em></p>
 
 ## ✨ Funcionalidades
 
@@ -125,6 +125,7 @@ Como as partes deste repositório se encaixam: quem o usa, o que contém e de qu
 * **Fuso com proteções:** velocidade limitada à máxima para que o nó foi construído, sem inverter enquanto roda nem logo depois de parar, paragem com a máquina.
 * **Atualização com reversão:** uma imagem entra no espaço que não está em uso e fica em prova até o nó ser alcançável; o carregador de arranque volta atrás quando não é.
 * **Cuida de si:** um guarda vigia as tarefas e a memória, e um nó sem endereço após noventa segundos reabre a rede de configuração para não ficar inalcançável.
+* **O painel do nó como o têm os nós do A.R.M.O.R.:** um menu em grupos (nó, rede, sistema) com o idioma e o fim de sessão ao fundo; um Resumo (o nó, o seu hardware, o seu relógio, a sua flash e a sua rede), uma página Wi-Fi com até três redes de reserva que o nó tenta quando a principal se perde, uma Ajuda completa e uma página Acerca de e, em Firmware, a atualização a partir do GitHub (procura a versão mais recente do projeto, verifica o seu SHA-256 e instala-a no outro slot), a troca entre os dois slots e a cópia do que corre para o outro.
 
 ## 🔒 Segurança e proteção
 
@@ -141,7 +142,7 @@ Como as partes deste repositório se encaixam: quem o usa, o que contém e de qu
 | Um nó que fica sem memória ou bloqueia | um guarda vigia as tarefas e a memória interna e reinicia sem formar um ciclo; um portão à porta do painel quando falta memória |
 | Alguém com o nó nas mãos | manter BOOT oito segundos nos primeiros trinta depois de ligar apaga as definições e os utilizadores (o acesso físico é um reinício por desenho) |
 
-**O que não é defendido:** o nó ainda não tem entrada de paragem de emergência e só vê os fins de curso pelos LED; a atualização não está assinada (a atualização a partir do GitHub não está construída: precisa de uma chave de assinatura); o certificado próprio do painel HTTPS faz o navegador avisar; nada correu numa placa e não houve revisão independente. Comunique uma vulnerabilidade em privado (ver [SECURITY.md](SECURITY.md)).
+**O que não é defendido:** o nó ainda não tem entrada de paragem de emergência e só vê os fins de curso pelos LED; a atualização não está assinada (a atualização a partir do GitHub verifica o SHA-256 que a versão publica, por HTTPS, e só quando um administrador o pede; falta ainda uma chave de assinatura); o certificado próprio do painel HTTPS faz o navegador avisar; nada correu numa placa e não houve revisão independente. Comunique uma vulnerabilidade em privado (ver [SECURITY.md](SECURITY.md)).
 
 ## 🔌 Interfaces
 
@@ -191,11 +192,11 @@ python -I tools/ci_validate.py
 
 ## 🧪 Testes
 
-Os testes no computador (`build.bat` ou `./build.sh`, depois `ctest`) são 9 programas e todos passam: `core_tests` (104 verificações: as tramas e as regras de sessão), `test_base` (382), `test_clock` (imprime ok), `test_settings` (392), `test_machine` (75), `test_shared` (627) e `test_shared_eth` (629, o perfil da placa Ethernet) - 2209 verificações contadas - mais `panel_text` (315 linhas em 8 idiomas, 265 chaves usadas, 36 códigos de erro do firmware com texto) e `task_safety` (10 tarefas, nenhuma cópia grande das definições numa pilha pequena). Cobrem o CRC e o descodificador que se ressincroniza após dano, o início de sessão com token, o armamento, a paragem por silêncio, as regras do fuso (limite, sem inversão, atraso), as definições e as suas gamas, conflitos de pinos e pinos reservados, utilizadores e sessões, o plano de rede, o relógio e JSON. O painel também foi exercitado num navegador contra `tools/panel_mock.mjs`, um nó de substituição que o serve sem placa. A CI executa `python -I tools/ci_validate.py` e os testes no computador em Linux com os avisos como erros. A compilação das duas imagens de firmware (ESP-IDF 5.5.5) faz-se à mão e não faz parte da CI; nada corre numa placa.
+Os testes no computador (`build.bat` ou `./build.sh`, depois `ctest`) são 10 programas e todos passam: `core_tests` (104 verificações: as tramas e as regras de sessão), `test_base` (382), `test_clock` (imprime ok), `test_settings` (392), `test_machine` (75), `test_shared` (627) e `test_shared_eth` (629, o perfil da placa Ethernet) - 2235 verificações contadas - mais `panel_text` (315 linhas em 8 idiomas, 265 chaves usadas, 36 códigos de erro do firmware com texto) e `task_safety` (10 tarefas, nenhuma cópia grande das definições numa pilha pequena). Cobrem o CRC e o descodificador que se ressincroniza após dano, o início de sessão com token, o armamento, a paragem por silêncio, as regras do fuso (limite, sem inversão, atraso), as definições e as suas gamas, conflitos de pinos e pinos reservados, utilizadores e sessões, o plano de rede, o relógio e JSON. O painel também foi exercitado num navegador contra `tools/panel_mock.mjs`, um nó de substituição que o serve sem placa. A CI executa `python -I tools/ci_validate.py` e os testes no computador em Linux com os avisos como erros. A compilação das duas imagens de firmware (ESP-IDF 5.5.5) faz-se à mão e não faz parte da CI; nada corre numa placa.
 
 ## 🏗️ Compilação e publicação
 
-A versão vive em `eh3d.project.json` e na compilação, e cada versão tem a sua entrada em [CHANGELOG.md](CHANGELOG.md). `build.sh` / `build.bat` compilam e executam os testes no computador e `test.sh` / `test.bat` executam só os testes, cada um num painel em direto; nenhum altera a versão. As imagens de firmware saem de `tools/build_node.sh` (ou do ESP-IDF 5.5.5 no Windows) e chamam-se `eh3d-node-bungard-<versão>-<placa>-{app,complete}.bin`. Ainda não foi publicada nenhuma versão nem gravada nenhuma imagem. A atualização a partir do GitHub não está construída: precisa de uma chave de assinatura.
+A versão vive em `eh3d.project.json` e na compilação, e cada versão tem a sua entrada em [CHANGELOG.md](CHANGELOG.md). `build.sh` / `build.bat` compilam e executam os testes no computador e `test.sh` / `test.bat` executam só os testes, cada um num painel em direto; nenhum altera a versão. As imagens de firmware saem de `tools/build_node.sh` (ou do ESP-IDF 5.5.5 no Windows) e chamam-se `eh3d-node-bungard-<versão>-<placa>-{app,complete}.bin`. Ainda não foi publicada nenhuma versão nem gravada nenhuma imagem. A atualização a partir do GitHub está construída e nunca correu contra o GitHub real numa placa; as versões não estão assinadas, por isso confia no hash que publicam.
 
 ## 🩺 Resolução de problemas
 
@@ -226,13 +227,15 @@ EH3D-NODE-BUNGARD/
 │   ├── byte_queue.hpp drain.hpp                 fila de bytes, fim do trabalho
 │   ├── bungard_config.hpp                       definições da máquina e pinos
 │   ├── node_settings.hpp auth.hpp               definições, utilizadores (base)
-│   └── netplan.hpp json.hpp                     plano de rede e JSON (base)
+│   ├── netplan.hpp json.hpp                     plano de rede e JSON (base)
+│   └── release_assets.hpp semver.hpp            qual ficheiro de uma versão é a imagem desta placa
 ├── main/
 │   ├── app_main.cpp link_server.cpp             arranque e ligação de controlo
 │   ├── central_uart.cpp lamps.cpp               linha série e LED
 │   ├── spindle.cpp machine_api.cpp              saídas do fuso, API
 │   ├── web_server.cpp network.cpp               servidor do painel, rede (base)
-│   └── node_store.cpp node_guard.cpp            armazenamento, guarda (base)
+│   ├── node_store.cpp node_guard.cpp            armazenamento, guarda (base)
+│   └── github_update.cpp entropy.cpp            a atualização a partir do GitHub e a cópia de um slot
 ├── panel/
 │   ├── index.html style.css                     a página e a disposição do menu lateral
 │   └── app.js text.js                           as páginas e os textos em oito idiomas
@@ -260,7 +263,7 @@ EH3D-NODE-BUNGARD/
 * Nada correu numa placa: nenhuma imagem foi gravada, nenhuma configuração foi feita num nó real, nenhum programa falou com um e nada foi ligado a uma máquina.
 * A placa de suporte com o conversor RS-232, as entradas dos LED e o variador do fuso é um projeto em papel (`docs/BOARD.md`).
 * O nó não tem entrada de paragem de emergência (a placa de suporte tem lugar para um botão) e só vê os fins de curso pelos LED.
-* A atualização a partir do GitHub não está construída: precisa de uma chave de assinatura. O painel foi visto num navegador contra um nó de substituição, não servido a partir de uma placa.
+* A atualização a partir do GitHub está construída e nunca correu contra o GitHub real numa placa; as versões não estão assinadas, por isso confia no hash que publicam. O painel foi visto num navegador contra um nó de substituição, não servido a partir de uma placa.
 * O fim do trabalho retido não correu numa placa; as suas regras são testadas num computador.
 * Só se pretendem as máquinas Bungard CCD MTC e CCD/2 MTC; os modelos ATC não estão cobertos.
 
@@ -269,7 +272,7 @@ EH3D-NODE-BUNGARD/
 * Gravar uma imagem em cada placa, fazer a primeira configuração e verificar a ligação com a biblioteca Rust.
 * Desenhar e construir a placa de suporte e ligar um variador de fuso e uma máquina.
 * Acrescentar a entrada de botão para uma paragem física.
-* Assinar as atualizações e descarregá-las do GitHub.
+* Assinar as versões e verificar a assinatura na atualização a partir do GitHub.
 
 ## 🌍 Idiomas
 

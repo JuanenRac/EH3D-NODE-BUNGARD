@@ -1,8 +1,8 @@
 # The board profile (Kconfig, sdkconfig.board.<board>): the W5500 driver file is built only for the s3-eth board. The REQUIRES cannot depend on it: ESP-IDF reads them
 # before sdkconfig is loaded, so esp_eth and esp_driver_spi are always required (an unused component costs nothing in the image).
-set(EH3D_SOURCES "api_shared.cpp" "app_main.cpp" "central_uart.cpp" "clock_sync.cpp" "entropy.cpp" "improv_serial.cpp" "lamps.cpp" "link_server.cpp" "log_buffer.cpp" "machine_api.cpp"
+set(EH3D_SOURCES "api_shared.cpp" "app_main.cpp" "central_uart.cpp" "clock_sync.cpp" "entropy.cpp" "github_update.cpp" "improv_serial.cpp" "lamps.cpp" "link_server.cpp" "log_buffer.cpp" "machine_api.cpp"
                  "network.cpp" "node_guard.cpp" "node_store.cpp" "psram_mem.cpp" "spindle.cpp" "task_health.cpp" "tls_cert.cpp" "web_server.cpp")
-set(EH3D_REQUIRES driver esp_driver_gpio esp_driver_uart esp_driver_ledc esp_event esp_netif esp_timer esp_wifi esp_http_server esp_https_server esp-tls app_update
+set(EH3D_REQUIRES driver esp_driver_gpio esp_driver_uart esp_driver_ledc esp_event esp_netif esp_timer esp_wifi esp_http_server esp_https_server esp_http_client esp-tls app_update
                   esp_partition esp_app_format mbedtls bootloader_support nvs_flash lwip esp_hw_support esp_system heap log freertos esp_eth esp_driver_spi spi_flash)
 if(CONFIG_EH3D_BOARD_S3_ETH)
   list(APPEND EH3D_SOURCES "board_ethernet.cpp")

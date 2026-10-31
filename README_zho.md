@@ -12,13 +12,13 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Stack-C%2B%2B17%20%2B%20ESP--IDF-00599C.svg" alt="C++17 and ESP-IDF">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.3-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.4-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
 ---
 
-**诚实性核对 - 今天真正能运行的内容：** ESP32-S3（ESP-IDF 5.5）的 C++17 固件，把 Bungard CCD 机床控制单元的 RS-232 端口变成网络端口：程序用访问令牌通过 TCP 连接、给机床上膛并发送运动的字节，节点把它们排队，并以线路自身的节奏送到线上。它还读取机床的指示灯（HOME X、Y、Z，ENABLE，TOOL），通过 0-10 V 速度信号和运行/方向线驱动主轴，并带有侧边菜单的网页面板（八种语言），用于设置、用户、网络、更新和机床自身的设置。链路规则和设置已在计算机上测试（9 个测试程序，统计到 2,209 项检查），固件在两种板子上都无警告地编译。**尚未烧录或在电路板上运行**，也没有接到任何机床上，而把 RS-232 转换器、指示灯输入和主轴驱动器集合起来的载板只是纸面上的设计。
+**诚实性核对 - 今天真正能运行的内容：** ESP32-S3（ESP-IDF 5.5）的 C++17 固件，把 Bungard CCD 机床控制单元的 RS-232 端口变成网络端口：程序用访问令牌通过 TCP 连接、给机床上膛并发送运动的字节，节点把它们排队，并以线路自身的节奏送到线上。它还读取机床的指示灯（HOME X、Y、Z，ENABLE，TOOL），通过 0-10 V 速度信号和运行/方向线驱动主轴，并带有侧边菜单的网页面板（八种语言），用于设置、用户、网络、更新和机床自身的设置。链路规则和设置已在计算机上测试（10 个测试程序，统计到 2,235 项检查），固件在两种板子上都无警告地编译。**尚未烧录或在电路板上运行**，也没有接到任何机床上，而把 RS-232 转换器、指示灯输入和主轴驱动器集合起来的载板只是纸面上的设计。
 
 ---
 
@@ -28,9 +28,9 @@
 
 | | |
 |---|---|
-| 版本 | `0.0.3` |
+| 版本 | `0.0.4` |
 | 成熟度 | 脚手架 |
-| 测试 | 9 个主机测试程序（统计到 2,209 项检查） |
+| 测试 | 10 个主机测试程序（统计到 2,235 项检查） |
 | 技术栈 | C++17, ESP-IDF 5.5, ESP32-S3 |
 | 真实硬件 | 否：两个固件镜像都能编译，但没有烧录或在电路板上运行过，也没有接到机床上 |
 
@@ -45,7 +45,7 @@
 | 领域 | 状态 | 在这里的含义 |
 |---|---|---|
 | 软件 | 🟡 | ESP32-S3（ESP-IDF 5.5，C++17）的固件在以太网和 Wi-Fi 两种板子上都无警告地编译；还没有烧录任何镜像。 |
-| 测试 | 🟡 | 9 个主机测试程序通过（`ctest`）：针对链路、设置、机床规则和共享基础的 2,209 项检查，另有面板文本（8 种语言共 315 行）和任务栈（10 个任务）的检查。 |
+| 测试 | 🟡 | 10 个主机测试程序通过（`ctest`）：针对链路、设置、机床规则和共享基础的 2,235 项检查，另有面板文本（8 种语言共 315 行）和任务栈（10 个任务）的检查。 |
 | 控制链路 | 🟡 | 帧协议（CRC、令牌登录、上膛、字节队列、会话沉默时停止）由主机测试覆盖；还没有程序与真实节点通信过。 |
 | 网页面板 | 🟡 | 网页面板（侧边菜单，八种语言：设置、机床、网络、用户、更新、日志、系统）的文本已检查，并在浏览器中对节点的模拟进行过测试；从未从电路板上提供过服务。 |
 | 主轴与指示灯 | 🟠 | 0-10 V 速度信号、运行和方向线（旋转时不允许反转）以及五路指示灯输入已在主机上测试；没有连接过主轴驱动器或机床。 |
@@ -81,40 +81,40 @@ EH3D-NODE-BUNGARD 是 EH3D 程序与机床之间的最后一级：目前 EH3D-DR
 ## 🖼️ 屏幕截图
 
 <p align="center">
+  <img src="images/screenshots/panel-overview.png" alt="panel-overview" width="100%">
+</p>
+
+<p align="center"><em>“概览”页面：节点、硬件、时钟、带两个固件槽的闪存和网络。</em></p>
+
+<p align="center">
   <img src="images/screenshots/panel-status.png" alt="panel-status" width="100%">
 </p>
 
-<p align="center"><em>“状态”页，使用其他 EH3D 程序的 Forge 主题：控制链路、机床指示灯、控制单元线路和主轴。由开发面板所用的替身节点提供：尚无电路板运行过该固件。</em></p>
+<p align="center"><em>“状态”页面，使用与其他 EH3D 程序相同的 Forge 主题。</em></p>
 
 <p align="center">
   <img src="images/screenshots/panel-machine.png" alt="panel-machine" width="100%">
 </p>
 
-<p align="center"><em>“机床”页：控制链路、RS-232 引脚、指示灯和访问令牌。</em></p>
+<p align="center"><em>“机器”页面：控制链路、RS-232 引脚、指示灯、主轴和访问令牌。</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-network.png" alt="panel-network" width="100%">
+  <img src="images/screenshots/panel-wifi.png" alt="panel-wifi" width="100%">
 </p>
 
-<p align="center"><em>“网络”页：节点如何接入网络。</em></p>
+<p align="center"><em>“Wi-Fi”页面：节点加入的网络，以及断开时使用的最多三个备用网络。</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-users.png" alt="panel-users" width="100%">
+  <img src="images/screenshots/panel-update.png" alt="panel-update" width="100%">
 </p>
 
-<p align="center"><em>“用户”页：可以打开面板的人员及其角色。</em></p>
+<p align="center"><em>“固件”页面：从 GitHub 更新、上传文件，以及两个槽及其相互复制。</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-firmware.png" alt="panel-firmware" width="100%">
+  <img src="images/screenshots/panel-help.png" alt="panel-help" width="100%">
 </p>
 
-<p align="center"><em>“固件”页：两个槽位、正在运行的槽位以及可回滚的更新。</em></p>
-
-<p align="center">
-  <img src="images/screenshots/panel-system.png" alt="panel-system" width="100%">
-</p>
-
-<p align="center"><em>“系统”页：节点标识、重启和恢复出厂设置。</em></p>
+<p align="center"><em>“帮助”页面：面板每个页面各有一个主题。</em></p>
 
 ## ✨ 功能
 
@@ -125,6 +125,7 @@ EH3D-NODE-BUNGARD 是 EH3D 程序与机床之间的最后一级：目前 EH3D-DR
 * **带护栏的主轴：** 转速限制在节点设计的最高转速以内，旋转时或刚停止后不允许反转，随机床一起停止。
 * **可回滚的更新：** 镜像写入未运行的槽，在节点可被访问前处于试用状态；无法访问时引导程序会回退。
 * **自我照看：** 看门狗监视任务和内存，九十秒后仍没有地址的节点会重新打开设置网络，避免一直无法访问。
+* **节点面板与 A.R.M.O.R. 的节点一致：** 分组菜单（节点、网络、系统），底部有语言选择和退出登录；概览页（节点、硬件、时钟、闪存和网络）、最多三个备用网络的 Wi-Fi 页（主网络丢失时节点会尝试它们）、完整的帮助页和关于页；固件页提供来自 GitHub 的更新（查找项目的最新发布，检查其 SHA-256 并安装到另一个槽位）、两个槽位之间的切换，以及把正在运行的固件复制到另一个槽位。
 
 ## 🔒 安全与防护
 
@@ -141,7 +142,7 @@ EH3D-NODE-BUNGARD 是 EH3D 程序与机床之间的最后一级：目前 EH3D-DR
 | 内存耗尽或死机的节点 | 看门狗监视任务和内部内存，重启而不形成循环；内存不足时面板入口处有闸门 |
 | 有人拿到了节点 | 上电后前三十秒内按住 BOOT 八秒会清除设置和用户（物理接触就是复位，这是设计如此） |
 
-**没有防御的内容：** 节点还没有急停输入，只能通过指示灯看到限位开关；更新没有签名（来自 GitHub 的更新尚未构建：需要签名密钥）；HTTPS 面板自行生成的证书会让浏览器报警；没有任何东西在电路板上运行过，也未经独立审查。请私下报告漏洞（见 [SECURITY.md](SECURITY.md)）。
+**没有防御的内容：** 节点还没有急停输入，只能通过指示灯看到限位开关；更新没有签名（来自 GitHub 的更新通过 HTTPS 检查发布所公布的 SHA-256，且仅在管理员要求时进行；仍缺少签名密钥）；HTTPS 面板自行生成的证书会让浏览器报警；没有任何东西在电路板上运行过，也未经独立审查。请私下报告漏洞（见 [SECURITY.md](SECURITY.md)）。
 
 ## 🔌 接口
 
@@ -191,11 +192,11 @@ python -I tools/ci_validate.py
 
 ## 🧪 测试
 
-主机测试（`build.bat` 或 `./build.sh`，然后 `ctest`）共 9 个程序，全部通过：`core_tests`（104 项检查：帧和会话规则）、`test_base`（382）、`test_clock`（输出 ok）、`test_settings`（392）、`test_machine`（75）、`test_shared`（627）和 `test_shared_eth`（629，以太网板子配置）——统计到 2,209 项检查——另有 `panel_text`（8 种语言共 315 行、使用 265 个键、36 个带文本的固件错误码）和 `task_safety`（10 个任务，小栈上没有设置的大副本）。它们覆盖 CRC 和损坏后重新同步的解码器、令牌登录、上膛、沉默时停止、主轴规则（上限、不反转、延时）、设置及其范围、引脚冲突和保留引脚、用户和会话、网络方案、时钟和 JSON。面板还在浏览器中对 `tools/panel_mock.mjs` 做过测试，那是一个不需要电路板就能提供面板的替身节点。CI 运行 `python -I tools/ci_validate.py` 以及在 Linux 上把警告视为错误的主机测试。两个固件镜像（ESP-IDF 5.5.5）的编译是手工完成的，不属于 CI；没有任何东西在电路板上运行。
+主机测试（`build.bat` 或 `./build.sh`，然后 `ctest`）共 10 个程序，全部通过：`core_tests`（104 项检查：帧和会话规则）、`test_base`（382）、`test_clock`（输出 ok）、`test_settings`（392）、`test_machine`（75）、`test_shared`（627）和 `test_shared_eth`（629，以太网板子配置）——统计到 2,235 项检查——另有 `panel_text`（8 种语言共 315 行、使用 265 个键、36 个带文本的固件错误码）和 `task_safety`（10 个任务，小栈上没有设置的大副本）。它们覆盖 CRC 和损坏后重新同步的解码器、令牌登录、上膛、沉默时停止、主轴规则（上限、不反转、延时）、设置及其范围、引脚冲突和保留引脚、用户和会话、网络方案、时钟和 JSON。面板还在浏览器中对 `tools/panel_mock.mjs` 做过测试，那是一个不需要电路板就能提供面板的替身节点。CI 运行 `python -I tools/ci_validate.py` 以及在 Linux 上把警告视为错误的主机测试。两个固件镜像（ESP-IDF 5.5.5）的编译是手工完成的，不属于 CI；没有任何东西在电路板上运行。
 
 ## 🏗️ 构建与发布
 
-版本号位于 `eh3d.project.json` 和构建中，每个版本在 [CHANGELOG.md](CHANGELOG.md) 中都有条目。`build.sh` / `build.bat` 编译并运行主机测试，`test.sh` / `test.bat` 只运行测试，都在实时面板中进行；两者都不会更改版本。固件镜像由 `tools/build_node.sh`（Windows 上用 ESP-IDF 5.5.5）生成，名为 `eh3d-node-bungard-<版本>-<板子>-{app,complete}.bin`。尚未发布任何版本，也没有烧录过任何镜像。来自 GitHub 的更新尚未构建：需要签名密钥。
+版本号位于 `eh3d.project.json` 和构建中，每个版本在 [CHANGELOG.md](CHANGELOG.md) 中都有条目。`build.sh` / `build.bat` 编译并运行主机测试，`test.sh` / `test.bat` 只运行测试，都在实时面板中进行；两者都不会更改版本。固件镜像由 `tools/build_node.sh`（Windows 上用 ESP-IDF 5.5.5）生成，名为 `eh3d-node-bungard-<版本>-<板子>-{app,complete}.bin`。尚未发布任何版本，也没有烧录过任何镜像。来自 GitHub 的更新已构建，但从未在电路板上对真实的 GitHub 运行过；发布版本没有签名，所以它信任发布所公布的哈希。
 
 ## 🩺 故障排除
 
@@ -226,13 +227,15 @@ EH3D-NODE-BUNGARD/
 │   ├── byte_queue.hpp drain.hpp                 字节队列和作业完成
 │   ├── bungard_config.hpp                       机床设置和引脚规则
 │   ├── node_settings.hpp auth.hpp               设置和用户（共享基础）
-│   └── netplan.hpp json.hpp                     网络方案和 JSON（共享基础）
+│   ├── netplan.hpp json.hpp                     网络方案和 JSON（共享基础）
+│   └── release_assets.hpp semver.hpp            发布中哪个文件是这块板子的镜像
 ├── main/
 │   ├── app_main.cpp link_server.cpp             启动和控制链路
 │   ├── central_uart.cpp lamps.cpp               串行线路和指示灯
 │   ├── spindle.cpp machine_api.cpp              主轴输出和 API
 │   ├── web_server.cpp network.cpp               面板服务器、网络（基础）
-│   └── node_store.cpp node_guard.cpp            设置存储、看门狗（基础）
+│   ├── node_store.cpp node_guard.cpp            设置存储、看门狗（基础）
+│   └── github_update.cpp entropy.cpp            来自 GitHub 的更新和槽位复制
 ├── panel/
 │   ├── index.html style.css                     页面和侧边菜单布局
 │   └── app.js text.js                           页面和八种语言的文本
@@ -260,7 +263,7 @@ EH3D-NODE-BUNGARD/
 * 没有任何东西在电路板上运行过：没有烧录镜像，没有在真实节点上做过设置，没有程序与它通信，也没有接到机床上。
 * 带有 RS-232 转换器、指示灯输入和主轴驱动器的载板只是纸面上的设计（`docs/BOARD.md`）。
 * 节点没有急停输入（载板上留有按钮的位置），只能通过指示灯看到限位开关。
-* 来自 GitHub 的更新尚未构建：需要签名密钥。面板只在浏览器中对替身节点看过，没有从电路板上提供过服务。
+* 来自 GitHub 的更新已构建，但从未在电路板上对真实的 GitHub 运行过；发布版本没有签名，所以它信任发布所公布的哈希。面板只在浏览器中对替身节点看过，没有从电路板上提供过服务。
 * 完成所持作业的功能没有在电路板上运行过；其规则已在计算机上测试。
 * 只针对 Bungard CCD MTC 和 CCD/2 MTC 机床；ATC 型号不在范围内。
 
@@ -269,7 +272,7 @@ EH3D-NODE-BUNGARD/
 * 给每块板子烧录镜像，完成首次设置，并对照 Rust 库检查链路。
 * 绘制并制作载板，连接主轴驱动器和机床。
 * 添加用于物理停止的按钮输入。
-* 对更新签名，并从 GitHub 获取。
+* 对发布版本签名，并在来自 GitHub 的更新中检查签名。
 
 ## 🌍 语言
 

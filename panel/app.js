@@ -37,7 +37,7 @@ function el(tag, attrs, ...kids) {
 }
 
 const S = {
-  session: null, page: "status", message: null, restartNeeded: false, rebooting: false, busy: false,
+  session: null, page: "overview", message: null, restartNeeded: false, rebooting: false, busy: false,
   cfg: null, saved: "",                       // the network settings (GET/PUT config) and what was last saved
   machine: null, machineSaved: "",            // the machine settings (GET/PUT machine) and what was last saved
   token: { state: "", value: "" },            // the access token is write-only: "set" (a new one is typed), "clear" (remove it) or "" (leave it)
@@ -45,6 +45,7 @@ const S = {
   generated: false,
   status: null,                               // the node's own status (flash slots, network)
   ms: null,                                   // the machine's status, polled
+  github: { busy: false, checked: false, available: false, latest: "", error: "", installing: false, state: "", pct: 0 },
   users: [], scan: { busy: false, list: null, error: "" }, log: { next: 0, text: "" }, channelAuto: 1,
 };
 const roleName = role => (role === "admin" ? t("roleAdmin") : t("roleViewer"));
@@ -138,7 +139,7 @@ function networkBody() {
   if (typeof sta.password === "string") body.sta.password = sta.password;
   return body;
 }
-const isDirty = () => (S.page === "machine" && S.machine ? JSON.stringify(machineBody()) !== S.machineSaved : S.page === "network" && S.cfg ? JSON.stringify(networkBody()) !== S.saved : false);
+const isDirty = () => (S.page === "machine" && S.machine ? JSON.stringify(machineBody()) !== S.machineSaved : (S.page === "network" || S.page === "wifi") && S.cfg ? JSON.stringify(networkBody()) !== S.saved : false);
 
 // ---- checking the machine's settings in the browser, before anything is sent ---------------------------------------------------------------
 
@@ -246,7 +247,7 @@ async function persistLanguage() {
 async function discard() {
   S.token = { state: "", value: "" }; S.generated = false; S.problems = { cfg: {}, machine: {} }; S.server = {}; S.touched = new Set(); S.message = null;
   if (S.page === "machine") await loadMachine();
-  else if (S.page === "network") await loadConfig();
+  else if (S.page === "network" || S.page === "wifi") await loadConfig();
   render();
 }
 
@@ -326,14 +327,19 @@ async function reboot() {
 // ---- pages: shared pieces -------------------------------------------------------------------------------------------------------------
 
 const PAGES = [
-  { id: "status", icon: "◎", label: "navStatus" },
-  { id: "machine", icon: "⚙", label: "navMachine" },
-  { id: "network", icon: "⌁", label: "navNetwork" },
-  { id: "users", icon: "☺", label: "navUsers" },
-  { id: "update", icon: "⇪", label: "navUpdate" },
-  { id: "log", icon: "≣", label: "navLog" },
-  { id: "system", icon: "▣", label: "navSystem" },
+  { id: "overview", icon: "◎", label: "navOverview", group: "grpNode" },
+  { id: "status", icon: "◉", label: "navStatus", group: "grpNode" },
+  { id: "machine", icon: "⚙", label: "navMachine", group: "grpNode" },
+  { id: "network", icon: "⇄", label: "navNetwork", group: "grpNetwork" },
+  { id: "wifi", icon: "◌", label: "navWifi", group: "grpNetwork" },
+  { id: "users", icon: "☺", label: "navUsers", group: "grpSystem" },
+  { id: "update", icon: "⇪", label: "navUpdate", group: "grpSystem" },
+  { id: "log", icon: "≣", label: "navLog", group: "grpSystem" },
+  { id: "help", icon: "?", label: "navHelp", group: "grpSystem" },
+  { id: "about", icon: "ⓘ", label: "navAbout", group: "grpSystem" },
+  { id: "system", icon: "▣", label: "navSystem", group: "grpSystem" },
 ];
+const REPO_NAME = "EH3D-NODE-BUNGARD";
 
 const card = (title, ...kids) => el("section", { class: "card" }, title ? el("h2", {}, title) : null, ...kids);
 const kv = rows => el("dl", { class: "kv" }, rows.filter(Boolean).flatMap(([k, v]) => [el("dt", {}, k), el("dd", {}, v)]));
@@ -527,6 +533,171 @@ function currentNetworkCard() {
     n.ethernet_available && n.ethernet_ok === false ? note(t("ethernetMissing"), "bad") : null);
 }
 
+// ---- the summary: what the node is, its hardware, its clock, its flash and its network (the first page of the node) ----------------------------
+
+const TIME_ZONES = [
+  ["UTC0", "UTC"], ["WET0WEST,M3.5.0/1,M10.5.0", "Lisbon · London · Dublin"], ["CET-1CEST,M3.5.0,M10.5.0/3", "Madrid · Paris · Berlin · Rome (CET/CEST)"],
+  ["EET-2EEST,M3.5.0/3,M10.5.0/4", "Athens · Helsinki · Kyiv (EET/EEST)"], ["MSK-3", "Moscow · Istanbul"], ["GMT0", "Reykjavik · Dakar"],
+  ["<-03>3", "Buenos Aires · São Paulo"], ["EST5EDT,M3.2.0,M11.1.0", "New York · Toronto"], ["CST6CDT,M3.2.0,M11.1.0", "Chicago · Mexico City"],
+  ["MST7MDT,M3.2.0,M11.1.0", "Denver"], ["PST8PDT,M3.2.0,M11.1.0", "Los Angeles · Vancouver"], ["<-05>5", "Bogotá · Lima"], ["<-04>4", "Caracas · La Paz"],
+  ["GST-4", "Dubai"], ["IST-5:30", "India"], ["<+07>-7", "Bangkok · Jakarta"], ["CST-8", "Beijing · Singapore · Hong Kong"], ["JST-9", "Tokyo · Seoul"],
+  ["AEST-10AEDT,M10.1.0,M4.1.0/3", "Sydney · Melbourne"], ["NZST-12NZDT,M9.5.0,M4.1.0/3", "Auckland"], ["<+02>-2", "Cairo · Johannesburg"],
+];
+const zoneName = rule => { const hit = TIME_ZONES.find(z => z[0] === rule); return hit ? hit[1] + " (" + rule + ")" : rule; };
+const utcLabel = minutes => "UTC" + (minutes < 0 ? "-" : "+") + String(Math.floor(Math.abs(minutes) / 60)).padStart(2, "0") + ":" + String(Math.abs(minutes) % 60).padStart(2, "0");
+const BOARD_NAMES = { "s3-eth": "Waveshare ESP32-S3-ETH", "s3-wifi": "ESP32-S3-WROOM-1 N16R8", "p4": "ESP32-P4" };
+const reasonText = code => { const key = "reason" + (code ? code.charAt(0).toUpperCase() + code.slice(1) : ""); return L[key] ? t(key) : t("reasonOther"); };
+const kvf = rows => { const d = kv(rows); d.className = "kv framed"; return d; };
+
+function flashCard(flash) {
+  const parts = flash.partitions || [];
+  const rows = [[t("flashTotal"), fmtBytes(flash.total)], [t("flashAllocated"), fmtBytes(flash.allocated) + " (" + Math.round(flash.allocated * 100 / flash.total) + " %)"], [t("flashUnallocated"), fmtBytes(flash.total - flash.allocated)]];
+  parts.forEach(p => {
+    const label = p.label.toUpperCase();
+    if (p.app) {
+      const state = p.running ? " · " + t("slotRunning") : p.next_boot ? " · " + t("slotNextBoot") : "";
+      rows.push([label, p.used ? fmtBytes(p.used) + " / " + fmtBytes(p.size) + " (" + Math.round(p.used * 100 / p.size) + " %) · " + fmtBytes(p.size - p.used) + " " + t("flashFree") + " · v" + p.version + state : t("slotEmpty") + " · " + fmtBytes(p.size)]);
+    } else rows.push([label, fmtBytes(p.size)]);
+  });
+  return card(t("ovFlash"), kvf(rows));
+}
+
+function overviewPage() {
+  const s = S.status;
+  if (!s) return el("p", { class: "muted" }, t("loading"));
+  const n = s.network || {}, m = S.ms;
+  const layoutNote = n.ap_setup ? t("setupNetwork") : n.ap_active ? t("ownNetwork") : "";
+  return el("div", { class: "grid" },
+    card(t("ovNode"), kvf([[t("nodeId"), s.node_id], [t("nodeName"), s.name], [t("firmware"), s.version + (s.partition ? " (" + s.partition + ")" : "")], [t("uptime"), formatUptime(s.uptime_s)],
+      [t("resetReason"), reasonText(s.reset_reason)], [t("memory"), Math.round(s.heap_free / 1024) + " kB" + (s.psram_free ? " + " + Math.round(s.psram_free / 1048576 * 10) / 10 + " MB PSRAM" : "")]])),
+    m ? card(t("ovMachineLink"), kvf([[t("stLink"), m.link_up ? t("stLinkUp") : t("stLinkDown")], [t("stClient"), m.client ? t("stClientYes") : t("stClientNo")], m.armed ? [t("stArmed"), t("yes")] : null])) : null,
+    s.hardware ? card(t("ovHardware"), kvf([[t("chip"), s.hardware.chip.toUpperCase() + " rev " + s.hardware.chip_revision + " · " + s.hardware.cores + " " + t("cores")],
+      [t("flash"), s.hardware.flash_mb + " MB"], [t("psram"), s.hardware.psram_mb ? s.hardware.psram_mb + " MB" : t("none")],
+      s.hardware.cpu_mhz ? [t("cpuFreq"), s.hardware.cpu_mhz + " MHz"] : null,
+      typeof s.hardware.wifi === "boolean" ? [t("radios"), [s.hardware.wifi ? "Wi-Fi" : null, s.hardware.ble ? "Bluetooth LE" : null].filter(Boolean).join(" · ") || t("none")] : null,
+      typeof s.hardware.brownout_level === "number" ? [t("brownoutLevel"), String(s.hardware.brownout_level)] : null,
+      typeof s.hardware.secure_boot === "boolean" ? [t("secureBoot"), s.hardware.secure_boot ? t("yes") : t("no")] : null,
+      typeof s.hardware.flash_encryption === "boolean" ? [t("flashEncryption"), s.hardware.flash_encryption ? t("yes") : t("no")] : null,
+      [t("appIdf"), s.hardware.app_idf], [t("bootloaderIdf"), s.hardware.bootloader_idf]])) : null,
+    s.time ? card(t("ovTime"), kvf([[t("localTime"), s.time.set ? s.time.local + " (" + utcLabel(s.time.utc_offset_min) + ")" : t("clockNotSet")],
+      [t("timeSource"), !s.time.set ? "—" : s.time.synced ? t("timeFromNtp") : s.time.ntp ? t("timeNtpWaiting") : t("timeManual")], [t("timeZone"), zoneName(s.time.zone)]])) : null,
+    s.flash ? flashCard(s.flash) : null,
+    card(t("ovNetwork"), kvf([[t("board"), BOARD_NAMES[n.board] || n.board || "—"], [t("layout"), n.layout], [t("link"), n.link_up ? t("linkUp") : t("linkDown")], [t("address"), n.has_ip ? n.ip : "—"], [t("netmask"), n.netmask || "—"], [t("gateway"), n.gateway || "—"],
+      [t("dns"), n.dns || "—"], [t("mac"), n.mac],
+      n.ap_active ? [t("apActive"), "“" + n.ap_ssid + "” · " + t("channel") + " " + n.ap_channel + " · " + n.ap_clients + " " + t("apClients") + " · " + layoutNote] : null,
+      n.sta_ssid ? [t("station"), n.sta_ssid + (n.sta_connected ? " · " + n.sta_rssi + " dBm" : " · " + t("notConnected"))] : null]),
+      n.ethernet_available && n.ethernet_ok === false ? note(t("ethernetMissing"), "bad") : null));
+}
+
+// ---- Wi-Fi: the node's own access point, the network it joins and the backup networks it tries when that one is lost ------------------------------
+
+const MAX_BACKUP_NETWORKS = 3;
+function backupNetworks() {
+  const list = S.cfg.sta.backup || (S.cfg.sta.backup = []);
+  return el("div", {}, el("h3", {}, t("backupNetworksTitle")), el("p", { class: "hint" }, t("backupNetworksHint")),
+    list.map((network, i) => {
+      const base = "sta.backup." + i + ".";
+      return el("div", { class: "row" }, field("ssid", "cfg", base + "ssid", { max: 32 }), field("wifiPassword", "cfg", base + "password", { type: "password", hint: network.password_set ? t("passwordSet") : "" }),
+        el("button", { class: "b danger", type: "button", disabled: !isAdmin(), onclick: () => { list.splice(i, 1); refreshBar(); render(); } }, t("removeNetwork")));
+    }),
+    isAdmin() && list.length < MAX_BACKUP_NETWORKS
+      ? el("div", { class: "actions" }, el("button", { class: "b", type: "button", onclick: () => { list.push({ ssid: "", password: "" }); refreshBar(); render(); } }, t("addBackupNetwork")))
+      : null);
+}
+
+function wifiPage() {
+  if (!S.cfg) return el("p", { class: "muted" }, t("loading"));
+  const cfg = S.cfg, wired = isWired(), ap = cfg.ap;
+  const channels = [[0, t("channelAuto")]].concat(Array.from({ length: 13 }, (_, i) => [i + 1, String(i + 1)]));
+  return el("div", {}, note(t("netRestartNote"), "info"),
+    el("div", { class: "grid wide" },
+      wired ? card(t("wifiSta"), note(t("wiredNote"), "info")) : card(t("wifiSta"), field("staEnable", "cfg", "sta.enabled", { type: "checkbox", rerender: true }),
+        cfg.sta.enabled ? el("div", { class: "row" }, field("ssid", "cfg", "sta.ssid", { max: 32 }), field("wifiPassword", "cfg", "sta.password", { type: "password", hint: cfg.sta.password_set ? t("passwordSet") : "" })) : null,
+        el("div", { class: "actions" }, el("button", { class: "b", type: "button", disabled: !isAdmin() || S.scan.busy, onclick: scanNetworks }, t("scanNetworks"))), scanResults(),
+        el("p", { class: "hint" }, t("scanNote")), note(t("staNote"), "info"),
+        cfg.sta.enabled ? backupNetworks() : null),
+      card(t("wifiAp"), field("apEnable", "cfg", "ap.enabled", { type: "checkbox", rerender: true }),
+        ap.enabled ? [
+          el("div", { class: "row" }, field("ssid", "cfg", "ap.ssid", { max: 32 }),
+            field("security", "cfg", "ap.security", { type: "select", rerender: true, options: [["wpa2", t("secWpa2")], ["wpa3", t("secWpa3")], ["wpa2wpa3", t("secWpa2Wpa3")], ["open", t("secOpen")]] })),
+          ap.security !== "open" ? field("wifiPassword", "cfg", "ap.password", { type: "password", hint: ap.password_set ? t("passwordSet") : "" }) : null,
+          field("wifiChannel", "cfg", "ap.channel", { type: "select", number: true, options: channels, hint: ap.channel === 0 ? t("channelNow", S.channelAuto) : "" }),
+          field("hidden", "cfg", "ap.hidden", { type: "checkbox" })] : null,
+        !wired && !ap.enabled && !cfg.sta.enabled ? note(t("noWifiWarn"), "bad") : null,
+        note(t("apNote"), "info"))));
+}
+
+// ---- help and about ----------------------------------------------------------------------------------------------------------------------------
+
+const HELP_TOPICS = ["overview", "status", "machine", "network", "wifi", "users", "update", "log", "system"];
+let helpTopic = "overview";
+function helpPage() {
+  const paragraphs = t("help_" + helpTopic + "_text").split("\n\n");
+  return el("div", { class: "help" },
+    el("div", { class: "help-nav" }, HELP_TOPICS.map(topic => el("button", { type: "button", class: topic === helpTopic ? "active" : "", onclick: () => { helpTopic = topic; render(); } }, t("navHelpTab_" + topic)))),
+    card(t("help_" + helpTopic + "_title"), ...paragraphs.map(p => el("p", {}, p))));
+}
+
+function aboutPage() {
+  const s = S.status;
+  return el("div", { class: "grid wide" },
+    card(null,
+      el("p", { class: "eyebrow" }, "EH3D · ELECTRO HOBBY 3D"),
+      el("h2", {}, t("appName")),
+      el("p", {}, t("aboutDescription")),
+      kv([[t("nodeId"), s ? s.node_id : "—"], [t("nodeName"), s ? s.name : "—"], [t("firmware"), s ? s.version : "—"],
+        [t("author"), "JuanenRac · Electro Hobby 3D"], [t("license"), "GPL-3.0-or-later"]]),
+      el("p", { class: "muted mono" }, "github.com/JuanenRac/" + REPO_NAME),
+      el("p", { class: "muted" }, t("aboutIndependent"))));
+}
+
+// ---- the update from GitHub: the node looks for the newest release of its own repository and installs it ---------------------------------------
+
+async function githubCheck() {
+  S.github.busy = true; S.github.error = ""; render();
+  // The look for a release is done by the node in a task of its own: it is started, and asked about every second or so.
+  const start = await api("POST", "ota/check", {});
+  if (!start.ok) { S.github.busy = false; S.github.checked = true; S.github.available = false; S.github.error = errorText((start.data && start.data.error) || "network"); render(); return; }
+  const poll = async (tries) => {
+    const r = await api("GET", "ota/check");
+    if (r.ok && r.data.state === "checking" && tries < 40) { setTimeout(() => poll(tries + 1), 800); return; }
+    S.github.busy = false;
+    if (r.ok && r.data.ok) { S.github.checked = true; S.github.available = r.data.update_available; S.github.latest = r.data.latest_version; }
+    else { S.github.checked = true; S.github.available = false; S.github.error = errorText((r.data && r.data.error) || "network"); }
+    render();
+  };
+  setTimeout(() => poll(0), 800);
+}
+
+// The install runs in the node (a task of its own): this starts it and asks, twice a second, how far it is.
+async function githubInstall() {
+  S.github.installing = true; S.github.error = ""; S.github.state = "downloading"; S.github.pct = 0; render();
+  const r = await api("POST", "ota/install", {});
+  if (!r.ok) { S.github.installing = false; S.github.error = errorText(r.data.error); render(); return; }
+  const poll = async () => {
+    const q = await api("GET", "ota/progress");
+    if (!q.ok) { S.rebooting = true; render(); waitForNode(6000); return; }   // the node is already restarting into the new version
+    const d = q.data;
+    S.github.state = d.state;
+    S.github.pct = d.total ? Math.round(d.got * 100 / d.total) : 0;
+    if (d.state === "done") { S.rebooting = true; render(); waitForNode(6000); return; }
+    if (d.state === "failed") { S.github.installing = false; S.github.error = errorText(d.error); render(); return; }
+    render(); setTimeout(poll, 500);
+  };
+  setTimeout(poll, 500);
+}
+
+function githubCard() {
+  return card(t("githubUpdateTitle"),
+    el("div", { class: "actions" }, el("button", { class: "b", type: "button", disabled: !isAdmin() || S.github.busy, onclick: githubCheck }, S.github.busy ? t("checking") : t("checkGithub"))),
+    S.github.checked && !S.github.error ? el("p", { class: "muted" }, S.github.available ? t("githubAvailable", S.github.latest) : t("githubUpToDate")) : null,
+    S.github.error ? el("p", { class: "err" }, S.github.error) : null,
+    S.github.available ? el("div", { class: "actions" }, el("button", { class: "b danger", type: "button", disabled: !isAdmin() || S.github.installing, onclick: githubInstall }, S.github.installing ? t("installing") : t("installUpdate"))) : null,
+    S.github.installing ? el("div", { class: "progress" }, el("i", { style: "width:" + S.github.pct + "%" })) : null,
+    S.github.installing ? el("p", { class: "muted", role: "status" }, S.github.state === "verifying" ? t("githubVerifying") : t("githubDownloading", S.github.pct)) : null,
+    note(t("githubUpdateNote"), "info"));
+}
+
 function networkPage() {
   if (!S.cfg) return el("p", { class: "muted" }, t("loading"));
   const cfg = S.cfg, wired = isWired(), ap = cfg.ap;
@@ -541,19 +712,7 @@ function networkPage() {
         !cfg.ip.dhcp ? el("div", { class: "row" }, field("address", "cfg", "ip.address", { max: 15 }), field("netmask", "cfg", "ip.netmask", { max: 15 }), field("gateway", "cfg", "ip.gateway", { max: 15 }),
           field("dns1", "cfg", "ip.dns1", { max: 15 }), field("dns2", "cfg", "ip.dns2", { max: 15 })) : null,
         wired ? note(t("wiredNote"), "info") : null),
-      wired ? null : card(t("wifiSta"), field("staEnable", "cfg", "sta.enabled", { type: "checkbox", rerender: true }),
-        cfg.sta.enabled ? el("div", { class: "row" }, field("ssid", "cfg", "sta.ssid", { max: 32 }), field("wifiPassword", "cfg", "sta.password", { type: "password", hint: cfg.sta.password_set ? t("passwordSet") : "" })) : null,
-        el("div", { class: "actions" }, el("button", { class: "b", type: "button", disabled: !isAdmin() || S.scan.busy, onclick: scanNetworks }, t("scanNetworks"))), scanResults(),
-        el("p", { class: "hint" }, t("scanNote")), note(t("staNote"), "info")),
-      card(t("wifiAp"), field("apEnable", "cfg", "ap.enabled", { type: "checkbox", rerender: true }),
-        ap.enabled ? [
-          el("div", { class: "row" }, field("ssid", "cfg", "ap.ssid", { max: 32 }),
-            field("security", "cfg", "ap.security", { type: "select", rerender: true, options: [["wpa2", t("secWpa2")], ["wpa3", t("secWpa3")], ["wpa2wpa3", t("secWpa2Wpa3")], ["open", t("secOpen")]] })),
-          ap.security !== "open" ? field("wifiPassword", "cfg", "ap.password", { type: "password", hint: ap.password_set ? t("passwordSet") : "" }) : null,
-          field("wifiChannel", "cfg", "ap.channel", { type: "select", number: true, options: channels, hint: ap.channel === 0 ? t("channelNow", S.channelAuto) : "" }),
-          field("hidden", "cfg", "ap.hidden", { type: "checkbox" })] : null,
-        !wired && !ap.enabled && !cfg.sta.enabled ? note(t("noWifiWarn"), "bad") : null,
-        note(t("apNote"), "info"))));
+      wired ? null : note(t("wifiMoved"), "info")));
 }
 
 // ---- users ----------------------------------------------------------------------------------------------------------------------------
@@ -626,7 +785,23 @@ function slotCard() {
       const r = await api("POST", "ota/switch", {});
       if (!r.ok) { result.textContent = errorText(r.data.error); result.className = "err"; return; }
       S.rebooting = true; render(); waitForNode(4000);
-    } }, usable ? t("switchSlot", other.label, other.version) : t("switchSlotNone"))));
+    } }, usable ? t("switchSlot", other.label, other.version) : t("switchSlotNone")),
+    el("button", { class: "b", type: "button", disabled: !isAdmin() || !running, onclick: async () => {
+      if (!running || !confirm(t("copyAsk", running.label, running.version, other ? other.label : ""))) return;
+      const start = await api("POST", "ota/copy", {});
+      if (!start.ok) { result.textContent = errorText(start.data.error); result.className = "err"; return; }
+      result.className = "muted";
+      const follow = async () => {
+        const q = await api("GET", "ota/copy");
+        if (!q.ok) { result.textContent = errorText(q.data.error); result.className = "err"; return; }
+        const d = q.data;
+        if (d.state === "copying") { result.textContent = t("copyRunning", d.total ? Math.round(d.done * 100 / d.total) : 0); setTimeout(follow, 700); return; }
+        if (d.state === "done") { result.textContent = t("copyDone", d.version || ""); await refreshNodeStatus(); render(); return; }
+        result.textContent = errorText(d.error || "unknown"); result.className = "err";
+      };
+      result.textContent = t("copyRunning", 0);
+      setTimeout(follow, 700);
+    } }, t("copySlot", running ? running.label : "", other ? other.label : ""))));
 }
 
 function updatePage() {
@@ -642,6 +817,7 @@ function updatePage() {
           else { result.textContent = errorText(r.error); result.className = "err"; }
         });
       } }, t("upload")))),
+    githubCard(),
     slotCard());
 }
 
@@ -724,20 +900,22 @@ function updatePills() {
 }
 
 function shell(content) {
-  const nav = el("nav", { class: "nav", "aria-label": t("navMenu") }, PAGES.map(p => el("button", { type: "button", class: p.id === S.page ? "active" : "", "aria-current": p.id === S.page ? "page" : undefined, onclick: () => go(p.id) }, el("span", { class: "ico", "aria-hidden": "true" }, p.icon), el("span", { class: "nav-label" }, t(p.label)))));
+  const groups = [...new Set(PAGES.map(p => p.group))];
+  const nav = el("nav", { class: "nav", "aria-label": t("navMenu") }, groups.map(g => [el("div", { class: "nav-title" }, t(g)),
+    PAGES.filter(p => p.group === g).map(p => el("button", { type: "button", class: p.id === S.page ? "active" : "", "aria-current": p.id === S.page ? "page" : undefined, onclick: () => go(p.id) }, el("span", { class: "ico", "aria-hidden": "true" }, p.icon), el("span", { class: "nav-label" }, t(p.label))))]));
   const page = PAGES.find(p => p.id === S.page);
   barNode = el("div", { class: "savebar", hidden: true });
+  const foot = el("div", { class: "side-foot" },
+    el("span", { class: "who" }, el("span", { class: "dot " + (S.status && S.status.network && S.status.network.has_ip ? "ok" : "bad"), "aria-hidden": "true" }), S.session.user + " · " + roleName(S.session.role)),
+    langPicker(true), themeButton(),
+    el("button", { class: "b", type: "button", onclick: async () => { await api("POST", "logout", {}); S.session.authenticated = false; start(); } }, t("signOut")));
   return el("div", { class: "shell" },
     el("a", { class: "skip", href: "#main", onclick: e => { e.preventDefault(); const m = document.getElementById("main"); if (m) m.focus(); } }, t("skip")),
-    // the menu is on the left of a wide screen and on top of a narrow one (a phone): the brand, the tools of the person and the pages
+    // the menu is on the left of a wide screen and on top of a narrow one (a phone): the brand, the pages in their groups and, at the foot, who is signed in, the language and the sign-out
     el("aside", { class: "side" },
       el("div", { class: "brand" }, el("span", { class: "brand-mark", "aria-hidden": "true" }, "EH3D"), el("div", {}, el("strong", {}, t("appName")), el("small", {}, S.session.node_id))),
-      el("div", { class: "tools" },
-        el("span", { class: "who" }, S.session.user + " · " + roleName(S.session.role)),
-        langPicker(true), themeButton(),
-        el("button", { class: "b", type: "button", onclick: async () => { await api("POST", "logout", {}); S.session.authenticated = false; start(); } }, t("signOut"))),
-      nav),
-    el("main", { id: "main", tabIndex: -1 }, el("div", { class: "page-head" }, el("h1", {}, t(page.label)), el("div", { class: "pills", id: "pills" })), content),
+      nav, foot),
+    el("main", { id: "main", tabIndex: -1 }, el("div", { class: "page-head" }, el("div", {}, el("p", { class: "eyebrow" }, t(page.group)), el("h1", {}, t(page.label))), el("div", { class: "pills", id: "pills" })), content),
     barNode);
 }
 
@@ -757,7 +935,8 @@ function go(id) { S.page = id; S.message = S.message && S.message.kind === "ok" 
 
 async function enterPage(id) {
   if (id === "status" || id === "machine") { if (!S.machine) await loadMachine(); }
-  if (id === "update" || id === "network") await refreshNodeStatus();
+  if (id === "update" || id === "network" || id === "wifi" || id === "overview" || id === "about" || id === "status" || id === "machine" || id === "head") await refreshNodeStatus();
+  if (id === "overview") await refreshStatus();
   if (id === "log") await refreshLog();
   if (id === "status") await refreshStatus();
 }
@@ -772,11 +951,15 @@ function render() {
   switch (S.page) {
     case "machine": content = machinePage(); break;
     case "network": content = networkPage(); break;
+    case "wifi": content = wifiPage(); break;
+    case "help": content = helpPage(); break;
+    case "about": content = aboutPage(); break;
     case "users": content = usersPage(); break;
     case "update": content = updatePage(); break;
     case "log": content = logPage(); break;
     case "system": content = systemPage(); break;
-    default: content = statusPage();
+    case "status": content = statusPage(); break;
+    default: content = overviewPage();
   }
   $app.replaceChildren(shell(content));
   document.title = t(PAGES.find(p => p.id === S.page).label) + " - " + t("appName");
@@ -864,8 +1047,8 @@ async function start() {
     await Promise.all([loadConfig(), loadMachine(), refreshStatus()]);
     const users = isAdmin() ? await api("GET", "users") : null;
     if (users && users.ok) S.users = users.data;
-    S.page = (location.hash.replace("#/", "") || "status");
-    if (!PAGES.some(p => p.id === S.page)) S.page = "status";
+    S.page = (location.hash.replace("#/", "") || "overview");
+    if (!PAGES.some(p => p.id === S.page)) S.page = "overview";
     await enterPage(S.page);
   }
   render();

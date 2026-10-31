@@ -23,10 +23,10 @@ const edge =
   args.edge ??
   ["C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe", "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe"].find((p) => existsSync(p));
 if (!url || !edge) {
-  console.error("usage: node tools/panel_shots.mjs --url URL [--out DIR] [--theme dark|light] [--lang en] [--edge PATH]");
+  console.error("usage: node tools/panel_shots.mjs --url URL [--out DIR] [--theme dark|light] [--lang en] [--pages a,b,c] [--edge PATH]");
   process.exit(2);
 }
-const PAGES = ["status", "machine", "network", "users", "firmware", "system"];
+const PAGES = (args.pages ?? "overview,status,machine,wifi,update,help").split(",");
 const port = 9300 + Math.floor(Math.random() * 500);
 const profile = mkdtempSync(path.join(tmpdir(), "eh3d-studio-shots-"));
 mkdirSync(out, { recursive: true });

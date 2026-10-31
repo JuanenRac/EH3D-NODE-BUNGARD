@@ -12,13 +12,13 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Stack-C%2B%2B17%20%2B%20ESP--IDF-00599C.svg" alt="C++17 and ESP-IDF">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.3-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.4-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
 ---
 
-**Comprobación de honestidad - lo que se ejecuta hoy:** firmware en C++17 para el ESP32-S3 (ESP-IDF 5.5) que convierte el puerto RS-232 de la unidad de control de una máquina Bungard CCD en un puerto de red: un programa se conecta por TCP con un token de acceso, arma la máquina y envía los bytes de un movimiento, que el nodo pone en cola y saca a la línea al ritmo propio de la línea. También lee los LED de la máquina (HOME X, Y y Z, ENABLE, TOOL), maneja un husillo con una señal de velocidad de 0-10 V y líneas de marcha y sentido, y tiene un panel web con menú lateral (ocho idiomas) para la puesta en marcha, los usuarios, la red, la actualización y los ajustes propios de la máquina. Las reglas del enlace y los ajustes se prueban en un ordenador (9 programas de prueba, 2209 comprobaciones contadas) y el firmware compila sin avisos para las dos placas. **Todavía no se ha grabado ni ejecutado en una placa**, no se ha conectado nada a una máquina, y la placa portadora que reúne el convertidor RS-232, las entradas de los LED y el variador del husillo es un diseño sobre el papel.
+**Comprobación de honestidad - lo que se ejecuta hoy:** firmware en C++17 para el ESP32-S3 (ESP-IDF 5.5) que convierte el puerto RS-232 de la unidad de control de una máquina Bungard CCD en un puerto de red: un programa se conecta por TCP con un token de acceso, arma la máquina y envía los bytes de un movimiento, que el nodo pone en cola y saca a la línea al ritmo propio de la línea. También lee los LED de la máquina (HOME X, Y y Z, ENABLE, TOOL), maneja un husillo con una señal de velocidad de 0-10 V y líneas de marcha y sentido, y tiene un panel web con menú lateral (ocho idiomas) para la puesta en marcha, los usuarios, la red, la actualización y los ajustes propios de la máquina. Las reglas del enlace y los ajustes se prueban en un ordenador (10 programas de prueba, 2235 comprobaciones contadas) y el firmware compila sin avisos para las dos placas. **Todavía no se ha grabado ni ejecutado en una placa**, no se ha conectado nada a una máquina, y la placa portadora que reúne el convertidor RS-232, las entradas de los LED y el variador del husillo es un diseño sobre el papel.
 
 ---
 
@@ -28,9 +28,9 @@
 
 | | |
 |---|---|
-| Versión | `0.0.3` |
+| Versión | `0.0.4` |
 | Madurez | Andamiaje |
-| Pruebas | 9 programas de prueba en el ordenador (2209 comprobaciones contadas) |
+| Pruebas | 10 programas de prueba en el ordenador (2235 comprobaciones contadas) |
 | Pila tecnológica | C++17, ESP-IDF 5.5, ESP32-S3 |
 | En hardware real | No: las dos imágenes de firmware compilan, pero nada se ha grabado ni ejecutado en una placa y nada se ha conectado a una máquina |
 
@@ -45,7 +45,7 @@ Cada línea es una parte de este repositorio y la luz dice hasta dónde llega ho
 | Área | Estado | Qué significa aquí |
 |---|---|---|
 | Software | 🟡 | El firmware para el ESP32-S3 (ESP-IDF 5.5, C++17) compila sin avisos para las dos placas, Ethernet y Wi-Fi; no se ha grabado ninguna imagen. |
-| Pruebas | 🟡 | Pasan 9 programas de prueba en el ordenador (`ctest`): 2209 comprobaciones contadas del enlace, los ajustes, las reglas de la máquina y la base compartida, más la comprobación de los textos del panel (315 filas en 8 idiomas) y de las pilas de las tareas (10 tareas). |
+| Pruebas | 🟡 | Pasan 10 programas de prueba en el ordenador (`ctest`): 2235 comprobaciones contadas del enlace, los ajustes, las reglas de la máquina y la base compartida, más la comprobación de los textos del panel (315 filas en 8 idiomas) y de las pilas de las tareas (10 tareas). |
 | Enlace de control | 🟡 | El protocolo con tramas (CRC, inicio de sesión con token, armado, cola de bytes, parada cuando la sesión calla) está cubierto por las pruebas en el ordenador; ningún programa ha hablado con un nodo real. |
 | Panel web | 🟡 | El panel web (menú lateral, ocho idiomas: puesta en marcha, máquina, red, usuarios, actualización, registro, sistema) tiene sus textos comprobados y se ejercita contra una simulación del nodo en un navegador; nunca se ha servido desde una placa. |
 | Husillo y LED | 🟠 | La señal de velocidad de 0-10 V, las líneas de marcha y sentido (sin invertir mientras gira) y las cinco entradas de LED se prueban en el ordenador; no se ha conectado ningún variador ni máquina. |
@@ -81,40 +81,40 @@ Cómo encajan las partes de este repositorio: quién lo usa, qué contiene y de 
 ## 🖼️ Capturas de pantalla
 
 <p align="center">
+  <img src="images/screenshots/panel-overview.png" alt="panel-overview" width="100%">
+</p>
+
+<p align="center"><em>La página Resumen: el nodo, su hardware, su reloj, su flash con los dos slots de firmware y su red.</em></p>
+
+<p align="center">
   <img src="images/screenshots/panel-status.png" alt="panel-status" width="100%">
 </p>
 
-<p align="center"><em>La página Estado, en el tema Forge de los demás programas de EH3D: el enlace de control, los indicadores de la máquina, las líneas de la unidad de control y el husillo. La sirve el nodo de pruebas con el que se desarrolla el panel: ninguna placa ha ejecutado todavía el firmware.</em></p>
+<p align="center"><em>La página Estado, en el tema Forge de los otros programas EH3D.</em></p>
 
 <p align="center">
   <img src="images/screenshots/panel-machine.png" alt="panel-machine" width="100%">
 </p>
 
-<p align="center"><em>La página Máquina: el enlace de control, los pines RS-232, los indicadores y el token de acceso.</em></p>
+<p align="center"><em>La página Máquina: el enlace de control, los pines RS-232, las lámparas, el husillo y el token de acceso.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-network.png" alt="panel-network" width="100%">
+  <img src="images/screenshots/panel-wifi.png" alt="panel-wifi" width="100%">
 </p>
 
-<p align="center"><em>La página Red: cómo llega el nodo a la red.</em></p>
+<p align="center"><em>La página Wi-Fi: la red a la que se une el nodo y hasta tres redes de respaldo por si se pierde.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-users.png" alt="panel-users" width="100%">
+  <img src="images/screenshots/panel-update.png" alt="panel-update" width="100%">
 </p>
 
-<p align="center"><em>La página Usuarios: las personas que pueden abrir el panel y su rol.</em></p>
+<p align="center"><em>La página Firmware: la actualización desde GitHub, la subida de un fichero y los dos slots, con la copia de uno sobre otro.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-firmware.png" alt="panel-firmware" width="100%">
+  <img src="images/screenshots/panel-help.png" alt="panel-help" width="100%">
 </p>
 
-<p align="center"><em>La página Firmware: las dos ranuras, la que está en marcha y la actualización con vuelta atrás.</em></p>
-
-<p align="center">
-  <img src="images/screenshots/panel-system.png" alt="panel-system" width="100%">
-</p>
-
-<p align="center"><em>La página Sistema: la identidad del nodo, el reinicio y el restablecimiento de fábrica.</em></p>
+<p align="center"><em>La página Ayuda: un tema para cada página del panel.</em></p>
 
 ## ✨ Funciones
 
@@ -125,6 +125,7 @@ Cómo encajan las partes de este repositorio: quién lo usa, qué contiene y de 
 * **Husillo con barandillas:** la velocidad se limita a la máxima para la que se construyó el nodo, no invierte mientras gira ni justo después de pararse, y se detiene con la máquina.
 * **Actualización con vuelta atrás:** una imagen entra en la ranura que no está en uso y queda a prueba hasta que se puede llegar al nodo; el cargador de arranque vuelve atrás cuando no se puede.
 * **Se cuida solo:** un vigilante observa las tareas y la memoria, y un nodo que no tiene dirección tras noventa segundos abre de nuevo la red de puesta en marcha para no quedar inalcanzable.
+* **El panel del nodo como lo tienen los nodos de A.R.M.O.R.:** un menú en grupos (nodo, red, sistema) con el idioma y el cierre de sesión al pie; un Resumen (el nodo, su hardware, su reloj, su flash y su red), una página Wi-Fi con hasta tres redes de respaldo que el nodo prueba cuando se pierde la principal, una Ayuda completa y una página Acerca de y, en Firmware, la actualización desde GitHub (busca la última versión del proyecto, comprueba su SHA-256 y la instala en la otra ranura), el cambio entre las dos ranuras y la copia de la que corre en la otra.
 
 ## 🔒 Seguridad y protección
 
@@ -141,7 +142,7 @@ Cómo encajan las partes de este repositorio: quién lo usa, qué contiene y de 
 | Un nodo que se queda sin memoria o se cuelga | un vigilante observa las tareas y la memoria interna y reinicia sin crear un bucle; una compuerta a la puerta del panel cuando falta memoria |
 | Alguien con el nodo en las manos | mantener BOOT ocho segundos en los primeros treinta tras el encendido borra los ajustes y los usuarios (el acceso físico es un reinicio por diseño) |
 
-**Lo que no se defiende:** el nodo no tiene todavía entrada de parada de emergencia y no ve los finales de carrera salvo por los LED; la actualización no está firmada (la actualización desde GitHub no está construida: necesita una clave de firma); el certificado propio del panel HTTPS hace que el navegador avise; nada se ha ejecutado en una placa y no ha habido revisión independiente. Informa de una vulnerabilidad en privado (véase [SECURITY.md](SECURITY.md)).
+**Lo que no se defiende:** el nodo no tiene todavía entrada de parada de emergencia y no ve los finales de carrera salvo por los LED; la actualización no está firmada (la actualización desde GitHub comprueba el SHA-256 que publica la versión, por HTTPS, y solo cuando un administrador lo pide; aún falta una clave de firma); el certificado propio del panel HTTPS hace que el navegador avise; nada se ha ejecutado en una placa y no ha habido revisión independiente. Informa de una vulnerabilidad en privado (véase [SECURITY.md](SECURITY.md)).
 
 ## 🔌 Interfaces
 
@@ -191,11 +192,11 @@ python -I tools/ci_validate.py
 
 ## 🧪 Pruebas
 
-Las pruebas en el ordenador (`build.bat` o `./build.sh`, luego `ctest`) son 9 programas y todos pasan: `core_tests` (104 comprobaciones: las tramas y las reglas de sesión), `test_base` (382), `test_clock` (imprime ok), `test_settings` (392), `test_machine` (75), `test_shared` (627) y `test_shared_eth` (629, el perfil de la placa Ethernet) - 2209 comprobaciones contadas - más `panel_text` (315 filas en 8 idiomas, 265 claves usadas, 36 códigos de error del firmware con texto) y `task_safety` (10 tareas, ninguna copia grande de los ajustes en una pila pequeña). Cubren el CRC y el decodificador que se resincroniza tras un daño, el inicio de sesión con token, el armado, la parada por silencio, las reglas del husillo (tope, sin inversión, retardo), los ajustes y sus rangos, conflictos de pines y pines reservados, usuarios y sesiones, el plan de red, el reloj y JSON. El panel también se ha ejercitado en un navegador contra `tools/panel_mock.mjs`, un nodo de pega que lo sirve sin placa. El CI ejecuta `python -I tools/ci_validate.py` y las pruebas en el ordenador en Linux con las advertencias como errores. La compilación de las dos imágenes de firmware (ESP-IDF 5.5.5) se hace a mano y no forma parte del CI; nada se ejecuta en una placa.
+Las pruebas en el ordenador (`build.bat` o `./build.sh`, luego `ctest`) son 10 programas y todos pasan: `core_tests` (104 comprobaciones: las tramas y las reglas de sesión), `test_base` (382), `test_clock` (imprime ok), `test_settings` (392), `test_machine` (75), `test_shared` (627) y `test_shared_eth` (629, el perfil de la placa Ethernet) - 2235 comprobaciones contadas - más `panel_text` (315 filas en 8 idiomas, 265 claves usadas, 36 códigos de error del firmware con texto) y `task_safety` (10 tareas, ninguna copia grande de los ajustes en una pila pequeña). Cubren el CRC y el decodificador que se resincroniza tras un daño, el inicio de sesión con token, el armado, la parada por silencio, las reglas del husillo (tope, sin inversión, retardo), los ajustes y sus rangos, conflictos de pines y pines reservados, usuarios y sesiones, el plan de red, el reloj y JSON. El panel también se ha ejercitado en un navegador contra `tools/panel_mock.mjs`, un nodo de pega que lo sirve sin placa. El CI ejecuta `python -I tools/ci_validate.py` y las pruebas en el ordenador en Linux con las advertencias como errores. La compilación de las dos imágenes de firmware (ESP-IDF 5.5.5) se hace a mano y no forma parte del CI; nada se ejecuta en una placa.
 
 ## 🏗️ Compilación y publicación
 
-La versión vive en `eh3d.project.json` y en la compilación, y cada versión tiene su entrada en [CHANGELOG.md](CHANGELOG.md). `build.sh` / `build.bat` compilan y ejecutan las pruebas en el ordenador y `test.sh` / `test.bat` ejecutan solo las pruebas, cada uno con un panel en vivo; ninguno cambia la versión. Las imágenes de firmware salen de `tools/build_node.sh` (o de ESP-IDF 5.5.5 en Windows) y se llaman `eh3d-node-bungard-<versión>-<placa>-{app,complete}.bin`. Todavía no se ha publicado ninguna versión ni se ha grabado ninguna imagen. La actualización desde GitHub no está construida: necesita una clave de firma.
+La versión vive en `eh3d.project.json` y en la compilación, y cada versión tiene su entrada en [CHANGELOG.md](CHANGELOG.md). `build.sh` / `build.bat` compilan y ejecutan las pruebas en el ordenador y `test.sh` / `test.bat` ejecutan solo las pruebas, cada uno con un panel en vivo; ninguno cambia la versión. Las imágenes de firmware salen de `tools/build_node.sh` (o de ESP-IDF 5.5.5 en Windows) y se llaman `eh3d-node-bungard-<versión>-<placa>-{app,complete}.bin`. Todavía no se ha publicado ninguna versión ni se ha grabado ninguna imagen. La actualización desde GitHub está construida y nunca se ha ejecutado contra el GitHub real en una placa; las versiones no están firmadas, así que confía en el hash que publican.
 
 ## 🩺 Resolución de problemas
 
@@ -226,13 +227,15 @@ EH3D-NODE-BUNGARD/
 │   ├── byte_queue.hpp drain.hpp                 cola de bytes, final del trabajo
 │   ├── bungard_config.hpp                       ajustes de máquina y pines
 │   ├── node_settings.hpp auth.hpp               ajustes y usuarios (base común)
-│   └── netplan.hpp json.hpp                     plan de red y JSON (base común)
+│   ├── netplan.hpp json.hpp                     plan de red y JSON (base común)
+│   └── release_assets.hpp semver.hpp            qué fichero de una versión es la imagen de esta placa
 ├── main/
 │   ├── app_main.cpp link_server.cpp             arranque y enlace de control
 │   ├── central_uart.cpp lamps.cpp               línea serie y LED
 │   ├── spindle.cpp machine_api.cpp              salidas de husillo, API
 │   ├── web_server.cpp network.cpp               servidor del panel, red (base)
-│   └── node_store.cpp node_guard.cpp            almacén y vigilante (base)
+│   ├── node_store.cpp node_guard.cpp            almacén y vigilante (base)
+│   └── github_update.cpp entropy.cpp            la actualización desde GitHub y la copia de una ranura
 ├── panel/
 │   ├── index.html style.css                     la página y la disposición del menú lateral
 │   └── app.js text.js                           las páginas y los textos en ocho idiomas
@@ -260,7 +263,7 @@ EH3D-NODE-BUNGARD/
 * Nada se ha ejecutado en una placa: no se ha grabado ninguna imagen, no se ha hecho la puesta en marcha en un nodo real, ningún programa ha hablado con uno y nada se ha conectado a una máquina.
 * La placa portadora con el convertidor RS-232, las entradas de LED y el variador del husillo es un diseño sobre el papel (`docs/BOARD.md`).
 * El nodo no tiene entrada de parada de emergencia (la placa portadora tiene sitio para un pulsador) y ve los finales de carrera solo a través de los LED.
-* La actualización desde GitHub no está construida: necesita una clave de firma. El panel se ha visto en un navegador contra un nodo de pega, no servido desde una placa.
+* La actualización desde GitHub está construida y nunca se ha ejecutado contra el GitHub real en una placa; las versiones no están firmadas, así que confía en el hash que publican. El panel se ha visto en un navegador contra un nodo de pega, no servido desde una placa.
 * El final del trabajo retenido no se ha ejecutado en una placa; sus reglas se prueban en un ordenador.
 * Solo se pretenden las máquinas Bungard CCD MTC y CCD/2 MTC; los modelos ATC no están cubiertos.
 

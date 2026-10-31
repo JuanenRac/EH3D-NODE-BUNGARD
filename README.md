@@ -12,13 +12,13 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Stack-C%2B%2B17%20%2B%20ESP--IDF-00599C.svg" alt="C++17 and ESP-IDF">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.3-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.4-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
 ---
 
-**Honesty check - what actually runs today:** firmware in C++17 for the ESP32-S3 (ESP-IDF 5.5) that turns the RS-232 port of the control unit of a Bungard CCD machine into a network port: a program connects over TCP with an access token, arms the machine and sends the bytes of a move, which the node queues and puts on the line at the line's own pace. It also reads the machine's lamps (HOME X, Y and Z, ENABLE, TOOL), drives a spindle through a 0-10 V speed signal and run/direction lines, and has a web panel with a side menu (eight languages) for set-up, users, network, update and the machine's own settings. The rules of the link and the settings are tested on a computer (9 test programs, 2,209 checks counted) and the firmware builds without warnings for both boards. **It has not been flashed or run on a board yet**, nothing has been connected to a machine, and the carrier board that brings the RS-232 converter, the lamp inputs and the spindle's drive together is a design on paper.
+**Honesty check - what actually runs today:** firmware in C++17 for the ESP32-S3 (ESP-IDF 5.5) that turns the RS-232 port of the control unit of a Bungard CCD machine into a network port: a program connects over TCP with an access token, arms the machine and sends the bytes of a move, which the node queues and puts on the line at the line's own pace. It also reads the machine's lamps (HOME X, Y and Z, ENABLE, TOOL), drives a spindle through a 0-10 V speed signal and run/direction lines, and has a web panel with a side menu (eight languages) for set-up, users, network, update and the machine's own settings. The rules of the link and the settings are tested on a computer (10 test programs, 2,235 checks counted) and the firmware builds without warnings for both boards. **It has not been flashed or run on a board yet**, nothing has been connected to a machine, and the carrier board that brings the RS-232 converter, the lamp inputs and the spindle's drive together is a design on paper.
 
 ---
 
@@ -28,9 +28,9 @@
 
 | | |
 |---|---|
-| Version | `0.0.3` |
+| Version | `0.0.4` |
 | Maturity | Scaffolding |
-| Tests | 9 host test programs (2,209 checks counted) |
+| Tests | 10 host test programs (2,235 checks counted) |
 | Stack | C++17, ESP-IDF 5.5, ESP32-S3 |
 | On real hardware | No: both firmware images build, but nothing has been flashed or run on a board, and nothing has been connected to a machine |
 
@@ -45,7 +45,7 @@ Each line is one part of this repository and the light says how far it is today.
 | Area | State | What it means here |
 |---|---|---|
 | Software | 🟡 | The firmware for the ESP32-S3 (ESP-IDF 5.5, C++17) builds without warnings for both boards, Ethernet and Wi-Fi; no image has been flashed. |
-| Tests | 🟡 | 9 host test programs pass (`ctest`): 2,209 checks counted in the link, settings, machine rules and the shared base, plus the check of the panel texts (315 rows in 8 languages) and of the task stacks (10 tasks). |
+| Tests | 🟡 | 10 host test programs pass (`ctest`): 2,235 checks counted in the link, settings, machine rules and the shared base, plus the check of the panel texts (315 rows in 8 languages) and of the task stacks (10 tasks). |
 | Control link | 🟡 | The framed protocol (CRC, token login, arming, byte queue, stop when the session goes quiet) is covered by the host tests; no program has talked to a real node. |
 | Web panel | 🟡 | The web panel (side menu, eight languages: set-up, machine, network, users, update, log, system) has its texts checked and is exercised against a mock of the node in a browser; it has never been served from a board. |
 | Spindle and lamps | 🟠 | The 0-10 V speed signal, the run and direction lines (no reversing while turning) and the five lamp inputs are tested on the host; no spindle drive or machine has been connected. |
@@ -81,40 +81,40 @@ How the parts of this repository fit together: who uses it, what it holds and wh
 ## 🖼️ Screenshots
 
 <p align="center">
+  <img src="images/screenshots/panel-overview.png" alt="panel-overview" width="100%">
+</p>
+
+<p align="center"><em>The Summary page: the node, its hardware, its clock, its flash with the two firmware slots and its network.</em></p>
+
+<p align="center">
   <img src="images/screenshots/panel-status.png" alt="panel-status" width="100%">
 </p>
 
-<p align="center"><em>The Status page, in the Forge theme of the other EH3D programs: the control link, the lamps of the machine, the lines of the control unit and the spindle. It is served by the stand-in node used to develop the panel: no board has run the firmware yet.</em></p>
+<p align="center"><em>The Status page, in the Forge theme of the other EH3D programs.</em></p>
 
 <p align="center">
   <img src="images/screenshots/panel-machine.png" alt="panel-machine" width="100%">
 </p>
 
-<p align="center"><em>The Machine page: the control link, the RS-232 pins, the lamps and the access token.</em></p>
+<p align="center"><em>The Machine page: the control link, the RS-232 pins, the lamps, the spindle and the access token.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-network.png" alt="panel-network" width="100%">
+  <img src="images/screenshots/panel-wifi.png" alt="panel-wifi" width="100%">
 </p>
 
-<p align="center"><em>The Network page: how the node reaches the network.</em></p>
+<p align="center"><em>The Wi-Fi page: the network the node joins and up to three backup networks for when it is lost.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-users.png" alt="panel-users" width="100%">
+  <img src="images/screenshots/panel-update.png" alt="panel-update" width="100%">
 </p>
 
-<p align="center"><em>The Users page: the people who may open the panel and their role.</em></p>
+<p align="center"><em>The Firmware page: the update from GitHub, the upload of a file and the two slots, with the copy of one over the other.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-firmware.png" alt="panel-firmware" width="100%">
+  <img src="images/screenshots/panel-help.png" alt="panel-help" width="100%">
 </p>
 
-<p align="center"><em>The Firmware page: the two slots, the one that runs and the update with rollback.</em></p>
-
-<p align="center">
-  <img src="images/screenshots/panel-system.png" alt="panel-system" width="100%">
-</p>
-
-<p align="center"><em>The System page: the identity of the node, the restart and the factory reset.</em></p>
+<p align="center"><em>The Help page: a topic for each page of the panel.</em></p>
 
 ## ✨ Features
 
@@ -125,6 +125,7 @@ How the parts of this repository fit together: who uses it, what it holds and wh
 * **Spindle with guard rails:** speed capped at the top speed the node was built for, no reversing while turning or right after stopping, a stop with the machine.
 * **Update with rollback:** an image goes into the slot that is not running and is on probation until the node can be reached; the boot loader goes back when it cannot.
 * **Looks after itself:** a guard watches the tasks and the memory, and a node that has no address after ninety seconds opens the set-up network again so it cannot be left unreachable.
+* **The panel of the node as the nodes of A.R.M.O.R. have it:** a menu in groups (node, network, system) with the language and the sign-out at its foot; a Summary (the node, its hardware, its clock, its flash and its network), a Wi-Fi page with up to three backup networks that the node tries when the main one is lost, a complete Help and an About page, and, in Firmware, the update from GitHub (it looks for the newest release of the project, checks its SHA-256 and installs it in the other slot), the switch between the two slots and the copy of the running one into the other.
 
 ## 🔒 Security & Safety
 
@@ -141,7 +142,7 @@ How the parts of this repository fit together: who uses it, what it holds and wh
 | A node that runs out of memory or hangs | a guard watches the tasks and the internal memory and restarts without making a loop; a gate at the door of the panel when memory is short |
 | Someone with the node in their hands | holding BOOT for eight seconds in the first thirty after power-up erases the settings and the users (physical access is a reset by design) |
 
-**What is not defended:** the node has no emergency-stop input yet and does not see the limit switches except through the lamps; the update is not signed (the update from GitHub is not built: it needs a signing key); the self-made certificate of the HTTPS panel makes a browser warn; nothing has run on a board, and there has been no independent review. Report a vulnerability privately (see [SECURITY.md](SECURITY.md)).
+**What is not defended:** the node has no emergency-stop input yet and does not see the limit switches except through the lamps; the update is not signed (the update from GitHub checks the SHA-256 that the release publishes, over HTTPS, and only when an administrator asks for it; a signing key is still missing); the self-made certificate of the HTTPS panel makes a browser warn; nothing has run on a board, and there has been no independent review. Report a vulnerability privately (see [SECURITY.md](SECURITY.md)).
 
 ## 🔌 Interfaces
 
@@ -191,11 +192,11 @@ python -I tools/ci_validate.py
 
 ## 🧪 Testing
 
-The host tests (`build.bat` or `./build.sh`, then `ctest`) are 9 programs and all pass: `core_tests` (104 checks: the frames and the session rules), `test_base` (382), `test_clock` (prints ok), `test_settings` (392), `test_machine` (75), `test_shared` (627) and `test_shared_eth` (629, the Ethernet board profile) - 2,209 checks counted - plus `panel_text` (315 rows in 8 languages, 265 keys used, 36 firmware error codes with a text) and `task_safety` (10 tasks, no big copy of the settings on a small stack). They cover the CRC and the decoder that resynchronises after damage, token login, arming, the stop on silence, the spindle rules (cap, no reversing, delay), the settings and their ranges, pin conflicts and reserved pins, users and sessions, the network plan, the clock and JSON. The panel has also been exercised in a browser against `tools/panel_mock.mjs`, a stand-in node that serves it without a board. The CI runs `python -I tools/ci_validate.py` and the host tests on Linux with the warnings as errors. Building the two firmware images (ESP-IDF 5.5.5) is done by hand and is not part of the CI; nothing runs on a board.
+The host tests (`build.bat` or `./build.sh`, then `ctest`) are 10 programs and all pass: `core_tests` (104 checks: the frames and the session rules), `test_base` (382), `test_clock` (prints ok), `test_settings` (392), `test_machine` (75), `test_shared` (627) and `test_shared_eth` (629, the Ethernet board profile) - 2,235 checks counted - plus `panel_text` (315 rows in 8 languages, 265 keys used, 36 firmware error codes with a text) and `task_safety` (10 tasks, no big copy of the settings on a small stack). They cover the CRC and the decoder that resynchronises after damage, token login, arming, the stop on silence, the spindle rules (cap, no reversing, delay), the settings and their ranges, pin conflicts and reserved pins, users and sessions, the network plan, the clock and JSON. The panel has also been exercised in a browser against `tools/panel_mock.mjs`, a stand-in node that serves it without a board. The CI runs `python -I tools/ci_validate.py` and the host tests on Linux with the warnings as errors. Building the two firmware images (ESP-IDF 5.5.5) is done by hand and is not part of the CI; nothing runs on a board.
 
 ## 🏗️ Build & Release
 
-The version lives in `eh3d.project.json` and in the build, and each version has its entry in [CHANGELOG.md](CHANGELOG.md). `build.sh` / `build.bat` build and run the host tests and `test.sh` / `test.bat` run only the tests, each in a live panel; neither changes the version. The firmware images come from `tools/build_node.sh` (or ESP-IDF 5.5.5 on Windows) and are named `eh3d-node-bungard-<version>-<board>-{app,complete}.bin`. No release has been published yet and no image has been flashed. The update from GitHub is not built: it needs a signing key.
+The version lives in `eh3d.project.json` and in the build, and each version has its entry in [CHANGELOG.md](CHANGELOG.md). `build.sh` / `build.bat` build and run the host tests and `test.sh` / `test.bat` run only the tests, each in a live panel; neither changes the version. The firmware images come from `tools/build_node.sh` (or ESP-IDF 5.5.5 on Windows) and are named `eh3d-node-bungard-<version>-<board>-{app,complete}.bin`. No release has been published yet and no image has been flashed. The update from GitHub is built and has never run against the real GitHub on a board; the releases are not signed, so it trusts the hash they publish.
 
 ## 🩺 Troubleshooting
 
@@ -226,13 +227,15 @@ EH3D-NODE-BUNGARD/
 │   ├── byte_queue.hpp drain.hpp                 byte queue, held-job finish
 │   ├── bungard_config.hpp                       machine settings and pin rules
 │   ├── node_settings.hpp auth.hpp               settings and users (shared base)
-│   └── netplan.hpp json.hpp                     network plan and JSON (shared base)
+│   ├── netplan.hpp json.hpp                     network plan and JSON (shared base)
+│   └── release_assets.hpp semver.hpp            which file of a release is this board's image
 ├── main/
 │   ├── app_main.cpp link_server.cpp             start and the control link
 │   ├── central_uart.cpp lamps.cpp               the serial line and the lamps
 │   ├── spindle.cpp machine_api.cpp              spindle outputs, machine API
 │   ├── web_server.cpp network.cpp               panel server, network (base)
-│   └── node_store.cpp node_guard.cpp            settings store, guard (base)
+│   ├── node_store.cpp node_guard.cpp            settings store, guard (base)
+│   └── github_update.cpp entropy.cpp            the update from GitHub and the copy of a slot
 ├── panel/
 │   ├── index.html style.css                     the page and the side menu layout
 │   └── app.js text.js                           the pages and the texts in eight languages
@@ -260,7 +263,7 @@ EH3D-NODE-BUNGARD/
 * Nothing has run on a board: no image has been flashed, no set-up has been done on a real node, no program has talked to one and nothing has been connected to a machine.
 * The carrier board with the RS-232 converter, the lamp inputs and the spindle's drive is a design on paper (`docs/BOARD.md`).
 * The node has no emergency-stop input (the carrier board has a place for a push-button) and sees the limit switches only through the lamps.
-* The update from GitHub is not built: it needs a signing key. The panel has been looked at in a browser against a stand-in node, not served from a board.
+* The update from GitHub is built and has never run against the real GitHub on a board; the releases are not signed, so it trusts the hash they publish. The panel has been looked at in a browser against a stand-in node, not served from a board.
 * The finishing of the held job has not run on a board; its rules are tested on a computer.
 * Only the Bungard CCD MTC and CCD/2 MTC machines are meant; the ATC models are not covered.
 
@@ -269,7 +272,7 @@ EH3D-NODE-BUNGARD/
 * Flash an image to each board, do the first set-up and check the link against the Rust library.
 * Draw and build the carrier board, and connect a spindle drive and a machine.
 * Add the push-button input for a physical stop.
-* Sign the updates and fetch them from GitHub.
+* Sign the releases and check the signature in the update from GitHub.
 
 ## 🌍 Languages
 

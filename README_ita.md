@@ -12,13 +12,13 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Stack-C%2B%2B17%20%2B%20ESP--IDF-00599C.svg" alt="C++17 and ESP-IDF">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
-  <img src="https://img.shields.io/badge/Version-0.0.3-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.4-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
 ---
 
-**Verifica di onestà - cosa funziona oggi:** firmware in C++17 per l'ESP32-S3 (ESP-IDF 5.5) che trasforma la porta RS-232 dell'unità di controllo di una macchina Bungard CCD in una porta di rete: un programma si connette via TCP con un token di accesso, arma la macchina e invia i byte di un movimento, che il nodo mette in coda e porta sulla linea al ritmo proprio della linea. Legge anche i LED della macchina (HOME X, Y e Z, ENABLE, TOOL), pilota un mandrino con un segnale di velocità 0-10 V e linee di marcia e direzione, e ha un pannello web con menu laterale (otto lingue) per la configurazione iniziale, gli utenti, la rete, l'aggiornamento e le impostazioni della macchina. Le regole del collegamento e le impostazioni sono provate su un computer (9 programmi di test, 2209 controlli contati) e il firmware compila senza avvisi per entrambe le schede. **Non è ancora stato scritto né eseguito su una scheda**, nulla è stato collegato a una macchina, e la scheda portante che riunisce il convertitore RS-232, gli ingressi dei LED e il variatore del mandrino è un progetto su carta.
+**Verifica di onestà - cosa funziona oggi:** firmware in C++17 per l'ESP32-S3 (ESP-IDF 5.5) che trasforma la porta RS-232 dell'unità di controllo di una macchina Bungard CCD in una porta di rete: un programma si connette via TCP con un token di accesso, arma la macchina e invia i byte di un movimento, che il nodo mette in coda e porta sulla linea al ritmo proprio della linea. Legge anche i LED della macchina (HOME X, Y e Z, ENABLE, TOOL), pilota un mandrino con un segnale di velocità 0-10 V e linee di marcia e direzione, e ha un pannello web con menu laterale (otto lingue) per la configurazione iniziale, gli utenti, la rete, l'aggiornamento e le impostazioni della macchina. Le regole del collegamento e le impostazioni sono provate su un computer (10 programmi di test, 2235 controlli contati) e il firmware compila senza avvisi per entrambe le schede. **Non è ancora stato scritto né eseguito su una scheda**, nulla è stato collegato a una macchina, e la scheda portante che riunisce il convertitore RS-232, gli ingressi dei LED e il variatore del mandrino è un progetto su carta.
 
 ---
 
@@ -28,9 +28,9 @@
 
 | | |
 |---|---|
-| Versione | `0.0.3` |
+| Versione | `0.0.4` |
 | Maturità | Impalcatura |
-| Test | 9 programmi di test su computer (2209 controlli contati) |
+| Test | 10 programmi di test su computer (2235 controlli contati) |
 | Stack tecnologico | C++17, ESP-IDF 5.5, ESP32-S3 |
 | Su hardware reale | No: le due immagini del firmware compilano, ma nulla è stato scritto né eseguito su una scheda e nulla è stato collegato a una macchina |
 
@@ -45,7 +45,7 @@ Ogni riga è una parte di questo repository e il semaforo dice a che punto è og
 | Area | Stato | Cosa significa qui |
 |---|---|---|
 | Software | 🟡 | Il firmware per l'ESP32-S3 (ESP-IDF 5.5, C++17) compila senza avvisi per entrambe le schede, Ethernet e Wi-Fi; nessuna immagine è stata scritta. |
-| Test | 🟡 | Passano 9 programmi di test su computer (`ctest`): 2209 controlli contati su collegamento, impostazioni, regole della macchina e base condivisa, più il controllo dei testi del pannello (315 righe in 8 lingue) e degli stack dei task (10 task). |
+| Test | 🟡 | Passano 10 programmi di test su computer (`ctest`): 2235 controlli contati su collegamento, impostazioni, regole della macchina e base condivisa, più il controllo dei testi del pannello (315 righe in 8 lingue) e degli stack dei task (10 task). |
 | Collegamento di controllo | 🟡 | Il protocollo a frame (CRC, login con token, armamento, coda di byte, stop quando la sessione tace) è coperto dai test su computer; nessun programma ha parlato con un nodo reale. |
 | Pannello web | 🟡 | Il pannello web (menu laterale, otto lingue: configurazione, macchina, rete, utenti, aggiornamento, registro, sistema) ha i testi controllati ed è provato contro una simulazione del nodo in un browser; non è mai stato servito da una scheda. |
 | Mandrino e LED | 🟠 | Il segnale di velocità 0-10 V, le linee di marcia e direzione (nessuna inversione mentre gira) e i cinque ingressi dei LED sono provati sul computer; nessun variatore né macchina è stato collegato. |
@@ -81,40 +81,40 @@ Come si incastrano le parti di questo repository: chi lo usa, che cosa contiene 
 ## 🖼️ Schermate
 
 <p align="center">
+  <img src="images/screenshots/panel-overview.png" alt="panel-overview" width="100%">
+</p>
+
+<p align="center"><em>La pagina Riepilogo: il nodo, il suo hardware, il suo orologio, la sua flash con i due slot di firmware e la sua rete.</em></p>
+
+<p align="center">
   <img src="images/screenshots/panel-status.png" alt="panel-status" width="100%">
 </p>
 
-<p align="center"><em>La pagina Stato, nel tema Forge degli altri programmi EH3D: il collegamento di controllo, le spie della macchina, le linee dell'unità di controllo e il mandrino. È servita dal nodo sostitutivo con cui si sviluppa il pannello: nessuna scheda ha ancora eseguito il firmware.</em></p>
+<p align="center"><em>La pagina Stato, nel tema Forge degli altri programmi EH3D.</em></p>
 
 <p align="center">
   <img src="images/screenshots/panel-machine.png" alt="panel-machine" width="100%">
 </p>
 
-<p align="center"><em>La pagina Macchina: il collegamento di controllo, i pin RS-232, le spie e il token di accesso.</em></p>
+<p align="center"><em>La pagina Macchina: il collegamento di controllo, i pin RS-232, le lampade, il mandrino e il token di accesso.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-network.png" alt="panel-network" width="100%">
+  <img src="images/screenshots/panel-wifi.png" alt="panel-wifi" width="100%">
 </p>
 
-<p align="center"><em>La pagina Rete: come il nodo raggiunge la rete.</em></p>
+<p align="center"><em>La pagina Wi-Fi: la rete a cui si unisce il nodo e fino a tre reti di riserva in caso di perdita.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-users.png" alt="panel-users" width="100%">
+  <img src="images/screenshots/panel-update.png" alt="panel-update" width="100%">
 </p>
 
-<p align="center"><em>La pagina Utenti: le persone che possono aprire il pannello e il loro ruolo.</em></p>
+<p align="center"><em>La pagina Firmware: l'aggiornamento da GitHub, il caricamento di un file e i due slot, con la copia dell'uno sull'altro.</em></p>
 
 <p align="center">
-  <img src="images/screenshots/panel-firmware.png" alt="panel-firmware" width="100%">
+  <img src="images/screenshots/panel-help.png" alt="panel-help" width="100%">
 </p>
 
-<p align="center"><em>La pagina Firmware: i due slot, quello in esecuzione e l'aggiornamento con ripristino.</em></p>
-
-<p align="center">
-  <img src="images/screenshots/panel-system.png" alt="panel-system" width="100%">
-</p>
-
-<p align="center"><em>La pagina Sistema: l'identità del nodo, il riavvio e il ripristino di fabbrica.</em></p>
+<p align="center"><em>La pagina Aiuto: un argomento per ogni pagina del pannello.</em></p>
 
 ## ✨ Funzionalità
 
@@ -125,6 +125,7 @@ Come si incastrano le parti di questo repository: chi lo usa, che cosa contiene 
 * **Mandrino con protezioni:** velocità limitata a quella massima per cui il nodo è stato costruito, nessuna inversione mentre gira o subito dopo l'arresto, stop insieme alla macchina.
 * **Aggiornamento con ripristino:** un'immagine va nello slot non in uso ed è in prova finché il nodo non è raggiungibile; il bootloader torna indietro quando non lo è.
 * **Si prende cura di sé:** un guardiano osserva i task e la memoria, e un nodo senza indirizzo dopo novanta secondi riapre la rete di configurazione per non restare irraggiungibile.
+* **Il pannello del nodo come ce l'hanno i nodi di A.R.M.O.R.:** un menu a gruppi (nodo, rete, sistema) con la lingua e la chiusura della sessione in fondo; un Riepilogo (il nodo, il suo hardware, il suo orologio, la sua flash e la sua rete), una pagina Wi-Fi con fino a tre reti di riserva che il nodo prova quando si perde la principale, una Guida completa e una pagina Informazioni e, in Firmware, l'aggiornamento da GitHub (cerca l'ultima versione del progetto, controlla il suo SHA-256 e la installa nell'altro slot), il passaggio tra i due slot e la copia di quello in esecuzione nell'altro.
 
 ## 🔒 Sicurezza e protezione
 
@@ -141,7 +142,7 @@ Come si incastrano le parti di questo repository: chi lo usa, che cosa contiene 
 | Un nodo che finisce la memoria o si blocca | un guardiano osserva i task e la memoria interna e riavvia senza creare un ciclo; un cancello alla porta del pannello quando la memoria scarseggia |
 | Qualcuno ha il nodo tra le mani | tenere premuto BOOT otto secondi nei primi trenta dopo l'accensione cancella impostazioni e utenti (l'accesso fisico è un reset per progetto) |
 
-**Ciò che non è difeso:** il nodo non ha ancora un ingresso di arresto di emergenza e non vede i finecorsa se non tramite i LED; l'aggiornamento non è firmato (l'aggiornamento da GitHub non è costruito: richiede una chiave di firma); il certificato autoprodotto del pannello HTTPS fa avvisare il browser; nulla è stato eseguito su una scheda e non c'è stata una revisione indipendente. Segnala una vulnerabilità in privato (vedi [SECURITY.md](SECURITY.md)).
+**Ciò che non è difeso:** il nodo non ha ancora un ingresso di arresto di emergenza e non vede i finecorsa se non tramite i LED; l'aggiornamento non è firmato (l'aggiornamento da GitHub controlla lo SHA-256 che la versione pubblica, via HTTPS, e solo quando un amministratore lo chiede; manca ancora una chiave di firma); il certificato autoprodotto del pannello HTTPS fa avvisare il browser; nulla è stato eseguito su una scheda e non c'è stata una revisione indipendente. Segnala una vulnerabilità in privato (vedi [SECURITY.md](SECURITY.md)).
 
 ## 🔌 Interfacce
 
@@ -191,11 +192,11 @@ python -I tools/ci_validate.py
 
 ## 🧪 Test
 
-I test su computer (`build.bat` o `./build.sh`, poi `ctest`) sono 9 programmi e passano tutti: `core_tests` (104 controlli: i frame e le regole di sessione), `test_base` (382), `test_clock` (stampa ok), `test_settings` (392), `test_machine` (75), `test_shared` (627) e `test_shared_eth` (629, il profilo della scheda Ethernet) - 2209 controlli contati - più `panel_text` (315 righe in 8 lingue, 265 chiavi usate, 36 codici di errore del firmware con un testo) e `task_safety` (10 task, nessuna copia grande delle impostazioni su uno stack piccolo). Coprono il CRC e il decodificatore che si risincronizza dopo un danno, il login con token, l'armamento, lo stop per silenzio, le regole del mandrino (limite, nessuna inversione, ritardo), le impostazioni e i loro intervalli, i conflitti di pin e i pin riservati, utenti e sessioni, il piano di rete, l'orologio e JSON. Il pannello è stato anche provato in un browser contro `tools/panel_mock.mjs`, un nodo sostitutivo che lo serve senza scheda. La CI esegue `python -I tools/ci_validate.py` e i test su computer su Linux con gli avvisi come errori. La compilazione delle due immagini del firmware (ESP-IDF 5.5.5) si fa a mano e non fa parte della CI; nulla gira su una scheda.
+I test su computer (`build.bat` o `./build.sh`, poi `ctest`) sono 10 programmi e passano tutti: `core_tests` (104 controlli: i frame e le regole di sessione), `test_base` (382), `test_clock` (stampa ok), `test_settings` (392), `test_machine` (75), `test_shared` (627) e `test_shared_eth` (629, il profilo della scheda Ethernet) - 2235 controlli contati - più `panel_text` (315 righe in 8 lingue, 265 chiavi usate, 36 codici di errore del firmware con un testo) e `task_safety` (10 task, nessuna copia grande delle impostazioni su uno stack piccolo). Coprono il CRC e il decodificatore che si risincronizza dopo un danno, il login con token, l'armamento, lo stop per silenzio, le regole del mandrino (limite, nessuna inversione, ritardo), le impostazioni e i loro intervalli, i conflitti di pin e i pin riservati, utenti e sessioni, il piano di rete, l'orologio e JSON. Il pannello è stato anche provato in un browser contro `tools/panel_mock.mjs`, un nodo sostitutivo che lo serve senza scheda. La CI esegue `python -I tools/ci_validate.py` e i test su computer su Linux con gli avvisi come errori. La compilazione delle due immagini del firmware (ESP-IDF 5.5.5) si fa a mano e non fa parte della CI; nulla gira su una scheda.
 
 ## 🏗️ Compilazione e rilascio
 
-La versione sta in `eh3d.project.json` e nella compilazione, e ogni versione ha la sua voce in [CHANGELOG.md](CHANGELOG.md). `build.sh` / `build.bat` compilano ed eseguono i test su computer e `test.sh` / `test.bat` eseguono solo i test, ciascuno in un pannello dal vivo; nessuno cambia la versione. Le immagini del firmware vengono da `tools/build_node.sh` (o da ESP-IDF 5.5.5 su Windows) e si chiamano `eh3d-node-bungard-<versione>-<scheda>-{app,complete}.bin`. Non è ancora stata pubblicata alcuna versione né scritta alcuna immagine. L'aggiornamento da GitHub non è costruito: richiede una chiave di firma.
+La versione sta in `eh3d.project.json` e nella compilazione, e ogni versione ha la sua voce in [CHANGELOG.md](CHANGELOG.md). `build.sh` / `build.bat` compilano ed eseguono i test su computer e `test.sh` / `test.bat` eseguono solo i test, ciascuno in un pannello dal vivo; nessuno cambia la versione. Le immagini del firmware vengono da `tools/build_node.sh` (o da ESP-IDF 5.5.5 su Windows) e si chiamano `eh3d-node-bungard-<versione>-<scheda>-{app,complete}.bin`. Non è ancora stata pubblicata alcuna versione né scritta alcuna immagine. L'aggiornamento da GitHub è costruito e non è mai stato eseguito contro il vero GitHub su una scheda; le versioni non sono firmate, quindi si fida dell'hash che pubblicano.
 
 ## 🩺 Risoluzione dei problemi
 
@@ -226,13 +227,15 @@ EH3D-NODE-BUNGARD/
 │   ├── byte_queue.hpp drain.hpp                 coda di byte, fine lavoro
 │   ├── bungard_config.hpp                       impostazioni macchina e pin
 │   ├── node_settings.hpp auth.hpp               impostazioni, utenti (base)
-│   └── netplan.hpp json.hpp                     piano di rete e JSON (base)
+│   ├── netplan.hpp json.hpp                     piano di rete e JSON (base)
+│   └── release_assets.hpp semver.hpp            quale file di una versione è l'immagine di questa scheda
 ├── main/
 │   ├── app_main.cpp link_server.cpp             avvio e collegamento
 │   ├── central_uart.cpp lamps.cpp               linea seriale e LED
 │   ├── spindle.cpp machine_api.cpp              uscite mandrino, API
 │   ├── web_server.cpp network.cpp               server pannello, rete (base)
-│   └── node_store.cpp node_guard.cpp            archivio, guardiano (base)
+│   ├── node_store.cpp node_guard.cpp            archivio, guardiano (base)
+│   └── github_update.cpp entropy.cpp            l'aggiornamento da GitHub e la copia di uno slot
 ├── panel/
 │   ├── index.html style.css                     la pagina e la disposizione del menu laterale
 │   └── app.js text.js                           le pagine e i testi in otto lingue
@@ -260,7 +263,7 @@ EH3D-NODE-BUNGARD/
 * Nulla è stato eseguito su una scheda: nessuna immagine è stata scritta, nessuna configurazione fatta su un nodo reale, nessun programma gli ha parlato e nulla è stato collegato a una macchina.
 * La scheda portante con il convertitore RS-232, gli ingressi dei LED e il variatore del mandrino è un progetto su carta (`docs/BOARD.md`).
 * Il nodo non ha un ingresso di arresto di emergenza (la scheda portante ha un posto per un pulsante) e vede i finecorsa solo tramite i LED.
-* L'aggiornamento da GitHub non è costruito: richiede una chiave di firma. Il pannello è stato visto in un browser contro un nodo sostitutivo, non servito da una scheda.
+* L'aggiornamento da GitHub è costruito e non è mai stato eseguito contro il vero GitHub su una scheda; le versioni non sono firmate, quindi si fida dell'hash che pubblicano. Il pannello è stato visto in un browser contro un nodo sostitutivo, non servito da una scheda.
 * La fine del lavoro trattenuto non è stata eseguita su una scheda; le sue regole sono provate su un computer.
 * Sono previste solo le macchine Bungard CCD MTC e CCD/2 MTC; i modelli ATC non sono coperti.
 
@@ -269,7 +272,7 @@ EH3D-NODE-BUNGARD/
 * Scrivere un'immagine su ciascuna scheda, fare la prima configurazione e verificare il collegamento con la libreria Rust.
 * Disegnare e costruire la scheda portante e collegare un variatore del mandrino e una macchina.
 * Aggiungere l'ingresso a pulsante per uno stop fisico.
-* Firmare gli aggiornamenti e scaricarli da GitHub.
+* Firmare le versioni e controllare la firma nell'aggiornamento da GitHub.
 
 ## 🌍 Lingue
 

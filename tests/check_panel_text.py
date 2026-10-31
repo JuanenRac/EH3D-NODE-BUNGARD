@@ -16,8 +16,8 @@ ROOT = Path(__file__).resolve().parent.parent
 PANEL = ROOT / "panel"
 LANGUAGES = 8
 CODES = ["en", "es", "de", "fr", "it", "ja", "zh", "pt"]
-LIMIT_BYTES = 90 * 1024   # the gzip of index.html, app.js (with text.js) and style.css
-FORBIDDEN = re.compile(r"armor|a\.r\.m\.o\.r|mqtt|zigbee|github|bluetooth|broker", re.I)
+LIMIT_BYTES = 120 * 1024   # the gzip of index.html, app.js (with text.js) and style.css (the summary, the Wi-Fi, the update from GitHub and the help made it grow past 90 KB)
+FORBIDDEN = re.compile(r"armor|a\.r\.m\.o\.r|mqtt|zigbee|broker", re.I)
 # the codes the machine settings answer with next to a field, and the ones the panel itself raises
 MACHINE_PROBLEMS = ["out_of_range", "duplicate_pin", "reserved_pin", "not_a_number", "too_long", "required"]
 
@@ -79,6 +79,7 @@ def used_keys(app):
         for call in balanced_calls(app, helper):
             keys |= set(re.findall(r'"([A-Za-z][A-Za-z0-9_]*)"', first_argument(call)))
     keys |= set(re.findall(r'label: "([A-Za-z0-9_]+)"', app))
+    keys |= set(re.findall(r'group: "([A-Za-z0-9_]+)"', app))
     keys |= set(re.findall(r'\["((?:lamp|line)[A-Za-z]+)", \d+', app))
     return keys
 
@@ -107,12 +108,14 @@ def check_languages(text, problems):
 def check_firmware_codes(table, problems):
     """Every error code the firmware can answer with has its e_ row (when the firmware sources are there)."""
     codes = set()
-    for name in ("web_server.cpp", "api_shared.cpp", "machine_api.cpp"):
+    for name in ("web_server.cpp", "api_shared.cpp", "machine_api.cpp", "github_update.cpp"):
         source = ROOT / "main" / name
         if source.is_file():
             text = source.read_text(encoding="utf-8", errors="replace")
             codes |= set(re.findall(r'send_error\(r, \d+, "([a-z_0-9]+)"', text))
             codes |= set(re.findall(r'error = "([a-z_0-9]+)"', text))
+            codes |= set(re.findall(r'finish_copy\("([a-z_0-9]+)"', text))
+    codes = {c for c in codes if not c.endswith("_")}   # "http_" + status: chosen at run time
     for code in sorted(codes):
         if "e_" + code not in table:
             problems.append(f"the firmware answers \"{code}\" and the panel has no text e_{code}")
@@ -147,7 +150,7 @@ def main():
             continue   # the start of a key chosen at run time
         if key not in table:
             problems.append(f"app.js uses the text \"{key}\" and text.js has no row for it")
-    dynamic = ("e_", "p_", "se_")   # chosen at run time from the code the node sends
+    dynamic = ("e_", "p_", "se_", "reason", "help_", "navHelpTab_")   # chosen at run time from the code the node sends
     for key in sorted(table):
         if key not in used and not key.startswith(dynamic):
             problems.append(f"text.js has the row \"{key}\" and nothing uses it")

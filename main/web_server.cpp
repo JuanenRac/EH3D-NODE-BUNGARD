@@ -35,6 +35,7 @@ extern "C" {
 #include "core/json.hpp"
 #include "core/web_policy.hpp"
 #include "entropy.hpp"
+#include "github_update.hpp"
 #include "log_buffer.hpp"
 #include "link_server.hpp"
 #include "machine_api.hpp"
@@ -671,6 +672,9 @@ esp_err_t post_ota(httpd_req_t* r) {
   Who who;
   if (!require(r, who, true, true)) return ESP_OK;
   const FirmwareWrite writing;   // an allocation that fails while the image is written aborts instead of restarting (core/node_guard.hpp)
+  // One writer of the slot at a time: an installation from GitHub, a copy of the slot or another upload would write the same flash.
+  if (!github_update::begin_manual_write()) return send_error(r, 409, "ota_busy");
+  struct Release { ~Release() { github_update::end_manual_write(); } } release;
   const std::size_t total = r->content_len;
   if (total < 100 * 1024 || total > kMaxFirmware) return send_error(r, 413, "bad_size");
   const esp_partition_t* target = esp_ota_get_next_update_partition(nullptr);
@@ -711,9 +715,100 @@ esp_err_t post_ota(httpd_req_t* r) {
   return send_json(r, 200, w.str());
 }
 
-// Extension point: an update fetched from a release feed (check, download, verify, install) would go here, next to the upload above and never instead of it. Today the only way to change
-// the firmware is the upload from the panel: no signing key exists yet to trust a download, so none is fetched. A feed would need its own signature check (core/fw_trust-style) before
-// esp_ota_set_boot_partition(), and the routes ota/check, ota/install and ota/progress.
+// ---- the firmware from GitHub and the copy of a slot ----------------------------------------------------------------------------------------
+// The repository the releases are read from and the name its images start with. Which file of a release is this board's image is core/release_assets.hpp's.
+constexpr const char* kReleaseRepo = "JuanenRac/EH3D-NODE-BUNGARD";
+constexpr const char* kReleaseImage = "eh3d-node-bungard";
+
+esp_err_t get_ota_copy(httpd_req_t* r) {
+  Who who;
+  if (!require(r, who, true, false)) return ESP_OK;
+  const github_update::CopyProgress p = github_update::copy_progress();
+  json::Writer w;
+  w.begin_object().field("state", p.state).field("done", static_cast<long long>(p.done)).field("total", static_cast<long long>(p.total)).field("error", p.error).field("version", p.version).end_object();
+  return send_json(r, 200, w.str());
+}
+
+// Copies the firmware that runs into the other slot, so both hold the same version. Nothing is switched and the node does not restart.
+esp_err_t post_ota_copy(httpd_req_t* r) {
+  Who who;
+  if (!require(r, who, true, true)) return ESP_OK;
+  if (!github_update::start_copy()) return send_error(r, 409, "ota_busy");
+  ESP_LOGW(kTag, "copy of the running firmware to the other slot, started by \"%s\"", who.user.c_str());
+  json::Writer w;
+  w.begin_object().field("ok", true).field("started", true).end_object();
+  return send_json(r, 200, w.str());
+}
+
+// The restart after an installation from GitHub is scheduled by a timer of its own, not only when the panel asks how far it is: with the browser closed the new image would be set to boot and
+// the node would go on with the old one until the next restart of any kind.
+std::atomic<bool> g_ota_restart_scheduled{false};
+void watch_install(void*) {
+  const github_update::Progress p = github_update::progress();
+  if (p.state == "done" && !g_ota_restart_scheduled) { g_ota_restart_scheduled = true; restart_after(2500); }
+}
+void start_install_watch() {
+  static std::mutex watch_lock;
+  std::lock_guard<std::mutex> guard(watch_lock);
+  static esp_timer_handle_t timer = nullptr;
+  if (timer == nullptr) {
+    esp_timer_create_args_t args{};
+    args.callback = &watch_install;
+    args.name = "ota-watch";
+    if (esp_timer_create(&args, &timer) != ESP_OK) return;
+  }
+  esp_timer_stop(timer);
+  esp_timer_start_periodic(timer, 1000000ULL);   // it keeps looking: a new installation starts it again, and a restart ends it
+}
+
+// The look for a newer release runs in a task of its own (a TLS request to GitHub takes seconds): POST starts it, GET says how it stands.
+esp_err_t post_ota_check(httpd_req_t* r) {
+  Who who;
+  if (!require(r, who, true, true)) return ESP_OK;
+  if (!github_update::start_check(kReleaseRepo, kReleaseImage, board::kId)) return send_error(r, 409, "ota_busy");
+  json::Writer w;
+  w.begin_object().field("ok", true).field("started", true).end_object();
+  return send_json(r, 200, w.str());
+}
+
+esp_err_t get_ota_check(httpd_req_t* r) {
+  Who who;
+  if (!require(r, who, true, false)) return ESP_OK;
+  const github_update::CheckProgress progress = github_update::check_progress();
+  json::Writer w;
+  w.begin_object().field("state", progress.state).field("ok", progress.state == "done");
+  if (progress.state == "done") w.field("current_version", esp_app_get_description()->version).field("latest_version", progress.result.latest_version).field("update_available", progress.result.update_available);
+  else if (progress.state == "failed") w.field("error", progress.result.error);
+  w.end_object();
+  return send_json(r, 200, w.str());
+}
+
+// The install runs in a task of its own (the download takes a while): this only starts it and the panel asks how far it is.
+esp_err_t post_ota_install(httpd_req_t* r) {
+  Who who;
+  if (!require(r, who, true, true)) return ESP_OK;
+  if (!github_update::start_latest(kReleaseRepo, kReleaseImage, board::kId)) return send_error(r, 409, "ota_busy");
+  ESP_LOGW(kTag, "installing the newest firmware from GitHub, started by \"%s\"", who.user.c_str());
+  g_ota_restart_scheduled = false;
+  start_install_watch();
+  json::Writer w;
+  w.begin_object().field("ok", true).field("started", true).end_object();
+  return send_json(r, 200, w.str());
+}
+
+esp_err_t get_ota_progress(httpd_req_t* r) {
+  Who who;
+  if (!require(r, who, true, false)) return ESP_OK;
+  const github_update::Progress p = github_update::progress();
+  // Once the new image is set to boot the node restarts, a moment after the panel has been told.
+  if (p.state == "done" && !g_ota_restart_scheduled) { g_ota_restart_scheduled = true; restart_after(2500); }
+  json::Writer w;
+  w.begin_object().field("state", p.state).field("got", static_cast<long long>(p.got)).field("total", static_cast<long long>(p.total));
+  if (!p.error.empty()) w.field("error", p.error);
+  if (!p.version.empty()) w.field("version", p.version);
+  w.end_object();
+  return send_json(r, 200, w.str());
+}
 
 // ---- dispatch -----------------------------------------------------------------------------------------------------------------------
 
@@ -737,6 +832,9 @@ esp_err_t api_handler(httpd_req_t* r) {
     if (route == "machine/status") return get_machine_status(r);
     if (route == "machine/pins") return get_machine_pins(r);
     if (route == "users") return get_users(r);
+    if (route == "ota/progress") return get_ota_progress(r);
+    if (route == "ota/copy") return get_ota_copy(r);
+    if (route == "ota/check") return get_ota_check(r);
     if (route == "log") return get_log(r);
   } else if (method == HTTP_POST) {
     if (route == "setup") return post_setup(r);
@@ -747,6 +845,9 @@ esp_err_t api_handler(httpd_req_t* r) {
     if (route == "factory-reset") return post_factory_reset(r);
     if (route == "ota") return post_ota(r);
     if (route == "ota/switch") return post_ota_switch(r);
+    if (route == "ota/copy") return post_ota_copy(r);
+    if (route == "ota/install") return post_ota_install(r);
+    if (route == "ota/check") return post_ota_check(r);
     if (route == "machine/stop") return post_machine_stop(r);
     if (route == "time") return post_time(r);
   } else if (method == HTTP_PUT) {
