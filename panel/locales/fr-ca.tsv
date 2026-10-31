@@ -1,0 +1,26 @@
+# Français (Canada) (fr-ca): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+stLampsHelp	Les cinq voyants de l'unité de commande, lus en direct. HOME X, Y et Z s'allument quand un axe est sur son interrupteur de fin de course.
+spNoSpindle	Aucune vitesse de broche n'est définie (maximum 0 tr/min).
+mRestartNote	Les modifications de ces paramètres s'appliquent après un redémarrage du nœud.
+mLampsWiring	Lisez l'anode de chaque voyant avec un transistor NPN dont la base passe par une résistance de 10 kΩ. Ne placez jamais la DEL d'un optocoupleur directement aux bornes du voyant : sa chute directe l'éteindrait.
+apNote	Le point d'accès de configuration est le réseau Wi-Fi propre du nœud, pour l'atteindre depuis un cellulaire quand il n'a pas d'adresse sur le vôtre.
+rolesHelp	Les administrateurs peuvent tout modifier. Les lecteurs voient l'état et les paramètres, mais ne changent rien.
+signOut	Fermer la session
+signIn	Ouvrir une session
+rememberMe	Rester connecté dans ce navigateur
+wiredNote	Sur le câble, le nœud demande son adresse par DHCP sauf si vous la fixez ici. Son propre réseau Wi-Fi, si vous le gardez, est un réseau séparé (192.168.4.x) pour joindre le nœud depuis un cellulaire; il n'est pas relié au réseau filaire. Les changements s'appliquent après un redémarrage.
+upload	Téléverser et installer
+uploading	Téléversement… {0} %
+slotsHelp	Le nœud garde deux emplacements de firmware, ota_0 et ota_1. Une mise à jour s'écrit dans celui qui ne tourne pas. Ici, vous pouvez démarrer l'autre à tout moment, pour revenir à la version précédente ou passer à celle qui vient d'être installée. Les paramètres sont conservés.
+copyFailed	Copie impossible - sélectionnez le texte et copiez-le manuellement
+factoryTitle	Réinitialisation aux paramètres d'usine
+factoryHelp	Efface tous les paramètres et tous les utilisateurs; le nœud redémarre en configuration. Tapez RESET pour confirmer.
+e_unauthorized	Votre session a pris fin. Ouvrez une session de nouveau.
+e_upload_interrupted	Le téléversement a été interrompu.
+clockNotSet	non définie
+copyRunning	Copie… {0} %
+githubDownloading	Téléchargement du firmware depuis GitHub… {0} %
+timeManual	définie manuellement
+aboutDescription	Un nœud de la famille EH3D pour le boîtier d'une machine Bungard CCD : il relie le RS-232 de l'unité de commande au réseau, montre ses voyants, ses lignes et la broche, et garde les paramètres, les utilisateurs et le firmware du nœud.
+help_machine_text	Machine contient ce qui lie le nœud à l'unité de commande : les broches et la vitesse série, le jeton d'accès de la liaison de commande, le port et les limites de la file. Un changement s'applique à l'enregistrement; certains demandent un redémarrage et la barre l'indique.\n\nLe jeton est en écriture seule : il n'est plus jamais montré. Un programme qui se connecte en a besoin; sans lui, le nœud refuse de bouger la machine.
+help_users_text	Les administrateurs changent les paramètres; les observateurs regardent seulement. Chaque personne a un nom et un mot de passe. Un administrateur ajoute des personnes, change les mots de passe et les retire; le dernier administrateur ne peut pas être retiré.\n\nTrop de mots de passe erronés bloquent un nom pendant un moment. Votre propre mot de passe se change dans la même page.

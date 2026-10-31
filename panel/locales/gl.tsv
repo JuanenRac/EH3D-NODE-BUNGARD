@@ -1,0 +1,435 @@
+# Galego (gl): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+appName	Nó EH3D Bungard
+grpNode	Nó
+grpNetwork	Rede
+grpSystem	Sistema
+navMenu	Menú principal
+navStatus	Estado
+navMachine	Máquina
+navUpdate	Firmware
+navLog	Rexistro
+skip	Saltar ao contido
+themeToLight	Tema claro
+themeToDark	Tema escuro
+showShort	Amosar
+e_other	O nó respondeu cun erro: {0}
+statusNoControl	Esta páxina amosa o estado do nó. O único que o panel fai coa máquina é parala: moverla só é posible pola ligazón autenticada dun programa (a ligazón de control), nunca desde aquí.
+stLost	Sen resposta do nó
+stLink	Ligazón de control
+stLinkUp	A ligazón está activa
+stLinkDown	A ligazón está caída
+stClientYes	Programa conectado
+stClientNo	Ningún programa conectado
+stAuthYes	Sesión iniciada
+stAuthNo	Sen iniciar sesión
+stArmed	Máquina armada
+stDisarmed	Máquina non armada
+stQueue	Bytes agardando na cola
+stQueueBytes	Cola
+stSent	Bytes enviados
+stLamps	Lámpadas da máquina
+stLampsHelp	As cinco lámpadas da unidade de control, lidas en directo. HOME X, Y e Z acéndense cando un eixe está no final de carreira.
+lampHomeX	HOME X
+lampHomeY	HOME Y
+lampHomeZ	HOME Z
+lampEnable	ENABLE
+lampTool	TOOL
+lampOn	acesa
+lampOff	apagada
+stLines	Liñas da unidade de control
+stLinesHelp	As liñas que a unidade de control devolve ao nó. DCD e RI indican os seus estados de erro e de ferramenta.
+lineCts	CTS
+lineDsr	DSR
+lineRi	RI
+lineDcd	DCD
+stSpindle	Husillo
+stSpindleBar	Velocidade respecto ao máximo
+spForward	Avance
+spReverse	Retroceso
+spStopped	Parado
+spMax	Velocidade máxima: {0} rpm
+spNoSpindle	Non hai velocidade de husillo definida (máximo 0 rpm).
+stNode	Nó
+mRestartNote	Os cambios nestes axustes aplícanse tras reiniciar o nó.
+mLink	Ligazón de control
+mLinkIntro	O porto TCP ao que se conecta un programa para manexar a máquina. Cada conexión ten que iniciar sesión co token de acceso.
+fPort	Porto TCP
+fPortHint	De 1 a 65535.
+fIdle	Tempo de inactividade (segundos)
+fIdleHint	Un programa armado que non envíe nada durante este tempo é detido: a cola baleirase e os controladores desconéctanse. De 0,5 a 60.
+fQueue	Tamaño da cola (bytes)
+fQueueHint	Cantos bytes garda o nó antes de envialos á unidade de control. De 1024 a 4194304.
+fFinish	Rematar o traballo que ten se o programa desaparece
+fFinishHint	Desactivado (recomendado): o nó párase de inmediato, como sempre. Activado: se o programa ou o servidor deixa de responder ou se cae, o nó executa ata o final os bytes que xa ten na cola (o programa corta o traballo de modo que o final sexa un lugar seguro) e despois desconecta o husillo e os controladores.
+finishWarn	A máquina seguirá movéndose soa, sen ninguén conectado, ata que a cola quede baleira ou se acabe o tempo indicado abaixo. Activa isto só coa ferramenta e a peza comprobadas, e sabendo onde está o botón de parada.
+fDrain	Tempo máximo en solitario (segundos)
+fDrainHint	Pasado este tempo, o nó detén todo o que quede. De 10 a 3600.
+stStop	Parar a máquina
+stStopHint	Baleira a cola e desconecta o husillo e os controladores, haxa ou non un programa conectado.
+stStopped	Parada.
+stDraining	O programa desapareceu e o nó está rematando o traballo que ten. Non acepta nada novo; usa o botón de parada para acabalo agora.
+fToken	Token de acceso
+fTokenHint	Gárdase no nó e non se volve amosar. Escribe un novo ou xera un e despois preme Gardar.
+tokenIsSet	Hai un token definido
+tokenNotSet	Non hai ningún token definido
+tokenWillChange	Gardarase un token novo
+tokenWillClear	O token eliminarase
+tokenShown	Cópiao agora: non se volve amosar despois de gardar.
+tokenSet	Definir token
+tokenGenerate	Xerar un
+tokenKeep	Manter o token actual
+tokenClear	Borrar o token
+fAllowOpen	Permitir o control sen token
+fAllowOpenHint	Só para un banco de probas.
+allowOpenWarn	Calquera persoa da rede pode conectarse e mover a máquina, sen token. Activa isto só nun banco de probas, nunca nunha rede compartida.
+noTokenNote	Sen token, o nó négase a ser controlado. Define un antes de usar a máquina.
+mUart	Unidade de control (RS-232)
+mUartIntro	Os pinos que van ao conversor de nivel RS-232 e, a través del, ao conector da unidade de control. Son números GPIO do 0 ao 48.
+fTx	Pino TX (pino 3 do DB9)
+fRx	Pino RX (pino 2 do DB9)
+fRxHint	A unidade de control non envía nada por esta liña; -1 déixaa libre.
+fDtr	Pino DTR (pino 4 do DB9)
+fDcd	Pino DCD (pino 1 do DB9)
+fRi	Pino RI (pino 9 do DB9)
+fCts	Pino CTS
+fDsr	Pino DSR
+fNoneHint	-1: sen cablear.
+fInverted	O conversor de nivel inverte as liñas
+fInvertedHint	Un MAX3232 inverte: un nivel alto no pino é unha tensión RS-232 negativa. Desactívao só para un conversor que non inverta.
+mUartWiring	O nó ocupa o lugar do PC: é o extremo DTE do cable, e o cable é o mesmo cable DB9 directo que unía o PC á unidade de control. Nunca conectes un pino do ESP32 á máquina sen un conversor de nivel RS-232: os pinos son de 3,3 V e o RS-232 é de máis e menos 12 V. TX vai ao pino 3 do DB9, DTR ao pino 4, DCD vén do pino 1, RI do pino 9 e a masa ao pino 5.
+mLamps	Lámpadas da máquina
+mLampsIntro	O nó le as lámpadas da unidade de control (HOME X, HOME Y, HOME Z, ENABLE, TOOL), polo que sabe que eixe está en home. -1 deixa unha lámpada sen ler.
+fHomeX	Pino HOME X
+fHomeY	Pino HOME Y
+fHomeZ	Pino HOME Z
+fEnable	Pino ENABLE
+fTool	Pino TOOL
+fActiveLow	Unha lámpada acesa leva o seu pino a nivel baixo
+fActiveLowHint	Activado co búfer NPN habitual: unha lámpada acesa activa o transistor e leva o pino a nivel baixo.
+mLampsWiring	Le o ánodo de cada lámpada a través dun transistor NPN, coa base nunha resistencia de 10 kΩ. Nunca poñas o LED dun optoacoplador directamente na lámpada: a súa caída de tensión apagaríaa.
+mSpindle	Husillo
+mSpindleIntro	O sinal de velocidade e as liñas de marcha do variador de frecuencia (VFD) do husillo. Pon a velocidade máxima a 0 para un nó sen husillo.
+fMaxRpm	Velocidade máxima (rpm)
+fMaxRpmHint	A velocidade a 10 V (100 % PWM); unha petición maior córtase a ela. De 0 a 60000.
+fPwmHz	Frecuencia PWM (Hz)
+fPwmHzHint	De 100 a 40000. O filtro do módulo conversor ten que ser axeitado.
+fPwmPin	Pino PWM de velocidade
+fFwdPin	Pino de marcha avante
+fRevPin	Pino de marcha atrás
+fRunPin	Pino de marcha
+fDirPin	Pino de dirección (activo para retroceso)
+fPwmInverted	Inverter o PWM
+fDirSingle	Unha liña de marcha e unha de dirección
+fDirSingleHint	Activado: o primeiro pino é a liña de marcha e o segundo a de dirección. Desactivado: unha liña para avance e outra para retroceso, nunca as dúas á vez.
+fOutLow	As liñas de marcha e dirección son activas en nivel baixo
+fSettle	Tempo de espera entre sentidos (segundos)
+fSettleHint	O husillo non se pode inverter ata que estivese parado durante este tempo. De 0 a 60.
+mSpindleWiring	Leva o pino PWM a un módulo conversor de PWM a 0-10 V con alimentación propia; a súa saída vai á entrada de velocidade do variador (VI e ACM nun variador Huanyang). As liñas de marcha activan as entradas FOR e REV do variador a través de contactos de relé ou optoacopladores, nunca directamente desde o pino: as saídas son de 3,3 V e uns poucos miliamperios. Mantén unha masa común entre o nó, o módulo conversor e a entrada de velocidade do variador.
+mSpindleSafety	As tres saídas están desactivadas ao acender, en calquera parada da máquina e sempre que a velocidade é 0. Comproba os axustes do propio variador (control polos terminais, entrada analóxica de velocidade, límites de frecuencia) coa placa de características do husillo antes do primeiro arranque: unha frecuencia incorrecta pode danar un husillo de alta velocidade.
+netNow	Conexión actual
+netTitle	Enderezo
+hostnameHint	baleiro: o nó escolle un nome a partir do seu identificador
+netRestartNote	Un cambio do nome de equipo ou da conexión aplícase tras reiniciar o nó.
+apNote	O punto de acceso de configuración é a rede Wi-Fi propia do nó, para acceder a el desde un móbil cando non ten enderezo na túa rede.
+setupWifiHelp	O nó non ten cable. Indica a rede Wi-Fi á que debe unirse agora, ou déixao baleiro e usa a rede de configuración propia do nó, cuxo contrasinal é o código de configuración (poderás cambialo despois en Rede).
+rolesHelp	Os administradores poden cambiar todo. Os lectores poden ver o estado e os axustes pero non cambian nada.
+slotVersion	versión {0}
+slotsUnknown	O nó non informou das súas rañuras de firmware.
+chooseFirst	Escolle primeiro un ficheiro de firmware.
+p_out_of_range	fóra de rango
+p_duplicate_pin	este pino úsase dúas veces
+p_reserved_pin	reservado pola placa
+p_not_a_number	non é un número enteiro
+e_machine_armed	Un programa ten a máquina armada: non se pode gardar, reiniciar nin actualizar nada ata que a desarme.
+staError	Último erro de Wi-Fi
+se_failed	fallou a conexión
+se_network_not_found	non se atopou a rede
+se_wrong_password	rexeitouse o contrasinal
+navNetwork	Rede
+navUsers	Usuarios
+navSystem	Sistema
+language	Idioma
+signOut	Pechar sesión
+loading	Cargando…
+unreachable	O nó non responde.
+signIn	Iniciar sesión
+rememberMe	Manter a sesión iniciada neste navegador
+rememberUser	Lembrar o meu nome de usuario neste dispositivo
+loginNote	Só se pode lembrar o nome de usuario, e só se marcas a caixa. O contrasinal gárdao, se queres, unicamente o xestor de contrasinais do teu navegador ou do sistema; o panel nunca o garda.
+user	Usuario
+password	Contrasinal
+showPassword	Amosar o contrasinal
+setupTitle	Configurar este nó
+setupCode	Código de configuración
+adminName	Nome do administrador
+createAdmin	Crear administrador
+setupWifi	Wi-Fi de configuración deste nó
+setupIntro	Este nó aínda non ten usuarios. Introduce o código de configuración que o nó amosa na súa consola USB cada 15 segundos e escolle o administrador.
+setupWifiTitle	Rede Wi-Fi á que se une o nó (opcional)
+setupWifiOptionalTitle	Rede Wi-Fi (opcional)
+setupWifiOptionalHelp	Esta placa ten un porto Ethernet: se hai un cable conectado, déixao baleiro. Para usar o nó por Wi-Fi no seu lugar (por exemplo nun banco de probas sen cable), indica aquí a rede á que debe unirse. Se acaba sen enderezo, volve abrir a súa rede de configuración aos 90 segundos para poder acceder a el.
+save	Gardar
+saveRestart	Gardar e reiniciar
+restart	Reiniciar
+discard	Descartar os cambios
+saved	Gardado.
+savedRestart	Gardado. Reinicia o nó para aplicalo.
+unsaved	Hai cambios sen gardar.
+restarting	O nó está reiniciándose…
+adminOnly	Só un administrador pode cambiar isto.
+yes	si
+no	non
+add	Engadir
+delete	Eliminar
+refresh	Actualizar
+working	Traballando…
+confirmAsk	Seguro?
+nodeId	Identificador
+firmware	Firmware
+uptime	En funcionamento desde hai
+address	Enderezo
+netmask	Máscara de subrede
+gateway	Pasarela
+mac	MAC
+link	Ligazón
+linkUp	activa
+linkDown	caída
+nodeTitle	Nó
+uplink	Conexión á rede
+uplinkEthernet	Cable Ethernet (PoE)
+uplinkWifi	Wi-Fi (únese a outra rede)
+dhcp	Obter o enderezo automaticamente (DHCP)
+dns1	Servidor DNS 1
+dns2	Servidor DNS 2
+hostname	Nome de equipo
+wifiAp	Punto de acceso (Wi-Fi que ofrece este nó)
+apEnable	Ofrecer unha rede Wi-Fi
+ssid	Nome da rede (SSID)
+security	Seguridade
+secOpen	aberta (sen contrasinal)
+secWpa2	WPA2
+secWpa3	WPA3
+secWpa2Wpa3	WPA2 + WPA3
+wifiPassword	Contrasinal do Wi-Fi (8 a 63 caracteres)
+passwordSet	hai un contrasinal gardado; deixa baleiro para mantelo
+hidden	Ocultar o nome da rede
+wifiChannel	Canle
+channelAuto	automática (1, 6 ou 11 segundo o nó)
+channelNow	Este nó usaría a canle {0}.
+wifiSta	Estación Wi-Fi (este nó únese a unha rede Wi-Fi)
+staEnable	Unirse a unha rede Wi-Fi
+scanNetworks	Buscar redes
+scanning	Buscando…
+noNetworks	Non se detectou ningunha rede.
+scanNote	Mentres busca, o punto de acceso propio do nó pode desconectar os seus clientes un momento.
+useNetwork	Usar
+signal	sinal
+wiredNote	Co cable, o nó pide o seu enderezo por DHCP a non ser que o fixes aquí. A súa propia rede Wi-Fi, se a mantés, é unha rede separada (192.168.4.x) para acceder ao nó desde un móbil; non está unida á rede cableada. Os cambios aplícanse tras reiniciar.
+staNote	O nó non ten cable: dálle a rede Wi-Fi da túa casa ou do teu centro. Se deixas a estación desactivada, usa o seu punto de acceso propio.
+noWifiWarn	O nó non ten cable: mantén activado polo menos un dos dous, o punto de acceso ou a estación, ou non se poderá acceder a el.
+ethernetMissing	O chip Ethernet non responde (consulta a guía de cableado).
+station	Estación Wi-Fi
+notConnected	non conectado
+apActive	Punto de acceso
+apClients	clientes
+channel	canle
+setupNetwork	rede de configuración
+usersTitle	Usuarios deste panel
+role	Rol
+roleAdmin	administrador
+roleViewer	lector (só lectura)
+addUser	Engadir un usuario
+newPassword	Contrasinal novo (8 caracteres ou máis)
+setPassword	Definir contrasinal
+myAccount	O meu contrasinal
+currentPassword	Contrasinal actual
+changePassword	Cambiar o meu contrasinal
+passwordChanged	Contrasinal cambiado. Inicia sesión de novo.
+you	ti
+updateTitle	Actualizar o firmware
+updateHelp	Escolle o ficheiro de firmware (un .bin feito para este proxecto, non a imaxe combinada). Compróbase antes de usalo e, se a nova versión non arranca, o nó volve á anterior por si mesmo.
+chooseFile	Ficheiro de firmware
+upload	Subir e instalar
+uploading	Subindo… {0}%
+updateDone	Instalada a versión {0}. O nó reiníciase agora.
+slot	Executándose desde
+slotsTitle	Rañuras de firmware
+slotsHelp	O nó garda dúas rañuras de firmware, ota_0 e ota_1. Unha actualización escríbese na que non está en execución. Aquí podes arrancar a outra en calquera momento, para volver á versión anterior ou avanzar á recén instalada. Os axustes consérvanse.
+slotRunning	en execución agora
+slotNextBoot	arranca a seguinte
+slotEmpty	baleira - sen firmware
+switchSlot	Arrancar {0}
+switchSlotNone	A outra rañura non contén firmware
+switchAsk	Reiniciar o nó e arrancar {0} (versión {1})?
+logTitle	Rexistro do nó
+copyLog	Copiar o rexistro
+copied	Copiado
+copyFailed	Non se puido copiar - selecciona o texto e cópiao a man
+maintenance	Mantemento
+rebootNode	Reiniciar o nó
+factoryTitle	Restablecemento de fábrica
+factoryHelp	Borra todos os axustes e todos os usuarios; o nó volve comezar na configuración. Escribe RESET para confirmar.
+author	Autor
+license	Licenza
+e_unauthorized	A túa sesión rematou. Inicia sesión de novo.
+e_wrong_credentials	Usuario ou contrasinal incorrectos.
+e_too_many_attempts	Demasiados intentos. Agarda un momento.
+e_wrong_code	O código de configuración é incorrecto.
+e_invalid_name	O nome non é válido (3 a 32 caracteres: a a z, 0 a 9, . _ -).
+e_weak_password	O contrasinal debe ter entre 8 e 64 caracteres.
+e_exists	Ese usuario xa existe.
+e_not_found	Non se atopou.
+e_too_many_users	Pode haber como máximo catro usuarios.
+e_last_admin	O último administrador non se pode eliminar nin degradar.
+e_wrong_password	O contrasinal actual é incorrecto.
+e_invalid_role	O rol non é válido.
+e_forbidden	Non podes facer iso.
+e_storage	Non se puido escribir na flash.
+e_invalid	Algúns valores non son válidos; están marcados no formulario.
+e_not_json	Non se entendeu a solicitude.
+e_too_large	A solicitude é demasiado grande.
+e_bad_size	O tamaño do ficheiro non é válido para un firmware.
+e_not_firmware	Ese ficheiro non é un firmware de ESP32.
+e_image_invalid	A imaxe do firmware está danada ou incompleta.
+e_wrong_firmware	Ese firmware pertence a outro proxecto.
+e_upload_interrupted	A subida foi interrompida.
+e_upload_stalled	A subida quedou parada e detívose: téntao de novo.
+e_network	Non se puido contactar co nó.
+e_setup_required	Configura primeiro o nó: crea o seu administrador.
+e_confirm_required	Requírese confirmación: envía a palabra RESET.
+e_bad_host	Ese enderezo non é válido.
+e_invalid_time	Esa hora non é válida.
+e_would_lock_out	Esa lista deixaríate sen acceso ao panel: engade a rede que estás a usar agora.
+e_slot_empty	A outra rañura non contén firmware.
+e_ota_begin	A actualización non puido comezar a escribir.
+e_ota_boot	Non se puido escoller o novo firmware para arrancar a seguir.
+e_ota_write	A actualización non se puido escribir na flash.
+e_no_partition	Non hai ningunha rañura libre para a actualización.
+e_outside_network	Esta rede non ten permiso para usar o panel: usa a rede da casa ou a VPN.
+e_wifi_busy	A radio está ocupada; téntao de novo nun momento.
+e_scan_failed	Fallou a busca.
+e_wifi_unavailable	Non se puido iniciar o Wi-Fi.
+p_required	obrigatorio
+p_invalid	non válido
+p_range	fóra de rango
+p_too_long	demasiado longo
+p_conflict	xa usado
+p_reserved	reservado pola placa
+p_invalid_key	8 a 63 caracteres imprimibles
+p_outside_subnet	fóra da subrede
+addBackupNetwork	Engadir unha rede de reserva
+appIdf	ESP-IDF (firmware)
+backupNetworksHint	Próbanse por orde se non se pode unir á rede de arriba durante un tempo.
+backupNetworksTitle	Redes de reserva
+board	Placa
+bootloaderIdf	ESP-IDF (cargador de arranque)
+brownoutLevel	Nivel do detector de brown-out
+checkGithub	Comprobar agora
+checking	Comprobando…
+chip	Chip
+clockNotSet	sen definir
+copyAsk	Copiar o firmware que se está executando ({0}, versión {1}) sobre a outra rañura ({2})? O que contén agora bórrase. O nó non se reinicia.
+copyDone	Copiado: as dúas rañuras conteñen agora a versión {0}.
+copyRunning	Copiando… {0}%
+copySlot	Copiar {0} a {1}
+cores	núcleos
+cpuFreq	Frecuencia da CPU
+dns	DNS
+flash	Flash
+flashAllocated	Reservado polas particións
+flashEncryption	Cifrado da flash
+flashFree	libre
+flashTotal	Total
+flashUnallocated	Non asignado a ningunha partición
+githubAvailable	Hai dispoñible a versión {0}.
+githubDownloading	Descargando o firmware de GitHub… {0}%
+githubUpToDate	Esta xa é a versión máis recente en GitHub.
+githubUpdateNote	Descarga a imaxe da aplicación independente que publica a propia release de GitHub (nunca o cargador de arranque) e instálaa do mesmo modo que un ficheiro subido. A subida manual de arriba segue funcionando exactamente como antes: isto é un engadido, non un substituto, para un nó sen motivo para acceder a Internet.
+githubUpdateTitle	Buscar unha versión nova en GitHub
+githubVerifying	Comprobando a imaxe co hash da release…
+installUpdate	Descargar e instalar
+installing	Instalando…
+layout	Distribución
+localTime	Hora local
+memory	Memoria libre
+navAbout	Acerca de
+navHelp	Axuda
+navOverview	Resumo
+navWifi	Wi-Fi
+nodeName	Nome
+none	ningún
+ovFlash	Memoria flash
+ovHardware	Hardware
+ovNetwork	Rede
+ovNode	Este nó
+ovTime	Data e hora
+ownNetwork	rede propia
+psram	PSRAM
+radios	Radios
+reasonOther	outro
+removeNetwork	Quitar
+resetReason	Último reinicio
+secureBoot	Arranque seguro
+timeFromNtp	Servidor de hora de Internet (sincronizado)
+timeManual	definida a man
+timeNtpWaiting	agardando polo servidor de hora de Internet
+timeSource	Fonte da hora
+timeZone	Fuso horario
+aboutDescription	un nó da familia EH3D para a caixa dunha máquina Bungard CCD: une o RS-232 da unidade de control coa rede, amosa as súas lámpadas, as súas liñas e o husillo, e garda os axustes, os usuarios e o firmware do nó.
+aboutIndependent	O proxecto é independente: non está feito, avalado nin apoiado por Bungard Elektronik.
+ovMachineLink	Ligazón coa máquina
+stClient	Programa
+wifiMoved	As redes Wi-Fi están na súa propia páxina, Wi-Fi.
+navHelpTab_overview	Resumo
+help_overview_title	Resumo
+help_overview_text	Este panel configura e vixía o nó. O Resumo amosa o que é o nó e como está; Estado segue o que fai en tempo real; as páxinas Rede e Wi-Fi conteñen como está conectado; Usuarios, Firmware e Rexistro son para o sistema.\n\nTodo se garda no nó e aplícase cando o di a barra de abaixo. Un cambio que precisa reinicio avísao antes de saír da páxina.
+navHelpTab_status	Estado
+help_status_title	Estado
+help_status_text	Estado amosa a ligazón de control, as lámpadas e as liñas da unidade de control, o husillo e a cola, actualizados cada segundo. O botón Parar detén a máquina ao instante: a cola baleirase e o husillo e os controladores desconéctanse. Só pode facer a máquina máis segura.\n\nSe o nó non responde, a páxina dío e segue preguntando.
+navHelpTab_machine	Máquina
+help_machine_title	Máquina
+help_machine_text	Máquina contén o que une o nó coa unidade de control: os pinos e a velocidade serie, o token de acceso da ligazón de control, o porto e os límites da cola. Un cambio aplícase despois de gardalo; algúns precisan reinicio e a barra dío.\n\nO token é de só escritura: nunca se volve amosar. Un programa que se conecta necesítao; sen el, o nó négase a mover a máquina.
+navHelpTab_network	Rede
+help_network_title	Rede
+help_network_text	Rede amosa como está conectado o nó agora e define o seu nome e o seu enderezo: DHCP ou un enderezo fixo. Nunha placa con cable escolles o cable ou o Wi-Fi como vía de entrada.\n\nUn cambio de enderezo aplícase tras reiniciar. Se perdes o nó despois dun cambio, o seu punto de acceso propio (cando está activado) ou o cable seguen dando acceso ao panel.
+navHelpTab_wifi	Wi-Fi
+help_wifi_title	Wi-Fi
+help_wifi_text	Wi-Fi define a rede á que se une o nó e o punto de acceso que pode abrir. Baixo a rede principal podes engadir ata tres redes de reserva: se se perde a principal, o nó próbaas por turnos, así que non queda sen rede. Buscar lista as redes ao alcance.\n\nOs contrasinais son de só escritura: o panel nunca os volve amosar, e un campo deixado baleiro mantén o gardado.
+navHelpTab_users	Usuarios
+help_users_title	Usuarios
+help_users_text	Os administradores cambian os axustes; os lectores só miran. Cada persoa ten un nome e un contrasinal. Un administrador engade persoas, cambia contrasinais e elimínaas; o último administrador non se pode eliminar.\n\nDemasiados contrasinais incorrectos bloquean un nome durante un tempo. O teu propio contrasinal cámbiase na mesma páxina.
+navHelpTab_update	Firmware
+help_update_title	Firmware
+help_update_text	O firmware pódese actualizar de tres maneiras. Desde GitHub: o nó busca a release máis recente do seu propio proxecto, descárgaa, comproba que o seu hash coincide co que publica a release e instálaa na outra rañura. Subindo un ficheiro .bin deste proxecto. Ou cambiando á outra rañura, que aínda contén a versión que se executaba antes.\n\nCopiar escribe o firmware en execución na outra rañura, de modo que ambas teñen a mesma versión (unha copia á que volver). Despois dunha actualización o nó reiníciase.
+navHelpTab_log	Rexistro
+help_log_title	Rexistro
+help_log_text	O rexistro é o que di o nó mentres traballa: a rede, a ligazón de control, as actualizacións e os erros. Gárdase en memoria, así que comeza baleiro tras un reinicio.\n\nCópiao cando pidas axuda: contén o que pasou, por orde.
+navHelpTab_system	Sistema
+help_system_title	Sistema
+help_system_text	Sistema ten o reinicio do nó e o restablecemento de fábrica, que borra todos os axustes e todos os usuarios (escribe RESET para confirmar). Reinicia primeiro se só queres ver se un problema desaparece.\n\nUn reinicio detén a ligazón da máquina un momento: faino cando non haxa ningún traballo en curso.
+reasonPower_on	acendido
+reasonSoftware	reinicio desde o panel
+reasonCrash	CRASH
+reasonWatchdog	watchdog
+reasonBrownout	tensión baixa
+reasonDeep_sleep	sono profundo
+e_bad_json	A solicitude non é JSON válido.
+e_bad_url	O enderezo da actualización non é o oficial.
+e_checksum_mismatch	O firmware descargado non coincide coa suma de verificación da release: rexeitouse e non cambiou nada.
+e_client_init	Non se puido iniciar a descarga.
+e_connect_failed	A descarga non conectou: comproba a rede do nó e téntao de novo.
+e_no_asset	A release non ten firmware para esta placa.
+e_no_asset_for_board	Existe unha release máis nova, pero non ten imaxe de firmware para esta placa.
+e_no_checksum	A release non leva ficheiro de suma de verificación xunto á imaxe do firmware, así que non se instala.
+e_no_memory	O nó quedou sen memoria.
+e_no_release	Non se atopou ningunha release.
+e_no_slot	Non hai outra rañura á que copiar.
+e_no_task	Non se puido iniciar a actualización (sen tarefa libre).
+e_not_newer	Ese firmware non é máis novo que o que se está executando.
+e_ota_busy	Xa hai unha instalación desde GitHub en curso.
+e_read_error	A descarga interrompeuse durante a lectura.
+e_read_failed	Non se puido ler a rañura en execución.
+e_short_read	A descarga rematou antes de que o ficheiro estivese completo.
+e_source_invalid	Non se puido verificar o firmware en execución, así que non se copiou.
+e_up_to_date	O firmware xa está actualizado.
+e_version_mismatch	A versión do ficheiro non é a da release.

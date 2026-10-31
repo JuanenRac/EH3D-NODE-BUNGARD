@@ -1,0 +1,435 @@
+# Lietuvių (lt): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+appName	EH3D Bungard mazgas
+grpNode	Mazgas
+grpNetwork	Tinklas
+grpSystem	Sistema
+navMenu	Pagrindinis meniu
+navStatus	Būsena
+navMachine	Staklės
+navUpdate	Programinė įranga
+navLog	Žurnalas
+skip	Pereiti prie turinio
+themeToLight	Šviesi tema
+themeToDark	Tamsi tema
+showShort	Rodyti
+e_other	Mazgas atsakė klaida: {0}
+statusNoControl	Šiame puslapyje rodoma mazgo būsena. Vienintelis dalykas, ką skydelis daro su staklėmis, yra jų sustabdymas: staklėmis judinti galima tik per programos autentifikuotą ryšį (valdymo ryšį), niekada iš čia.
+stLost	Mazgas neatsako
+stLink	Valdymo ryšys
+stLinkUp	Ryšys veikia
+stLinkDown	Ryšio nėra
+stClientYes	Programa prijungta
+stClientNo	Programa neprijungta
+stAuthYes	Prisijungta
+stAuthNo	Neprisijungta
+stArmed	Staklės paruoštos darbui
+stDisarmed	Staklės neparuoštos darbui
+stQueue	Baitai eilėje
+stQueueBytes	Eilė
+stSent	Išsiųsti baitai
+stLamps	Staklių lemputės
+stLampsHelp	Penkios valdymo bloko lemputės, nuskaitomos tiesiogiai. HOME X, Y ir Z įsijungia, kai ašis yra ant ribinio jungiklio.
+lampHomeX	HOME X
+lampHomeY	HOME Y
+lampHomeZ	HOME Z
+lampEnable	ENABLE
+lampTool	TOOL
+lampOn	įjungta
+lampOff	išjungta
+stLines	Valdymo bloko linijos
+stLinesHelp	Linijos, kuriomis valdymo blokas atsako mazgui. DCD ir RI praneša apie jo klaidos ir įrankio būsenas.
+lineCts	CTS
+lineDsr	DSR
+lineRi	RI
+lineDcd	DCD
+stSpindle	Verpstė
+stSpindleBar	Greitis palyginti su maksimaliu
+spForward	Pirmyn
+spReverse	Atgal
+spStopped	Sustabdyta
+spMax	Maksimalus greitis: {0} aps./min
+spNoSpindle	Verpstės greitis nenustatytas (maksimumas 0 aps./min).
+stNode	Mazgas
+mRestartNote	Šių nustatymų pakeitimai įsigalioja iš naujo paleidus mazgą.
+mLink	Valdymo ryšys
+mLinkIntro	TCP prievadas, prie kurio jungiasi programa staklėms valdyti. Kiekvienas ryšys turi prisijungti su prieigos raktu.
+fPort	TCP prievadas
+fPortHint	Nuo 1 iki 65535.
+fIdle	Neveikimo skirtasis laikas (sekundės)
+fIdleHint	Paruošta programa, kuri tiek laiko nieko nesiunčia, sustabdoma: eilė ištuštinama, o pavaros išjungiamos. Nuo 0,5 iki 60.
+fQueue	Eilės dydis (baitai)
+fQueueHint	Kiek baitų mazgas laiko prieš išsiųsdamas juos valdymo blokui. Nuo 1024 iki 4194304.
+fFinish	Užbaigti turimą darbą, jei programa dingsta
+fFinishHint	Išjungta (rekomenduojama): mazgas sustoja iš karto, kaip visada. Įjungta: jei programa ar serveris nutyla arba atsijungia, mazgas iki galo įvykdo eilėje jau esančius baitus (programa darbą sukarpo taip, kad pabaiga būtų saugioje vietoje), tada išjungia verpstę ir pavaras.
+finishWarn	Staklės toliau judės pačios, be prijungtos programos, kol eilė ištuštės arba baigsis žemiau nurodytas laikas. Įjunkite tai tik patikrinę įrankį ir darbą ir žinodami, kur yra sustabdymo mygtukas.
+fDrain	Ilgiausias savarankiško darbo laikas (sekundės)
+fDrainHint	Praėjus šiam laikui mazgas sustabdo viską, kas liko. Nuo 10 iki 3600.
+stStop	Sustabdyti stakles
+stStopHint	Ištuština eilę ir išjungia verpstę bei pavaras, nesvarbu, ar programa prijungta.
+stStopped	Sustabdyta.
+stDraining	Programa dingo, o mazgas baigia turimą darbą. Naujo darbo jis nepriima; norėdami jį baigti dabar, naudokite sustabdymo mygtuką.
+fToken	Prieigos raktas
+fTokenHint	Įrašomas į mazgą ir daugiau nerodomas. Įveskite naują arba sugeneruokite, tada spauskite Išsaugoti.
+tokenIsSet	Raktas nustatytas
+tokenNotSet	Raktas nenustatytas
+tokenWillChange	Bus išsaugotas naujas raktas
+tokenWillClear	Raktas bus pašalintas
+tokenShown	Nukopijuokite jį dabar: po išsaugojimo jis nebebus rodomas.
+tokenSet	Nustatyti raktą
+tokenGenerate	Sugeneruoti
+tokenKeep	Palikti dabartinį raktą
+tokenClear	Išvalyti raktą
+fAllowOpen	Leisti valdymą be rakto
+fAllowOpenHint	Tik bandymų stendui.
+allowOpenWarn	Bet kas tinkle gali prisijungti ir judinti stakles be rakto. Įjunkite tai tik bandymų stende, niekada bendrai naudojamame tinkle.
+noTokenNote	Be rakto mazgas atsisako būti valdomas. Nustatykite jį prieš naudodami stakles.
+mUart	Valdymo blokas (RS-232)
+mUartIntro	Kontaktai, einantys į RS-232 lygio keitiklį ir per jį į valdymo bloko jungtį. Tai GPIO numeriai nuo 0 iki 48.
+fTx	TX kontaktas (DB9 3 kontaktas)
+fRx	RX kontaktas (DB9 2 kontaktas)
+fRxHint	Valdymo blokas šia linija nieko nesiunčia; -1 palieka ją laisvą.
+fDtr	DTR kontaktas (DB9 4 kontaktas)
+fDcd	DCD kontaktas (DB9 1 kontaktas)
+fRi	RI kontaktas (DB9 9 kontaktas)
+fCts	CTS kontaktas
+fDsr	DSR kontaktas
+fNoneHint	-1: neprijungta.
+fInverted	Lygio keitiklis invertuoja linijas
+fInvertedHint	MAX3232 invertuoja: aukštas lygis kontakte yra neigiama RS-232 įtampa. Išjunkite tik keitikliui, kuris neinvertuoja.
+mUartWiring	Mazgas užima kompiuterio vietą: tai kabelio DTE galas, o kabelis yra tas pats tiesus DB9 kabelis, kuris jungė kompiuterį su valdymo bloku. Niekada nejunkite ESP32 kontakto prie staklių be RS-232 lygio keitiklio: kontaktai yra 3,3 V, o RS-232 yra plius ir minus 12 V. TX eina į DB9 3 kontaktą, DTR į 4 kontaktą, DCD ateina iš 1 kontakto, RI iš 9 kontakto, o įžeminimas į 5 kontaktą.
+mLamps	Staklių lemputės
+mLampsIntro	Mazgas nuskaito valdymo bloko lemputes (HOME X, HOME Y, HOME Z, ENABLE, TOOL), todėl žino, kuri ašis yra pradinėje padėtyje. -1 palieka lemputę nenuskaitomą.
+fHomeX	HOME X kontaktas
+fHomeY	HOME Y kontaktas
+fHomeZ	HOME Z kontaktas
+fEnable	ENABLE kontaktas
+fTool	TOOL kontaktas
+fActiveLow	Šviečianti lemputė patraukia savo kontaktą žemyn
+fActiveLowHint	Įjungta su įprastu NPN buferiu: šviečianti lemputė atidaro tranzistorių ir patraukia kontaktą žemyn.
+mLampsWiring	Nuskaitykite kiekvienos lemputės anodą per NPN tranzistorių, kurio bazė prijungta prie 10 kΩ rezistoriaus. Niekada nejunkite optrono šviesos diodo tiesiai per lemputę: jo tiesioginis įtampos kritimas lemputę užgesintų.
+mSpindle	Verpstė
+mSpindleIntro	Greičio signalas ir veikimo linijos verpstės dažnio keitikliui (VFD). Mazgui be verpstės nustatykite maksimalų greitį 0.
+fMaxRpm	Maksimalus greitis (aps./min)
+fMaxRpmHint	Greitis esant 10 V (100 % PWM); didesnė užklausa apkarpoma iki jo. Nuo 0 iki 60000.
+fPwmHz	PWM dažnis (Hz)
+fPwmHzHint	Nuo 100 iki 40000. Keitiklio modulio filtras turi jam tikti.
+fPwmPin	Greičio PWM kontaktas
+fFwdPin	Eigos pirmyn kontaktas
+fRevPin	Eigos atgal kontaktas
+fRunPin	Eigos kontaktas
+fDirPin	Krypties kontaktas (įjungtas atbulinei eigai)
+fPwmInverted	Invertuoti PWM
+fDirSingle	Viena eigos linija ir viena krypties linija
+fDirSingleHint	Įjungta: pirmas kontaktas yra eigos linija, antras krypties linija. Išjungta: viena linija pirmyn ir viena atgal, niekada abi kartu.
+fOutLow	Eigos ir krypties linijos aktyvios žemu lygiu
+fSettle	Nusistovėjimo laikas tarp krypčių (sekundės)
+fSettleHint	Verpstės negalima reversuoti, kol ji nebuvo sustabdyta tiek laiko. Nuo 0 iki 60.
+mSpindleWiring	Prijunkite PWM kontaktą prie PWM į 0-10 V keitiklio modulio su savo maitinimu; jo išėjimas eina į pavaros greičio įėjimą (VI ir ACM Huanyang pavarai). Eigos linijos valdo pavaros FOR ir REV įėjimus per relės kontaktus arba optronus, niekada tiesiai iš kontakto: išėjimai yra 3,3 V ir keli miliamperai. Palaikykite bendrą įžeminimą tarp mazgo, keitiklio modulio ir pavaros greičio įėjimo.
+mSpindleSafety	Visi trys išėjimai išjungti paleidžiant, bet kada sustabdžius stakles ir kai greitis yra 0. Prieš pirmą paleidimą palyginkite paties keitiklio nustatymus (valdymas nuo gnybtų, analoginis greičio įėjimas, dažnio ribos) su verpstės lentele: neteisingas dažnis gali sugadinti greitaeigę verpstę.
+netNow	Dabartinis ryšys
+netTitle	Adresas
+hostnameHint	tuščia: mazgas parenka vardą pagal savo identifikatorių
+netRestartNote	Pagrindinio kompiuterio vardo ar ryšio pakeitimas įsigalioja iš naujo paleidus mazgą.
+apNote	Nustatymo prieigos taškas yra paties mazgo Wi-Fi tinklas, skirtas jį pasiekti iš telefono, kai jis neturi adreso jūsų tinkle.
+setupWifiHelp	Mazgas neturi kabelio. Nurodykite Wi-Fi tinklą, prie kurio jis turi prisijungti dabar, arba palikite tuščią ir naudokite paties mazgo nustatymo tinklą, kurio slaptažodis yra nustatymo kodas (vėliau galite jį pakeisti skiltyje Tinklas).
+rolesHelp	Administratoriai gali keisti viską. Žiūrovai mato būseną ir nustatymus, bet nieko nekeičia.
+slotVersion	versija {0}
+slotsUnknown	Mazgas nepranešė apie savo programinės įrangos laukelius.
+chooseFirst	Pirmiausia pasirinkite programinės įrangos failą.
+p_out_of_range	už ribų
+p_duplicate_pin	šis kontaktas naudojamas du kartus
+p_reserved_pin	rezervuota plokštės
+p_not_a_number	ne sveikasis skaičius
+e_machine_armed	Programa yra paruošusi stakles darbui: nieko negalima išsaugoti, iš naujo paleisti ar atnaujinti, kol ji nenuims paruošimo.
+staError	Paskutinė Wi-Fi klaida
+se_failed	ryšys nepavyko
+se_network_not_found	tinklas nerastas
+se_wrong_password	slaptažodis atmestas
+navNetwork	Tinklas
+navUsers	Naudotojai
+navSystem	Sistema
+language	Kalba
+signOut	Atsijungti
+loading	Įkeliama…
+unreachable	Mazgas neatsako.
+signIn	Prisijungti
+rememberMe	Palikti mane prisijungusį šioje naršyklėje
+rememberUser	Prisiminti mano naudotojo vardą šiame įrenginyje
+loginNote	Galima prisiminti tik naudotojo vardą ir tik jei pažymėsite langelį. Slaptažodį, jei norite, įrašo tik jūsų naršyklės ar sistemos slaptažodžių tvarkyklė; skydelis jo niekada nesaugo.
+user	Naudotojas
+password	Slaptažodis
+showPassword	Rodyti slaptažodį
+setupTitle	Nustatyti šį mazgą
+setupCode	Nustatymo kodas
+adminName	Administratoriaus vardas
+createAdmin	Sukurti administratorių
+setupWifi	Šio mazgo nustatymo Wi-Fi
+setupIntro	Šis mazgas dar neturi naudotojo. Įveskite nustatymo kodą, kurį mazgas kas 15 sekundžių rodo savo USB konsolėje, ir pasirinkite administratorių.
+setupWifiTitle	Wi-Fi tinklas, prie kurio mazgas turi prisijungti (neprivaloma)
+setupWifiOptionalTitle	Wi-Fi tinklas (neprivaloma)
+setupWifiOptionalHelp	Ši plokštė turi Ethernet prievadą: įkišus kabelį, palikite tuščią. Norėdami mazgą naudoti per Wi-Fi (pavyzdžiui, ant stalo be kabelio), čia nurodykite tinklą, prie kurio jis turi prisijungti. Jei jis lieka be adreso, po 90 sekundžių vėl atidaro savo nustatymo tinklą, kad jį būtų galima pasiekti.
+save	Išsaugoti
+saveRestart	Išsaugoti ir paleisti iš naujo
+restart	Paleisti iš naujo
+discard	Atmesti pakeitimus
+saved	Išsaugota.
+savedRestart	Išsaugota. Paleiskite mazgą iš naujo, kad pritaikytumėte.
+unsaved	Yra neišsaugotų pakeitimų.
+restarting	Mazgas paleidžiamas iš naujo…
+adminOnly	Tai gali pakeisti tik administratorius.
+yes	taip
+no	ne
+add	Pridėti
+delete	Ištrinti
+refresh	Atnaujinti
+working	Dirbama…
+confirmAsk	Ar tikrai?
+nodeId	Identifikatorius
+firmware	Programinė įranga
+uptime	Veikia jau
+address	Adresas
+netmask	Potinklio kaukė
+gateway	Šliuzas
+mac	MAC
+link	Ryšys
+linkUp	veikia
+linkDown	neveikia
+nodeTitle	Mazgas
+uplink	Ryšys su tinklu
+uplinkEthernet	Ethernet kabelis (PoE)
+uplinkWifi	Wi-Fi (jungiasi prie kito tinklo)
+dhcp	Gauti adresą automatiškai (DHCP)
+dns1	DNS serveris 1
+dns2	DNS serveris 2
+hostname	Pagrindinio kompiuterio vardas
+wifiAp	Prieigos taškas (Wi-Fi, kurį siūlo šis mazgas)
+apEnable	Siūlyti Wi-Fi tinklą
+ssid	Tinklo pavadinimas (SSID)
+security	Sauga
+secOpen	atviras (be slaptažodžio)
+secWpa2	WPA2
+secWpa3	WPA3
+secWpa2Wpa3	WPA2 + WPA3
+wifiPassword	Wi-Fi slaptažodis (nuo 8 iki 63 simbolių)
+passwordSet	slaptažodis išsaugotas; palikite tuščią, kad liktų
+hidden	Slėpti tinklo pavadinimą
+wifiChannel	Kanalas
+channelAuto	automatinis (1, 6 arba 11 pagal mazgą)
+channelNow	Šis mazgas naudotų kanalą {0}.
+wifiSta	Wi-Fi stotis (šis mazgas jungiasi prie Wi-Fi tinklo)
+staEnable	Prisijungti prie Wi-Fi tinklo
+scanNetworks	Ieškoti tinklų
+scanning	Ieškoma…
+noNetworks	Nei vieno tinklo nepavyko aptikti.
+scanNote	Kol ieškoma, paties mazgo prieigos taškas gali akimirkai atjungti savo klientus.
+useNetwork	Naudoti
+signal	signalas
+wiredNote	Kabeliu mazgas adresą prašo per DHCP, nebent čia jį nustatysite pastovų. Jo paties Wi-Fi tinklas, jei jį paliekate, yra atskiras tinklas (192.168.4.x), skirtas mazgui pasiekti iš telefono; jis nėra sujungtas su laidiniu tinklu. Pakeitimai įsigalioja po perkrovimo.
+staNote	Mazgas neturi kabelio: nurodykite jam savo namų ar vietos Wi-Fi tinklą. Jei stotį paliekate išjungtą, naudokite jo paties prieigos tašką.
+noWifiWarn	Mazgas neturi kabelio: palikite įjungtą bent vieną iš dviejų, prieigos tašką arba stotį, kitaip jo nepavyks pasiekti.
+ethernetMissing	Ethernet lustas neatsako (žr. jungimo vadovą).
+station	Wi-Fi stotis
+notConnected	neprijungta
+apActive	Prieigos taškas
+apClients	klientai
+channel	kanalas
+setupNetwork	nustatymo tinklas
+usersTitle	Šio skydelio naudotojai
+role	Vaidmuo
+roleAdmin	administratorius
+roleViewer	žiūrovas (tik skaitymas)
+addUser	Pridėti naudotoją
+newPassword	Naujas slaptažodis (8 simboliai ar daugiau)
+setPassword	Nustatyti slaptažodį
+myAccount	Mano slaptažodis
+currentPassword	Dabartinis slaptažodis
+changePassword	Keisti mano slaptažodį
+passwordChanged	Slaptažodis pakeistas. Prisijunkite iš naujo.
+you	jūs
+updateTitle	Atnaujinti programinę įrangą
+updateHelp	Pasirinkite programinės įrangos failą (.bin, sukurtą šiam projektui, o ne sujungtą vaizdą). Prieš naudojant jis patikrinamas, o jei nauja versija nepasileidžia, mazgas pats grįžta prie ankstesnės.
+chooseFile	Programinės įrangos failas
+upload	Įkelti ir įdiegti
+uploading	Įkeliama… {0}%
+updateDone	Įdiegta versija {0}. Mazgas dabar paleidžiamas iš naujo.
+slot	Veikia iš
+slotsTitle	Programinės įrangos laukeliai
+slotsHelp	Mazgas laiko du programinės įrangos laukelius, ota_0 ir ota_1. Naujinimas įrašomas į tą, kuris neveikia. Čia bet kada galite paleisti kitą - kad grįžtumėte prie ankstesnės versijos arba pereitumėte prie ką tik įdiegtos. Nustatymai išsaugomi.
+slotRunning	veikia dabar
+slotNextBoot	paleidžiama kitą kartą
+slotEmpty	tuščia - nėra programinės įrangos
+switchSlot	Paleisti {0}
+switchSlotNone	Kitame laukelyje nėra programinės įrangos
+switchAsk	Paleisti mazgą iš naujo ir įkelti {0} (versija {1})?
+logTitle	Mazgo žurnalas
+copyLog	Kopijuoti žurnalą
+copied	Nukopijuota
+copyFailed	Nepavyko nukopijuoti - pažymėkite tekstą ir nukopijuokite ranka
+maintenance	Priežiūra
+rebootNode	Paleisti mazgą iš naujo
+factoryTitle	Gamyklinių nustatymų atkūrimas
+factoryHelp	Ištrina kiekvieną nustatymą ir kiekvieną naudotoją; mazgas vėl pradeda nuo nustatymo. Patvirtinimui įveskite RESET.
+author	Autorius
+license	Licencija
+e_unauthorized	Jūsų sesija baigėsi. Prisijunkite iš naujo.
+e_wrong_credentials	Neteisingas naudotojas arba slaptažodis.
+e_too_many_attempts	Per daug bandymų. Palaukite akimirką.
+e_wrong_code	Nustatymo kodas neteisingas.
+e_invalid_name	Vardas netinkamas (3-32 simboliai: a-z, 0-9, . _ -).
+e_weak_password	Slaptažodį turi sudaryti 8-64 simboliai.
+e_exists	Toks naudotojas jau yra.
+e_not_found	Nerasta.
+e_too_many_users	Gali būti daugiausia keturi naudotojai.
+e_last_admin	Paskutinio administratoriaus pašalinti ar pažeminti negalima.
+e_wrong_password	Dabartinis slaptažodis neteisingas.
+e_invalid_role	Vaidmuo netinkamas.
+e_forbidden	Jūs to negalite daryti.
+e_storage	Nepavyko įrašyti į atmintį (flash).
+e_invalid	Kai kurios reikšmės netinkamos; jos pažymėtos formoje.
+e_not_json	Užklausa nesuprasta.
+e_too_large	Užklausa per didelė.
+e_bad_size	Failo dydis netinka programinei įrangai.
+e_not_firmware	Šis failas nėra ESP32 programinė įranga.
+e_image_invalid	Programinės įrangos vaizdas pažeistas arba neišsamus.
+e_wrong_firmware	Ši programinė įranga priklauso kitam projektui.
+e_upload_interrupted	Įkėlimas buvo nutrauktas.
+e_upload_stalled	Įkėlimas užstrigo ir buvo sustabdytas: bandykite dar kartą.
+e_network	Nepavyko pasiekti mazgo.
+e_setup_required	Pirmiausia nustatykite mazgą: sukurkite jo administratorių.
+e_confirm_required	Reikalingas patvirtinimas: išsiųskite žodį RESET.
+e_bad_host	Šis adresas netinkamas.
+e_invalid_time	Šis laikas netinkamas.
+e_would_lock_out	Šis sąrašas jus išjungtų iš skydelio: pridėkite tinklą, kurį dabar naudojate.
+e_slot_empty	Kitame laukelyje nėra programinės įrangos.
+e_ota_begin	Naujinimas negalėjo pradėti rašymo.
+e_ota_boot	Nepavyko pasirinkti naujos programinės įrangos kitam paleidimui.
+e_ota_write	Naujinimo nepavyko įrašyti į atmintį (flash).
+e_no_partition	Naujinimui nėra laisvo laukelio.
+e_outside_network	Šiam tinklui neleidžiama naudoti skydelio: naudokite namų tinklą arba VPN.
+e_wifi_busy	Radijas užimtas; bandykite dar kartą po akimirkos.
+e_scan_failed	Paieška nepavyko.
+e_wifi_unavailable	Nepavyko paleisti Wi-Fi.
+p_required	privaloma
+p_invalid	netinkama
+p_range	už ribų
+p_too_long	per ilga
+p_conflict	jau naudojama
+p_reserved	rezervuota plokštės
+p_invalid_key	nuo 8 iki 63 spausdinamų simbolių
+p_outside_subnet	už potinklio ribų
+addBackupNetwork	Pridėti atsarginį tinklą
+appIdf	ESP-IDF (programinė įranga)
+backupNetworksHint	Bandoma paeiliui, jei kurį laiką nepavyksta prisijungti prie aukščiau nurodyto tinklo.
+backupNetworksTitle	Atsarginiai tinklai
+board	Plokštė
+bootloaderIdf	ESP-IDF (įkroviklis)
+brownoutLevel	Įtampos kritimo detektoriaus lygis
+checkGithub	Tikrinti dabar
+checking	Tikrinama…
+chip	Lustas
+clockNotSet	nenustatyta
+copyAsk	Nukopijuoti veikiančią programinę įrangą ({0}, versija {1}) į kitą laukelį ({2})? Tai, kas jame dabar yra, bus ištrinta. Mazgas nepaleidžiamas iš naujo.
+copyDone	Nukopijuota: abiejuose laukeliuose dabar yra versija {0}.
+copyRunning	Kopijuojama… {0}%
+copySlot	Kopijuoti {0} į {1}
+cores	branduoliai
+cpuFreq	CPU dažnis
+dns	DNS
+flash	Atmintis (flash)
+flashAllocated	Rezervuota skaidiniams
+flashEncryption	Flash šifravimas
+flashFree	laisva
+flashTotal	Iš viso
+flashUnallocated	Nepriskirta jokiam skaidiniui
+githubAvailable	Yra versija {0}.
+githubDownloading	Programinė įranga atsisiunčiama iš GitHub… {0}%
+githubUpToDate	Tai jau naujausia versija GitHub.
+githubUpdateNote	Atsisiunčia atskirą programos vaizdą, kurį skelbia paties GitHub leidimas (niekada įkroviklio), ir įdiegia jį taip pat, kaip įkeltą failą. Aukščiau esantis rankinis įkėlimas veikia lygiai taip pat kaip anksčiau - tai papildymas, o ne pakaitalas mazgui, kuris neturi priežasties jungtis prie interneto.
+githubUpdateTitle	Patikrinti GitHub dėl naujos versijos
+githubVerifying	Vaizdas tikrinamas pagal leidimo maišą…
+installUpdate	Atsisiųsti ir įdiegti
+installing	Diegiama…
+layout	Išdėstymas
+localTime	Vietos laikas
+memory	Laisva atmintis
+navAbout	Apie
+navHelp	Pagalba
+navOverview	Apžvalga
+navWifi	Wi-Fi
+nodeName	Pavadinimas
+none	nėra
+ovFlash	Flash atmintis
+ovHardware	Aparatinė įranga
+ovNetwork	Tinklas
+ovNode	Šis mazgas
+ovTime	Data ir laikas
+ownNetwork	savas tinklas
+psram	PSRAM
+radios	Radijai
+reasonOther	kita
+removeNetwork	Pašalinti
+resetReason	Paskutinis paleidimas iš naujo
+secureBoot	Saugus paleidimas
+timeFromNtp	Interneto laiko serveris (sinchronizuota)
+timeManual	nustatyta rankiniu būdu
+timeNtpWaiting	laukiama interneto laiko serverio
+timeSource	Laiko šaltinis
+timeZone	Laiko juosta
+aboutDescription	EH3D šeimos mazgas Bungard CCD staklių dėžei: jis sujungia valdymo bloko RS-232 su tinklu, rodo jo lemputes, linijas ir verpstę bei saugo mazgo nustatymus, naudotojus ir programinę įrangą.
+aboutIndependent	Projektas yra nepriklausomas: jo nekuria, nepatvirtina ir neremia Bungard Elektronik.
+ovMachineLink	Ryšys su staklėmis
+stClient	Programa
+wifiMoved	Wi-Fi tinklai yra savo puslapyje, Wi-Fi.
+navHelpTab_overview	Santrauka
+help_overview_title	Santrauka
+help_overview_text	Šis skydelis nustato ir stebi mazgą. Santraukoje rodoma, kas yra mazgas ir kokios jo būklės; Būsena seka, ką jis daro realiu laiku; puslapiai Tinklas ir Wi-Fi nustato, kaip jis prijungtas; Naudotojai, Programinė įranga ir Žurnalas skirti sistemai.\n\nViskas išsaugoma mazge ir įsigalioja, kai tai nurodo apatinė juosta. Pakeitimas, kuriam reikia perkrovimo, apie tai praneša prieš paliekant puslapį.
+navHelpTab_status	Būsena
+help_status_title	Būsena
+help_status_text	Būsenoje rodomas valdymo ryšys, valdymo bloko lemputės ir linijos, verpstė ir eilė, atnaujinama kas sekundę. Mygtukas Sustabdyti stabdo stakles iš karto: eilė ištuštinama, o verpstė ir pavaros išsijungia. Tai gali tik padaryti stakles saugesnes.\n\nJei mazgas neatsako, puslapis tai praneša ir toliau klausia.
+navHelpTab_machine	Staklės
+help_machine_title	Staklės
+help_machine_text	Skiltyje Staklės yra tai, kas riša mazgą su valdymo bloku: nuoseklieji kontaktai ir greitis, valdymo ryšio prieigos raktas, prievadas ir eilės ribos. Pakeitimas įsigalioja po išsaugojimo; kai kuriems reikia perkrovimo, ir juosta apie tai praneša.\n\nRaktas yra tik įrašomas: jis daugiau niekada nerodomas. Jungiantis programai jo reikia; be jo mazgas atsisako judinti stakles.
+navHelpTab_network	Tinklas
+help_network_title	Tinklas
+help_network_text	Skiltyje Tinklas rodoma, kaip mazgas dabar prijungtas, ir nustatomas jo vardas bei adresas: DHCP arba pastovus adresas. Plokštėje su kabeliu kaip įėjimą pasirenkate kabelį arba Wi-Fi.\n\nAdreso pakeitimas įsigalioja po perkrovimo. Jei po pakeitimo prarandate mazgą, skydelį vis tiek pasiekia jo paties prieigos taškas (kai įjungtas) arba kabelis.
+navHelpTab_wifi	Wi-Fi
+help_wifi_title	Wi-Fi
+help_wifi_text	Skiltyje Wi-Fi nustatomas tinklas, prie kurio mazgas jungiasi, ir prieigos taškas, kurį jis gali atidaryti. Po pagrindiniu tinklu galite pridėti iki trijų atsarginių tinklų: jei pagrindinis prarandamas, mazgas bando juos paeiliui, kad neiškristų iš tinklo. Paieška išvardija tinklus aprėptyje.\n\nSlaptažodžiai yra tik įrašomi: skydelis jų daugiau niekada nerodo, o tuščias laukas palieka išsaugotą.
+navHelpTab_users	Naudotojai
+help_users_title	Naudotojai
+help_users_text	Administratoriai keičia nustatymus; žiūrovai tik žiūri. Kiekvienas asmuo turi vardą ir slaptažodį. Administratorius prideda asmenis, keičia slaptažodžius ir juos šalina; paskutinio administratoriaus pašalinti negalima.\n\nPer daug neteisingų slaptažodžių kuriam laikui užblokuoja vardą. Savo slaptažodį keičiate tame pačiame puslapyje.
+navHelpTab_update	Programinė įranga
+help_update_title	Programinė įranga
+help_update_text	Programinę įrangą galima atnaujinti trimis būdais. Iš GitHub: mazgas ieško naujausio savo projekto leidimo, jį atsisiunčia, patikrina, ar maišos reikšmė sutampa su leidimo paskelbta, ir įdiegia jį į kitą laukelį. Įkeliant šio projekto .bin failą. Arba perjungiant į kitą laukelį, kuriame vis dar yra anksčiau veikusi versija.\n\nKopijavimas įrašo veikiančią programinę įrangą į kitą laukelį, kad abu turėtų tą pačią versiją (atsarginė kopija). Po naujinimo mazgas paleidžiamas iš naujo.
+navHelpTab_log	Žurnalas
+help_log_title	Žurnalas
+help_log_text	Žurnalas yra tai, ką mazgas sako dirbdamas: tinklas, valdymo ryšys, naujinimai ir klaidos. Jis laikomas atmintyje, todėl po perkrovimo prasideda tuščias.\n\nNukopijuokite jį, kai prašote pagalbos: jame yra tai, kas įvyko, eilės tvarka.
+navHelpTab_system	Sistema
+help_system_title	Sistema
+help_system_text	Skiltyje Sistema yra mazgo paleidimas iš naujo ir gamyklinių nustatymų atkūrimas, kuris ištrina kiekvieną nustatymą ir kiekvieną naudotoją (patvirtinimui įveskite RESET). Jei tik norite pamatyti, ar problema išnyks, pirmiausia perkraukite.\n\nPerkrovimas akimirkai nutraukia staklių ryšį: darykite tai, kai nevykdomas joks darbas.
+reasonPower_on	įjungtas maitinimas
+reasonSoftware	paleidimas iš naujo iš skydelio
+reasonCrash	strigtis
+reasonWatchdog	sargybinis (watchdog)
+reasonBrownout	žema įtampa
+reasonDeep_sleep	gilus miegas
+e_bad_json	Užklausa nėra tinkamas JSON.
+e_bad_url	Naujinimo adresas nėra oficialus.
+e_checksum_mismatch	Atsisiųsta programinė įranga neatitinka leidimo kontrolinės sumos: ji atmesta ir niekas nepasikeitė.
+e_client_init	Nepavyko pradėti atsisiuntimo.
+e_connect_failed	Atsisiuntimas neprisijungė: patikrinkite mazgo tinklą ir bandykite dar kartą.
+e_no_asset	Leidime nėra programinės įrangos šiai plokštei.
+e_no_asset_for_board	Yra naujesnis leidimas, bet jame nėra programinės įrangos vaizdo šiai plokštei.
+e_no_checksum	Leidime šalia programinės įrangos vaizdo nėra kontrolinės sumos failo, todėl jis neįdiegiamas.
+e_no_memory	Mazgui pritrūko atminties.
+e_no_release	Leidimas nerastas.
+e_no_slot	Nėra kito laukelio, į kurį kopijuoti.
+e_no_task	Naujinimo nepavyko pradėti (nėra laisvos užduoties).
+e_not_newer	Ši programinė įranga nėra naujesnė už veikiančią.
+e_ota_busy	Diegimas iš GitHub jau vyksta.
+e_read_error	Atsisiuntimas buvo nutrauktas skaitant.
+e_read_failed	Nepavyko perskaityti veikiančio laukelio.
+e_short_read	Atsisiuntimas baigėsi anksčiau, nei failas buvo pilnas.
+e_source_invalid	Veikiančios programinės įrangos nepavyko patikrinti, todėl ji nebuvo nukopijuota.
+e_up_to_date	Programinė įranga jau naujausia.
+e_version_mismatch	Failo versija nėra leidimo versija.

@@ -1,0 +1,435 @@
+# Euskara (eu): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+appName	EH3D Bungard nodoa
+grpNode	Nodoa
+grpNetwork	Sarea
+grpSystem	Sistema
+navMenu	Menu nagusia
+navStatus	Egoera
+navMachine	Makina
+navUpdate	Firmwarea
+navLog	Erregistroa
+skip	Joan edukira
+themeToLight	Gai argia
+themeToDark	Gai iluna
+showShort	Erakutsi
+e_other	Nodoak errore batekin erantzun du: {0}
+statusNoControl	Orri honek nodoaren egoera erakusten du. Panelak makinarekin egiten duen gauza bakarra gelditzea da: mugitzea programa baten esteka autentifikatuaren bidez bakarrik egin daiteke (kontrol-esteka), inoiz ez hemendik.
+stLost	Nodoak ez du erantzuten
+stLink	Kontrol-esteka
+stLinkUp	Esteka aktibo dago
+stLinkDown	Esteka eroria dago
+stClientYes	Programa konektatuta
+stClientNo	Ez dago programarik konektatuta
+stAuthYes	Saioa hasita
+stAuthNo	Saioa hasi gabe
+stArmed	Makina armatuta
+stDisarmed	Makina armatu gabe
+stQueue	Ilaran itxaroten ari diren byteak
+stQueueBytes	Ilara
+stSent	Bidalitako byteak
+stLamps	Makinaren lanparak
+stLampsHelp	Kontrol-unitateko bost lanparak, zuzenean irakurrita. HOME X, Y eta Z piztu egiten dira ardatz bat amaierako etengailuan dagoenean.
+lampHomeX	HOME X
+lampHomeY	HOME Y
+lampHomeZ	HOME Z
+lampEnable	ENABLE
+lampTool	TOOL
+lampOn	piztuta
+lampOff	itzalita
+stLines	Kontrol-unitatearen lerroak
+stLinesHelp	Kontrol-unitateak nodora itzultzen dituen lerroak. DCD eta RI-k bere errore- eta erreminta-egoerak adierazten dituzte.
+lineCts	CTS
+lineDsr	DSR
+lineRi	RI
+lineDcd	DCD
+stSpindle	Ardatza
+stSpindleBar	Abiadura maximoarekiko
+spForward	Aurrera
+spReverse	Atzera
+spStopped	Geldituta
+spMax	Gehieneko abiadura: {0} rpm
+spNoSpindle	Ez dago ardatz-abiadurarik ezarrita (gehienez 0 rpm).
+stNode	Nodoa
+mRestartNote	Ezarpen hauen aldaketak nodoa berrabiarazi ondoren aplikatzen dira.
+mLink	Kontrol-esteka
+mLinkIntro	Programa batek makina gidatzeko konektatzen den TCP ataka. Konexio bakoitzak sarbide-tokenarekin hasi behar du saioa.
+fPort	TCP ataka
+fPortHint	1etik 65535era.
+fIdle	Jarduerarik gabeko denbora-muga (segundo)
+fIdleHint	Denbora horretan ezer bidaltzen ez duen programa armatu bat geldiarazi egiten da: ilara hustu eta kontrolagailuak itzali egiten dira. 0,5etik 60ra.
+fQueue	Ilararen tamaina (byte)
+fQueueHint	Zenbat byte gordetzen dituen nodoak kontrol-unitatera bidali aurretik. 1024tik 4194304ra.
+fFinish	Programa joaten bada, daukan lana amaitu
+fFinishHint	Desaktibatuta (gomendatua): nodoa berehala gelditzen da, beti bezala. Aktibatuta: programa edo zerbitzaria isiltzen bada edo erortzen bada, nodoak ilaran dituen byteak bukaeraraino exekutatzen ditu (programak lana mozten du bukaera toki seguru bat izan dadin), eta gero ardatza eta kontrolagailuak itzaltzen ditu.
+finishWarn	Makinak bere kasa mugitzen jarraituko du, inor konektatuta gabe, ilara hutsik egon arte edo behean adierazitako denbora amaitu arte. Aktibatu hau erreminta eta piezak egiaztatuta dituzunean bakarrik, eta gelditzeko botoia non dagoen jakinda.
+fDrain	Bakarrik egoteko denbora luzeena (segundo)
+fDrainHint	Denbora horren ondoren, nodoak geratzen den guztia gelditzen du. 10etik 3600ra.
+stStop	Makina gelditu
+stStopHint	Ilara hustu eta ardatza eta kontrolagailuak itzaltzen ditu, programa konektatuta egon edo ez.
+stStopped	Geldituta.
+stDraining	Programa joan da eta nodoa dituen lana amaitzen ari da. Ez du ezer berririk hartzen; erabili gelditzeko botoia orain amaitzeko.
+fToken	Sarbide-tokena
+fTokenHint	Nodoan idazten da eta ez da berriro erakusten. Idatzi berri bat edo sortu bat, eta gero Gorde.
+tokenIsSet	Token bat ezarrita dago
+tokenNotSet	Ez dago tokenik ezarrita
+tokenWillChange	Token berri bat gordeko da
+tokenWillClear	Tokena kendu egingo da
+tokenShown	Kopiatu orain: gorde ondoren ez da berriro erakusten.
+tokenSet	Tokena ezarri
+tokenGenerate	Bat sortu
+tokenKeep	Oraingo tokena mantendu
+tokenClear	Tokena ezabatu
+fAllowOpen	Kontrola token gabe baimendu
+fAllowOpenHint	Proba-mahai batentzat bakarrik.
+allowOpenWarn	Sareko edonork konekta daiteke eta makina mugitu, tokenik gabe. Aktibatu hau proba-mahai batean bakarrik, inoiz ez partekatzen duzun sare batean.
+noTokenNote	Tokenik gabe, nodoak ez du kontrolatzea onartzen. Ezarri bat makina erabili aurretik.
+mUart	Kontrol-unitatea (RS-232)
+mUartIntro	RS-232 maila-bihurgailura doazen pinak eta, haren bidez, kontrol-unitateko konektorera. GPIO zenbakiak dira, 0tik 48ra.
+fTx	TX pina (DB9 3. pina)
+fRx	RX pina (DB9 2. pina)
+fRxHint	Kontrol-unitateak ez du ezer bidaltzen lerro honetan; -1k libre uzten du.
+fDtr	DTR pina (DB9 4. pina)
+fDcd	DCD pina (DB9 1. pina)
+fRi	RI pina (DB9 9. pina)
+fCts	CTS pina
+fDsr	DSR pina
+fNoneHint	-1: kablerik gabe.
+fInverted	Maila-bihurgailuak lerroak alderantzikatzen ditu
+fInvertedHint	MAX3232 batek alderantzikatu egiten du: pinean maila altu batek RS-232 tentsio negatibo bat esan nahi du. Desaktibatu alderantzikatzen ez duen bihurgailu batean bakarrik.
+mUartWiring	Nodoak PCaren lekua hartzen du: kablearen DTE muturra da, eta kablea PC kontrol-unitatearekin lotzen zuen DB9 kable zuzen bera da. Ez konektatu inoiz ESP32 baten pinik makinara RS-232 maila-bihurgailurik gabe: pinak 3,3 V-ekoak dira eta RS-232 gehi eta ken 12 V-ekoa. TX DB9ko 3. pinera doa, DTR 4.era, DCD 1. pinetik dator, RI 9.etik, eta lurra 5. pinera.
+mLamps	Makinaren lanparak
+mLampsIntro	Nodoak kontrol-unitatearen lanparak irakurtzen ditu (HOME X, HOME Y, HOME Z, ENABLE, TOOL), eta horrela badaki zein ardatz dagoen home-n. -1k lanpara bat irakurri gabe uzten du.
+fHomeX	HOME X pina
+fHomeY	HOME Y pina
+fHomeZ	HOME Z pina
+fEnable	ENABLE pina
+fTool	TOOL pina
+fActiveLow	Lanpara piztuak bere pina maila baxura eramaten du
+fActiveLowHint	NPN buffer arruntarekin aktibatuta: lanpara piztuak transistorea aktibatzen du eta pina maila baxura eramaten du.
+mLampsWiring	Irakurri lanpara bakoitzaren anodoa NPN transistore baten bidez, oinarria 10 kΩ-ko erresistentzia batean duela. Ez jarri inoiz optoakoplagailu baten LEDa zuzenean lanpararen gainean: bere tentsio-jauziak lanpara itzaliko luke.
+mSpindle	Ardatza
+mSpindleIntro	Abiadura-seinalea eta ardatzaren maiztasun-aldagailuaren (VFD) martxa-lerroak. Ezarri gehieneko abiadura 0an ardatzik gabeko nodo batentzat.
+fMaxRpm	Gehieneko abiadura (rpm)
+fMaxRpmHint	10 V-eko abiadura (% 100 PWM); handiagoa eskatzen bada, hartara mozten da. 0tik 60000ra.
+fPwmHz	PWM maiztasuna (Hz)
+fPwmHzHint	100etik 40000ra. Bihurgailu-moduluaren iragazkiak egokia izan behar du.
+fPwmPin	Abiadura PWM pina
+fFwdPin	Aurrerako martxa pina
+fRevPin	Atzerako martxa pina
+fRunPin	Martxa pina
+fDirPin	Norabide pina (piztuta atzerakoan)
+fPwmInverted	PWMa alderantzikatu
+fDirSingle	Martxa-lerro bat eta norabide-lerro bat
+fDirSingleHint	Aktibatuta: lehen pina martxa-lerroa da eta bigarrena norabide-lerroa. Desaktibatuta: lerro bat aurrerakoarentzat eta bat atzerakoarentzat, inoiz biak batera ez.
+fOutLow	Martxa- eta norabide-lerroak maila baxuan aktiboak dira
+fSettle	Norabideen arteko itxaron-denbora (segundo)
+fSettleHint	Ardatza ezin da alderantzikatu denbora honetan gelditu arte. 0tik 60ra.
+mSpindleWiring	Eraman PWM pina bere elikadura duen PWM-tik-0-10 V bihurgailu-modulu batera; haren irteera aldagailuaren abiadura-sarrerara doa (VI eta ACM Huanyang aldagailu batean). Martxa-lerroek aldagailuaren FOR eta REV sarrerak gidatzen dituzte erreleen kontaktuen edo optoakoplagailuen bidez, inoiz ez zuzenean pinetik: irteerak 3,3 V-ekoak dira eta miliamperio gutxikoak. Mantendu lur komun bat nodoaren, bihurgailu-moduluaren eta aldagailuaren abiadura-sarreraren artean.
+mSpindleSafety	Hiru irteerak itzalita daude pizterakoan, makinaren edozein geldialditan eta abiadura 0 denean. Egiaztatu aldagailuaren ezarpenak (kontrola terminaletatik, abiadura-sarrera analogikoa, maiztasun-mugak) ardatzaren plakarekin lehen abiaraztea baino lehen: maiztasun okerrak abiadura handiko ardatz bat honda dezake.
+netNow	Oraingo konexioa
+netTitle	Helbidea
+hostnameHint	hutsik: nodoak bere identifikatzailetik hautatzen du izen bat
+netRestartNote	Ostalari-izenaren edo konexioaren aldaketa nodoa berrabiarazi ondoren aplikatzen da.
+apNote	Konfigurazio-sarbide puntua nodoaren Wi-Fi sare propioa da, telefono batetik iristeko zure sarean helbiderik ez duenean.
+setupWifiHelp	Nodoak ez du kablerik. Eman orain batu behar zaion Wi-Fi sarea, edo utzi hutsik eta erabili nodoaren konfigurazio-sare propioa, zeinaren pasahitza konfigurazio-kodea den (geroago Sarea atalean alda dezakezu).
+rolesHelp	Administratzaileek dena alda dezakete. Ikusleek egoera eta ezarpenak ikus ditzakete baina ezer ez dute aldatzen.
+slotVersion	{0} bertsioa
+slotsUnknown	Nodoak ez ditu bere firmware-zirrikituak jakinarazi.
+chooseFirst	Hautatu lehenik firmware-fitxategi bat.
+p_out_of_range	tartetik kanpo
+p_duplicate_pin	pin hau birritan erabiltzen da
+p_reserved_pin	plakak erreserbatua
+p_not_a_number	ez da zenbaki osoa
+e_machine_armed	Programa batek makina armatuta dauka: ezin da ezer gorde, berrabiarazi edo eguneratu desarmatu arte.
+staError	Azken Wi-Fi errorea
+se_failed	konexioak huts egin du
+se_network_not_found	sarea ez da aurkitu
+se_wrong_password	pasahitza baztertu da
+navNetwork	Sarea
+navUsers	Erabiltzaileak
+navSystem	Sistema
+language	Hizkuntza
+signOut	Saioa itxi
+loading	Kargatzen…
+unreachable	Nodoak ez du erantzuten.
+signIn	Saioa hasi
+rememberMe	Saioa hasita mantendu nabigatzaile honetan
+rememberUser	Nire erabiltzaile-izena gogoratu gailu honetan
+loginNote	Erabiltzaile-izena bakarrik gogora daiteke, eta laukia markatzen baduzu bakarrik. Pasahitza, nahi baduzu, zure nabigatzailearen edo sistemaren pasahitz-kudeatzaileak bakarrik gordetzen du; panelak ez du inoiz gordetzen.
+user	Erabiltzailea
+password	Pasahitza
+showPassword	Pasahitza erakutsi
+setupTitle	Nodo hau konfiguratu
+setupCode	Konfigurazio-kodea
+adminName	Administratzailearen izena
+createAdmin	Administratzailea sortu
+setupWifi	Nodo honen konfigurazio-Wi-Fia
+setupIntro	Nodo honek ez du oraindik erabiltzailerik. Sartu nodoak 15 segundoro bere USB kontsolan erakusten duen konfigurazio-kodea, eta aukeratu administratzailea.
+setupWifiTitle	Nodoak batu behar duen Wi-Fi sarea (aukerakoa)
+setupWifiOptionalTitle	Wi-Fi sarea (aukerakoa)
+setupWifiOptionalHelp	Plaka honek Ethernet ataka bat du: kablea konektatuta badago, utzi hutsik. Nodoa Wi-Fi bidez erabiltzeko (adibidez kablerik gabeko proba-mahai batean), eman hemen batu behar zaion sarea. Helbiderik gabe geratzen bada, 90 segundo igarota bere konfigurazio-sarea berriro irekitzen du, iristeko moduan egon dadin.
+save	Gorde
+saveRestart	Gorde eta berrabiarazi
+restart	Berrabiarazi
+discard	Aldaketak baztertu
+saved	Gordeta.
+savedRestart	Gordeta. Berrabiarazi nodoa aplikatzeko.
+unsaved	Gorde gabeko aldaketak daude.
+restarting	Nodoa berrabiarazten ari da…
+adminOnly	Administratzaile batek bakarrik alda dezake hau.
+yes	bai
+no	ez
+add	Gehitu
+delete	Ezabatu
+refresh	Eguneratu
+working	Lanean…
+confirmAsk	Ziur zaude?
+nodeId	Identifikatzailea
+firmware	Firmwarea
+uptime	Martxan daramatza
+address	Helbidea
+netmask	Azpisare-maskara
+gateway	Atebidea
+mac	MAC
+link	Esteka
+linkUp	aktibo
+linkDown	eroria
+nodeTitle	Nodoa
+uplink	Sarerako konexioa
+uplinkEthernet	Ethernet kablea (PoE)
+uplinkWifi	Wi-Fi (beste sare batera batzen da)
+dhcp	Helbidea automatikoki lortu (DHCP)
+dns1	DNS zerbitzaria 1
+dns2	DNS zerbitzaria 2
+hostname	Ostalari-izena
+wifiAp	Sarbide puntua (nodo honek eskaintzen duen Wi-Fia)
+apEnable	Wi-Fi sare bat eskaini
+ssid	Sarearen izena (SSID)
+security	Segurtasuna
+secOpen	irekia (pasahitzik gabe)
+secWpa2	WPA2
+secWpa3	WPA3
+secWpa2Wpa3	WPA2 + WPA3
+wifiPassword	Wi-Fi pasahitza (8tik 63 karakterera)
+passwordSet	pasahitz bat gordeta dago; utzi hutsik mantentzeko
+hidden	Sarearen izena ezkutatu
+wifiChannel	Kanala
+channelAuto	automatikoa (1, 6 edo 11 nodoaren arabera)
+channelNow	Nodo honek {0} kanala erabiliko luke.
+wifiSta	Wi-Fi estazioa (nodo hau Wi-Fi sare batera batzen da)
+staEnable	Wi-Fi sare batera batu
+scanNetworks	Sareak bilatu
+scanning	Bilatzen…
+noNetworks	Ez da sarerik entzun.
+scanNote	Bilatzen ari den bitartean, nodoaren sarbide puntu propioak bere bezeroak une batez deskonekta ditzake.
+useNetwork	Erabili
+signal	seinalea
+wiredNote	Kablean, nodoak bere helbidea DHCP bidez eskatzen du hemen finkatzen ez baduzu. Bere Wi-Fi sare propioa, mantentzen baduzu, sare bereizi bat da (192.168.4.x), nodora telefono batetik iristeko; ez dago kable-saretik batuta. Aldaketak berrabiarazi ondoren aplikatzen dira.
+staNote	Nodoak ez du kablerik: eman iezaiozu zure etxeko edo lekuko Wi-Fi sarea. Estazioa desaktibatuta uzten baduzu, erabili bere sarbide puntu propioa.
+noWifiWarn	Nodoak ez du kablerik: mantendu gutxienez biak, sarbide puntua edo estazioa, aktibatuta, bestela ezin da iritsi.
+ethernetMissing	Ethernet txipak ez du erantzuten (ikus kableatze-gida).
+station	Wi-Fi estazioa
+notConnected	konektatu gabe
+apActive	Sarbide puntua
+apClients	bezero
+channel	kanala
+setupNetwork	konfigurazio-sarea
+usersTitle	Panel honen erabiltzaileak
+role	Rola
+roleAdmin	administratzailea
+roleViewer	ikuslea (irakurketa soilik)
+addUser	Erabiltzaile bat gehitu
+newPassword	Pasahitz berria (8 karaktere edo gehiago)
+setPassword	Pasahitza ezarri
+myAccount	Nire pasahitza
+currentPassword	Oraingo pasahitza
+changePassword	Nire pasahitza aldatu
+passwordChanged	Pasahitza aldatu da. Hasi saioa berriro.
+you	zu
+updateTitle	Firmwarea eguneratu
+updateHelp	Hautatu firmware-fitxategia (proiektu honetarako sortutako .bin bat, ez irudi batua). Erabili aurretik egiaztatzen da, eta bertsio berria abiarazten ez bada, nodoak berez aurrekora itzultzen da.
+chooseFile	Firmware-fitxategia
+upload	Igo eta instalatu
+uploading	Igotzen… {0}%
+updateDone	{0} bertsioa instalatu da. Nodoa orain berrabiarazten da.
+slot	Hemendik exekutatzen
+slotsTitle	Firmware-zirrikituak
+slotsHelp	Nodoak bi firmware-zirrikitu gordetzen ditu, ota_0 eta ota_1. Eguneraketa exekutatzen ari ez den horretan idazten da. Hemen beste hori abiarazi dezakezu une oro, aurreko bertsiora itzultzeko edo instalatu berri duzunera aurrera egiteko. Ezarpenak mantentzen dira.
+slotRunning	orain exekutatzen
+slotNextBoot	hurrengoan abiarazten da
+slotEmpty	hutsik - firmwarerik gabe
+switchSlot	{0} abiarazi
+switchSlotNone	Beste zirrikituak ez du firmwarerik
+switchAsk	Nodoa berrabiarazi eta {0} abiarazi ({1} bertsioa)?
+logTitle	Nodoaren erregistroa
+copyLog	Erregistroa kopiatu
+copied	Kopiatuta
+copyFailed	Ezin izan da kopiatu - hautatu testua eta kopiatu eskuz
+maintenance	Mantentze-lanak
+rebootNode	Nodoa berrabiarazi
+factoryTitle	Fabrikako berrezarpena
+factoryHelp	Ezarpen guztiak eta erabiltzaile guztiak ezabatzen ditu; nodoa berriro konfigurazioan hasten da. Idatzi RESET baieztatzeko.
+author	Egilea
+license	Lizentzia
+e_unauthorized	Zure saioa amaitu da. Hasi saioa berriro.
+e_wrong_credentials	Erabiltzaile edo pasahitz okerra.
+e_too_many_attempts	Saiakera gehiegi. Itxaron une bat.
+e_wrong_code	Konfigurazio-kodea okerra da.
+e_invalid_name	Izena ez da baliozkoa (3tik 32 karakterera: a-z, 0-9, . _ -).
+e_weak_password	Pasahitzak 8tik 64 karakterera izan behar ditu.
+e_exists	Erabiltzaile hori badago jada.
+e_not_found	Ez da aurkitu.
+e_too_many_users	Gehienez lau erabiltzaile egon daitezke.
+e_last_admin	Azken administratzailea ezin da kendu edo maila jaitsi.
+e_wrong_password	Oraingo pasahitza okerra da.
+e_invalid_role	Rola ez da baliozkoa.
+e_forbidden	Ezin duzu hori egin.
+e_storage	Flasha ezin izan da idatzi.
+e_invalid	Balio batzuk ez dira baliozkoak; formularioan markatuta daude.
+e_not_json	Eskaera ez da ulertu.
+e_too_large	Eskaera handiegia da.
+e_bad_size	Fitxategiaren tamaina ez da baliozkoa firmware baterako.
+e_not_firmware	Fitxategi hori ez da ESP32 firmware bat.
+e_image_invalid	Firmware-irudia hondatuta edo osatu gabe dago.
+e_wrong_firmware	Firmware hori beste proiektu batekoa da.
+e_upload_interrupted	Igoera eten egin da.
+e_upload_stalled	Igoera blokeatu eta gelditu da: saiatu berriro.
+e_network	Ezin izan da nodora iritsi.
+e_setup_required	Konfiguratu lehenik nodoa: sortu bere administratzailea.
+e_confirm_required	Baieztapena behar da: bidali RESET hitza.
+e_bad_host	Helbide hori ez da baliozkoa.
+e_invalid_time	Ordu hori ez da baliozkoa.
+e_would_lock_out	Zerrenda horrek panelera sartzea eragotziko lizuke: gehitu orain erabiltzen ari zaren sarea.
+e_slot_empty	Beste zirrikituak ez du firmwarerik.
+e_ota_begin	Eguneraketak ezin izan du idazten hasi.
+e_ota_boot	Firmware berria ezin izan da hurrengo abiarazterako hautatu.
+e_ota_write	Eguneraketa ezin izan da flashean idatzi.
+e_no_partition	Ez dago zirrikitu librerik eguneraketarako.
+e_outside_network	Sare honek ez du panela erabiltzeko baimenik: erabili etxeko sarea edo VPNa.
+e_wifi_busy	Irratia lanpetuta dago; saiatu berriro une batean.
+e_scan_failed	Bilaketak huts egin du.
+e_wifi_unavailable	Wi-Fia ezin izan da abiarazi.
+p_required	beharrezkoa
+p_invalid	baliogabea
+p_range	tartetik kanpo
+p_too_long	luzeegia
+p_conflict	erabilita dago jada
+p_reserved	plakak erreserbatua
+p_invalid_key	8tik 63 karaktere inprimagarri
+p_outside_subnet	azpisaretik kanpo
+addBackupNetwork	Babes-sare bat gehitu
+appIdf	ESP-IDF (firmwarea)
+backupNetworksHint	Ordenan probatzen dira goiko sarea denbora batez batu ezin bada.
+backupNetworksTitle	Babes-sareak
+board	Plaka
+bootloaderIdf	ESP-IDF (abio-kargatzailea)
+brownoutLevel	Brown-out detektagailuaren maila
+checkGithub	Egiaztatu orain
+checking	Egiaztatzen…
+chip	Txipa
+clockNotSet	ezarri gabe
+copyAsk	Exekutatzen ari den firmwarea ({0}, {1} bertsioa) beste zirrikitura ({2}) kopiatu? Orain duena ezabatu egiten da. Nodoa ez da berrabiarazten.
+copyDone	Kopiatuta: bi zirrikituek {0} bertsioa dute orain.
+copyRunning	Kopiatzen… {0}%
+copySlot	{0} kopiatu hona: {1}
+cores	nukleo
+cpuFreq	CPUaren maiztasuna
+dns	DNS
+flash	Flasha
+flashAllocated	Partizioek erreserbatua
+flashEncryption	Flasharen zifratzea
+flashFree	librea
+flashTotal	Guztira
+flashUnallocated	Partizioren bati esleitu gabea
+githubAvailable	{0} bertsioa eskuragarri dago.
+githubDownloading	Firmwarea GitHubetik deskargatzen… {0}%
+githubUpToDate	Hau da GitHubeko bertsio berriena.
+githubUpdateNote	GitHubeko release-ak berak argitaratzen duen aplikazio-irudi independentea deskargatzen du (inoiz ez abio-kargatzailea) eta igotako fitxategi bat bezala instalatzen du. Goiko eskuzko igoerak lehen bezala funtzionatzen jarraitzen du: hau gehigarri bat da, ez ordezko bat, Internetera iristeko arrazoirik ez duen nodo batentzat.
+githubUpdateTitle	GitHuben bertsio berri bat bilatu
+githubVerifying	Irudia release-aren hash-arekin egiaztatzen…
+installUpdate	Deskargatu eta instalatu
+installing	Instalatzen…
+layout	Banaketa
+localTime	Tokiko ordua
+memory	Memoria librea
+navAbout	Honi buruz
+navHelp	Laguntza
+navOverview	Laburpena
+navWifi	Wi-Fi
+nodeName	Izena
+none	bat ere ez
+ovFlash	Flash memoria
+ovHardware	Hardwarea
+ovNetwork	Sarea
+ovNode	Nodo hau
+ovTime	Data eta ordua
+ownNetwork	sare propioa
+psram	PSRAM
+radios	Irratiak
+reasonOther	beste bat
+removeNetwork	Kendu
+resetReason	Azken berrabiaraztea
+secureBoot	Abio segurua
+timeFromNtp	Interneteko ordu-zerbitzaria (sinkronizatuta)
+timeManual	eskuz ezarria
+timeNtpWaiting	Interneteko ordu-zerbitzariaren zain
+timeSource	Ordu-iturria
+timeZone	Ordu-zona
+aboutDescription	EH3D familiako nodo bat Bungard CCD makina baten kaxarako: kontrol-unitatearen RS-232 sarearekin lotzen du, bere lanparak, lerroak eta ardatza erakusten ditu, eta nodoaren ezarpenak, erabiltzaileak eta firmwarea gordetzen ditu.
+aboutIndependent	Proiektua independentea da: Bungard Elektronik-ek ez du egin, ez onartu, ez babestu.
+ovMachineLink	Makinarako esteka
+stClient	Programa
+wifiMoved	Wi-Fi sareak beren orri propioan daude, Wi-Fi.
+navHelpTab_overview	Laburpena
+help_overview_title	Laburpena
+help_overview_text	Panel honek nodoa konfiguratu eta zaintzen du. Laburpenak nodoa zer den eta nolakoa den erakusten du; Egoerak egiten ari dena jarraitzen du denbora errealean; Sarea eta Wi-Fi orriek nola dagoen konektatuta jasotzen dute; Erabiltzaileak, Firmwarea eta Erregistroa sistemarako dira.\n\nDena nodoan gordetzen da eta behealdeko barrak esaten duenean aplikatzen da. Berrabiaraztea behar duen aldaketak hala dio orritik atera aurretik.
+navHelpTab_status	Egoera
+help_status_title	Egoera
+help_status_text	Egoerak kontrol-esteka, kontrol-unitatearen lanparak eta lerroak, ardatza eta ilara erakusten ditu, segundoro eguneratuta. Gelditu botoiak makina berehala gelditzen du: ilara husten da eta ardatza eta kontrolagailuak itzaltzen dira. Makina seguruagoa bakarrik egin dezake.\n\nNodoak ez badu erantzuten, orriak hala dio eta galdezka jarraitzen du.
+navHelpTab_machine	Makina
+help_machine_title	Makina
+help_machine_text	Makinak nodoa kontrol-unitatearekin lotzen duena biltzen du: serie-pinak eta abiadura, kontrol-estekaren sarbide-tokena, ataka eta ilararen mugak. Aldaketa gorde ondoren aplikatzen da; batzuek berrabiaraztea behar dute eta barrak hala dio.\n\nTokena idazteko soilik da: ez da inoiz berriro erakusten. Konektatzen den programa batek behar du; gabe, nodoak ez du makina mugitzea onartzen.
+navHelpTab_network	Sarea
+help_network_title	Sarea
+help_network_text	Sareak nodoa orain nola dagoen konektatuta erakusten du eta bere izena eta helbidea ezartzen ditu: DHCP edo helbide finko bat. Kablea duen plaka batean kablea edo Wi-Fia aukeratzen duzu sarbide gisa.\n\nHelbide-aldaketa berrabiarazi ondoren aplikatzen da. Aldaketa baten ondoren nodoa galtzen baduzu, bere sarbide puntu propioak (aktibatuta dagoenean) edo kableak panelera iristen uzten dute.
+navHelpTab_wifi	Wi-Fi
+help_wifi_title	Wi-Fi
+help_wifi_text	Wi-Fi atalak nodoak batzen duen sarea eta ireki dezakeen sarbide puntua ezartzen ditu. Sare nagusiaren azpian hiru babes-sare arte gehi ditzakezu: nagusia galtzen bada, nodoak txandaka probatzen ditu, beraz ez da sarea galtzen. Bilatu botoiak irismenean dauden sareak zerrendatzen ditu.\n\nPasahitzak idazteko soilik dira: panelak ez ditu inoiz berriro erakusten, eta hutsik utzitako eremuak gordetakoa mantentzen du.
+navHelpTab_users	Erabiltzaileak
+help_users_title	Erabiltzaileak
+help_users_text	Administratzaileek ezarpenak aldatzen dituzte; ikusleek ikusi bakarrik egiten dute. Pertsona bakoitzak izen bat eta pasahitz bat ditu. Administratzaile batek pertsonak gehitzen ditu, pasahitzak aldatzen ditu eta kentzen ditu; azken administratzailea ezin da kendu.\n\nPasahitz oker gehiegik izen bat blokeatzen dute denbora batez. Zure pasahitza orri berean aldatzen da.
+navHelpTab_update	Firmwarea
+help_update_title	Firmwarea
+help_update_text	Firmwarea hiru modutan eguneratu daiteke. GitHubetik: nodoak bere proiektuaren release berriena bilatzen du, deskargatzen du, release-ak argitaratzen duen hash-a duela egiaztatzen du eta beste zirrikituan instalatzen du. Proiektu honen .bin fitxategi bat igota. Edo beste zirrikitura aldatuz, zeinak lehen exekutatzen zen bertsioa dauka oraindik.\n\nKopiatu botoiak exekutatzen ari den firmwarea beste zirrikituan idazten du, biek bertsio bera izan dezaten (itzultzeko kopia bat). Eguneraketa baten ondoren nodoa berrabiarazten da.
+navHelpTab_log	Erregistroa
+help_log_title	Erregistroa
+help_log_text	Erregistroa nodoak lanean dagoen bitartean esaten duena da: sarea, kontrol-esteka, eguneraketak eta erroreak. Memorian gordetzen da, beraz hutsik hasten da berrabiarazi ondoren.\n\nKopiatu laguntza eskatzen duzunean: gertatutakoa dauka, ordenan.
+navHelpTab_system	Sistema
+help_system_title	Sistema
+help_system_text	Sistemak nodoaren berrabiaraztea eta fabrikako berrezarpena ditu; azken honek ezarpen guztiak eta erabiltzaile guztiak ezabatzen ditu (idatzi RESET baieztatzeko). Berrabiarazi lehenik arazo bat desagertzen den ikusi nahi baduzu soilik.\n\nBerrabiarazteak makinaren esteka une batez gelditzen du: egin ezazu lanik martxan ez dagoenean.
+reasonPower_on	pizketa
+reasonSoftware	panelaren berrabiaraztea
+reasonCrash	CRASH
+reasonWatchdog	watchdog
+reasonBrownout	tentsio baxua
+reasonDeep_sleep	lo sakona
+e_bad_json	Eskaera ez da baliozko JSON.
+e_bad_url	Eguneraketaren helbidea ez da ofiziala.
+e_checksum_mismatch	Deskargatutako firmwareak ez du release-aren kontrol-batura: baztertu da eta ez da ezer aldatu.
+e_client_init	Deskarga ezin izan da hasi.
+e_connect_failed	Deskargak ez du konektatu: egiaztatu nodoaren sarea eta saiatu berriro.
+e_no_asset	Release-ak ez du firmwarerik plaka honentzat.
+e_no_asset_for_board	Release berriago bat dago, baina ez du firmware-irudirik plaka honentzat.
+e_no_checksum	Release-ak ez dakar kontrol-batura fitxategirik firmware-irudiaren ondoan, beraz ez da instalatzen.
+e_no_memory	Nodoa memoriarik gabe geratu da.
+e_no_release	Ez da releaserik aurkitu.
+e_no_slot	Ez dago kopiatzeko beste zirrikiturik.
+e_no_task	Eguneraketa ezin izan da hasi (ataza librerik ez).
+e_not_newer	Firmware hori ez da exekutatzen ari dena baino berriagoa.
+e_ota_busy	GitHubetik instalazio bat dago jada martxan.
+e_read_error	Deskarga eten egin da irakurtzean.
+e_read_failed	Exekutatzen ari den zirrikitua ezin izan da irakurri.
+e_short_read	Deskarga fitxategia osatu aurretik amaitu da.
+e_source_invalid	Exekutatzen ari den firmwarea ezin izan da egiaztatu, beraz ez da kopiatu.
+e_up_to_date	Firmwarea eguneratuta dago jada.
+e_version_mismatch	Fitxategiaren bertsioa ez da release-arena.

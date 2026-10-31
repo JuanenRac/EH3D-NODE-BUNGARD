@@ -1,0 +1,435 @@
+# Català (ca): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+appName	Node EH3D Bungard
+grpNode	Node
+grpNetwork	Xarxa
+grpSystem	Sistema
+navMenu	Menú principal
+navStatus	Estat
+navMachine	Màquina
+navUpdate	Firmware
+navLog	Registre
+skip	Salta al contingut
+themeToLight	Tema clar
+themeToDark	Tema fosc
+showShort	Mostra
+e_other	El node ha respost amb un error: {0}
+statusNoControl	Aquesta pàgina mostra l'estat del node. L'única cosa que el tauler fa amb la màquina és aturar-la: moure-la només és possible per l'enllaç autenticat d'un programa (l'enllaç de control), mai des d'aquí.
+stLost	El node no respon
+stLink	Enllaç de control
+stLinkUp	Enllaç actiu
+stLinkDown	Enllaç caigut
+stClientYes	Programa connectat
+stClientNo	Cap programa connectat
+stAuthYes	Sessió iniciada
+stAuthNo	Sense sessió
+stArmed	Màquina armada
+stDisarmed	Màquina no armada
+stQueue	Bytes esperant a la cua
+stQueueBytes	Cua
+stSent	Bytes enviats
+stLamps	Llums de la màquina
+stLampsHelp	Els cinc llums de la unitat de control, llegits en directe. HOME X, Y i Z s'encenen quan un eix és al seu final de carrera.
+lampHomeX	HOME X
+lampHomeY	HOME Y
+lampHomeZ	HOME Z
+lampEnable	ENABLE
+lampTool	TOOL
+lampOn	encès
+lampOff	apagat
+stLines	Línies de la unitat de control
+stLinesHelp	Les línies amb què la unitat de control respon al node. DCD i RI informen del seu error i de l'estat de l'eina.
+lineCts	CTS
+lineDsr	DSR
+lineRi	RI
+lineDcd	DCD
+stSpindle	Broquer
+stSpindleBar	Velocitat respecte al màxim
+spForward	Endavant
+spReverse	Enrere
+spStopped	Aturat
+spMax	Velocitat màxima: {0} rpm
+spNoSpindle	No s'ha definit cap velocitat del broquer (màxim 0 rpm).
+stNode	Node
+mRestartNote	Els canvis d'aquests ajustos s'apliquen després de reiniciar el node.
+mLink	Enllaç de control
+mLinkIntro	El port TCP al qual es connecta un programa per governar la màquina. Cada connexió ha d'iniciar sessió amb el testimoni d'accés.
+fPort	Port TCP
+fPortHint	De 1 a 65535.
+fIdle	Temps d'inactivitat (segons)
+fIdleHint	Un programa armat que no envia res durant aquest temps s'atura: la cua es buida i els controladors s'apaguen. De 0,5 a 60.
+fQueue	Mida de la cua (bytes)
+fQueueHint	Quants bytes reté el node abans d'enviar-los a la unitat de control. De 1024 a 4194304.
+fFinish	Acaba la feina que té si el programa desapareix
+fFinishHint	Desactivat (recomanat): el node s'atura de seguida, com sempre. Activat: si el programa o el servidor callen o es desconnecten, el node executa fins al final els bytes que ja té a la cua (el programa talla la feina perquè el final sigui un lloc segur) i després apaga el broquer i els controladors.
+finishWarn	La màquina continuarà movent-se sola, sense ningú connectat, fins que la cua es buidi o s'acabi el temps de sota. Activeu-ho només amb l'eina i la peça revisades, i sapigueu on és el botó d'aturada.
+fDrain	Temps màxim sol (segons)
+fDrainHint	Passat aquest temps el node atura tot el que quedi. De 10 a 3600.
+stStop	Atura la màquina
+stStopHint	Buida la cua i apaga el broquer i els controladors, hi hagi un programa connectat o no.
+stStopped	Aturat.
+stDraining	El programa ha desaparegut i el node està acabant la feina que té. No accepta res de nou; useu el botó d'aturada per acabar-la ara.
+fToken	Testimoni d'accés
+fTokenHint	S'escriu al node i no es torna a mostrar mai. Escriviu-ne un de nou o genereu-ne un, i després Desa.
+tokenIsSet	Hi ha un testimoni definit
+tokenNotSet	No hi ha cap testimoni definit
+tokenWillChange	Es desarà un testimoni nou
+tokenWillClear	S'eliminarà el testimoni
+tokenShown	Copieu-lo ara: després de desar no es torna a mostrar.
+tokenSet	Defineix el testimoni
+tokenGenerate	Genera'n un
+tokenKeep	Conserva el testimoni actual
+tokenClear	Esborra el testimoni
+fAllowOpen	Permet el control sense testimoni
+fAllowOpenHint	Només per a un banc de proves.
+allowOpenWarn	Qualsevol persona de la xarxa pot connectar-se i moure la màquina, sense testimoni. Activeu-ho només en un banc de proves, mai en una xarxa compartida.
+noTokenNote	Sense testimoni el node es nega a ser controlat. Definiu-ne un abans d'usar la màquina.
+mUart	Unitat de control (RS-232)
+mUartIntro	Els pins que van al convertidor de nivells RS-232 i, a través seu, al connector de la unitat de control. Són números GPIO de 0 a 48.
+fTx	Pin TX (pin 3 del DB9)
+fRx	Pin RX (pin 2 del DB9)
+fRxHint	La unitat de control no envia res per aquesta línia; -1 la deixa lliure.
+fDtr	Pin DTR (pin 4 del DB9)
+fDcd	Pin DCD (pin 1 del DB9)
+fRi	Pin RI (pin 9 del DB9)
+fCts	Pin CTS
+fDsr	Pin DSR
+fNoneHint	-1: no connectat.
+fInverted	El convertidor de nivells inverteix les línies
+fInvertedHint	Un MAX3232 inverteix: un nivell alt al pin és una tensió RS-232 negativa. Desactiveu-ho només per a un convertidor que no inverteixi.
+mUartWiring	El node ocupa el lloc del PC: és l'extrem DTE del cable, i el cable és el mateix cable DB9 recte que unia el PC amb la unitat de control. No connecteu mai un pin de l'ESP32 a la màquina sense un convertidor de nivells RS-232: els pins són de 3,3 V i RS-232 és de més i menys 12 V. TX va al pin 3 del DB9, DTR al pin 4, DCD ve del pin 1, RI del pin 9 i la massa al pin 5.
+mLamps	Llums de la màquina
+mLampsIntro	El node llegeix els llums de la unitat de control (HOME X, HOME Y, HOME Z, ENABLE, TOOL), de manera que sap quin eix és a l'origen. -1 deixa un llum sense llegir.
+fHomeX	Pin HOME X
+fHomeY	Pin HOME Y
+fHomeZ	Pin HOME Z
+fEnable	Pin ENABLE
+fTool	Pin TOOL
+fActiveLow	Un llum encès porta el seu pin a nivell baix
+fActiveLowHint	Activat amb el buffer NPN habitual: un llum encès activa el transistor i porta el pin a nivell baix.
+mLampsWiring	Llegiu l'ànode de cada llum a través d'un transistor NPN, amb la base en una resistència de 10 kΩ. No poseu mai el LED d'un optoacoblador directament a través del llum: la seva caiguda de tensió directa apagaria el llum.
+mSpindle	Broquer
+mSpindleIntro	El senyal de velocitat i les línies de marxa per al variador de freqüència (VFD) del broquer. Poseu la velocitat màxima a 0 per a un node sense broquer.
+fMaxRpm	Velocitat màxima (rpm)
+fMaxRpmHint	La velocitat a 10 V (100 % PWM); una petició més alta es retalla a aquest valor. De 0 a 60000.
+fPwmHz	Freqüència PWM (Hz)
+fPwmHzHint	De 100 a 40000. El filtre del mòdul convertidor s'hi ha d'adaptar.
+fPwmPin	Pin PWM de velocitat
+fFwdPin	Pin de marxa endavant
+fRevPin	Pin de marxa enrere
+fRunPin	Pin de marxa
+fDirPin	Pin de sentit (actiu per a enrere)
+fPwmInverted	Inverteix el PWM
+fDirSingle	Una línia de marxa i una línia de sentit
+fDirSingleHint	Activat: el primer pin és la línia de marxa i el segon la de sentit. Desactivat: una línia per a endavant i una per a enrere, mai les dues alhora.
+fOutLow	Les línies de marxa i de sentit són actives en baix
+fSettle	Temps d'estabilització entre sentits (segons)
+fSettleHint	El broquer no es pot invertir fins que no ha estat aturat aquest temps. De 0 a 60.
+mSpindleWiring	Porteu el pin PWM a un mòdul convertidor de PWM a 0-10 V amb alimentació pròpia; la seva sortida va a l'entrada de velocitat del variador (VI i ACM en un variador Huanyang). Les línies de marxa governen les entrades FOR i REV del variador mitjançant contactes de relé o optoacobladors, mai directament des del pin: les sortides són de 3,3 V i uns pocs mil·liamperes. Mantingueu una massa comuna entre el node, el mòdul convertidor i l'entrada de velocitat del variador.
+mSpindleSafety	Les tres sortides estan apagades en engegar, en qualsevol aturada de la màquina i sempre que la velocitat és 0. Comproveu els ajustos del propi variador (control per borns, entrada analògica de velocitat, límits de freqüència) amb la placa de característiques del broquer abans del primer arrencament: una freqüència errònia pot fer malbé un broquer d'alta velocitat.
+netNow	Connexió actual
+netTitle	Adreça
+hostnameHint	buit: el node tria un nom a partir del seu identificador
+netRestartNote	Un canvi del nom de l'amfitrió o de la connexió s'aplica després de reiniciar el node.
+apNote	El punt d'accés de configuració és la xarxa Wi-Fi pròpia del node, per accedir-hi des d'un telèfon quan no té adreça a la vostra.
+setupWifiHelp	El node no té cable. Indiqueu la xarxa Wi-Fi a la qual s'ha d'unir ara, o deixeu-ho buit i useu la xarxa de configuració del propi node, la contrasenya de la qual és el codi de configuració (es pot canviar més tard a Xarxa).
+rolesHelp	Els administradors poden canviar-ho tot. Els visualitzadors poden veure l'estat i els ajustos, però no canvien res.
+slotVersion	versió {0}
+slotsUnknown	El node no ha informat de les seves ranures de firmware.
+chooseFirst	Trieu primer un fitxer de firmware.
+p_out_of_range	fora de rang
+p_duplicate_pin	aquest pin s'usa dues vegades
+p_reserved_pin	reservat per la placa
+p_not_a_number	no és un nombre enter
+e_machine_armed	Un programa té la màquina armada: no es pot desar, reiniciar ni actualitzar res fins que la desarmi.
+staError	Darrer error de Wi-Fi
+se_failed	la connexió ha fallat
+se_network_not_found	no s'ha trobat la xarxa
+se_wrong_password	s'ha rebutjat la contrasenya
+navNetwork	Xarxa
+navUsers	Usuaris
+navSystem	Sistema
+language	Idioma
+signOut	Tanca la sessió
+loading	S'està carregant…
+unreachable	El node no respon.
+signIn	Inicia la sessió
+rememberMe	Mantén-me la sessió iniciada en aquest navegador
+rememberUser	Recorda el meu nom d'usuari en aquest dispositiu
+loginNote	Només es pot recordar el nom d'usuari, i només si marqueu la casella. La contrasenya, si ho voleu, només la desa el gestor de contrasenyes del vostre navegador o sistema; el tauler no la desa mai.
+user	Usuari
+password	Contrasenya
+showPassword	Mostra la contrasenya
+setupTitle	Configura aquest node
+setupCode	Codi de configuració
+adminName	Nom de l'administrador
+createAdmin	Crea l'administrador
+setupWifi	Wi-Fi de configuració d'aquest node
+setupIntro	Aquest node encara no té cap usuari. Introduïu el codi de configuració que el node mostra a la seva consola USB cada 15 segons i trieu l'administrador.
+setupWifiTitle	Xarxa Wi-Fi a la qual s'ha d'unir el node (opcional)
+setupWifiOptionalTitle	Xarxa Wi-Fi (opcional)
+setupWifiOptionalHelp	Aquesta placa té un port Ethernet: amb un cable connectat, deixeu-ho buit. Per usar el node per Wi-Fi en lloc d'això (per exemple en un banc de proves sense cable), indiqueu aquí la xarxa a la qual s'ha d'unir. Si es queda sense adreça, torna a obrir la seva xarxa de configuració al cap de 90 segons perquè s'hi pugui accedir.
+save	Desa
+saveRestart	Desa i reinicia
+restart	Reinicia
+discard	Descarta els canvis
+saved	Desat.
+savedRestart	Desat. Reinicieu el node per aplicar-ho.
+unsaved	Hi ha canvis sense desar.
+restarting	El node s'està reiniciant…
+adminOnly	Només un administrador pot canviar això.
+yes	sí
+no	no
+add	Afegeix
+delete	Suprimeix
+refresh	Actualitza
+working	Treballant…
+confirmAsk	Esteu segur?
+nodeId	Identificador
+firmware	Firmware
+uptime	En marxa des de fa
+address	Adreça
+netmask	Màscara de subxarxa
+gateway	Passarel·la
+mac	MAC
+link	Enllaç
+linkUp	actiu
+linkDown	caigut
+nodeTitle	Node
+uplink	Connexió a la xarxa
+uplinkEthernet	Cable Ethernet (PoE)
+uplinkWifi	Wi-Fi (s'uneix a una altra xarxa)
+dhcp	Obté l'adreça automàticament (DHCP)
+dns1	Servidor DNS 1
+dns2	Servidor DNS 2
+hostname	Nom de l'amfitrió
+wifiAp	Punt d'accés (Wi-Fi que ofereix aquest node)
+apEnable	Ofereix una xarxa Wi-Fi
+ssid	Nom de la xarxa (SSID)
+security	Seguretat
+secOpen	oberta (sense contrasenya)
+secWpa2	WPA2
+secWpa3	WPA3
+secWpa2Wpa3	WPA2 + WPA3
+wifiPassword	Contrasenya del Wi-Fi (de 8 a 63 caràcters)
+passwordSet	hi ha una contrasenya desada; deixeu-ho buit per conservar-la
+hidden	Amaga el nom de la xarxa
+wifiChannel	Canal
+channelAuto	automàtic (1, 6 o 11 segons el node)
+channelNow	Aquest node usaria el canal {0}.
+wifiSta	Estació Wi-Fi (aquest node s'uneix a una xarxa Wi-Fi)
+staEnable	Uneix-te a una xarxa Wi-Fi
+scanNetworks	Cerca xarxes
+scanning	Cercant…
+noNetworks	No s'ha detectat cap xarxa.
+scanNote	Mentre cerca, el punt d'accés del propi node pot desconnectar els seus clients un moment.
+useNetwork	Usa
+signal	senyal
+wiredNote	Pel cable el node demana la seva adreça per DHCP tret que la fixeu aquí. La seva xarxa Wi-Fi pròpia, si la conserveu, és una xarxa separada (192.168.4.x) per accedir al node des d'un telèfon; no està unida a la cablejada. Els canvis s'apliquen després de reiniciar.
+staNote	El node no té cable: doneu-li la xarxa Wi-Fi de casa o de l'obra. Si deixeu l'estació apagada, useu el seu punt d'accés.
+noWifiWarn	El node no té cable: mantingueu encesa almenys una de les dues, el punt d'accés o l'estació, o no s'hi podrà accedir.
+ethernetMissing	El xip Ethernet no respon (vegeu la guia de cablejat).
+station	Estació Wi-Fi
+notConnected	no connectat
+apActive	Punt d'accés
+apClients	clients
+channel	canal
+setupNetwork	xarxa de configuració
+usersTitle	Usuaris d'aquest tauler
+role	Rol
+roleAdmin	administrador
+roleViewer	visualitzador (només lectura)
+addUser	Afegeix un usuari
+newPassword	Contrasenya nova (8 caràcters o més)
+setPassword	Defineix la contrasenya
+myAccount	La meva contrasenya
+currentPassword	Contrasenya actual
+changePassword	Canvia la meva contrasenya
+passwordChanged	S'ha canviat la contrasenya. Torneu a iniciar la sessió.
+you	vós
+updateTitle	Actualitza el firmware
+updateHelp	Trieu el fitxer de firmware (un .bin compilat per a aquest projecte, no la imatge fusionada). Es comprova abans d'usar-lo, i si la versió nova no arrenca el node torna sol a l'anterior.
+chooseFile	Fitxer de firmware
+upload	Puja i instal·la
+uploading	Pujant… {0}%
+updateDone	S'ha instal·lat la versió {0}. El node es reinicia ara.
+slot	En marxa des de
+slotsTitle	Ranures de firmware
+slotsHelp	El node conserva dues ranures de firmware, ota_0 i ota_1. Una actualització s'escriu a la que no s'està executant. Aquí podeu arrencar l'altra en qualsevol moment, per tornar a la versió anterior o avançar a la que s'acaba d'instal·lar. Els ajustos es conserven.
+slotRunning	en marxa ara
+slotNextBoot	arrenca la propera vegada
+slotEmpty	buida - sense firmware
+switchSlot	Arrenca {0}
+switchSlotNone	L'altra ranura no conté firmware
+switchAsk	Reiniciar el node i arrencar {0} (versió {1})?
+logTitle	Registre del node
+copyLog	Copia el registre
+copied	Copiat
+copyFailed	No s'ha pogut copiar - seleccioneu el text i copieu-lo a mà
+maintenance	Manteniment
+rebootNode	Reinicia el node
+factoryTitle	Restabliment de fàbrica
+factoryHelp	Esborra tots els ajustos i tots els usuaris; el node torna a començar en configuració. Escriviu RESET per confirmar.
+author	Autor
+license	Llicència
+e_unauthorized	La sessió ha acabat. Torneu a iniciar la sessió.
+e_wrong_credentials	Usuari o contrasenya incorrectes.
+e_too_many_attempts	Massa intents. Espereu un moment.
+e_wrong_code	El codi de configuració és incorrecte.
+e_invalid_name	El nom no és vàlid (de 3 a 32 caràcters: de la a a la z, de 0 a 9, . _ -).
+e_weak_password	La contrasenya ha de tenir de 8 a 64 caràcters.
+e_exists	Aquest usuari ja existeix.
+e_not_found	No s'ha trobat.
+e_too_many_users	Hi pot haver com a màxim quatre usuaris.
+e_last_admin	L'últim administrador no es pot eliminar ni degradar.
+e_wrong_password	La contrasenya actual és incorrecta.
+e_invalid_role	El rol no és vàlid.
+e_forbidden	No podeu fer això.
+e_storage	No s'ha pogut escriure a la memòria flaix.
+e_invalid	Alguns valors no són vàlids; estan marcats al formulari.
+e_not_json	No s'ha entès la petició.
+e_too_large	La petició és massa gran.
+e_bad_size	La mida del fitxer no és vàlida per a un firmware.
+e_not_firmware	Aquest fitxer no és un firmware d'ESP32.
+e_image_invalid	La imatge del firmware està malmesa o incompleta.
+e_wrong_firmware	Aquest firmware pertany a un altre projecte.
+e_upload_interrupted	La pujada s'ha interromput.
+e_upload_stalled	La pujada s'ha encallat i s'ha aturat: torneu-ho a provar.
+e_network	No s'ha pogut arribar al node.
+e_setup_required	Configureu primer el node: creeu-ne l'administrador.
+e_confirm_required	Cal confirmació: envieu la paraula RESET.
+e_bad_host	Aquesta adreça no és vàlida.
+e_invalid_time	Aquesta hora no és vàlida.
+e_would_lock_out	Aquesta llista us deixaria fora del tauler: afegiu la xarxa que feu servir ara.
+e_slot_empty	L'altra ranura no conté firmware.
+e_ota_begin	L'actualització no ha pogut començar a escriure.
+e_ota_boot	No s'ha pogut triar el firmware nou per arrencar la propera vegada.
+e_ota_write	L'actualització no s'ha pogut escriure a la memòria flaix.
+e_no_partition	No hi ha cap ranura lliure per a l'actualització.
+e_outside_network	Aquesta xarxa no té permís per usar el tauler: useu la xarxa de casa o la VPN.
+e_wifi_busy	La ràdio està ocupada; torneu-ho a provar d'aquí a un moment.
+e_scan_failed	La cerca ha fallat.
+e_wifi_unavailable	No s'ha pogut iniciar el Wi-Fi.
+p_required	obligatori
+p_invalid	no vàlid
+p_range	fora de rang
+p_too_long	massa llarg
+p_conflict	ja usat
+p_reserved	reservat per la placa
+p_invalid_key	de 8 a 63 caràcters imprimibles
+p_outside_subnet	fora de la subxarxa
+addBackupNetwork	Afegeix una xarxa de reserva
+appIdf	ESP-IDF (firmware)
+backupNetworksHint	Es proven per ordre si la xarxa de dalt no es pot unir durant un temps.
+backupNetworksTitle	Xarxes de reserva
+board	Placa
+bootloaderIdf	ESP-IDF (carregador d'arrencada)
+brownoutLevel	Nivell del detector de brown-out
+checkGithub	Comprova ara
+checking	Comprovant…
+chip	Xip
+clockNotSet	sense definir
+copyAsk	Copiar el firmware en execució ({0}, versió {1}) sobre l'altra ranura ({2})? El que conté ara s'esborra. El node no es reinicia.
+copyDone	Copiat: les dues ranures contenen ara la versió {0}.
+copyRunning	Copiant… {0}%
+copySlot	Copia {0} a {1}
+cores	nuclis
+cpuFreq	Freqüència de la CPU
+dns	DNS
+flash	Flash
+flashAllocated	Reservat per les particions
+flashEncryption	Xifratge de la memòria flash
+flashFree	lliure
+flashTotal	Total
+flashUnallocated	No assignat a cap partició
+githubAvailable	La versió {0} està disponible.
+githubDownloading	Baixant el firmware de GitHub… {0}%
+githubUpToDate	Aquesta ja és la versió més recent a GitHub.
+githubUpdateNote	Baixa la imatge d'aplicació independent que publica la mateixa release de GitHub (mai el carregador d'arrencada) i la instal·la de la mateixa manera que un fitxer pujat. La pujada manual de dalt continua funcionant exactament com abans: això és un afegit, no un reemplaçament, per a un node que no té cap motiu per accedir a Internet.
+githubUpdateTitle	Cerca una versió nova a GitHub
+githubVerifying	Comprovant la imatge amb el hash de la release…
+installUpdate	Baixa i instal·la
+installing	Instal·lant…
+layout	Disposició
+localTime	Hora local
+memory	Memòria lliure
+navAbout	Quant a
+navHelp	Ajuda
+navOverview	Resum
+navWifi	Wi-Fi
+nodeName	Nom
+none	cap
+ovFlash	Memòria flash
+ovHardware	Maquinari
+ovNetwork	Xarxa
+ovNode	Aquest node
+ovTime	Data i hora
+ownNetwork	xarxa pròpia
+psram	PSRAM
+radios	Ràdios
+reasonOther	altre
+removeNetwork	Elimina
+resetReason	Darrer reinici
+secureBoot	Arrencada segura (Secure boot)
+timeFromNtp	Servidor d'hora d'Internet (sincronitzat)
+timeManual	definit a mà
+timeNtpWaiting	esperant el servidor d'hora d'Internet
+timeSource	Font de l'hora
+timeZone	Fus horari
+aboutDescription	un node de la família EH3D per a la caixa d'una màquina Bungard CCD: uneix el RS-232 de la unitat de control amb la xarxa, mostra els seus llums, les seves línies i el broquer, i conserva els ajustos, els usuaris i el firmware del node.
+aboutIndependent	El projecte és independent: no està fet, avalat ni suportat per Bungard Elektronik.
+ovMachineLink	Enllaç amb la màquina
+stClient	Programa
+wifiMoved	Les xarxes Wi-Fi són a la seva pròpia pàgina, Wi-Fi.
+navHelpTab_overview	Resum
+help_overview_title	Resum
+help_overview_text	Aquest tauler configura i vigila el node. El Resum mostra què és el node i com és; l'Estat segueix el que fa a mesura que passa; les pàgines Xarxa i Wi-Fi contenen com està connectat; Usuaris, Firmware i Registre són per al sistema.\n\nTot es desa al node i s'aplica quan la barra de baix ho indica. Un canvi que necessita un reinici ho diu abans de sortir de la pàgina.
+navHelpTab_status	Estat
+help_status_title	Estat
+help_status_text	L'Estat mostra l'enllaç de control, els llums i les línies de la unitat de control, el broquer i la cua, actualitzats cada segon. El botó Atura atura la màquina ara: la cua es buida i el broquer i els controladors s'apaguen. Només pot fer la màquina més segura.\n\nSi el node no respon, la pàgina ho diu i continua preguntant.
+navHelpTab_machine	Màquina
+help_machine_title	Màquina
+help_machine_text	Màquina conté el que lliga el node a la unitat de control: els pins sèrie i la velocitat, el testimoni d'accés de l'enllaç de control, el port i els límits de la cua. Un canvi s'aplica en desar-lo; alguns necessiten un reinici i la barra ho indica.\n\nEl testimoni és només d'escriptura: no es torna a mostrar mai. Un programa que es connecta el necessita; sense testimoni el node es nega a moure la màquina.
+navHelpTab_network	Xarxa
+help_network_title	Xarxa
+help_network_text	Xarxa mostra com està connectat el node ara i en defineix el nom i l'adreça: DHCP o una adreça fixa. En una placa amb cable trieu el cable o el Wi-Fi com a via d'entrada.\n\nUn canvi d'adreça s'aplica després d'un reinici. Si perdeu el node després d'un canvi, el seu punt d'accés (quan és encès) o el cable continuen arribant al tauler.
+navHelpTab_wifi	Wi-Fi
+help_wifi_title	Wi-Fi
+help_wifi_text	Wi-Fi defineix la xarxa a la qual s'uneix el node i el punt d'accés que pot obrir. Sota la xarxa principal podeu afegir fins a tres xarxes de reserva: si es perd la principal, el node les prova per ordre, de manera que no cau de la xarxa. Cerca llista les xarxes a l'abast.\n\nLes contrasenyes són només d'escriptura: el tauler no les torna a mostrar mai, i un camp deixat buit conserva la desada.
+navHelpTab_users	Usuaris
+help_users_title	Usuaris
+help_users_text	Els administradors canvien els ajustos; els visualitzadors només miren. Cada persona té un nom i una contrasenya. Un administrador afegeix persones, canvia contrasenyes i les elimina; l'últim administrador no es pot eliminar.\n\nMassa contrasenyes errònies bloquegen un nom durant un temps. La vostra contrasenya es canvia a la mateixa pàgina.
+navHelpTab_update	Firmware
+help_update_title	Firmware
+help_update_text	El firmware es pot actualitzar de tres maneres. Des de GitHub: el node busca la release més recent del seu propi projecte, la baixa, comprova que el seu hash coincideix amb el que la release publica i la instal·la a l'altra ranura. Pujant un fitxer .bin d'aquest projecte. O canviant a l'altra ranura, que encara conté la versió que funcionava abans.\n\nCopia escriu el firmware en execució a l'altra ranura, de manera que les dues continguin la mateixa versió (una còpia on tornar). Després d'una actualització el node es reinicia.
+navHelpTab_log	Registre
+help_log_title	Registre
+help_log_text	El registre és el que diu el node mentre treballa: la xarxa, l'enllaç de control, les actualitzacions i els errors. Es guarda a la memòria, de manera que comença buit després d'un reinici.\n\nCopieu-lo quan demaneu ajuda: conté el que ha passat, per ordre.
+navHelpTab_system	Sistema
+help_system_title	Sistema
+help_system_text	Sistema té el reinici del node i el restabliment de fàbrica, que esborra tots els ajustos i tots els usuaris (escriviu RESET per confirmar). Reinicieu primer si només voleu veure si un problema desapareix.\n\nUn reinici atura un moment l'enllaç de la màquina: feu-ho quan no hi hagi cap feina en curs.
+reasonPower_on	engegada
+reasonSoftware	reinici des del tauler
+reasonCrash	FALLADA
+reasonWatchdog	watchdog
+reasonBrownout	tensió baixa
+reasonDeep_sleep	son profund
+e_bad_json	La petició no és un JSON vàlid.
+e_bad_url	L'adreça de l'actualització no és l'oficial.
+e_checksum_mismatch	El firmware baixat no coincideix amb la suma de verificació de la release: s'ha rebutjat i no ha canviat res.
+e_client_init	No s'ha pogut iniciar la baixada.
+e_connect_failed	La baixada no s'ha connectat: comproveu la xarxa del node i torneu-ho a provar.
+e_no_asset	La release no té firmware per a aquesta placa.
+e_no_asset_for_board	Hi ha una release més nova, però no té imatge de firmware per a aquesta placa.
+e_no_checksum	La release no porta cap fitxer de suma de verificació al costat de la imatge de firmware, així que no s'instal·la.
+e_no_memory	Al node se li ha acabat la memòria.
+e_no_release	No s'ha trobat cap release.
+e_no_slot	No hi ha cap altra ranura on copiar.
+e_no_task	No s'ha pogut iniciar l'actualització (cap tasca lliure).
+e_not_newer	Aquest firmware no és més nou que el que s'executa.
+e_ota_busy	Ja hi ha una instal·lació des de GitHub en curs.
+e_read_error	La baixada s'ha interromput durant la lectura.
+e_read_failed	No s'ha pogut llegir la ranura en execució.
+e_short_read	La baixada ha acabat abans que el fitxer fos complet.
+e_source_invalid	No s'ha pogut verificar el firmware en execució, així que no s'ha copiat.
+e_up_to_date	El firmware ja està actualitzat.
+e_version_mismatch	La versió del fitxer no és la de la release.

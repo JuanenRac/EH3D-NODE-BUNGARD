@@ -49,6 +49,8 @@ extern const std::uint8_t index_html_gz_start[] asm("_binary_index_html_gz_start
 extern const std::uint8_t index_html_gz_end[] asm("_binary_index_html_gz_end");
 extern const std::uint8_t app_js_gz_start[] asm("_binary_app_js_gz_start");
 extern const std::uint8_t app_js_gz_end[] asm("_binary_app_js_gz_end");
+extern const std::uint8_t langs_js_gz_start[] asm("_binary_langs_js_gz_start");
+extern const std::uint8_t langs_js_gz_end[] asm("_binary_langs_js_gz_end");
 extern const std::uint8_t style_css_gz_start[] asm("_binary_style_css_gz_start");
 extern const std::uint8_t style_css_gz_end[] asm("_binary_style_css_gz_end");
 
@@ -864,6 +866,7 @@ esp_err_t api_handler(httpd_req_t* r) {
 esp_err_t page_handler(httpd_req_t* r) {
   const std::string uri = r->uri;
   if (uri == "/app.js") return send_asset(r, app_js_gz_start, app_js_gz_end, "text/javascript");
+  if (uri == "/langs.js") return send_asset(r, langs_js_gz_start, langs_js_gz_end, "text/javascript");
   if (uri == "/style.css") return send_asset(r, style_css_gz_start, style_css_gz_end, "text/css");
   return send_asset(r, index_html_gz_start, index_html_gz_end, "text/html");
 }
@@ -897,7 +900,7 @@ void register_handlers(httpd_handle_t server, bool redirect_only) {
     api.handler = api_handler;
     httpd_register_uri_handler(server, &api);
   }
-  for (const char* path : {"/", "/app.js", "/style.css"}) {
+  for (const char* path : {"/", "/app.js", "/langs.js", "/style.css"}) {
     httpd_uri_t page{};
     page.uri = path;
     page.method = HTTP_GET;

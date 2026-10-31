@@ -1,0 +1,435 @@
+# Polski (pl): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+appName	Węzeł EH3D Bungard
+grpNode	Węzeł
+grpNetwork	Sieć
+grpSystem	System
+navMenu	Menu główne
+navStatus	Stan
+navMachine	Maszyna
+navUpdate	Oprogramowanie
+navLog	Dziennik
+skip	Przejdź do treści
+themeToLight	Jasny motyw
+themeToDark	Ciemny motyw
+showShort	Pokaż
+e_other	Węzeł odpowiedział błędem: {0}
+statusNoControl	Ta strona pokazuje stan węzła. Jedyne, co panel robi z maszyną, to jej zatrzymanie: poruszać maszyną można tylko przez uwierzytelnione połączenie programu (łącze sterowania), nigdy stąd.
+stLost	Brak odpowiedzi węzła
+stLink	Łącze sterowania
+stLinkUp	Łącze działa
+stLinkDown	Łącze nie działa
+stClientYes	Program podłączony
+stClientNo	Brak podłączonego programu
+stAuthYes	Zalogowano
+stAuthNo	Niezalogowano
+stArmed	Maszyna uzbrojona
+stDisarmed	Maszyna nieuzbrojona
+stQueue	Bajty oczekujące w kolejce
+stQueueBytes	Kolejka
+stSent	Wysłane bajty
+stLamps	Lampki maszyny
+stLampsHelp	Pięć lampek jednostki sterującej, odczytywanych na żywo. HOME X, Y i Z świecą, gdy oś jest na wyłączniku krańcowym.
+lampHomeX	HOME X
+lampHomeY	HOME Y
+lampHomeZ	HOME Z
+lampEnable	ENABLE
+lampTool	TOOL
+lampOn	wł.
+lampOff	wył.
+stLines	Linie jednostki sterującej
+stLinesHelp	Linie, którymi jednostka sterująca odpowiada węzłowi. DCD i RI zgłaszają jej stan błędu i narzędzia.
+lineCts	CTS
+lineDsr	DSR
+lineRi	RI
+lineDcd	DCD
+stSpindle	Wrzeciono
+stSpindleBar	Prędkość względem maksymalnej
+spForward	W przód
+spReverse	Wstecz
+spStopped	Zatrzymane
+spMax	Prędkość maksymalna: {0} obr./min
+spNoSpindle	Nie ustawiono prędkości wrzeciona (maksimum 0 obr./min).
+stNode	Węzeł
+mRestartNote	Zmiany tych ustawień zaczną działać po ponownym uruchomieniu węzła.
+mLink	Łącze sterowania
+mLinkIntro	Port TCP, z którym łączy się program, aby sterować maszyną. Każde połączenie musi zalogować się tokenem dostępu.
+fPort	Port TCP
+fPortHint	Od 1 do 65535.
+fIdle	Limit bezczynności (sekundy)
+fIdleHint	Uzbrojony program, który tak długo nic nie wysyła, zostaje zatrzymany: kolejka jest opróżniana, a napędy wyłączane. Od 0,5 do 60.
+fQueue	Rozmiar kolejki (bajty)
+fQueueHint	Ile bajtów węzeł przechowuje, zanim wyśle je do jednostki sterującej. Od 1024 do 4194304.
+fFinish	Dokończ przetrzymywane zadanie, jeśli program zniknie
+fFinishHint	Wyłączone (zalecane): węzeł zatrzymuje się natychmiast, jak zawsze. Włączone: jeśli program lub serwer zamilknie albo się rozłączy, węzeł wykona do końca bajty już będące w kolejce (program tnie zadanie tak, aby koniec wypadał w bezpiecznym miejscu), a następnie wyłączy wrzeciono i napędy.
+finishWarn	Maszyna będzie się dalej poruszać sama, bez nikogo podłączonego, aż kolejka się opróżni lub upłynie czas podany niżej. Włączaj to tylko po sprawdzeniu narzędzia i obrabianego elementu oraz gdy wiesz, gdzie jest przycisk zatrzymania.
+fDrain	Najdłuższy czas samodzielnej pracy (sekundy)
+fDrainHint	Po tym czasie węzeł zatrzymuje wszystko, co zostało. Od 10 do 3600.
+stStop	Zatrzymaj maszynę
+stStopHint	Opróżnia kolejkę i wyłącza wrzeciono oraz napędy, niezależnie od tego, czy program jest podłączony.
+stStopped	Zatrzymano.
+stDraining	Program zniknął, a węzeł kończy przetrzymywane zadanie. Nie przyjmuje niczego nowego; użyj przycisku zatrzymania, aby zakończyć je teraz.
+fToken	Token dostępu
+fTokenHint	Zapisywany w węźle i nigdy więcej nie pokazywany. Wpisz nowy lub wygeneruj, a potem Zapisz.
+tokenIsSet	Token jest ustawiony
+tokenNotSet	Token nie jest ustawiony
+tokenWillChange	Zostanie zapisany nowy token
+tokenWillClear	Token zostanie usunięty
+tokenShown	Skopiuj go teraz: po zapisaniu nie będzie już pokazywany.
+tokenSet	Ustaw token
+tokenGenerate	Wygeneruj
+tokenKeep	Zachowaj bieżący token
+tokenClear	Usuń token
+fAllowOpen	Zezwól na sterowanie bez tokenu
+fAllowOpenHint	Tylko na stanowisko testowe.
+allowOpenWarn	Każdy w sieci może się połączyć i poruszać maszyną bez tokenu. Włączaj to tylko na stanowisku testowym, nigdy w sieci współdzielonej.
+noTokenNote	Bez tokenu węzeł odmawia sterowania. Ustaw go przed użyciem maszyny.
+mUart	Jednostka sterująca (RS-232)
+mUartIntro	Piny prowadzące do konwertera poziomów RS-232 i przez niego do złącza jednostki sterującej. Są to numery GPIO od 0 do 48.
+fTx	Pin TX (pin 3 DB9)
+fRx	Pin RX (pin 2 DB9)
+fRxHint	Jednostka sterująca nic nie wysyła tą linią; -1 zostawia ją wolną.
+fDtr	Pin DTR (pin 4 DB9)
+fDcd	Pin DCD (pin 1 DB9)
+fRi	Pin RI (pin 9 DB9)
+fCts	Pin CTS
+fDsr	Pin DSR
+fNoneHint	-1: niepodłączony.
+fInverted	Konwerter poziomów odwraca linie
+fInvertedHint	MAX3232 odwraca: stan wysoki na pinie to ujemne napięcie RS-232. Wyłącz tylko dla konwertera, który nie odwraca.
+mUartWiring	Węzeł zajmuje miejsce komputera: jest końcem DTE kabla, a kabel to ten sam prosty kabel DB9, który łączył komputer z jednostką sterującą. Nigdy nie podłączaj pinu ESP32 do maszyny bez konwertera poziomów RS-232: piny mają 3,3 V, a RS-232 to plus i minus 12 V. TX idzie na pin 3 DB9, DTR na pin 4, DCD pochodzi z pinu 1, RI z pinu 9, a masa na pin 5.
+mLamps	Lampki maszyny
+mLampsIntro	Węzeł odczytuje lampki jednostki sterującej (HOME X, HOME Y, HOME Z, ENABLE, TOOL), dzięki czemu wie, która oś jest w pozycji bazowej. -1 pozostawia lampkę nieodczytywaną.
+fHomeX	Pin HOME X
+fHomeY	Pin HOME Y
+fHomeZ	Pin HOME Z
+fEnable	Pin ENABLE
+fTool	Pin TOOL
+fActiveLow	Świecąca lampka ściąga pin do stanu niskiego
+fActiveLowHint	Włączone przy typowym buforze NPN: świecąca lampka włącza tranzystor i ściąga pin do stanu niskiego.
+mLampsWiring	Odczytuj anodę każdej lampki przez tranzystor NPN, z bazą na rezystorze 10 kΩ. Nigdy nie podłączaj diody LED transoptora wprost do lampki: jej spadek napięcia w kierunku przewodzenia zgasiłby lampkę.
+mSpindle	Wrzeciono
+mSpindleIntro	Sygnał prędkości i linie uruchamiania dla przemiennika częstotliwości (VFD) wrzeciona. Dla węzła bez wrzeciona ustaw prędkość maksymalną na 0.
+fMaxRpm	Prędkość maksymalna (obr./min)
+fMaxRpmHint	Prędkość przy 10 V (100 % PWM); wyższe żądanie jest do niej ograniczane. Od 0 do 60000.
+fPwmHz	Częstotliwość PWM (Hz)
+fPwmHzHint	Od 100 do 40000. Filtr modułu konwertera musi do niej pasować.
+fPwmPin	Pin PWM prędkości
+fFwdPin	Pin pracy w przód
+fRevPin	Pin pracy wstecz
+fRunPin	Pin pracy
+fDirPin	Pin kierunku (włączony dla wstecz)
+fPwmInverted	Odwróć PWM
+fDirSingle	Jedna linia pracy i jedna linia kierunku
+fDirSingleHint	Włączone: pierwszy pin to linia pracy, a drugi to linia kierunku. Wyłączone: jedna linia do przodu i jedna wstecz, nigdy obie naraz.
+fOutLow	Linie pracy i kierunku są aktywne stanem niskim
+fSettle	Czas uspokojenia między kierunkami (sekundy)
+fSettleHint	Wrzeciona nie można odwrócić, dopóki nie było zatrzymane tak długo. Od 0 do 60.
+mSpindleWiring	Podaj pin PWM na moduł konwertera PWM na 0-10 V z własnym zasilaniem; jego wyjście trafia na wejście prędkości przemiennika (VI i ACM w przemienniku Huanyang). Linie pracy sterują wejściami FOR i REV przemiennika przez styki przekaźnika lub transoptory, nigdy bezpośrednio z pinu: wyjścia mają 3,3 V i kilka miliamperów. Utrzymuj wspólną masę między węzłem, modułem konwertera a wejściem prędkości przemiennika.
+mSpindleSafety	Wszystkie trzy wyjścia są wyłączone po włączeniu zasilania, przy każdym zatrzymaniu maszyny i zawsze, gdy prędkość wynosi 0. Przed pierwszym uruchomieniem sprawdź ustawienia samego przemiennika (sterowanie z listwy zaciskowej, analogowe wejście prędkości, limity częstotliwości) względem tabliczki znamionowej wrzeciona: zła częstotliwość może uszkodzić wrzeciono szybkoobrotowe.
+netNow	Bieżące połączenie
+netTitle	Adres
+hostnameHint	puste: węzeł wybiera nazwę na podstawie swojego identyfikatora
+netRestartNote	Zmiana nazwy hosta lub połączenia zaczyna działać po ponownym uruchomieniu węzła.
+apNote	Punkt dostępu konfiguracji to własna sieć Wi-Fi węzła, służąca do dotarcia do niego z telefonu, gdy nie ma adresu w Twojej sieci.
+setupWifiHelp	Węzeł nie ma kabla. Podaj sieć Wi-Fi, z którą ma się teraz połączyć, albo zostaw puste i użyj własnej sieci konfiguracji węzła, której hasłem jest kod konfiguracji (możesz je później zmienić w zakładce Sieć).
+rolesHelp	Administratorzy mogą zmieniać wszystko. Obserwatorzy widzą stan i ustawienia, ale niczego nie zmieniają.
+slotVersion	wersja {0}
+slotsUnknown	Węzeł nie zgłosił swoich slotów oprogramowania.
+chooseFirst	Najpierw wybierz plik oprogramowania.
+p_out_of_range	poza zakresem
+p_duplicate_pin	ten pin jest użyty dwa razy
+p_reserved_pin	zarezerwowany przez płytkę
+p_not_a_number	nie jest liczbą całkowitą
+e_machine_armed	Program uzbroił maszynę: nic nie można zapisać, uruchomić ponownie ani zaktualizować, dopóki go nie rozbroi.
+staError	Ostatni błąd Wi-Fi
+se_failed	połączenie nie powiodło się
+se_network_not_found	nie znaleziono sieci
+se_wrong_password	hasło zostało odrzucone
+navNetwork	Sieć
+navUsers	Użytkownicy
+navSystem	System
+language	Język
+signOut	Wyloguj
+loading	Ładowanie…
+unreachable	Węzeł nie odpowiada.
+signIn	Zaloguj się
+rememberMe	Pozostaw mnie zalogowanego w tej przeglądarce
+rememberUser	Zapamiętaj moją nazwę użytkownika na tym urządzeniu
+loginNote	Zapamiętać można tylko nazwę użytkownika i tylko po zaznaczeniu pola. Hasło, jeśli chcesz, zapisuje wyłącznie menedżer haseł Twojej przeglądarki lub systemu; panel nigdy go nie przechowuje.
+user	Użytkownik
+password	Hasło
+showPassword	Pokaż hasło
+setupTitle	Skonfiguruj ten węzeł
+setupCode	Kod konfiguracji
+adminName	Nazwa administratora
+createAdmin	Utwórz administratora
+setupWifi	Wi-Fi konfiguracji tego węzła
+setupIntro	Ten węzeł nie ma jeszcze użytkownika. Wpisz kod konfiguracji, który węzeł pokazuje na swojej konsoli USB co 15 sekund, i wybierz administratora.
+setupWifiTitle	Sieć Wi-Fi, z którą ma się połączyć węzeł (opcjonalnie)
+setupWifiOptionalTitle	Sieć Wi-Fi (opcjonalnie)
+setupWifiOptionalHelp	Ta płytka ma port Ethernet: przy podłączonym kablu zostaw puste. Aby zamiast tego używać węzła przez Wi-Fi (na przykład na stanowisku bez kabla), podaj tutaj sieć, z którą ma się połączyć. Jeśli nie otrzyma adresu, po 90 sekundach ponownie otwiera swoją sieć konfiguracji, aby dało się do niego dotrzeć.
+save	Zapisz
+saveRestart	Zapisz i uruchom ponownie
+restart	Uruchom ponownie
+discard	Odrzuć zmiany
+saved	Zapisano.
+savedRestart	Zapisano. Uruchom węzeł ponownie, aby zastosować.
+unsaved	Są niezapisane zmiany.
+restarting	Węzeł uruchamia się ponownie…
+adminOnly	Tylko administrator może to zmienić.
+yes	tak
+no	nie
+add	Dodaj
+delete	Usuń
+refresh	Odśwież
+working	Pracuję…
+confirmAsk	Czy na pewno?
+nodeId	Identyfikator
+firmware	Oprogramowanie
+uptime	Czas pracy
+address	Adres
+netmask	Maska podsieci
+gateway	Brama
+mac	MAC
+link	Łącze
+linkUp	działa
+linkDown	nie działa
+nodeTitle	Węzeł
+uplink	Połączenie z siecią
+uplinkEthernet	Kabel Ethernet (PoE)
+uplinkWifi	Wi-Fi (łączy się z inną siecią)
+dhcp	Pobierz adres automatycznie (DHCP)
+dns1	Serwer DNS 1
+dns2	Serwer DNS 2
+hostname	Nazwa hosta
+wifiAp	Punkt dostępu (Wi-Fi udostępniane przez ten węzeł)
+apEnable	Udostępniaj sieć Wi-Fi
+ssid	Nazwa sieci (SSID)
+security	Zabezpieczenia
+secOpen	otwarta (bez hasła)
+secWpa2	WPA2
+secWpa3	WPA3
+secWpa2Wpa3	WPA2 + WPA3
+wifiPassword	Hasło Wi-Fi (od 8 do 63 znaków)
+passwordSet	hasło jest zapisane; zostaw puste, aby je zachować
+hidden	Ukryj nazwę sieci
+wifiChannel	Kanał
+channelAuto	automatyczny (1, 6 lub 11 zależnie od węzła)
+channelNow	Ten węzeł użyłby kanału {0}.
+wifiSta	Stacja Wi-Fi (ten węzeł łączy się z siecią Wi-Fi)
+staEnable	Połącz z siecią Wi-Fi
+scanNetworks	Szukaj sieci
+scanning	Wyszukiwanie…
+noNetworks	Nie wykryto żadnej sieci.
+scanNote	Podczas wyszukiwania własny punkt dostępu węzła może na chwilę rozłączyć swoich klientów.
+useNetwork	Użyj
+signal	sygnał
+wiredNote	Po kablu węzeł prosi o adres przez DHCP, chyba że ustawisz go tutaj na stałe. Jego własna sieć Wi-Fi, jeśli ją zachowasz, jest osobną siecią (192.168.4.x) do docierania do węzła z telefonu; nie jest połączona z siecią przewodową. Zmiany zaczynają działać po ponownym uruchomieniu.
+staNote	Węzeł nie ma kabla: podaj mu sieć Wi-Fi swojego domu lub miejsca pracy. Jeśli wyłączysz stację, użyj jego własnego punktu dostępu.
+noWifiWarn	Węzeł nie ma kabla: pozostaw włączone co najmniej jedno z dwóch, punkt dostępu lub stację, inaczej nie będzie można do niego dotrzeć.
+ethernetMissing	Układ Ethernet nie odpowiada (zobacz instrukcję okablowania).
+station	Stacja Wi-Fi
+notConnected	niepołączony
+apActive	Punkt dostępu
+apClients	klienci
+channel	kanał
+setupNetwork	sieć konfiguracji
+usersTitle	Użytkownicy tego panelu
+role	Rola
+roleAdmin	administrator
+roleViewer	obserwator (tylko odczyt)
+addUser	Dodaj użytkownika
+newPassword	Nowe hasło (8 znaków lub więcej)
+setPassword	Ustaw hasło
+myAccount	Moje hasło
+currentPassword	Bieżące hasło
+changePassword	Zmień moje hasło
+passwordChanged	Hasło zmienione. Zaloguj się ponownie.
+you	ty
+updateTitle	Aktualizuj oprogramowanie
+updateHelp	Wybierz plik oprogramowania (.bin zbudowany dla tego projektu, nie obraz scalony). Jest sprawdzany przed użyciem, a jeśli nowa wersja się nie uruchomi, węzeł sam wraca do poprzedniej.
+chooseFile	Plik oprogramowania
+upload	Wyślij i zainstaluj
+uploading	Wysyłanie… {0}%
+updateDone	Zainstalowano wersję {0}. Węzeł teraz uruchamia się ponownie.
+slot	Uruchomiony z
+slotsTitle	Sloty oprogramowania
+slotsHelp	Węzeł przechowuje dwa sloty oprogramowania, ota_0 i ota_1. Aktualizacja jest zapisywana do tego, który nie jest uruchomiony. Tutaj możesz w dowolnej chwili uruchomić drugi - aby wrócić do poprzedniej wersji lub przejść do właśnie zainstalowanej. Ustawienia są zachowane.
+slotRunning	działa teraz
+slotNextBoot	uruchomi się następnym razem
+slotEmpty	pusty - brak oprogramowania
+switchSlot	Uruchom {0}
+switchSlotNone	Drugi slot nie zawiera oprogramowania
+switchAsk	Uruchomić ponownie węzeł i wystartować z {0} (wersja {1})?
+logTitle	Dziennik węzła
+copyLog	Kopiuj dziennik
+copied	Skopiowano
+copyFailed	Nie udało się skopiować - zaznacz tekst i skopiuj go ręcznie
+maintenance	Konserwacja
+rebootNode	Uruchom węzeł ponownie
+factoryTitle	Przywrócenie ustawień fabrycznych
+factoryHelp	Usuwa wszystkie ustawienia i wszystkich użytkowników; węzeł zaczyna od nowa od konfiguracji. Wpisz RESET, aby potwierdzić.
+author	Autor
+license	Licencja
+e_unauthorized	Twoja sesja wygasła. Zaloguj się ponownie.
+e_wrong_credentials	Zły użytkownik lub hasło.
+e_too_many_attempts	Zbyt wiele prób. Poczekaj chwilę.
+e_wrong_code	Kod konfiguracji jest nieprawidłowy.
+e_invalid_name	Nazwa jest nieprawidłowa (3 do 32 znaków: a do z, 0 do 9, . _ -).
+e_weak_password	Hasło musi mieć od 8 do 64 znaków.
+e_exists	Taki użytkownik już istnieje.
+e_not_found	Nie znaleziono.
+e_too_many_users	Może być najwyżej czterech użytkowników.
+e_last_admin	Ostatniego administratora nie można usunąć ani zdegradować.
+e_wrong_password	Bieżące hasło jest nieprawidłowe.
+e_invalid_role	Rola jest nieprawidłowa.
+e_forbidden	Nie możesz tego zrobić.
+e_storage	Nie udało się zapisać do pamięci flash.
+e_invalid	Niektóre wartości są nieprawidłowe; są zaznaczone w formularzu.
+e_not_json	Żądanie nie zostało zrozumiane.
+e_too_large	Żądanie jest zbyt duże.
+e_bad_size	Rozmiar pliku jest nieprawidłowy dla oprogramowania.
+e_not_firmware	Ten plik nie jest oprogramowaniem ESP32.
+e_image_invalid	Obraz oprogramowania jest uszkodzony lub niekompletny.
+e_wrong_firmware	To oprogramowanie należy do innego projektu.
+e_upload_interrupted	Wysyłanie zostało przerwane.
+e_upload_stalled	Wysyłanie utknęło i zostało zatrzymane: spróbuj ponownie.
+e_network	Nie udało się połączyć z węzłem.
+e_setup_required	Najpierw skonfiguruj węzeł: utwórz jego administratora.
+e_confirm_required	Wymagane potwierdzenie: wyślij słowo RESET.
+e_bad_host	Ten adres jest nieprawidłowy.
+e_invalid_time	Ten czas jest nieprawidłowy.
+e_would_lock_out	Ta lista zablokowałaby Ci dostęp do panelu: dodaj sieć, z której teraz korzystasz.
+e_slot_empty	Drugi slot nie zawiera oprogramowania.
+e_ota_begin	Aktualizacja nie mogła rozpocząć zapisu.
+e_ota_boot	Nie udało się wybrać nowego oprogramowania do następnego startu.
+e_ota_write	Nie udało się zapisać aktualizacji do pamięci flash.
+e_no_partition	Brak wolnego slotu na aktualizację.
+e_outside_network	Ta sieć nie ma zezwolenia na korzystanie z panelu: użyj sieci domowej lub VPN.
+e_wifi_busy	Radio jest zajęte; spróbuj ponownie za chwilę.
+e_scan_failed	Wyszukiwanie nie powiodło się.
+e_wifi_unavailable	Nie udało się uruchomić Wi-Fi.
+p_required	wymagane
+p_invalid	nieprawidłowe
+p_range	poza zakresem
+p_too_long	za długie
+p_conflict	już użyte
+p_reserved	zarezerwowane przez płytkę
+p_invalid_key	od 8 do 63 drukowalnych znaków
+p_outside_subnet	poza podsiecią
+addBackupNetwork	Dodaj sieć zapasową
+appIdf	ESP-IDF (oprogramowanie)
+backupNetworksHint	Próbowane po kolei, jeśli przez pewien czas nie można połączyć się z siecią powyżej.
+backupNetworksTitle	Sieci zapasowe
+board	Płytka
+bootloaderIdf	ESP-IDF (bootloader)
+brownoutLevel	Poziom detektora spadku napięcia (brown-out)
+checkGithub	Sprawdź teraz
+checking	Sprawdzanie…
+chip	Układ
+clockNotSet	nie ustawiono
+copyAsk	Skopiować działające oprogramowanie ({0}, wersja {1}) do drugiego slotu ({2})? To, co zawiera teraz, zostanie usunięte. Węzeł nie uruchomi się ponownie.
+copyDone	Skopiowano: oba sloty zawierają teraz wersję {0}.
+copyRunning	Kopiowanie… {0}%
+copySlot	Kopiuj {0} do {1}
+cores	rdzenie
+cpuFreq	Częstotliwość CPU
+dns	DNS
+flash	Flash
+flashAllocated	Zarezerwowane przez partycje
+flashEncryption	Szyfrowanie flash
+flashFree	wolne
+flashTotal	Razem
+flashUnallocated	Nieprzypisane do żadnej partycji
+githubAvailable	Dostępna jest wersja {0}.
+githubDownloading	Pobieranie oprogramowania z GitHub… {0}%
+githubUpToDate	To już najnowsza wersja na GitHub.
+githubUpdateNote	Pobiera samodzielny obraz aplikacji publikowany przez wydanie GitHub (nigdy bootloader) i instaluje go tak samo jak wysłany plik. Ręczne wysyłanie powyżej działa dokładnie jak wcześniej - to dodatek, a nie zamiennik, dla węzła, który nie ma powodu łączyć się z Internetem.
+githubUpdateTitle	Sprawdź GitHub pod kątem nowej wersji
+githubVerifying	Sprawdzanie obrazu względem skrótu wydania…
+installUpdate	Pobierz i zainstaluj
+installing	Instalowanie…
+layout	Układ
+localTime	Czas lokalny
+memory	Wolna pamięć
+navAbout	O programie
+navHelp	Pomoc
+navOverview	Przegląd
+navWifi	Wi-Fi
+nodeName	Nazwa
+none	brak
+ovFlash	Pamięć flash
+ovHardware	Sprzęt
+ovNetwork	Sieć
+ovNode	Ten węzeł
+ovTime	Data i czas
+ownNetwork	sieć własna
+psram	PSRAM
+radios	Radia
+reasonOther	inny
+removeNetwork	Usuń
+resetReason	Ostatni restart
+secureBoot	Secure boot
+timeFromNtp	Internetowy serwer czasu (zsynchronizowany)
+timeManual	ustawiony ręcznie
+timeNtpWaiting	oczekiwanie na internetowy serwer czasu
+timeSource	Źródło czasu
+timeZone	Strefa czasowa
+aboutDescription	węzeł rodziny EH3D do obudowy maszyny Bungard CCD: łączy RS-232 jednostki sterującej z siecią, pokazuje jej lampki, linie i wrzeciono oraz przechowuje ustawienia, użytkowników i oprogramowanie węzła.
+aboutIndependent	Projekt jest niezależny: nie jest tworzony, zatwierdzany ani wspierany przez Bungard Elektronik.
+ovMachineLink	Łącze z maszyną
+stClient	Program
+wifiMoved	Sieci Wi-Fi mają własną stronę, Wi-Fi.
+navHelpTab_overview	Podsumowanie
+help_overview_title	Podsumowanie
+help_overview_text	Ten panel konfiguruje i nadzoruje węzeł. Podsumowanie pokazuje, czym jest węzeł i w jakim jest stanie; Stan śledzi na bieżąco, co robi; strony Sieć i Wi-Fi zawierają sposób jego połączenia; Użytkownicy, Oprogramowanie i Dziennik dotyczą systemu.\n\nWszystko jest zapisywane w węźle i zaczyna działać, gdy powie to dolny pasek. Zmiana wymagająca ponownego uruchomienia informuje o tym, zanim opuścisz stronę.
+navHelpTab_status	Stan
+help_status_title	Stan
+help_status_text	Stan pokazuje łącze sterowania, lampki i linie jednostki sterującej, wrzeciono oraz kolejkę, odświeżane co sekundę. Przycisk Zatrzymaj zatrzymuje maszynę natychmiast: kolejka jest opróżniana, a wrzeciono i napędy się wyłączają. Może tylko uczynić maszynę bezpieczniejszą.\n\nJeśli węzeł nie odpowiada, strona o tym informuje i dalej pyta.
+navHelpTab_machine	Maszyna
+help_machine_title	Maszyna
+help_machine_text	Maszyna zawiera to, co łączy węzeł z jednostką sterującą: piny i prędkość portu szeregowego, token dostępu łącza sterowania, port i limity kolejki. Zmiana zaczyna działać po zapisaniu; niektóre wymagają ponownego uruchomienia, o czym informuje pasek.\n\nToken jest tylko do zapisu: nigdy więcej nie jest pokazywany. Program, który się łączy, go potrzebuje; bez niego węzeł odmawia poruszania maszyną.
+navHelpTab_network	Sieć
+help_network_title	Sieć
+help_network_text	Sieć pokazuje, jak węzeł jest teraz połączony, oraz ustawia jego nazwę i adres: DHCP lub adres stały. Na płytce z kablem wybierasz kabel albo Wi-Fi jako drogę dostępu.\n\nZmiana adresu zaczyna działać po ponownym uruchomieniu. Jeśli po zmianie stracisz węzeł, do panelu nadal dotrzesz przez jego własny punkt dostępu (gdy jest włączony) lub kabel.
+navHelpTab_wifi	Wi-Fi
+help_wifi_title	Wi-Fi
+help_wifi_text	Wi-Fi ustawia sieć, z którą łączy się węzeł, oraz punkt dostępu, który może otworzyć. Pod siecią główną możesz dodać do trzech sieci zapasowych: jeśli główna zniknie, węzeł próbuje ich po kolei, aby nie wypaść z sieci. Wyszukiwanie wyświetla sieci w zasięgu.\n\nHasła są tylko do zapisu: panel nigdy ich nie pokazuje, a puste pole zachowuje zapisane.
+navHelpTab_users	Użytkownicy
+help_users_title	Użytkownicy
+help_users_text	Administratorzy zmieniają ustawienia; obserwatorzy tylko oglądają. Każda osoba ma nazwę i hasło. Administrator dodaje osoby, zmienia hasła i je usuwa; ostatniego administratora nie można usunąć.\n\nZbyt wiele błędnych haseł blokuje nazwę na jakiś czas. Własne hasło zmieniasz na tej samej stronie.
+navHelpTab_update	Oprogramowanie
+help_update_title	Oprogramowanie
+help_update_text	Oprogramowanie można zaktualizować na trzy sposoby. Z GitHub: węzeł szuka najnowszego wydania własnego projektu, pobiera je, sprawdza, czy jego skrót zgadza się z opublikowanym w wydaniu, i instaluje je w drugim slocie. Przez wysłanie pliku .bin tego projektu. Albo przełączając się na drugi slot, który wciąż zawiera wersję działającą wcześniej.\n\nKopiowanie zapisuje działające oprogramowanie do drugiego slotu, tak aby oba zawierały tę samą wersję (kopia do powrotu). Po aktualizacji węzeł uruchamia się ponownie.
+navHelpTab_log	Dziennik
+help_log_title	Dziennik
+help_log_text	Dziennik to to, co węzeł mówi podczas pracy: sieć, łącze sterowania, aktualizacje i błędy. Jest przechowywany w pamięci, więc po ponownym uruchomieniu zaczyna się pusty.\n\nSkopiuj go, gdy prosisz o pomoc: zawiera to, co się wydarzyło, po kolei.
+navHelpTab_system	System
+help_system_title	System
+help_system_text	System zawiera ponowne uruchomienie węzła i przywrócenie ustawień fabrycznych, które usuwa wszystkie ustawienia i wszystkich użytkowników (wpisz RESET, aby potwierdzić). Jeśli chcesz tylko sprawdzić, czy problem zniknie, najpierw uruchom ponownie.\n\nPonowne uruchomienie na chwilę przerywa łącze maszyny: rób to, gdy nie trwa żadne zadanie.
+reasonPower_on	włączenie zasilania
+reasonSoftware	restart z panelu
+reasonCrash	AWARIA
+reasonWatchdog	watchdog
+reasonBrownout	niskie napięcie
+reasonDeep_sleep	głęboki sen
+e_bad_json	Żądanie nie jest prawidłowym JSON.
+e_bad_url	Adres aktualizacji nie jest oficjalny.
+e_checksum_mismatch	Pobrane oprogramowanie nie zgadza się z sumą kontrolną wydania: zostało odrzucone i nic się nie zmieniło.
+e_client_init	Nie udało się rozpocząć pobierania.
+e_connect_failed	Pobieranie nie połączyło się: sprawdź sieć węzła i spróbuj ponownie.
+e_no_asset	Wydanie nie zawiera oprogramowania dla tej płytki.
+e_no_asset_for_board	Istnieje nowsze wydanie, ale nie ma ono obrazu oprogramowania dla tej płytki.
+e_no_checksum	Wydanie nie zawiera pliku sumy kontrolnej obok obrazu oprogramowania, więc nie jest instalowane.
+e_no_memory	Węzłowi zabrakło pamięci.
+e_no_release	Nie znaleziono wydania.
+e_no_slot	Brak drugiego slotu, do którego można skopiować.
+e_no_task	Nie udało się rozpocząć aktualizacji (brak wolnego zadania).
+e_not_newer	To oprogramowanie nie jest nowsze od działającego.
+e_ota_busy	Instalacja z GitHub już trwa.
+e_read_error	Pobieranie zostało przerwane podczas odczytu.
+e_read_failed	Nie udało się odczytać działającego slotu.
+e_short_read	Pobieranie zakończyło się, zanim plik był kompletny.
+e_source_invalid	Nie udało się zweryfikować działającego oprogramowania, więc nie zostało skopiowane.
+e_up_to_date	Oprogramowanie jest już aktualne.
+e_version_mismatch	Wersja pliku nie jest wersją wydania.

@@ -2,7 +2,7 @@
   "repo": "EH3D-NODE-BUNGARD",
   "ecosystem": "eh3d",
   "tagline": "An ESP32-S3 node that puts the RS-232 port of a Bungard CCD control unit on the network.",
-  "description": "EH3D-NODE-BUNGARD is firmware in C++17 for the ESP32-S3 (ESP-IDF 5.5) with two board profiles, Ethernet and Wi-Fi. A program connects over TCP with an access token, arms the node and sends the bytes of a move; the node queues them and puts them on the serial line at the line's own pace, reads the machine's lamps and drives a spindle through a 0-10 V signal. A web panel with a side menu in eight languages sets it up. The rules are tested on a computer and both images build; nothing has been flashed or run on a board.",
+  "description": "EH3D-NODE-BUNGARD is firmware in C++17 for the ESP32-S3 (ESP-IDF 5.5) with two board profiles, Ethernet and Wi-Fi. A program connects over TCP with an access token, arms the node and sends the bytes of a move; the node queues them and puts them on the serial line at the line's own pace, reads the machine's lamps and drives a spindle through a 0-10 V signal. A web panel with a side menu in 37 languages sets it up. The rules are tested on a computer and both images build; nothing has been flashed or run on a board.",
   "columns": [
     "WHO TALKS TO IT",
     "THIS REPOSITORY",
@@ -75,7 +75,7 @@
       "level": "tested",
       "title": "Web panel",
       "lines": [
-        "side menu, eight languages: set-up,",
+        "side menu, 37 languages: set-up,",
         "machine, network, users, update"
       ],
       "code": [

@@ -27,3 +27,7 @@ foreach(asset index.html app.js style.css)
   set_property(DIRECTORY "${COMPONENT_DIR}" APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${EH3D_PANEL_DIR}/${asset}")
   target_add_binary_data(${COMPONENT_LIB} "${EH3D_PANEL_OUT}/${asset}.gz" BINARY)
 endforeach()
+# the words of the languages beyond the first eight (panel/locales/*.tsv): one file, asked for by the panel only when one of them is chosen
+file(GLOB EH3D_PANEL_LOCALES "${EH3D_PANEL_DIR}/locales/*.tsv")
+set_property(DIRECTORY "${COMPONENT_DIR}" APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${EH3D_PANEL_LOCALES})
+target_add_binary_data(${COMPONENT_LIB} "${EH3D_PANEL_OUT}/langs.js.gz" BINARY)

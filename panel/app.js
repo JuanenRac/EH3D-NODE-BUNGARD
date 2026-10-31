@@ -13,11 +13,31 @@ let lang = 0;
 // (tests/check_panel_text.py makes sure it cannot happen) and the key is shown.
 const t = (key, ...args) => {
   const row = L[key];
-  if (!row || typeof row[lang] !== "string") { console.error("missing text: " + key); return key; }
-  let text = row[lang];
+  let text = row ? (lang < CORE_LANGS ? row[lang] : extraText(key, row)) : undefined;
+  if (typeof text !== "string") { console.error("missing text: " + key); return key; }
   args.forEach((a, i) => { text = text.split("{" + i + "}").join(a); });
   return text;
 };
+
+// The words of the languages beyond the first eight come from /langs.js, which is asked for only when one of them is chosen. What a language does not have is
+// English, or, for Brazilian Portuguese and Canadian French, the Portuguese and the French of the table.
+let extra = null;
+function extraText(key, row) {
+  const code = LANGS[lang][0];
+  const own = extra && extra[code] && extra[code][key];
+  if (typeof own === "string") return own;
+  if (code === "pt-br") return row[7];
+  if (code === "fr-ca") return row[3];
+  return row[0];
+}
+function loadExtra(then) {
+  if (extra) { then(); return; }
+  const script = document.createElement("script");
+  script.src = "/langs.js";
+  script.onload = () => { extra = window.X || {}; then(); };
+  script.onerror = () => { extra = {}; then(); };
+  document.head.append(script);
+}
 
 function el(tag, attrs, ...kids) {
   const node = document.createElement(tag);
@@ -78,6 +98,7 @@ function pickLanguage(preferred) {
   const index = LANGS.findIndex(l => l[0] === code);
   lang = index >= 0 ? index : 0;
   document.documentElement.lang = LANGS[lang][0];
+  if (lang >= CORE_LANGS && !extra) loadExtra(() => render());
 }
 
 // The theme: the one the browser prefers until the person chooses the other, which is then remembered on this device.
@@ -927,6 +948,7 @@ function langPicker(persist) {
     try { localStorage.setItem("eh3d_lang", LANGS[lang][0]); } catch (error) { /* ignore */ }
     document.documentElement.lang = LANGS[lang][0];
     if (persist) persistLanguage();
+    if (lang >= CORE_LANGS && !extra) loadExtra(() => render());
     render();
   } }, LANGS.map((l, i) => el("option", { value: String(i), selected: i === lang }, l[1])));
 }

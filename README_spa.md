@@ -18,7 +18,7 @@
 
 ---
 
-**Comprobación de honestidad - lo que se ejecuta hoy:** firmware en C++17 para el ESP32-S3 (ESP-IDF 5.5) que convierte el puerto RS-232 de la unidad de control de una máquina Bungard CCD en un puerto de red: un programa se conecta por TCP con un token de acceso, arma la máquina y envía los bytes de un movimiento, que el nodo pone en cola y saca a la línea al ritmo propio de la línea. También lee los LED de la máquina (HOME X, Y y Z, ENABLE, TOOL), maneja un husillo con una señal de velocidad de 0-10 V y líneas de marcha y sentido, y tiene un panel web con menú lateral (ocho idiomas) para la puesta en marcha, los usuarios, la red, la actualización y los ajustes propios de la máquina. Las reglas del enlace y los ajustes se prueban en un ordenador (10 programas de prueba, 2235 comprobaciones contadas) y el firmware compila sin avisos para las dos placas. **Todavía no se ha grabado ni ejecutado en una placa**, no se ha conectado nada a una máquina, y la placa portadora que reúne el convertidor RS-232, las entradas de los LED y el variador del husillo es un diseño sobre el papel.
+**Comprobación de honestidad - lo que se ejecuta hoy:** firmware en C++17 para el ESP32-S3 (ESP-IDF 5.5) que convierte el puerto RS-232 de la unidad de control de una máquina Bungard CCD en un puerto de red: un programa se conecta por TCP con un token de acceso, arma la máquina y envía los bytes de un movimiento, que el nodo pone en cola y saca a la línea al ritmo propio de la línea. También lee los LED de la máquina (HOME X, Y y Z, ENABLE, TOOL), maneja un husillo con una señal de velocidad de 0-10 V y líneas de marcha y sentido, y tiene un panel web con menú lateral (37 idiomas) para la puesta en marcha, los usuarios, la red, la actualización y los ajustes propios de la máquina. Las reglas del enlace y los ajustes se prueban en un ordenador (10 programas de prueba, 2235 comprobaciones contadas) y el firmware compila sin avisos para las dos placas. **Todavía no se ha grabado ni ejecutado en una placa**, no se ha conectado nada a una máquina, y la placa portadora que reúne el convertidor RS-232, las entradas de los LED y el variador del husillo es un diseño sobre el papel.
 
 ---
 
@@ -47,7 +47,7 @@ Cada línea es una parte de este repositorio y la luz dice hasta dónde llega ho
 | Software | 🟡 | El firmware para el ESP32-S3 (ESP-IDF 5.5, C++17) compila sin avisos para las dos placas, Ethernet y Wi-Fi; no se ha grabado ninguna imagen. |
 | Pruebas | 🟡 | Pasan 10 programas de prueba en el ordenador (`ctest`): 2235 comprobaciones contadas del enlace, los ajustes, las reglas de la máquina y la base compartida, más la comprobación de los textos del panel (315 filas en 8 idiomas) y de las pilas de las tareas (10 tareas). |
 | Enlace de control | 🟡 | El protocolo con tramas (CRC, inicio de sesión con token, armado, cola de bytes, parada cuando la sesión calla) está cubierto por las pruebas en el ordenador; ningún programa ha hablado con un nodo real. |
-| Panel web | 🟡 | El panel web (menú lateral, ocho idiomas: puesta en marcha, máquina, red, usuarios, actualización, registro, sistema) tiene sus textos comprobados y se ejercita contra una simulación del nodo en un navegador; nunca se ha servido desde una placa. |
+| Panel web | 🟡 | El panel web (menú lateral, 37 idiomas: puesta en marcha, máquina, red, usuarios, actualización, registro, sistema) tiene sus textos comprobados y se ejercita contra una simulación del nodo en un navegador; nunca se ha servido desde una placa. |
 | Husillo y LED | 🟠 | La señal de velocidad de 0-10 V, las líneas de marcha y sentido (sin invertir mientras gira) y las cinco entradas de LED se prueban en el ordenador; no se ha conectado ningún variador ni máquina. |
 | Actualizaciones | 🟠 | La subida a una de las dos ranuras de firmware con vuelta atrás y confirmación se prueba en el ordenador; una actualización nunca se ha ejecutado en una placa. |
 | Seguridad | 🟡 | Código de puesta en marcha en la consola USB, token de acceso, usuarios y roles, HTTPS opcional y nada secreto compilado; se detiene solo cuando el enlace se cae. Todavía no tiene entrada de parada de emergencia ni revisión independiente. |
@@ -60,7 +60,7 @@ Cada línea es una parte de este repositorio y la luz dice hasta dónde llega ho
 * La **línea serie hacia la unidad de control**: 38400 baudios 8N1 a través de un MAX3232, con las líneas DTR, DCD y RI del saludo. Los pines y si el transceptor invierte las líneas son ajustes.
 * Los **LED**: HOME X, HOME Y, HOME Z, ENABLE y TOOL se leen a través de un transistor separador, se muestran en el estado y en el panel, y una petición puede hacer que el nodo abandone el resto de una búsqueda en cuanto un eje llega a casa, así que el programa ya no tiene que leer la línea de casa en mitad del flujo.
 * El **husillo**: un PWM de velocidad para un convertidor de 0-10 V (24000 rpm a señal máxima por defecto, para un variador de frecuencia como el Huanyang HY02D223B) y líneas de marcha adelante / atrás, sin cambio de sentido mientras gira ni justo después de pararse, y una parada siempre que se detiene la máquina.
-* El **panel** (HTTP y HTTPS, ocho idiomas, el menú a la izquierda en una pantalla ancha y arriba en un teléfono): puesta en marcha con un código mostrado en la consola USB, usuarios, Ethernet o Wi-Fi, el enlace de control, los pines RS-232, los LED y el husillo, un registro y actualizaciones por subida a una de las dos ranuras de firmware con vuelta atrás. No se compila nada secreto en la imagen.
+* El **panel** (HTTP y HTTPS, 37 idiomas, el menú a la izquierda en una pantalla ancha y arriba en un teléfono): puesta en marcha con un código mostrado en la consola USB, usuarios, Ethernet o Wi-Fi, el enlace de control, los pines RS-232, los LED y el husillo, un registro y actualizaciones por subida a una de las dos ranuras de firmware con vuelta atrás. No se compila nada secreto en la imagen.
 * La **autoprotección**: un vigilante que observa las tareas y la memoria, una compuerta a la puerta del panel cuando falta memoria y la confirmación de una imagen nueva en cuanto se puede llegar al nodo.
 * Las **placas**: la Waveshare ESP32-S3-ETH (Ethernet W5500) y una ESP32-S3-WROOM-1 N16R8 (Wi-Fi), una imagen para cada una. El diseño de la placa portadora (100 x 100 mm) está en `docs/BOARD.md`.
 * Las **máquinas**: la Bungard CCD MTC y la CCD/2 MTC, con la unidad de control de puerto serie del software DOS 4.6. Los dos modelos ATC no están cubiertos; los modelos XL y las máquinas posteriores tienen una unidad de control moderna propia.
@@ -126,6 +126,7 @@ Cómo encajan las partes de este repositorio: quién lo usa, qué contiene y de 
 * **Actualización con vuelta atrás:** una imagen entra en la ranura que no está en uso y queda a prueba hasta que se puede llegar al nodo; el cargador de arranque vuelve atrás cuando no se puede.
 * **Se cuida solo:** un vigilante observa las tareas y la memoria, y un nodo que no tiene dirección tras noventa segundos abre de nuevo la red de puesta en marcha para no quedar inalcanzable.
 * **El panel del nodo como lo tienen los nodos de A.R.M.O.R.:** un menú en grupos (nodo, red, sistema) con el idioma y el cierre de sesión al pie; un Resumen (el nodo, su hardware, su reloj, su flash y su red), una página Wi-Fi con hasta tres redes de respaldo que el nodo prueba cuando se pierde la principal, una Ayuda completa y una página Acerca de y, en Firmware, la actualización desde GitHub (busca la última versión del proyecto, comprueba su SHA-256 y la instala en la otra ranura), el cambio entre las dos ranuras y la copia de la que corre en la otra.
+* **37 idiomas:** el panel web del nodo habla inglés, español, italiano, alemán, francés, portugués, chino, japonés, búlgaro, croata, checo, danés, neerlandés, estonio, finés, griego, húngaro, irlandés, letón, lituano, maltés, polaco, rumano, eslovaco, esloveno, sueco, noruego, islandés, ucraniano, ruso, serbio, albanés, catalán, gallego, euskera, portugués de Brasil y francés de Canadá. Las palabras de los 29 idiomas posteriores a los ocho primeros están traducidas por el modelo y esperan la revisión de hablantes nativos; un texto que a un idioma le falta se muestra en inglés.
 
 ## 🔒 Seguridad y protección
 
@@ -149,7 +150,7 @@ Cómo encajan las partes de este repositorio: quién lo usa, qué contiene y de 
 | Interfaz | Qué es | Dónde |
 |---|---|---|
 | Enlace de control | TCP, puerto 5800 por defecto: tramas `0xB5, tipo, longitud, carga, CRC-16`, Hello con el token, Arm, Write, Abort, Ping, StopOnHome, Spindle; el nodo responde Info, Status (cada 200 ms), Rx, HomeSeen y Error | [docs/PROTOCOL.md](docs/PROTOCOL.md), `core/frame.hpp`, `main/link_server.cpp` |
-| Panel web | HTTP en el puerto 80 y HTTPS en el 443 (el modo es un ajuste), ocho idiomas, API bajo `/api/v1/` (`GET`/`PUT /api/v1/machine`, `GET /api/v1/machine/status` y las rutas compartidas de la base) | [docs/NODE_FIRMWARE.md](docs/NODE_FIRMWARE.md), `main/web_server.cpp`, `panel/` |
+| Panel web | HTTP en el puerto 80 y HTTPS en el 443 (el modo es un ajuste), 37 idiomas, API bajo `/api/v1/` (`GET`/`PUT /api/v1/machine`, `GET /api/v1/machine/status` y las rutas compartidas de la base) | [docs/NODE_FIRMWARE.md](docs/NODE_FIRMWARE.md), `main/web_server.cpp`, `panel/` |
 | RS-232 hacia la unidad de control | UART a 38400 baudios 8N1 a través de un MAX3232, con DTR (salida), DCD y RI (entradas) | [docs/WIRING.md](docs/WIRING.md), `main/central_uart.cpp` |
 | LED | HOME X, HOME Y, HOME Z, ENABLE y TOOL, cinco entradas a través de un transistor separador | [docs/WIRING.md](docs/WIRING.md), `main/lamps.cpp` |
 | Husillo | un PWM de velocidad para un convertidor de 0-10 V y líneas de marcha adelante / atrás | [docs/BOARD.md](docs/BOARD.md), `main/spindle.cpp` |
@@ -238,7 +239,8 @@ EH3D-NODE-BUNGARD/
 │   └── github_update.cpp entropy.cpp            la actualización desde GitHub y la copia de una ranura
 ├── panel/
 │   ├── index.html style.css                     la página y la disposición del menú lateral
-│   └── app.js text.js                           las páginas y los textos en ocho idiomas
+│   ├── app.js text.js                           las páginas y los textos en 37 idiomas
+│   └── locales/                                 las palabras de 29 idiomas más, un fichero cada uno
 ├── tests/                                       pruebas en el ordenador del enlace, los ajustes, la base compartida y los textos del panel
 ├── docs/                                        protocolo, firmware, cableado, placa
 ├── tools/                                       compilación, panel, comprobaciones, nodo de pega

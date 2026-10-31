@@ -1,0 +1,435 @@
+# Malti (mt): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+appName	Nodu EH3D Bungard
+grpNode	Nodu
+grpNetwork	Netwerk
+grpSystem	Sistema
+navMenu	Menu ewlieni
+navStatus	Stat
+navMachine	Magna
+navUpdate	Firmware
+navLog	Reġistru
+skip	Aqbeż għall-kontenut
+themeToLight	Tema ċara
+themeToDark	Tema skura
+showShort	Uri
+e_other	In-nodu wieġeb bi żball: {0}
+statusNoControl	Din il-paġna turi l-istat tan-nodu. L-unika ħaġa li l-pannell jagħmel mal-magna hija li jwaqqafha: il-magna tista' tiċċaqlaq biss permezz tal-konnessjoni awtentikata ta' programm (il-link tal-kontroll), qatt minn hawn.
+stLost	In-nodu ma jwieġeb
+stLink	Link tal-kontroll
+stLinkUp	Il-link huwa attiv
+stLinkDown	Il-link mhuwiex attiv
+stClientYes	Programm konness
+stClientNo	L-ebda programm konness
+stAuthYes	Dħalt
+stAuthNo	Ma dħaltx
+stArmed	Magna armata
+stDisarmed	Magna mhix armata
+stQueue	Bytes fil-kju
+stQueueBytes	Kju
+stSent	Bytes mibgħuta
+stLamps	Dwal tal-magna
+stLampsHelp	Il-ħames dwal tal-unità tal-kontroll, moqrija ħajjin. HOME X, Y u Z jixgħelu meta assi jkun fuq is-swiċċ tal-limitu.
+lampHomeX	HOME X
+lampHomeY	HOME Y
+lampHomeZ	HOME Z
+lampEnable	ENABLE
+lampTool	TOOL
+lampOn	mixgħul
+lampOff	maqful
+stLines	Linji tal-unità tal-kontroll
+stLinesHelp	Il-linji li l-unità tal-kontroll iddur lura lejn in-nodu. DCD u RI jirrappurtaw l-istati tal-iżball u tal-għodda tagħha.
+lineCts	CTS
+lineDsr	DSR
+lineRi	RI
+lineDcd	DCD
+stSpindle	Spindlu
+stSpindleBar	Veloċità meta mqabbla mal-massimu
+spForward	'l quddiem
+spReverse	Lura
+spStopped	Waqaf
+spMax	Veloċità massima: {0} rpm
+spNoSpindle	Ma ġiet issettjata l-ebda veloċità tal-ispindlu (massimu 0 rpm).
+stNode	Nodu
+mRestartNote	Il-bidliet f'dawn l-issettjar japplikaw wara li tiġi riavvjat in-nodu.
+mLink	Link tal-kontroll
+mLinkIntro	Il-port TCP li programm jikkonnettja miegħu biex isuq il-magna. Kull konnessjoni trid tidħol bit-token tal-aċċess.
+fPort	Port TCP
+fPortHint	Minn 1 sa 65535.
+fIdle	Limitu ta' ħin ta' inattività (sekondi)
+fIdleHint	Programm armat li ma jibgħat xejn għal dan iż-żmien jitwaqqaf: il-kju jitbattal u d-drajvs jintfew. 0.5 sa 60.
+fQueue	Daqs tal-kju (bytes)
+fQueueHint	Kemm bytes iżomm in-nodu qabel ma jibgħathom lill-unità tal-kontroll. 1024 sa 4194304.
+fFinish	Itemm ix-xogħol li żomm jekk il-programm jisparixxi
+fFinishHint	Mitfi (rakkomandat): in-nodu jieqaf immedjatament, bħas-soltu. Mixgħul: jekk il-programm jew is-server jiskuta jew jaqta', in-nodu jesegwixxi sa tmiem il-bytes li diġà għandu fil-kju (il-programm jaqta' x-xogħol biex it-tmiem ikun post sikur), imbagħad jitfi l-ispindlu u d-drajvs.
+finishWarn	Il-magna se tibqa' tiċċaqlaq weħidha, mingħajr ħadd konness, sakemm il-kju jitbattal jew jgħaddi ż-żmien t'hawn taħt. Dawwar dan biss wara li l-għodda u x-xogħol ikunu ġew ivverifikati, u kun af fejn hu l-buttuna tal-waqfien.
+fDrain	L-itwal ħin waħdu (sekondi)
+fDrainHint	Wara dan iż-żmien in-nodu jwaqqaf dak kollu li jifdal. 10 sa 3600.
+stStop	Waqqaf il-magna
+stStopHint	Ibattal il-kju u jitfi l-ispindlu u d-drajvs, kemm jekk programm huwa konness kif ukoll jekk le.
+stStopped	Waqaf.
+stDraining	Il-programm sparixxa u n-nodu qed itemm ix-xogħol li żomm. Ma jaċċetta xejn ġdid; uża l-buttuna tal-waqfien biex twaqqafha issa.
+fToken	Token tal-aċċess
+fTokenHint	Miktub fin-nodu u qatt ma jintwera mill-ġdid. Ikteb wieħed ġdid jew iġġenera wieħed, imbagħad Salva.
+tokenIsSet	Token huwa issettjat
+tokenNotSet	L-ebda token mhu issettjat
+tokenWillChange	Token ġdid se jiġi ssalvat
+tokenWillClear	It-token se jitneħħa
+tokenShown	Ikkopjah issa: ma jintwerax mill-ġdid wara s-salvar.
+tokenSet	Issettja t-token
+tokenGenerate	Iġġenera wieħed
+tokenKeep	Żomm it-token attwali
+tokenClear	Neħħi t-token
+fAllowOpen	Ippermetti kontroll mingħajr token
+fAllowOpenHint	Għal bank tax-xogħol biss.
+allowOpenWarn	Kulħadd fuq in-netwerk jista' jikkonnettja u jċaqlaq il-magna, mingħajr token. Dawwar dan biss fuq bank tax-xogħol, qatt fuq netwerk maqsum.
+noTokenNote	Mingħajr token in-nodu jirrifjuta li jiġi kkontrollat. Issettja wieħed qabel tuża l-magna.
+mUart	Unità tal-kontroll (RS-232)
+mUartIntro	Il-pins li jmorru għall-konvertitur tal-livell RS-232 u, permezz tiegħu, għall-konnettur tal-unità tal-kontroll. Huma numri GPIO minn 0 sa 48.
+fTx	Pin TX (pin 3 tad-DB9)
+fRx	Pin RX (pin 2 tad-DB9)
+fRxHint	L-unità tal-kontroll ma tibgħat xejn fuq din il-linja; -1 iħalliha ħielsa.
+fDtr	Pin DTR (pin 4 tad-DB9)
+fDcd	Pin DCD (pin 1 tad-DB9)
+fRi	Pin RI (pin 9 tad-DB9)
+fCts	Pin CTS
+fDsr	Pin DSR
+fNoneHint	-1: mhux imqabbad.
+fInverted	Il-konvertitur tal-livell jinverti l-linji
+fInvertedHint	MAX3232 jinverti: livell għoli fuq il-pin huwa vultaġġ RS-232 negattiv. Itfih biss għal konvertitur li ma jinvertix.
+mUartWiring	In-nodu jieħu post il-PC: huwa t-tarf DTE tal-kejbil, u l-kejbil huwa l-istess kejbil DB9 dritt li kien jgħaqqad il-PC mal-unità tal-kontroll. Qatt ma tqabbad pin ESP32 mal-magna mingħajr konvertitur tal-livell RS-232: il-pins huma 3.3 V u RS-232 huwa plus u minus 12 V. TX imur fuq il-pin 3 tad-DB9, DTR fuq il-pin 4, DCD jiġi mill-pin 1, RI mill-pin 9, u l-art fuq il-pin 5.
+mLamps	Dwal tal-magna
+mLampsIntro	In-nodu jaqra d-dwal tal-unità tal-kontroll (HOME X, HOME Y, HOME Z, ENABLE, TOOL), għalhekk jaf liema assi jinsab f'home. -1 iħalli dawl mhux moqri.
+fHomeX	Pin HOME X
+fHomeY	Pin HOME Y
+fHomeZ	Pin HOME Z
+fEnable	Pin ENABLE
+fTool	Pin TOOL
+fActiveLow	Dawl mixgħul iniżżel il-pin tiegħu baxx
+fActiveLowHint	Mixgħul bil-buffer NPN tas-soltu: dawl mixgħul iixgħel it-transistor u jniżżel il-pin baxx.
+mLampsWiring	Aqra l-anodu ta' kull dawl permezz ta' transistor NPN, bil-bażi tiegħu fuq resistor ta' 10 kΩ. Qatt ma tqiegħed l-LED ta' opto-coupler direttament madwar id-dawl: il-waqgħa tal-vultaġġ 'l quddiem tiegħu tintefi d-dawl.
+mSpindle	Spindlu
+mSpindleIntro	Is-sinjal tal-veloċità u l-linji tat-tħaddim għad-drajv tal-frekwenza varjabbli (VFD) tal-ispindlu. Issettja l-veloċità massima għal 0 għal nodu mingħajr spindlu.
+fMaxRpm	Veloċità massima (rpm)
+fMaxRpmHint	Il-veloċità f'10 V (100 % PWM); talba ogħla tinqata' għaliha. 0 sa 60000.
+fPwmHz	Frekwenza PWM (Hz)
+fPwmHzHint	100 sa 40000. Il-filtru tal-modulu konvertitur irid ikun xieraq għaliha.
+fPwmPin	Pin PWM tal-veloċità
+fFwdPin	Pin tat-tħaddim 'l quddiem
+fRevPin	Pin tat-tħaddim lura
+fRunPin	Pin tat-tħaddim
+fDirPin	Pin tad-direzzjoni (mixgħul għal lura)
+fPwmInverted	Inverti l-PWM
+fDirSingle	Linja waħda tat-tħaddim u linja waħda tad-direzzjoni
+fDirSingleHint	Mixgħul: l-ewwel pin huwa l-linja tat-tħaddim u t-tieni l-linja tad-direzzjoni. Mitfi: linja waħda 'l quddiem u waħda lura, qatt it-tnejn flimkien.
+fOutLow	Il-linji tat-tħaddim u tad-direzzjoni huma attivi baxxi
+fSettle	Ħin ta' stabilizzazzjoni bejn direzzjonijiet (sekondi)
+fSettleHint	L-ispindlu ma jistax jinqaleb sakemm ma jkunx twaqqaf għal dan iż-żmien. 0 sa 60.
+mSpindleWiring	Għalli l-pin PWM lil modulu konvertitur PWM għal 0-10 V bl-provvista tiegħu stess; l-output tiegħu imur għall-input tal-veloċità tad-drajv (VI u ACM fuq drajv Huanyang). Il-linji tat-tħaddim isuqu l-inputs FOR u REV tad-drajv permezz ta' kontatti tar-relay jew opto-couplers, qatt direttament mill-pin: l-outputs huma 3.3 V u ftit milliamps. Żomm art komuni bejn in-nodu, il-modulu konvertitur u l-input tal-veloċità tad-drajv.
+mSpindleSafety	It-tliet outputs kollha huma mitfija mal-bidu, fi kwalunkwe waqfien tal-magna u kull meta l-veloċità hija 0. Iċċekkja l-issettjar tad-drajv innifsu (kontroll mit-terminals, input analogu tal-veloċità, limiti tal-frekwenza) mal-pjanċa tal-ispindlu qabel l-ewwel tluq: frekwenza ħażina tista' tagħmel ħsara lil spindlu ta' veloċità għolja.
+netNow	Konnessjoni attwali
+netTitle	Indirizz
+hostnameHint	vojt: in-nodu jagħżel isem mill-identifikatur tiegħu
+netRestartNote	Bidla fl-isem tal-host jew fil-konnessjoni tapplika wara li jerġa' jibda n-nodu.
+apNote	Il-punt ta' aċċess tas-setup huwa n-netwerk Wi-Fi tan-nodu stess, biex tilħaqh minn telefon meta ma jkollux indirizz fuq tiegħek.
+setupWifiHelp	In-nodu m'għandux kejbil. Agħti n-netwerk Wi-Fi li għandu jingħaqad miegħu issa, jew ħallih vojt u uża n-netwerk tas-setup tan-nodu stess, li l-password tiegħu hija l-kodiċi tas-setup (tista' tbiddlu aktar tard f'Netwerk).
+rolesHelp	L-amministraturi jistgħu jbiddlu kollox. L-osservaturi jistgħu jaraw l-istat u l-issettjar iżda ma jbiddlu xejn.
+slotVersion	verżjoni {0}
+slotsUnknown	In-nodu ma rrapportax l-islots tal-firmware tiegħu.
+chooseFirst	Agħżel fajl tal-firmware l-ewwel.
+p_out_of_range	barra mill-medda
+p_duplicate_pin	dan il-pin jintuża darbtejn
+p_reserved_pin	riżervat mill-bord
+p_not_a_number	mhux numru sħiħ
+e_machine_armed	Programm armat il-magna: ma jistax jiġi ssalvat, riavvjat jew aġġornat xejn sakemm ma jiddiżarmax.
+staError	L-aħħar żball tal-Wi-Fi
+se_failed	il-konnessjoni falliet
+se_network_not_found	in-netwerk ma nstabx
+se_wrong_password	il-password ġiet miċħuda
+navNetwork	Netwerk
+navUsers	Utenti
+navSystem	Sistema
+language	Lingwa
+signOut	Oħroġ
+loading	Qed jitgħabba…
+unreachable	In-nodu ma jwieġeb.
+signIn	Idħol
+rememberMe	Żommni dħalt f'dan il-browser
+rememberUser	Ftakar l-isem tal-utent tiegħi fuq dan l-apparat
+loginNote	Jista' jiġi mfakkar biss l-isem tal-utent, u biss jekk timmarka l-kaxxa. Il-password tiġi ssalvata, jekk trid, biss mill-maniġer tal-passwords tal-browser jew tas-sistema tiegħek; il-pannell qatt ma jaħżinha.
+user	Utent
+password	Password
+showPassword	Uri l-password
+setupTitle	Issettja dan in-nodu
+setupCode	Kodiċi tas-setup
+adminName	Isem l-amministratur
+createAdmin	Oħloq amministratur
+setupWifi	Wi-Fi tas-setup ta' dan in-nodu
+setupIntro	Dan in-nodu għad m'għandu l-ebda utent. Daħħal il-kodiċi tas-setup li n-nodu juri fuq il-konsole USB tiegħu kull 15-il sekonda, u agħżel l-amministratur.
+setupWifiTitle	Netwerk Wi-Fi li n-nodu għandu jingħaqad miegħu (fakultattiv)
+setupWifiOptionalTitle	Netwerk Wi-Fi (fakultattiv)
+setupWifiOptionalHelp	Dan il-bord għandu port Ethernet: b'kejbil imdaħħal, ħalli dan vojt. Biex tuża n-nodu fuq Wi-Fi minflok (per eżempju fuq bank mingħajr kejbil), agħti hawn in-netwerk li għandu jingħaqad miegħu. Jekk jispiċċa mingħajr indirizz, jerġa' jiftaħ in-netwerk tas-setup tiegħu wara 90 sekonda biex ikun jista' jintlaħaq.
+save	Salva
+saveRestart	Salva u erġa' ibda
+restart	Erġa' ibda
+discard	Armi l-bidliet
+saved	Salvat.
+savedRestart	Salvat. Erġa' ibda n-nodu biex tapplikah.
+unsaved	Hemm bidliet mhux salvati.
+restarting	In-nodu qed jerġa' jibda…
+adminOnly	Amministratur biss jista' jbiddel dan.
+yes	iva
+no	le
+add	Żid
+delete	Ħassar
+refresh	Aġġorna
+working	Qed jaħdem…
+confirmAsk	Żgur?
+nodeId	Identifikatur
+firmware	Firmware
+uptime	Qed jaħdem għal
+address	Indirizz
+netmask	Maskra tas-subnet
+gateway	Gateway
+mac	MAC
+link	Link
+linkUp	attiv
+linkDown	mhux attiv
+nodeTitle	Nodu
+uplink	Konnessjoni man-netwerk
+uplinkEthernet	Kejbil Ethernet (PoE)
+uplinkWifi	Wi-Fi (jingħaqad ma' netwerk ieħor)
+dhcp	Ikseb l-indirizz awtomatikament (DHCP)
+dns1	Server DNS 1
+dns2	Server DNS 2
+hostname	Isem tal-host
+wifiAp	Punt ta' aċċess (Wi-Fi li joffri dan in-nodu)
+apEnable	Offri netwerk Wi-Fi
+ssid	Isem tan-netwerk (SSID)
+security	Sigurtà
+secOpen	miftuħ (mingħajr password)
+secWpa2	WPA2
+secWpa3	WPA3
+secWpa2Wpa3	WPA2 + WPA3
+wifiPassword	Password tal-Wi-Fi (8 sa 63 karattru)
+passwordSet	password hija maħżuna; ħalli vojt biex iżżommha
+hidden	Aħbi l-isem tan-netwerk
+wifiChannel	Kanal
+channelAuto	awtomatiku (1, 6 jew 11 skont in-nodu)
+channelNow	Dan in-nodu juża l-kanal {0}.
+wifiSta	Stazzjon Wi-Fi (dan in-nodu jingħaqad ma' netwerk Wi-Fi)
+staEnable	Ingħaqad ma' netwerk Wi-Fi
+scanNetworks	Fittex netwerks
+scanning	Qed ifittex…
+noNetworks	Ma nstema' l-ebda netwerk.
+scanNote	Waqt li jfittex, il-punt ta' aċċess tan-nodu stess jista' jwaqqa' lill-klijenti tiegħu għal ħin qasir.
+useNetwork	Uża
+signal	sinjal
+wiredNote	Fuq il-kejbil in-nodu jitlob l-indirizz tiegħu b'DHCP sakemm ma tiffissahx hawn. In-netwerk Wi-Fi tiegħu stess, jekk iżżommu, huwa netwerk separat (192.168.4.x) biex tilħaq in-nodu minn telefon; mhuwiex magħqud mal-wired. Il-bidliet japplikaw wara riavvjar.
+staNote	In-nodu m'għandux kejbil: agħtih in-netwerk Wi-Fi ta' darek jew tas-sit tiegħek. Jekk iħalli l-istazzjon mitfi, uża l-punt ta' aċċess tiegħu stess.
+noWifiWarn	In-nodu m'għandux kejbil: żomm mixgħul tal-inqas wieħed miż-żewġ, il-punt ta' aċċess jew l-istazzjon, jew ma jistax jintlaħaq.
+ethernetMissing	Iċ-ċippa Ethernet ma twieġebx (ara l-gwida tal-wajers).
+station	Stazzjon Wi-Fi
+notConnected	mhux konness
+apActive	Punt ta' aċċess
+apClients	klijenti
+channel	kanal
+setupNetwork	netwerk tas-setup
+usersTitle	Utenti ta' dan il-pannell
+role	Rwol
+roleAdmin	amministratur
+roleViewer	osservatur (qari biss)
+addUser	Żid utent
+newPassword	Password ġdida (8 karattri jew aktar)
+setPassword	Issettja l-password
+myAccount	Il-password tiegħi
+currentPassword	Password attwali
+changePassword	Biddel il-password tiegħi
+passwordChanged	Password mibdula. Idħol mill-ġdid.
+you	int
+updateTitle	Aġġorna l-firmware
+updateHelp	Agħżel il-fajl tal-firmware (.bin magħmul għal dan il-proġett, mhux l-immaġni magħquda). Jiġi ċċekkjat qabel ma jintuża, u jekk il-verżjoni l-ġdida ma titlax, in-nodu jirritorna weħdu għal dik ta' qabel.
+chooseFile	Fajl tal-firmware
+upload	Tella' u installa
+uploading	Qed jittella'… {0}%
+updateDone	Verżjoni {0} installata. In-nodu qed jerġa' jibda issa.
+slot	Qed jaħdem minn
+slotsTitle	Slots tal-firmware
+slotsHelp	In-nodu jżomm żewġ slots tal-firmware, ota_0 u ota_1. Aġġornament jinkiteb fuq dak li mhuwiex qed jaħdem. Hawnhekk tista' tbutja l-ieħor f'kull ħin - biex terġa' lura għall-verżjoni ta' qabel jew tmur 'il quddiem għal dik li għadha kemm ġiet installata. L-issettjar jinżamm.
+slotRunning	qed jaħdem issa
+slotNextBoot	jibda l-ħaġa li jmiss
+slotEmpty	vojt - l-ebda firmware
+switchSlot	Butja {0}
+switchSlotNone	L-ieħor slot m'għandu l-ebda firmware
+switchAsk	Erġa' ibda n-nodu u butja {0} (verżjoni {1})?
+logTitle	Reġistru tan-nodu
+copyLog	Ikkopja r-reġistru
+copied	Ikkopjat
+copyFailed	Ma setgħetx tiġi kkopjata - agħżel it-test u ikkopjah bl-idejn
+maintenance	Manutenzjoni
+rebootNode	Erġa' ibda n-nodu
+factoryTitle	Reset tal-fabbrika
+factoryHelp	Iħassar kull issettjar u kull utent; in-nodu jerġa' jibda mis-setup. Ikteb RESET biex tikkonferma.
+author	Awtur
+license	Liċenzja
+e_unauthorized	Is-sessjoni tiegħek spiċċat. Idħol mill-ġdid.
+e_wrong_credentials	Utent jew password ħżiena.
+e_too_many_attempts	Wisq tentattivi. Stenna ftit.
+e_wrong_code	Il-kodiċi tas-setup huwa ħażin.
+e_invalid_name	L-isem mhuwiex validu (3 sa 32 karattru: a sa z, 0 sa 9, . _ -).
+e_weak_password	Il-password trid ikollha 8 sa 64 karattru.
+e_exists	Dak l-utent diġà jeżisti.
+e_not_found	Ma nstabx.
+e_too_many_users	Jistgħu jkunu l-aktar erba' utenti.
+e_last_admin	L-aħħar amministratur ma jistax jitneħħa jew jitnaqqas minn rwol.
+e_wrong_password	Il-password attwali hija ħażina.
+e_invalid_role	Ir-rwol mhuwiex validu.
+e_forbidden	Ma tistax tagħmel dan.
+e_storage	Il-flash ma setax jinkiteb.
+e_invalid	Xi valuri mhumiex validi; huma mmarkati fil-formola.
+e_not_json	It-talba ma nftehmitx.
+e_too_large	It-talba hija kbira wisq.
+e_bad_size	Id-daqs tal-fajl mhuwiex validu għal firmware.
+e_not_firmware	Dak il-fajl mhuwiex firmware ESP32.
+e_image_invalid	L-immaġni tal-firmware hija bil-ħsara jew mhix kompluta.
+e_wrong_firmware	Dak il-firmware jappartjeni għal proġett ieħor.
+e_upload_interrupted	It-tlugħ ġie interrott.
+e_upload_stalled	It-tlugħ waqaf u twaqqaf: erġa' pprova.
+e_network	Ma setax jintlaħaq in-nodu.
+e_setup_required	Issettja n-nodu l-ewwel: oħloq l-amministratur tiegħu.
+e_confirm_required	Il-konferma hija meħtieġa: ibgħat il-kelma RESET.
+e_bad_host	Dak l-indirizz mhuwiex validu.
+e_invalid_time	Dak il-ħin mhuwiex validu.
+e_would_lock_out	Dik il-lista twaqqafek barra mill-pannell: żid in-netwerk li qed tuża issa.
+e_slot_empty	L-ieħor slot m'għandu l-ebda firmware.
+e_ota_begin	L-aġġornament ma setax jibda jikteb.
+e_ota_boot	Il-firmware l-ġdid ma setax jintgħażel biex jibda fil-boot li jmiss.
+e_ota_write	L-aġġornament ma setax jinkiteb fuq il-flash.
+e_no_partition	Ma hemm l-ebda slot ħieles għall-aġġornament.
+e_outside_network	Dan in-netwerk mhuwiex permess juża l-pannell: uża n-netwerk tad-dar jew il-VPN.
+e_wifi_busy	Ir-radju huwa mimli; erġa' pprova ftit wara.
+e_scan_failed	Il-fittxija falliet.
+e_wifi_unavailable	Il-Wi-Fi ma setax jibda.
+p_required	meħtieġ
+p_invalid	mhux validu
+p_range	barra mill-medda
+p_too_long	twil wisq
+p_conflict	diġà użat
+p_reserved	riżervat mill-bord
+p_invalid_key	8 sa 63 karattru li jistgħu jiġu stampati
+p_outside_subnet	barra mis-subnet
+addBackupNetwork	Żid netwerk ta' backup
+appIdf	ESP-IDF (firmware)
+backupNetworksHint	Jiġu pprovati bl-ordni jekk in-netwerk ta' hawn fuq ma jistax jintlaħaq għal xi żmien.
+backupNetworksTitle	Netwerks ta' backup
+board	Bord
+bootloaderIdf	ESP-IDF (bootloader)
+brownoutLevel	Livell tad-detettur tal-brown-out
+checkGithub	Iċċekkja issa
+checking	Qed jiċċekkja…
+chip	Ċippa
+clockNotSet	mhux issettjat
+copyAsk	Ikkopja l-firmware li qed jaħdem ({0}, verżjoni {1}) fuq l-ieħor slot ({2})? Dak li fih issa jitħassar. In-nodu ma jerġax jibda.
+copyDone	Ikkopjat: iż-żewġ slots issa fihom il-verżjoni {0}.
+copyRunning	Qed jikkopja… {0}%
+copySlot	Ikkopja {0} fuq {1}
+cores	cores
+cpuFreq	Frekwenza tas-CPU
+dns	DNS
+flash	Flash
+flashAllocated	Riżervat mill-partizzjonijiet
+flashEncryption	Kriptaġġ tal-flash
+flashFree	ħieles
+flashTotal	Total
+flashUnallocated	Mhux assenjat lil ebda partizzjoni
+githubAvailable	Verżjoni {0} hija disponibbli.
+githubDownloading	Qed jniżżel il-firmware minn GitHub… {0}%
+githubUpToDate	Din diġà l-aħħar verżjoni fuq GitHub.
+githubUpdateNote	Iniżżel l-immaġni waħedha tal-app li ir-release tal-GitHub stess tippubblika (qatt il-bootloader) u jinstallaha bl-istess mod bħal fajl imtella'. It-tlugħ manwali ta' hawn fuq għadu jaħdem eżattament kif kien - din hija żieda, mhux sostituzzjoni, għal nodu mingħajr raġuni biex jilħaq l-Internet.
+githubUpdateTitle	Iċċekkja GitHub għal verżjoni ġdida
+githubVerifying	Qed jiċċekkja l-immaġni mal-hash tar-release…
+installUpdate	Niżżel u installa
+installing	Qed jinstalla…
+layout	Struttura
+localTime	Ħin lokali
+memory	Memorja ħielsa
+navAbout	Dwar
+navHelp	Għajnuna
+navOverview	Ħarsa ġenerali
+navWifi	Wi-Fi
+nodeName	Isem
+none	xejn
+ovFlash	Memorja flash
+ovHardware	Hardware
+ovNetwork	Netwerk
+ovNode	Dan in-nodu
+ovTime	Data u ħin
+ownNetwork	netwerk tiegħu stess
+psram	PSRAM
+radios	Radjijiet
+reasonOther	oħra
+removeNetwork	Neħħi
+resetReason	L-aħħar riavvjar
+secureBoot	Secure boot
+timeFromNtp	Server tal-ħin tal-Internet (sinkronizzat)
+timeManual	issettjat bl-idejn
+timeNtpWaiting	qed jistenna s-server tal-ħin tal-Internet
+timeSource	Sors tal-ħin
+timeZone	Żona tal-ħin
+aboutDescription	nodu tal-familja EH3D għall-kaxxa ta' magna Bungard CCD: jgħaqqad ir-RS-232 tal-unità tal-kontroll man-netwerk, juri d-dwal, il-linji u l-ispindlu tagħha, u jżomm l-issettjar, l-utenti u l-firmware tan-nodu.
+aboutIndependent	Il-proġett huwa indipendenti: mhuwiex magħmul, approvat jew appoġġjat minn Bungard Elektronik.
+ovMachineLink	Link mal-magna
+stClient	Programm
+wifiMoved	In-netwerks Wi-Fi jinsabu fil-paġna tagħhom, Wi-Fi.
+navHelpTab_overview	Sommarju
+help_overview_title	Sommarju
+help_overview_text	Dan il-pannell jissettja u josserva n-nodu. Is-Sommarju juri x'inhu n-nodu u kif inhu; l-Istat isegwi dak li jagħmel hekk kif iseħħ; il-paġni Netwerk u Wi-Fi jinkludu kif huwa konness; Utenti, Firmware u Reġistru huma għas-sistema.\n\nKollox jinżamm fin-nodu u japplika meta l-bar t'isfel jgħid hekk. Bidla li teħtieġ riavvjar tgħid hekk qabel ma tħalli l-paġna.
+navHelpTab_status	Stat
+help_status_title	Stat
+help_status_text	L-Istat juri l-link tal-kontroll, id-dwal u l-linji tal-unità tal-kontroll, l-ispindlu u l-kju, aġġornati kull sekonda. Il-buttuna Waqqaf twaqqaf il-magna issa: il-kju jitbattal u l-ispindlu u d-drajvs jintfew. Tista' biss tagħmel il-magna aktar sikura.\n\nJekk in-nodu ma jwieġebx, il-paġna tgħid hekk u tibqa' tistaqsi.
+navHelpTab_machine	Magna
+help_machine_title	Magna
+help_machine_text	Magna fiha dak li jorbot in-nodu mal-unità tal-kontroll: il-pins u l-veloċità tas-serje, it-token tal-aċċess tal-link tal-kontroll, il-port u l-limiti tal-kju. Bidla tapplika wara li tiġi ssalvata; xi wħud jeħtieġu riavvjar u l-bar jgħid hekk.\n\nIt-token huwa għall-kitba biss: qatt ma jintwera mill-ġdid. Programm li jikkonnettja għandu bżonnu; mingħajru n-nodu jirrifjuta li jċaqlaq il-magna.
+navHelpTab_network	Netwerk
+help_network_title	Netwerk
+help_network_text	Netwerk juri kif in-nodu huwa konness issa u jissettja ismu u l-indirizz tiegħu: DHCP, jew indirizz fiss. Fuq bord b'kejbil tagħżel il-kejbil jew il-Wi-Fi bħala t-triq tad-dħul.\n\nBidla fl-indirizz tapplika wara riavvjar. Jekk titlef in-nodu wara bidla, il-punt ta' aċċess tiegħu stess (meta jkun mixgħul) jew il-kejbil xorta jilħqu l-pannell.
+navHelpTab_wifi	Wi-Fi
+help_wifi_title	Wi-Fi
+help_wifi_text	Wi-Fi jissettja n-netwerk li n-nodu jingħaqad miegħu u l-punt ta' aċċess li jista' jiftaħ. Taħt in-netwerk ewlieni tista' żżid sa tliet netwerks ta' backup: jekk l-ewlieni jintilef, in-nodu jipprovahom bit-turn, biex ma jaqax mingħand in-netwerk. Fittex jelenka n-netwerks fil-firxa.\n\nL-passwords huma għall-kitba biss: il-pannell qatt ma juri mill-ġdid, u qasam li jitħalla vojt iżomm dak maħżun.
+navHelpTab_users	Utenti
+help_users_title	Utenti
+help_users_text	L-amministraturi jbiddlu l-issettjar; l-osservaturi jħarsu biss. Kull persuna għandha isem u password. Amministratur iżid nies, ibiddel il-passwords u jneħħihom; l-aħħar amministratur ma jistax jitneħħa.\n\nWisq passwords ħżiena jbloċċaw isem għal ftit. Il-password tiegħek stess tinbidel fl-istess paġna.
+navHelpTab_update	Firmware
+help_update_title	Firmware
+help_update_text	Il-firmware jista' jiġi aġġornat b'tliet modi. Minn GitHub: in-nodu jfittex l-aħħar release tal-proġett tiegħu stess, iniżżlu, jiċċekkja li l-hash tiegħu jaqbel ma' dak li tippubblika r-release, u jinstallah fl-ieħor slot. Billi tuża tella' fajl .bin ta' dan il-proġett. Jew billi taqleb għall-ieħor slot, li għadu fih il-verżjoni li kienet taħdem qabel.\n\nIkkopja jikteb il-firmware li qed jaħdem fl-ieħor slot, biex it-tnejn ikollhom l-istess verżjoni (kopja biex terġa' lura għaliha). Wara aġġornament in-nodu jerġa' jibda.
+navHelpTab_log	Reġistru
+help_log_title	Reġistru
+help_log_text	Ir-reġistru huwa dak li jgħid in-nodu waqt li jaħdem: in-netwerk, il-link tal-kontroll, l-aġġornamenti u l-iżbalji. Jinżamm fil-memorja, għalhekk jibda vojt wara riavvjar.\n\nIkkopjah meta titlob għajnuna: fih dak li ġara, bl-ordni.
+navHelpTab_system	Sistema
+help_system_title	Sistema
+help_system_text	Sistema fiha r-riavvjar tan-nodu u r-reset tal-fabbrika, li jħassar kull issettjar u kull utent (ikteb RESET biex tikkonferma). Erġa' ibda l-ewwel jekk tixtieq biss tara jekk problema tgħibx.\n\nRiavvjar iwaqqaf il-link tal-magna għal ftit: agħmlu meta ma jkun għaddej l-ebda xogħol.
+reasonPower_on	tqabbid tal-enerġija
+reasonSoftware	riavvjar mill-pannell
+reasonCrash	CRASH
+reasonWatchdog	watchdog
+reasonBrownout	vultaġġ baxx
+reasonDeep_sleep	irqad profond
+e_bad_json	It-talba mhix JSON validu.
+e_bad_url	L-indirizz tal-aġġornament mhuwiex dak uffiċjali.
+e_checksum_mismatch	Il-firmware imniżżel ma jaqbilx mal-checksum tar-release: ġie miċħud u xejn ma nbidel.
+e_client_init	It-tniżżil ma setax jibda.
+e_connect_failed	It-tniżżil ma kkonnettjax: iċċekkja n-netwerk tan-nodu u erġa' pprova.
+e_no_asset	Ir-release m'għandha l-ebda firmware għal dan il-bord.
+e_no_asset_for_board	Teżisti release iktar ġdida, iżda m'għandha l-ebda immaġni tal-firmware għal dan il-bord.
+e_no_checksum	Ir-release m'għandha l-ebda fajl checksum ħdejn l-immaġni tal-firmware, għalhekk ma tiġix installata.
+e_no_memory	In-nodu spiċċalu l-memorja.
+e_no_release	Ma nstabet l-ebda release.
+e_no_slot	Ma hemm l-ebda slot ieħor biex tikkopja fuqu.
+e_no_task	L-aġġornament ma setax jibda (l-ebda task ħieles).
+e_not_newer	Dak il-firmware mhuwiex iktar ġdid minn dak li qed jaħdem.
+e_ota_busy	Installazzjoni minn GitHub diġà għaddejja.
+e_read_error	It-tniżżil ġie interrott waqt il-qari.
+e_read_failed	Is-slot li qed jaħdem ma setax jinqara.
+e_short_read	It-tniżżil intemm qabel ma l-fajl kien komplut.
+e_source_invalid	Il-firmware li qed jaħdem ma setax jiġi vverifikat, għalhekk ma ġiex ikkopjat.
+e_up_to_date	Il-firmware diġà aġġornat.
+e_version_mismatch	Il-verżjoni tal-fajl mhijiex dik tar-release.

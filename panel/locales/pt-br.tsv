@@ -1,0 +1,179 @@
+# Português (Brasil) (pt-br): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+navLog	Registro
+skip	Pular para o conteúdo
+statusNoControl	Esta página mostra o estado do nó. A única coisa que o painel faz com a máquina é pará-la: movê-la só é possível pela conexão autenticada de um programa (a conexão de controle), nunca a partir daqui.
+stLink	Conexão de controle
+stLinkUp	Conexão ativa
+stLinkDown	Conexão inativa
+stClientYes	Programa conectado
+stClientNo	Nenhum programa conectado
+stAuthNo	Sessão não iniciada
+stQueue	Bytes aguardando na fila
+stLampsHelp	As cinco lâmpadas da unidade de controle, lidas ao vivo. HOME X, Y e Z acendem quando um eixo está no fim de curso.
+stLines	Linhas da unidade de controle
+stLinesHelp	As linhas que a unidade de controle devolve ao nó. DCD e RI indicam seus estados de erro e de ferramenta.
+mRestartNote	As alterações nestas configurações se aplicam após reiniciar o nó.
+mLink	Conexão de controle
+mLinkIntro	A porta TCP à qual um programa se conecta para comandar a máquina. Toda conexão precisa fazer login com o token de acesso.
+fPort	Porta TCP
+fFinishHint	Desligado (recomendado): o nó para de imediato, como sempre. Ligado: se o programa ou o servidor ficar mudo ou cair, o nó executa até o fim os bytes que já tem na fila (o programa corta o trabalho para que o fim seja um lugar seguro) e depois desliga o eixo-árvore e os drivers.
+finishWarn	A máquina continuará se movendo sozinha, sem ninguém conectado, até esvaziar a fila ou esgotar o tempo abaixo. Ative-o só com a ferramenta e a peça verificadas e sabendo onde está o botão de parada.
+fDrainHint	Passado este tempo, o nó para o que restar. De 10 a 3600.
+stStopHint	Esvazia a fila e desliga o eixo-árvore e os drivers, haja ou não um programa conectado.
+stDraining	O programa desapareceu e o nó está terminando o trabalho que tem. Não aceita nada novo; use o botão de parada para encerrá-lo agora.
+fTokenHint	É gravado no nó e nunca mais é exibido. Digite um novo ou gere um e depois clique em Salvar.
+tokenWillChange	Um novo token será salvo
+tokenShown	Copie-o agora: depois de salvar ele não é mais exibido.
+fAllowOpen	Permitir o controle sem token
+fAllowOpenHint	Apenas para bancada de testes.
+allowOpenWarn	Qualquer pessoa na rede pode se conectar e mover a máquina, sem token. Ative apenas em uma bancada de testes, nunca em uma rede compartilhada.
+noTokenNote	Sem token, o nó se recusa a ser controlado. Defina um antes de usar a máquina.
+mUart	Unidade de controle (RS-232)
+mUartIntro	Os pinos que vão para o conversor de níveis RS-232 e, através dele, para o conector da unidade de controle. São números de GPIO de 0 a 48.
+fRxHint	A unidade de controle não envia nada nesta linha; -1 a deixa livre.
+fNoneHint	-1: não conectado.
+mUartWiring	O nó ocupa o lugar do PC: é a extremidade DTE do cabo, e o cabo é o mesmo cabo DB9 direto que conectava o PC à unidade de controle. Nunca conecte um pino do ESP32 à máquina sem um conversor de níveis RS-232: os pinos são de 3,3 V e o RS-232 é de mais e menos 12 V. O TX vai ao pino 3 do DB9, o DTR ao pino 4, o DCD vem do pino 1, o RI do pino 9 e o terra ao pino 5.
+mLampsIntro	O nó lê as lâmpadas da unidade de controle (HOME X, HOME Y, HOME Z, ENABLE, TOOL), para saber qual eixo está na origem. -1 deixa uma lâmpada sem leitura.
+fActiveLowHint	Ativo com o buffer NPN habitual: uma lâmpada acesa liga o transistor e puxa o pino para nível baixo.
+mLampsWiring	Leia o anodo de cada lâmpada através de um transistor NPN, com a base em um resistor de 10 kΩ. Nunca conecte o LED de um optoacoplador diretamente em paralelo com a lâmpada: sua queda de tensão direta apagaria a lâmpada.
+mSpindleIntro	O sinal de velocidade e as linhas de marcha do inversor de frequência do eixo-árvore. Defina a velocidade máxima como 0 em um nó sem eixo-árvore.
+fDirSingleHint	Ativado: o primeiro pino é a linha de marcha e o segundo a de sentido. Desativado: uma linha para frente e outra para trás, nunca as duas ao mesmo tempo.
+mSpindleWiring	Conecte o pino do PWM a um módulo conversor de PWM para 0-10 V com alimentação própria; a saída dele vai à entrada de velocidade do inversor (VI e ACM em um inversor Huanyang). As linhas de marcha comandam as entradas FOR e REV do inversor através de contatos de relé ou optoacopladores, nunca diretamente a partir do pino: as saídas são de 3,3 V e de poucos miliamperes. Mantenha um terra comum entre o nó, o módulo conversor e a entrada de velocidade do inversor.
+mSpindleSafety	As três saídas ficam desligadas ao ligar, em qualquer parada da máquina e sempre que a velocidade é 0. Verifique as configurações do próprio inversor (comando pelos terminais, entrada analógica de velocidade, limites de frequência) com a plaqueta do eixo-árvore antes da primeira partida: uma frequência errada pode danificar um eixo-árvore de alta velocidade.
+netNow	Conexão atual
+netRestartNote	Uma alteração do nome do host ou da conexão se aplica após reiniciar o nó.
+apNote	O ponto de acesso de configuração é a rede Wi-Fi própria do nó, para acessá-lo a partir de um celular quando ele não tem endereço na sua rede.
+setupWifiHelp	O nó não tem cabo. Indique agora a rede Wi-Fi à qual ele deve se conectar, ou deixe vazio e use a rede de configuração própria do nó, cuja senha é o código de configuração (você pode alterá-la depois em Rede).
+rolesHelp	Os administradores podem alterar tudo. Os visualizadores veem o estado e as configurações, mas não alteram nada.
+chooseFirst	Escolha primeiro um arquivo de firmware.
+p_duplicate_pin	este pino está sendo usado duas vezes
+e_machine_armed	Um programa tem a máquina armada: não é possível salvar, reiniciar nem atualizar nada até que ele a desarme.
+se_failed	a conexão falhou
+se_wrong_password	a senha foi recusada
+navUsers	Usuários
+loading	Carregando…
+rememberMe	Manter conectado neste navegador
+rememberUser	Lembrar meu nome de usuário neste dispositivo
+loginNote	Só o nome de usuário pode ser lembrado, e apenas se você marcar a caixa. A senha é salva, se você quiser, unicamente pelo gerenciador de senhas do seu navegador ou sistema; o painel nunca a armazena.
+user	Usuário
+password	Senha
+showPassword	Mostrar a senha
+setupIntro	Este nó ainda não tem usuário. Digite o código de configuração que o nó mostra no console USB a cada 15 segundos e escolha o administrador.
+setupWifiTitle	Rede Wi-Fi à qual o nó deve se conectar (opcional)
+setupWifiOptionalHelp	Esta placa tem uma porta Ethernet: com um cabo conectado, deixe isto vazio. Para usar o nó por Wi-Fi (por exemplo, em uma bancada sem cabo), indique aqui a rede à qual ele deve se conectar. Se ficar sem endereço, ele abre de novo a rede de configuração depois de 90 segundos para que seja possível acessá-lo.
+save	Salvar
+saveRestart	Salvar e reiniciar
+saved	Salvo.
+savedRestart	Salvo. Reinicie o nó para aplicar.
+unsaved	Há alterações não salvas.
+restarting	O nó está reiniciando…
+delete	Excluir
+working	Trabalhando…
+uptime	Em funcionamento há
+gateway	Gateway
+link	Conexão
+linkUp	conectada
+linkDown	desconectada
+uplink	Conexão com a rede
+uplinkWifi	Wi-Fi (conecta-se a outra rede)
+hostname	Nome do host
+secOpen	aberta (sem senha)
+wifiPassword	Senha do Wi-Fi (8 a 63 caracteres)
+passwordSet	há uma senha salva; deixe vazio para mantê-la
+channelAuto	automático (1, 6 ou 11 conforme o nó)
+wifiSta	Estação Wi-Fi (este nó se conecta a uma rede Wi-Fi)
+staEnable	Conectar a uma rede Wi-Fi
+scanning	Procurando…
+noNetworks	Nenhuma rede foi detectada.
+scanNote	Durante a busca, o ponto de acesso do próprio nó pode derrubar seus clientes por um momento.
+wiredNote	No cabo, o nó pede o endereço por DHCP a menos que você o fixe aqui. Sua própria rede Wi-Fi, se mantida, é uma rede separada (192.168.4.x) para acessar o nó a partir de um celular; ela não está conectada à rede cabeada. As alterações se aplicam após uma reinicialização.
+staNote	O nó não tem cabo: dê a ele a rede Wi-Fi da sua casa ou local. Se deixar a estação desligada, use o ponto de acesso dele.
+noWifiWarn	O nó não tem cabo: mantenha ligado pelo menos um dos dois, o ponto de acesso ou a estação, ou não será possível acessá-lo.
+ethernetMissing	O chip Ethernet não responde (veja o guia de conexões).
+notConnected	não conectado
+usersTitle	Usuários deste painel
+roleViewer	visualizador (somente leitura)
+addUser	Adicionar um usuário
+newPassword	Nova senha (8 caracteres ou mais)
+setPassword	Definir senha
+myAccount	Minha senha
+currentPassword	Senha atual
+changePassword	Alterar minha senha
+passwordChanged	Senha alterada. Faça login novamente.
+updateHelp	Escolha o arquivo de firmware (um .bin compilado para este projeto, não a imagem completa). Ele é verificado antes de ser usado e, se a nova versão não iniciar, o nó volta sozinho para a anterior.
+chooseFile	Arquivo de firmware
+upload	Enviar e instalar
+uploading	Enviando… {0}%
+slot	Rodando a partir de
+slotsHelp	O nó guarda dois slots de firmware, ota_0 e ota_1. Uma atualização é gravada no que não está rodando. Aqui você pode iniciar o outro a qualquer momento - para voltar à versão anterior ou avançar para a que acabou de ser instalada. As configurações são mantidas.
+logTitle	Registro do nó
+copyLog	Copiar o registro
+copyFailed	Não foi possível copiar - selecione o texto e copie-o manualmente
+factoryTitle	Restauração de fábrica
+factoryHelp	Apaga todas as configurações e todos os usuários; o nó inicia de novo em configuração. Digite RESET para confirmar.
+e_unauthorized	Sua sessão terminou. Faça login novamente.
+e_wrong_credentials	Usuário ou senha incorretos.
+e_too_many_attempts	Tentativas demais. Aguarde um momento.
+e_wrong_code	O código de configuração está incorreto.
+e_invalid_name	O nome não é válido (3 a 32 caracteres: a a z, 0 a 9, . _ -).
+e_weak_password	A senha deve ter entre 8 e 64 caracteres.
+e_exists	Esse usuário já existe.
+e_too_many_users	Pode haver no máximo quatro usuários.
+e_wrong_password	A senha atual está incorreta.
+e_forbidden	Você não pode fazer isso.
+e_storage	Não foi possível gravar na flash.
+e_invalid	Alguns valores não são válidos; eles estão marcados no formulário.
+e_not_json	A requisição não foi compreendida.
+e_too_large	A requisição é grande demais.
+e_bad_size	O tamanho do arquivo não é válido para um firmware.
+e_not_firmware	Esse arquivo não é um firmware ESP32.
+e_upload_interrupted	O envio foi interrompido.
+e_upload_stalled	O envio travou e foi interrompido: tente novamente.
+e_network	Não foi possível alcançar o nó.
+e_setup_required	Configure primeiro o nó: crie seu administrador.
+e_confirm_required	É necessário confirmar: envie a palavra RESET.
+e_would_lock_out	Essa lista deixaria você fora do painel: adicione a rede que você está usando agora.
+e_wifi_busy	O rádio está ocupado; tente novamente em instantes.
+e_scan_failed	A busca falhou.
+p_range	fora da faixa
+p_invalid_key	8 a 63 caracteres imprimíveis
+backupNetworksHint	Tentadas em ordem se a rede acima não puder ser alcançada por algum tempo.
+checkGithub	Verificar agora
+checking	Verificando…
+clockNotSet	não ajustado
+copyRunning	Copiando… {0}%
+flashEncryption	Criptografia da flash
+githubDownloading	Baixando o firmware do GitHub… {0}%
+githubUpdateNote	Baixa a imagem de aplicativo autônoma que a própria release do GitHub publica (nunca o bootloader) e a instala da mesma forma que um arquivo enviado. O envio manual acima continua funcionando exatamente como antes - isto é um acréscimo, não uma substituição, para um nó sem motivo para acessar a Internet.
+githubUpdateTitle	Verificar no GitHub se há uma versão nova
+githubVerifying	Verificando a imagem contra o hash da versão…
+installUpdate	Baixar e instalar
+installing	Instalando…
+layout	Layout
+navAbout	Sobre
+timeManual	definida manualmente
+timeNtpWaiting	aguardando o servidor de hora da Internet
+timeSource	Fonte da hora
+aboutDescription	Um nó da família EH3D para o gabinete de uma máquina Bungard CCD: conecta o RS-232 da unidade de controle à rede, mostra suas lâmpadas, suas linhas e o fuso, e guarda as configurações, os usuários e o firmware do nó.
+aboutIndependent	O projeto é independente: não é feito, endossado nem apoiado pela Bungard Elektronik.
+ovMachineLink	Conexão com a máquina
+help_overview_text	Este painel configura e monitora o nó. O Resumo mostra o que o nó é e como está; Estado acompanha o que ele faz enquanto faz; as páginas Rede e Wi-Fi reúnem como ele está conectado; Usuários, Firmware e Registro são do sistema.\n\nTudo é salvo no nó e se aplica quando a barra de baixo avisa. Uma alteração que exige reinicialização avisa isso antes de você sair da página.
+help_status_text	Estado mostra a conexão de controle, as lâmpadas e as linhas da unidade de controle, o fuso e a fila, atualizados a cada segundo. O botão Parar para a máquina agora: a fila é esvaziada e o fuso e os drivers são desligados. Ele só pode tornar a máquina mais segura.\n\nSe o nó não responder, a página avisa e continua perguntando.
+help_machine_text	Máquina reúne o que liga o nó à unidade de controle: os pinos e a velocidade serial, o token de acesso da conexão de controle, a porta e os limites da fila. Uma alteração se aplica ao salvar; algumas exigem reinicialização e a barra avisa.\n\nO token é somente de escrita: nunca mais é exibido. Um programa que se conecta precisa dele; sem ele o nó se recusa a mover a máquina.
+help_network_text	Rede mostra como o nó está conectado agora e define seu nome e seu endereço: DHCP ou um endereço fixo. Em uma placa com cabo, escolhe-se o cabo ou o Wi-Fi como entrada.\n\nUma alteração de endereço se aplica após uma reinicialização. Se você perder o nó depois de uma alteração, o ponto de acesso dele (se estiver ativo) ou o cabo continuam alcançando o painel.
+help_wifi_text	Wi-Fi define a rede à qual o nó se conecta e o ponto de acesso que ele pode abrir. Abaixo da rede principal podem ser acrescentadas até três redes de reserva: se a principal for perdida, o nó tenta as outras em sequência e não fica fora da rede. Procurar lista as redes ao alcance.\n\nAs senhas são somente de escrita: o painel nunca as mostra de novo, e um campo vazio mantém a salva.
+help_users_text	Os administradores alteram configurações; os visualizadores só olham. Cada pessoa tem um nome e uma senha. Um administrador acrescenta pessoas, muda senhas e as remove; o último administrador não pode ser removido.\n\nSenhas erradas demais bloqueiam um nome por algum tempo. Sua própria senha é alterada na mesma página.
+help_update_text	O firmware pode ser atualizado de três maneiras. A partir do GitHub: o nó procura a versão mais recente do próprio projeto, baixa, verifica se o hash dela é o que a versão publica e instala no outro slot. Enviando um arquivo .bin deste projeto. Ou trocando para o outro slot, que ainda guarda a versão que rodava antes.\n\nCopiar grava o firmware em execução no outro slot, para que ambos tenham a mesma versão (uma cópia para a qual voltar). Depois de uma atualização, o nó reinicia.
+help_log_text	O registro é o que o nó diz enquanto trabalha: a rede, a conexão de controle, as atualizações e os erros. Fica na memória, por isso começa vazio depois de uma reinicialização.\n\nCopie-o quando pedir ajuda: ele contém o que aconteceu, em ordem.
+help_system_text	Sistema tem a reinicialização do nó e a restauração de fábrica, que apaga todas as configurações e todos os usuários (digite RESET para confirmar). Reinicie primeiro se você só quiser ver se um problema desaparece.\n\nUma reinicialização corta por um instante a conexão com a máquina: faça isso quando não houver um trabalho em andamento.
+reasonPower_on	energização
+reasonWatchdog	watchdog
+e_bad_json	A requisição não é um JSON válido.
+e_checksum_mismatch	O firmware baixado não coincide com a soma de verificação da versão: foi recusado e nada mudou.
+e_client_init	Não foi possível iniciar o download.
+e_connect_failed	O download não conectou: verifique a rede do nó e tente novamente.
+e_no_checksum	A versão não traz arquivo de soma de verificação junto à imagem de firmware, por isso não é instalada.
+e_ota_busy	Já há uma instalação a partir do GitHub em andamento.
+e_read_error	O download foi interrompido durante a leitura.
+e_short_read	O download terminou antes de o arquivo estar completo.
+e_version_mismatch	A versão do arquivo não é a da publicação.

@@ -1,0 +1,435 @@
+# Hrvatski (hr): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+appName	EH3D čvor Bungard
+grpNode	Čvor
+grpNetwork	Mreža
+grpSystem	Sustav
+navMenu	Glavni izbornik
+navStatus	Stanje
+navMachine	Stroj
+navUpdate	Firmware
+navLog	Zapisnik
+skip	Preskoči na sadržaj
+themeToLight	Svijetla tema
+themeToDark	Tamna tema
+showShort	Prikaži
+e_other	Čvor je odgovorio pogreškom: {0}
+statusNoControl	Ova stranica prikazuje stanje čvora. Jedino što ploča radi sa strojem jest da ga zaustavi: pomicanje je moguće samo preko autentificirane veze programa (upravljačka veza), nikada odavde.
+stLost	Čvor ne odgovara
+stLink	Upravljačka veza
+stLinkUp	Veza je aktivna
+stLinkDown	Veza je prekinuta
+stClientYes	Program je spojen
+stClientNo	Nijedan program nije spojen
+stAuthYes	Prijavljen
+stAuthNo	Nije prijavljen
+stArmed	Stroj je naoružan
+stDisarmed	Stroj nije naoružan
+stQueue	Bajtovi na čekanju u redu
+stQueueBytes	Red
+stSent	Poslani bajtovi
+stLamps	Svjetla stroja
+stLampsHelp	Pet svjetala upravljačke jedinice, očitanih uživo. HOME X, Y i Z svijetle kad je os na krajnjoj sklopki.
+lampHomeX	HOME X
+lampHomeY	HOME Y
+lampHomeZ	HOME Z
+lampEnable	ENABLE
+lampTool	TOOL
+lampOn	uklj.
+lampOff	isklj.
+stLines	Linije upravljačke jedinice
+stLinesHelp	Linije koje upravljačka jedinica vraća čvoru. DCD i RI javljaju njezina stanja pogreške i alata.
+lineCts	CTS
+lineDsr	DSR
+lineRi	RI
+lineDcd	DCD
+stSpindle	Vreteno
+stSpindleBar	Brzina u odnosu na maksimalnu
+spForward	Naprijed
+spReverse	Natrag
+spStopped	Zaustavljeno
+spMax	Maksimalna brzina: {0} rpm
+spNoSpindle	Brzina vretena nije postavljena (maksimum 0 rpm).
+stNode	Čvor
+mRestartNote	Promjene ovih postavki primjenjuju se nakon ponovnog pokretanja čvora.
+mLink	Upravljačka veza
+mLinkIntro	TCP priključak na koji se spaja program kako bi upravljao strojem. Svaka veza mora se prijaviti pristupnim tokenom.
+fPort	TCP priključak
+fPortHint	Od 1 do 65535.
+fIdle	Istek mirovanja (sekunde)
+fIdleHint	Naoružani program koji toliko dugo ne šalje ništa se zaustavlja: red se prazni, a pogoni se isključuju. 0,5 do 60.
+fQueue	Veličina reda (bajtovi)
+fQueueHint	Koliko bajtova čvor drži prije slanja upravljačkoj jedinici. 1024 do 4194304.
+fFinish	Dovrši posao koji drži ako program nestane
+fFinishHint	Isklj. (preporučeno): čvor se odmah zaustavlja, kao i uvijek. Uklj.: ako program ili poslužitelj utihne ili se prekine, čvor do kraja izvršava bajtove već u svom redu (program reže posao tako da je kraj sigurno mjesto), a zatim isključuje vreteno i pogone.
+finishWarn	Stroj će se nastaviti kretati sam, bez ikoga spojenog, dok se red ne isprazni ili ne istekne vrijeme u nastavku. Uključite ovo samo uz provjeren alat i radni komad te znajte gdje je gumb za zaustavljanje.
+fDrain	Najdulje vrijeme samostalno (sekunde)
+fDrainHint	Nakon toliko vremena čvor zaustavlja sve što je ostalo. 10 do 3600.
+stStop	Zaustavi stroj
+stStopHint	Prazni red te isključuje vreteno i pogone, bez obzira je li program spojen.
+stStopped	Zaustavljeno.
+stDraining	Program je nestao i čvor dovršava posao koji drži. Ne prima ništa novo; gumbom za zaustavljanje prekinite ga odmah.
+fToken	Pristupni token
+fTokenHint	Upisuje se u čvor i više se ne prikazuje. Upišite novi ili ga generirajte, zatim Spremi.
+tokenIsSet	Token je postavljen
+tokenNotSet	Token nije postavljen
+tokenWillChange	Spremit će se novi token
+tokenWillClear	Token će biti uklonjen
+tokenShown	Kopirajte ga sada: nakon spremanja se više ne prikazuje.
+tokenSet	Postavi token
+tokenGenerate	Generiraj
+tokenKeep	Zadrži trenutni token
+tokenClear	Obriši token
+fAllowOpen	Dopusti upravljanje bez tokena
+fAllowOpenHint	Samo za radni stol.
+allowOpenWarn	Svatko u mreži može se spojiti i pomicati stroj, bez tokena. Uključite ovo samo na radnom stolu, nikada u mreži koju dijelite.
+noTokenNote	Bez tokena čvor odbija biti upravljan. Postavite ga prije korištenja stroja.
+mUart	Upravljačka jedinica (RS-232)
+mUartIntro	Pinovi koji idu na pretvarač razina RS-232 i preko njega na priključak upravljačke jedinice. To su GPIO brojevi od 0 do 48.
+fTx	Pin TX (DB9 pin 3)
+fRx	Pin RX (DB9 pin 2)
+fRxHint	Upravljačka jedinica ne šalje ništa na ovoj liniji; -1 je ostavlja slobodnom.
+fDtr	Pin DTR (DB9 pin 4)
+fDcd	Pin DCD (DB9 pin 1)
+fRi	Pin RI (DB9 pin 9)
+fCts	Pin CTS
+fDsr	Pin DSR
+fNoneHint	-1: nije spojeno.
+fInverted	Pretvarač razina invertira linije
+fInvertedHint	MAX3232 invertira: visoka razina na pinu je negativan napon RS-232. Isključite samo za pretvarač koji ne invertira.
+mUartWiring	Čvor preuzima mjesto računala: on je DTE kraj kabela, a kabel je isti ravni DB9 kabel koji je spajao računalo s upravljačkom jedinicom. Nikada ne spajajte pin ESP32 sa strojem bez pretvarača razina RS-232: pinovi su 3,3 V, a RS-232 je plus i minus 12 V. TX ide na DB9 pin 3, DTR na pin 4, DCD dolazi s pina 1, RI s pina 9, a masa na pin 5.
+mLamps	Svjetla stroja
+mLampsIntro	Čvor čita svjetla upravljačke jedinice (HOME X, HOME Y, HOME Z, ENABLE, TOOL) kako bi znao koja je os u početnom položaju. -1 ostavlja svjetlo nepročitanim.
+fHomeX	Pin HOME X
+fHomeY	Pin HOME Y
+fHomeZ	Pin HOME Z
+fEnable	Pin ENABLE
+fTool	Pin TOOL
+fActiveLow	Upaljeno svjetlo povlači pin nisko
+fActiveLowHint	Uklj. s uobičajenim NPN međuspremnikom: upaljeno svjetlo uključuje tranzistor i povlači pin nisko.
+mLampsWiring	Anodu svakog svjetla čitajte preko NPN tranzistora, s bazom na otporniku od 10 kΩ. Nikada ne stavljajte LED optospojnika izravno preko svjetla: njegov pad napona ugasio bi svjetlo.
+mSpindle	Vreteno
+mSpindleIntro	Signal brzine i linije pokretanja za frekvencijski pretvarač (VFD) vretena. Postavite maksimalnu brzinu na 0 za čvor bez vretena.
+fMaxRpm	Maksimalna brzina (rpm)
+fMaxRpmHint	Brzina pri 10 V (100 % PWM); veći zahtjev se ograničava na nju. 0 do 60000.
+fPwmHz	Frekvencija PWM-a (Hz)
+fPwmHzHint	100 do 40000. Filtar modula pretvarača mora joj odgovarati.
+fPwmPin	Pin PWM brzine
+fFwdPin	Pin pokretanja naprijed
+fRevPin	Pin pokretanja natrag
+fRunPin	Pin pokretanja
+fDirPin	Pin smjera (uklj. za natrag)
+fPwmInverted	Invertiraj PWM
+fDirSingle	Jedna linija pokretanja i jedna linija smjera
+fDirSingleHint	Uklj.: prvi pin je linija pokretanja, a drugi linija smjera. Isklj.: jedna linija za naprijed i jedna za natrag, nikada obje istodobno.
+fOutLow	Linije pokretanja i smjera aktivne su u niskoj razini
+fSettle	Vrijeme smirivanja između smjerova (sekunde)
+fSettleHint	Vreteno se ne može preokrenuti dok nije bilo zaustavljeno toliko dugo. 0 do 60.
+mSpindleWiring	Dovedite PWM pin na modul pretvarača PWM u 0-10 V s vlastitim napajanjem; njegov izlaz ide na ulaz brzine pretvarača (VI i ACM kod Huanyang pretvarača). Linije pokretanja pokreću ulaze FOR i REV pretvarača preko releja ili optospojnika, nikada izravno s pina: izlazi su 3,3 V i nekoliko miliampera. Zadržite zajedničku masu između čvora, modula pretvarača i ulaza brzine pretvarača.
+mSpindleSafety	Sva tri izlaza isključena su pri uključivanju, pri svakom zaustavljanju stroja i kad je brzina 0. Provjerite vlastite postavke pretvarača (upravljanje sa stezaljki, analogni ulaz brzine, ograničenja frekvencije) prema pločici vretena prije prvog pokretanja: pogrešna frekvencija može oštetiti brzohodno vreteno.
+netNow	Trenutna veza
+netTitle	Adresa
+hostnameHint	prazno: čvor bira naziv iz svog identifikatora
+netRestartNote	Promjena naziva računala ili veze primjenjuje se nakon ponovnog pokretanja čvora.
+apNote	Pristupna točka za postavljanje vlastita je Wi-Fi mreža čvora, za pristup s telefona kad nema adresu u vašoj mreži.
+setupWifiHelp	Čvor nema kabel. Navedite Wi-Fi mrežu kojoj se treba sada pridružiti ili je ostavite praznom i koristite vlastitu mrežu čvora za postavljanje, čija je lozinka kôd za postavljanje (kasnije je možete promijeniti u Mreži).
+rolesHelp	Administratori mogu mijenjati sve. Promatrači vide stanje i postavke, ali ništa ne mijenjaju.
+slotVersion	verzija {0}
+slotsUnknown	Čvor nije javio svoje slotove firmwarea.
+chooseFirst	Prvo odaberite datoteku firmwarea.
+p_out_of_range	izvan raspona
+p_duplicate_pin	ovaj pin je upotrijebljen dvaput
+p_reserved_pin	rezerviran od ploče
+p_not_a_number	nije cijeli broj
+e_machine_armed	Program je naoružao stroj: ništa se ne može spremiti, ponovno pokrenuti ni ažurirati dok se ne razoruža.
+staError	Posljednja pogreška Wi-Fija
+se_failed	spajanje nije uspjelo
+se_network_not_found	mreža nije pronađena
+se_wrong_password	lozinka je odbijena
+navNetwork	Mreža
+navUsers	Korisnici
+navSystem	Sustav
+language	Jezik
+signOut	Odjava
+loading	Učitavanje…
+unreachable	Čvor ne odgovara.
+signIn	Prijava
+rememberMe	Zapamti me u ovom pregledniku
+rememberUser	Zapamti moje korisničko ime na ovom uređaju
+loginNote	Može se zapamtiti samo korisničko ime, i to samo ako označite okvir. Lozinku, ako želite, sprema samo upravitelj lozinki vašeg preglednika ili sustava; ploča je nikada ne pohranjuje.
+user	Korisnik
+password	Lozinka
+showPassword	Prikaži lozinku
+setupTitle	Postavljanje ovog čvora
+setupCode	Kôd za postavljanje
+adminName	Ime administratora
+createAdmin	Izradi administratora
+setupWifi	Wi-Fi za postavljanje ovog čvora
+setupIntro	Ovaj čvor još nema korisnika. Unesite kôd za postavljanje koji čvor prikazuje na svojoj USB konzoli svakih 15 sekundi i odaberite administratora.
+setupWifiTitle	Wi-Fi mreža kojoj se čvor treba pridružiti (neobavezno)
+setupWifiOptionalTitle	Wi-Fi mreža (neobavezno)
+setupWifiOptionalHelp	Ova ploča ima Ethernet priključak: s uključenim kabelom ostavite ovo prazno. Za korištenje čvora preko Wi-Fija (primjerice na radnom stolu bez kabela) ovdje navedite mrežu kojoj se treba pridružiti. Ako ostane bez adrese, ponovno otvara svoju mrežu za postavljanje nakon 90 sekundi kako bi mu se moglo pristupiti.
+save	Spremi
+saveRestart	Spremi i ponovno pokreni
+restart	Ponovno pokreni
+discard	Odbaci promjene
+saved	Spremljeno.
+savedRestart	Spremljeno. Ponovno pokrenite čvor da se primijeni.
+unsaved	Postoje nespremljene promjene.
+restarting	Čvor se ponovno pokreće…
+adminOnly	Ovo može promijeniti samo administrator.
+yes	da
+no	ne
+add	Dodaj
+delete	Izbriši
+refresh	Osvježi
+working	U tijeku…
+confirmAsk	Jeste li sigurni?
+nodeId	Identifikator
+firmware	Firmware
+uptime	Radi već
+address	Adresa
+netmask	Maska podmreže
+gateway	Pristupnik
+mac	MAC
+link	Veza
+linkUp	aktivna
+linkDown	prekinuta
+nodeTitle	Čvor
+uplink	Veza s mrežom
+uplinkEthernet	Ethernet kabel (PoE)
+uplinkWifi	Wi-Fi (pridružuje se drugoj mreži)
+dhcp	Dobij adresu automatski (DHCP)
+dns1	DNS poslužitelj 1
+dns2	DNS poslužitelj 2
+hostname	Naziv računala
+wifiAp	Pristupna točka (Wi-Fi koji ovaj čvor nudi)
+apEnable	Nudi Wi-Fi mrežu
+ssid	Naziv mreže (SSID)
+security	Zaštita
+secOpen	otvorena (bez lozinke)
+secWpa2	WPA2
+secWpa3	WPA3
+secWpa2Wpa3	WPA2 + WPA3
+wifiPassword	Wi-Fi lozinka (8 do 63 znaka)
+passwordSet	lozinka je spremljena; ostavite prazno da je zadržite
+hidden	Sakrij naziv mreže
+wifiChannel	Kanal
+channelAuto	automatski (1, 6 ili 11 prema čvoru)
+channelNow	Ovaj čvor koristio bi kanal {0}.
+wifiSta	Wi-Fi stanica (ovaj čvor se pridružuje Wi-Fi mreži)
+staEnable	Pridruži se Wi-Fi mreži
+scanNetworks	Traži mreže
+scanning	Traženje…
+noNetworks	Nijedna mreža nije uočena.
+scanNote	Dok traži, vlastita pristupna točka čvora može na trenutak odbaciti svoje klijente.
+useNetwork	Koristi
+signal	signal
+wiredNote	Na kabelu čvor traži adresu putem DHCP-a, osim ako je ovdje ne postavite. Njegova vlastita Wi-Fi mreža, ako je zadržite, zasebna je mreža (192.168.4.x) za pristup čvoru s telefona; nije spojena na žičanu. Promjene se primjenjuju nakon ponovnog pokretanja.
+staNote	Čvor nema kabel: dajte mu Wi-Fi mrežu svoje kuće ili lokacije. Ako stanicu ostavite isključenu, koristite njegovu vlastitu pristupnu točku.
+noWifiWarn	Čvor nema kabel: ostavite uključeno barem jedno od dvoje, pristupnu točku ili stanicu, inače mu se ne može pristupiti.
+ethernetMissing	Ethernet čip ne odgovara (pogledajte vodič za ožičenje).
+station	Wi-Fi stanica
+notConnected	nije spojeno
+apActive	Pristupna točka
+apClients	klijenti
+channel	kanal
+setupNetwork	mreža za postavljanje
+usersTitle	Korisnici ove ploče
+role	Uloga
+roleAdmin	administrator
+roleViewer	promatrač (samo čitanje)
+addUser	Dodaj korisnika
+newPassword	Nova lozinka (8 znakova ili više)
+setPassword	Postavi lozinku
+myAccount	Moja lozinka
+currentPassword	Trenutna lozinka
+changePassword	Promijeni moju lozinku
+passwordChanged	Lozinka je promijenjena. Prijavite se ponovno.
+you	vi
+updateTitle	Ažuriranje firmwarea
+updateHelp	Odaberite datoteku firmwarea (.bin izrađen za ovaj projekt, ne spojena slika). Provjerava se prije uporabe, a ako se nova verzija ne podigne, čvor se sam vraća na prethodnu.
+chooseFile	Datoteka firmwarea
+upload	Učitaj i instaliraj
+uploading	Učitavanje… {0}%
+updateDone	Instalirana verzija {0}. Čvor se sada ponovno pokreće.
+slot	Radi iz
+slotsTitle	Slotovi firmwarea
+slotsHelp	Čvor drži dva slota firmwarea, ota_0 i ota_1. Ažuriranje se upisuje u onaj koji ne radi. Ovdje u svakom trenutku možete pokrenuti drugi - da se vratite na prethodnu verziju ili pređete na upravo instaliranu. Postavke se zadržavaju.
+slotRunning	radi sada
+slotNextBoot	pokreće se sljedeći
+slotEmpty	prazan - nema firmwarea
+switchSlot	Pokreni {0}
+switchSlotNone	Drugi slot ne sadrži firmware
+switchAsk	Ponovno pokrenuti čvor i pokrenuti {0} (verzija {1})?
+logTitle	Zapisnik čvora
+copyLog	Kopiraj zapisnik
+copied	Kopirano
+copyFailed	Kopiranje nije uspjelo - označite tekst i kopirajte ga ručno
+maintenance	Održavanje
+rebootNode	Ponovno pokreni čvor
+factoryTitle	Tvorničke postavke
+factoryHelp	Briše sve postavke i sve korisnike; čvor se ponovno pokreće u postavljanju. Upišite RESET za potvrdu.
+author	Autor
+license	Licenca
+e_unauthorized	Vaša je sesija završila. Prijavite se ponovno.
+e_wrong_credentials	Pogrešan korisnik ili lozinka.
+e_too_many_attempts	Previše pokušaja. Pričekajte trenutak.
+e_wrong_code	Kôd za postavljanje je pogrešan.
+e_invalid_name	Naziv nije valjan (3 do 32 znaka: a do z, 0 do 9, . _ -).
+e_weak_password	Lozinka mora imati 8 do 64 znaka.
+e_exists	Taj korisnik već postoji.
+e_not_found	Nije pronađeno.
+e_too_many_users	Može biti najviše četiri korisnika.
+e_last_admin	Posljednji administrator ne može se ukloniti ni degradirati.
+e_wrong_password	Trenutna lozinka je pogrešna.
+e_invalid_role	Uloga nije valjana.
+e_forbidden	To ne možete učiniti.
+e_storage	Flash se nije mogao upisati.
+e_invalid	Neke vrijednosti nisu valjane; označene su u obrascu.
+e_not_json	Zahtjev nije razumljiv.
+e_too_large	Zahtjev je prevelik.
+e_bad_size	Veličina datoteke nije valjana za firmware.
+e_not_firmware	Ta datoteka nije firmware za ESP32.
+e_image_invalid	Slika firmwarea je oštećena ili nepotpuna.
+e_wrong_firmware	Taj firmware pripada drugom projektu.
+e_upload_interrupted	Učitavanje je prekinuto.
+e_upload_stalled	Učitavanje je zapelo i zaustavljeno je: pokušajte ponovno.
+e_network	Čvor nije dostupan.
+e_setup_required	Prvo postavite čvor: izradite njegova administratora.
+e_confirm_required	Potrebna je potvrda: pošaljite riječ RESET.
+e_bad_host	Ta adresa nije valjana.
+e_invalid_time	To vrijeme nije valjano.
+e_would_lock_out	Taj popis zaključao bi vas iz ploče: dodajte mrežu koju trenutno koristite.
+e_slot_empty	Drugi slot ne sadrži firmware.
+e_ota_begin	Ažuriranje nije moglo započeti upisivanje.
+e_ota_boot	Novi firmware nije se mogao odabrati za sljedeće pokretanje.
+e_ota_write	Ažuriranje se nije moglo upisati u flash.
+e_no_partition	Nema slobodnog slota za ažuriranje.
+e_outside_network	Ovoj mreži nije dopušteno koristiti ploču: koristite mrežu kuće ili VPN.
+e_wifi_busy	Radio je zauzet; pokušajte ponovno za trenutak.
+e_scan_failed	Traženje nije uspjelo.
+e_wifi_unavailable	Wi-Fi se nije mogao pokrenuti.
+p_required	obavezno
+p_invalid	nije valjano
+p_range	izvan raspona
+p_too_long	predugo
+p_conflict	već u uporabi
+p_reserved	rezerviran od ploče
+p_invalid_key	8 do 63 znaka koja se mogu ispisati
+p_outside_subnet	izvan podmreže
+addBackupNetwork	Dodaj pričuvnu mrežu
+appIdf	ESP-IDF (firmware)
+backupNetworksHint	Isprobavaju se redom ako se gornjoj mreži ne može pridružiti neko vrijeme.
+backupNetworksTitle	Pričuvne mreže
+board	Ploča
+bootloaderIdf	ESP-IDF (bootloader)
+brownoutLevel	Razina detektora pada napona
+checkGithub	Provjeri sada
+checking	Provjera…
+chip	Čip
+clockNotSet	nije postavljeno
+copyAsk	Kopirati firmware koji radi ({0}, verzija {1}) preko drugog slota ({2})? Ono što sada sadrži bit će izbrisano. Čvor se ne pokreće ponovno.
+copyDone	Kopirano: oba slota sada sadrže verziju {0}.
+copyRunning	Kopiranje… {0}%
+copySlot	Kopiraj {0} u {1}
+cores	jezgre
+cpuFreq	Frekvencija procesora
+dns	DNS
+flash	Flash
+flashAllocated	Rezervirano particijama
+flashEncryption	Šifriranje flasha
+flashFree	slobodno
+flashTotal	Ukupno
+flashUnallocated	Nije dodijeljeno nijednoj particiji
+githubAvailable	Dostupna je verzija {0}.
+githubDownloading	Preuzimanje firmwarea s GitHuba… {0}%
+githubUpToDate	Ovo je već najnovija verzija na GitHubu.
+githubUpdateNote	Preuzima samostalnu sliku aplikacije koju objavljuje sam GitHub release (nikada bootloader) i instalira je na isti način kao učitanu datoteku. Ručno učitavanje gore i dalje radi posve jednako - ovo je dodatak, ne zamjena, za čvor koji nema razloga dosezati Internet.
+githubUpdateTitle	Provjeri ima li na GitHubu nove verzije
+githubVerifying	Provjera slike prema hashu releasea…
+installUpdate	Preuzmi i instaliraj
+installing	Instaliranje…
+layout	Raspored
+localTime	Lokalno vrijeme
+memory	Slobodna memorija
+navAbout	O programu
+navHelp	Pomoć
+navOverview	Pregled
+navWifi	Wi-Fi
+nodeName	Naziv
+none	nema
+ovFlash	Flash memorija
+ovHardware	Hardver
+ovNetwork	Mreža
+ovNode	Ovaj čvor
+ovTime	Datum i vrijeme
+ownNetwork	vlastita mreža
+psram	PSRAM
+radios	Radiji
+reasonOther	drugo
+removeNetwork	Ukloni
+resetReason	Zadnje ponovno pokretanje
+secureBoot	Sigurno pokretanje
+timeFromNtp	Internetski poslužitelj vremena (sinkronizirano)
+timeManual	postavljeno ručno
+timeNtpWaiting	čeka se internetski poslužitelj vremena
+timeSource	Izvor vremena
+timeZone	Vremenska zona
+aboutDescription	čvor obitelji EH3D za kutiju stroja Bungard CCD: spaja RS-232 upravljačke jedinice s mrežom, prikazuje njezina svjetla, linije i vreteno te čuva postavke, korisnike i firmware čvora.
+aboutIndependent	Projekt je neovisan: nije izrađen, odobren niti podržan od strane Bungard Elektronik.
+ovMachineLink	Veza sa strojem
+stClient	Program
+wifiMoved	Wi-Fi mreže nalaze se na vlastitoj stranici, Wi-Fi.
+navHelpTab_overview	Sažetak
+help_overview_title	Sažetak
+help_overview_text	Ova ploča postavlja i nadzire čvor. Sažetak prikazuje što je čvor i kakav je; Stanje prati što radi dok se događa; stranice Mreža i Wi-Fi sadrže kako je spojen; Korisnici, Firmware i Zapisnik namijenjeni su sustavu.\n\nSve se sprema u čvor i primjenjuje kad to kaže traka pri dnu. Promjena koja traži ponovno pokretanje to kaže prije nego napustite stranicu.
+navHelpTab_status	Stanje
+help_status_title	Stanje
+help_status_text	Stanje prikazuje upravljačku vezu, svjetla i linije upravljačke jedinice, vreteno i red, osvježavano svake sekunde. Gumb Stop odmah zaustavlja stroj: red se prazni, a vreteno i pogoni se isključuju. Može samo učiniti stroj sigurnijim.\n\nAko čvor ne odgovara, stranica to kaže i nastavlja pitati.
+navHelpTab_machine	Stroj
+help_machine_title	Stroj
+help_machine_text	Stroj sadrži ono što veže čvor s upravljačkom jedinicom: serijske pinove i brzinu, pristupni token upravljačke veze, priključak i ograničenja reda. Promjena se primjenjuje nakon spremanja; neke traže ponovno pokretanje i traka to kaže.\n\nToken je samo za upis: nikada se više ne prikazuje. Program koji se spaja treba ga; bez njega čvor odbija pomicati stroj.
+navHelpTab_network	Mreža
+help_network_title	Mreža
+help_network_text	Mreža prikazuje kako je čvor sada spojen i postavlja njegov naziv i adresu: DHCP ili fiksna adresa. Na ploči s kabelom birate kabel ili Wi-Fi kao put ulaza.\n\nPromjena adrese primjenjuje se nakon ponovnog pokretanja. Ako nakon promjene izgubite čvor, ploči se i dalje može pristupiti preko njegove pristupne točke (kad je uključena) ili kabela.
+navHelpTab_wifi	Wi-Fi
+help_wifi_title	Wi-Fi
+help_wifi_text	Wi-Fi postavlja mrežu kojoj se čvor pridružuje i pristupnu točku koju može otvoriti. Ispod glavne mreže možete dodati do tri pričuvne mreže: ako se glavna izgubi, čvor ih isprobava redom, pa ne ispada iz mreže. Traženje navodi mreže u dometu.\n\nLozinke su samo za upis: ploča ih nikada više ne prikazuje, a prazno polje zadržava spremljenu.
+navHelpTab_users	Korisnici
+help_users_title	Korisnici
+help_users_text	Administratori mijenjaju postavke; promatrači samo gledaju. Svaka osoba ima ime i lozinku. Administrator dodaje osobe, mijenja lozinke i uklanja ih; posljednji administrator ne može se ukloniti.\n\nPreviše pogrešnih lozinki blokira ime na neko vrijeme. Vlastita lozinka mijenja se na istoj stranici.
+navHelpTab_update	Firmware
+help_update_title	Firmware
+help_update_text	Firmware se može ažurirati na tri načina. S GitHuba: čvor traži najnoviji release svog projekta, preuzima ga, provjerava podudara li se hash s onim koji release objavljuje i instalira ga u drugi slot. Učitavanjem .bin datoteke ovog projekta. Ili prebacivanjem na drugi slot, koji još sadrži verziju koja je radila prije.\n\nKopiraj upisuje firmware koji radi u drugi slot, tako da oba sadrže istu verziju (kopija za povratak). Nakon ažuriranja čvor se ponovno pokreće.
+navHelpTab_log	Zapisnik
+help_log_title	Zapisnik
+help_log_text	Zapisnik je ono što čvor govori dok radi: mreža, upravljačka veza, ažuriranja i pogreške. Čuva se u memoriji, pa nakon ponovnog pokretanja počinje prazan.\n\nKopirajte ga kad tražite pomoć: sadrži što se dogodilo, redom.
+navHelpTab_system	Sustav
+help_system_title	Sustav
+help_system_text	Sustav sadrži ponovno pokretanje čvora i tvorničke postavke, koje brišu sve postavke i sve korisnike (upišite RESET za potvrdu). Prvo ponovno pokrenite ako samo želite vidjeti nestaje li problem.\n\nPonovno pokretanje na trenutak prekida vezu stroja: učinite to kad nijedan posao ne teče.
+reasonPower_on	uključivanje napajanja
+reasonSoftware	ponovno pokretanje s ploče
+reasonCrash	PAD
+reasonWatchdog	watchdog
+reasonBrownout	nizak napon
+reasonDeep_sleep	duboki san
+e_bad_json	Zahtjev nije valjan JSON.
+e_bad_url	Adresa ažuriranja nije službena.
+e_checksum_mismatch	Preuzeti firmware ne odgovara kontrolnom zbroju releasea: odbijen je i ništa nije promijenjeno.
+e_client_init	Preuzimanje se nije moglo pokrenuti.
+e_connect_failed	Preuzimanje se nije spojilo: provjerite mrežu čvora i pokušajte ponovno.
+e_no_asset	Release nema firmware za ovu ploču.
+e_no_asset_for_board	Postoji noviji release, ali nema sliku firmwarea za ovu ploču.
+e_no_checksum	Release ne sadrži datoteku kontrolnog zbroja uz sliku firmwarea, pa se ne instalira.
+e_no_memory	Čvoru je ponestalo memorije.
+e_no_release	Nije pronađen nijedan release.
+e_no_slot	Nema drugog slota u koji bi se kopiralo.
+e_no_task	Ažuriranje se nije moglo pokrenuti (nema slobodnog zadatka).
+e_not_newer	Taj firmware nije noviji od onog koji radi.
+e_ota_busy	Instalacija s GitHuba već je u tijeku.
+e_read_error	Preuzimanje je prekinuto tijekom čitanja.
+e_read_failed	Slot koji radi nije se mogao pročitati.
+e_short_read	Preuzimanje je završilo prije nego što je datoteka bila potpuna.
+e_source_invalid	Firmware koji radi nije se mogao provjeriti, pa nije kopiran.
+e_up_to_date	Firmware je već ažuran.
+e_version_mismatch	Verzija datoteke nije ona releasea.

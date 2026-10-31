@@ -18,7 +18,7 @@
 
 ---
 
-**Ehrlichkeitscheck - was heute tatsächlich läuft:** Firmware in C++17 für den ESP32-S3 (ESP-IDF 5.5), das den RS-232-Anschluss der Steuereinheit einer Bungard-CCD-Maschine zu einem Netzwerkanschluss macht: Ein Programm verbindet sich per TCP mit einem Zugriffstoken, schaltet die Maschine scharf und sendet die Bytes einer Bewegung, die der Knoten in eine Warteschlange legt und im eigenen Takt der Leitung ausgibt. Es liest außerdem die Lampen der Maschine (HOME X, Y und Z, ENABLE, TOOL), steuert eine Spindel über ein 0-10-V-Drehzahlsignal und Lauf-/Richtungsleitungen und hat ein Web-Panel mit Seitenmenü (acht Sprachen) für Einrichtung, Benutzer, Netzwerk, Update und die Maschineneinstellungen. Die Regeln der Verbindung und die Einstellungen sind auf einem Computer getestet (10 Testprogramme, 2.235 gezählte Prüfungen), und die Firmware baut für beide Platinen ohne Warnungen. **Sie wurde noch nicht auf eine Platine geflasht oder dort ausgeführt**, nichts wurde an eine Maschine angeschlossen, und die Trägerplatine, die RS-232-Wandler, Lampeneingänge und Spindelantrieb zusammenbringt, ist ein Entwurf auf Papier.
+**Ehrlichkeitscheck - was heute tatsächlich läuft:** Firmware in C++17 für den ESP32-S3 (ESP-IDF 5.5), das den RS-232-Anschluss der Steuereinheit einer Bungard-CCD-Maschine zu einem Netzwerkanschluss macht: Ein Programm verbindet sich per TCP mit einem Zugriffstoken, schaltet die Maschine scharf und sendet die Bytes einer Bewegung, die der Knoten in eine Warteschlange legt und im eigenen Takt der Leitung ausgibt. Es liest außerdem die Lampen der Maschine (HOME X, Y und Z, ENABLE, TOOL), steuert eine Spindel über ein 0-10-V-Drehzahlsignal und Lauf-/Richtungsleitungen und hat ein Web-Panel mit Seitenmenü (37 Sprachen) für Einrichtung, Benutzer, Netzwerk, Update und die Maschineneinstellungen. Die Regeln der Verbindung und die Einstellungen sind auf einem Computer getestet (10 Testprogramme, 2.235 gezählte Prüfungen), und die Firmware baut für beide Platinen ohne Warnungen. **Sie wurde noch nicht auf eine Platine geflasht oder dort ausgeführt**, nichts wurde an eine Maschine angeschlossen, und die Trägerplatine, die RS-232-Wandler, Lampeneingänge und Spindelantrieb zusammenbringt, ist ein Entwurf auf Papier.
 
 ---
 
@@ -47,7 +47,7 @@ Jede Zeile ist ein Teil dieses Repositorys, und die Ampel sagt, wie weit er heut
 | Software | 🟡 | Die Firmware für den ESP32-S3 (ESP-IDF 5.5, C++17) baut für beide Platinen, Ethernet und WLAN, ohne Warnungen; kein Abbild wurde geflasht. |
 | Tests | 🟡 | 10 Host-Testprogramme bestehen (`ctest`): 2.235 gezählte Prüfungen zu Verbindung, Einstellungen, Maschinenregeln und gemeinsamer Basis, dazu die Prüfung der Paneltexte (315 Zeilen in 8 Sprachen) und der Task-Stacks (10 Tasks). |
 | Steuerverbindung | 🟡 | Das gerahmte Protokoll (CRC, Token-Anmeldung, Scharfschalten, Byte-Warteschlange, Stopp bei stiller Sitzung) ist von den Host-Tests abgedeckt; kein Programm hat mit einem echten Knoten gesprochen. |
-| Web-Panel | 🟡 | Das Web-Panel (Seitenmenü, acht Sprachen: Einrichtung, Maschine, Netzwerk, Benutzer, Update, Protokoll, System) hat geprüfte Texte und wird in einem Browser gegen eine Attrappe des Knotens erprobt; es wurde nie von einer Platine ausgeliefert. |
+| Web-Panel | 🟡 | Das Web-Panel (Seitenmenü, 37 Sprachen: Einrichtung, Maschine, Netzwerk, Benutzer, Update, Protokoll, System) hat geprüfte Texte und wird in einem Browser gegen eine Attrappe des Knotens erprobt; es wurde nie von einer Platine ausgeliefert. |
 | Spindel und Lampen | 🟠 | Das 0-10-V-Drehzahlsignal, die Lauf- und Richtungsleitungen (kein Umkehren während des Drehens) und die fünf Lampeneingänge sind auf dem Host getestet; kein Spindelantrieb und keine Maschine wurden angeschlossen. |
 | Updates | 🟠 | Das Hochladen in einen von zwei Firmware-Slots mit Rückfall und Bestätigung ist auf dem Host getestet; ein Update lief nie auf einer Platine. |
 | Sicherheit | 🟡 | Einrichtungscode auf der USB-Konsole, Zugriffstoken, Benutzer und Rollen, optionales HTTPS und nichts Geheimes einkompiliert; er stoppt von selbst, wenn die Verbindung abbricht. Es gibt noch keinen Not-Aus-Eingang und keine unabhängige Prüfung. |
@@ -60,7 +60,7 @@ Jede Zeile ist ein Teil dieses Repositorys, und die Ampel sagt, wie weit er heut
 * Die **serielle Leitung zur Steuereinheit**: 38400 Baud 8N1 über einen MAX3232, mit den Leitungen DTR, DCD und RI des Handshakes. Die Pins und ob der Transceiver die Leitungen invertiert, sind Einstellungen.
 * Die **Lampen**: HOME X, HOME Y, HOME Z, ENABLE und TOOL werden über einen Pufferttransistor gelesen, im Status und im Panel angezeigt, und eine Anfrage kann den Knoten den Rest einer Suche verwerfen lassen, sobald eine Achse in Referenz ist, sodass das Programm die Home-Leitung nicht mehr mitten im Datenstrom lesen muss.
 * Die **Spindel**: ein Drehzahl-PWM für einen 0-10-V-Wandler (standardmäßig 24000 U/min bei vollem Signal, für einen Frequenzumrichter wie den Huanyang HY02D223B) und Leitungen für Vorwärts-/Rückwärtslauf, ohne Richtungswechsel während der Drehung oder gleich nach dem Stillstand und mit Stopp, wann immer die Maschine gestoppt wird.
-* Das **Panel** (HTTP und HTTPS, acht Sprachen, das Menü links auf einem breiten Bildschirm und oben auf einem Telefon): Ersteinrichtung mit einem Code auf der USB-Konsole, Benutzer, Ethernet oder WLAN, die Steuerverbindung, die RS-232-Pins, die Lampen und die Spindel, ein Protokoll und Updates durch Hochladen in einen von zwei Firmware-Slots mit Rückfall. Nichts Geheimes ist in das Abbild einkompiliert.
+* Das **Panel** (HTTP und HTTPS, 37 Sprachen, das Menü links auf einem breiten Bildschirm und oben auf einem Telefon): Ersteinrichtung mit einem Code auf der USB-Konsole, Benutzer, Ethernet oder WLAN, die Steuerverbindung, die RS-232-Pins, die Lampen und die Spindel, ein Protokoll und Updates durch Hochladen in einen von zwei Firmware-Slots mit Rückfall. Nichts Geheimes ist in das Abbild einkompiliert.
 * Der **Selbstschutz**: ein Wächter, der Tasks und Speicher beobachtet, ein Tor an der Tür des Panels bei Speichermangel und die Bestätigung eines neuen Abbilds, sobald der Knoten erreichbar ist.
 * Die **Platinen**: das Waveshare ESP32-S3-ETH (W5500-Ethernet) und ein ESP32-S3-WROOM-1 N16R8 (WLAN), je ein Abbild. Der Entwurf der Trägerplatine (100 x 100 mm) steht in `docs/BOARD.md`.
 * Die **Maschinen**: die Bungard CCD MTC und CCD/2 MTC, mit der seriellen Steuereinheit der DOS-Software 4.6. Die beiden ATC-Modelle sind nicht abgedeckt; die XL-Modelle und spätere Maschinen haben eine eigene moderne Steuereinheit.
@@ -126,6 +126,7 @@ Wie die Teile dieses Repositorys zusammenpassen: wer es nutzt, was es enthält u
 * **Update mit Rückfall:** Ein Abbild kommt in den nicht laufenden Slot und steht unter Bewährung, bis der Knoten erreichbar ist; der Bootloader geht zurück, wenn er es nicht ist.
 * **Sorgt für sich selbst:** Ein Wächter beobachtet Tasks und Speicher, und ein Knoten ohne Adresse nach neunzig Sekunden öffnet das Einrichtungsnetz wieder, damit er nicht unerreichbar bleibt.
 * **Das Panel des Knotens wie bei den Knoten von A.R.M.O.R.:** ein Menü in Gruppen (Knoten, Netzwerk, System) mit Sprache und Abmelden am Fuß; eine Übersicht (der Knoten, seine Hardware, seine Uhr, sein Flash und sein Netz), eine WLAN-Seite mit bis zu drei Ersatznetzen, die der Knoten probiert, wenn das Hauptnetz verloren geht, eine vollständige Hilfe und eine Über-Seite und, unter Firmware, das Update von GitHub (es sucht das neueste Release des Projekts, prüft dessen SHA-256 und installiert es im anderen Slot), der Wechsel zwischen den beiden Slots und das Kopieren des laufenden in den anderen.
+* **37 Sprachen:** das Web-Panel des Knotens spricht Englisch, Spanisch, Italienisch, Deutsch, Französisch, Portugiesisch, Chinesisch, Japanisch, Bulgarisch, Kroatisch, Tschechisch, Dänisch, Niederländisch, Estnisch, Finnisch, Griechisch, Ungarisch, Irisch, Lettisch, Litauisch, Maltesisch, Polnisch, Rumänisch, Slowakisch, Slowenisch, Schwedisch, Norwegisch, Isländisch, Ukrainisch, Russisch, Serbisch, Albanisch, Katalanisch, Galicisch, Baskisch, brasilianisches Portugiesisch und kanadisches Französisch. Die Wörter der 29 Sprachen nach den ersten acht stammen vom Modell und warten auf die Durchsicht durch Muttersprachler; ein fehlender Text wird auf Englisch gezeigt.
 
 ## 🔒 Sicherheit und Schutz
 
@@ -149,7 +150,7 @@ Wie die Teile dieses Repositorys zusammenpassen: wer es nutzt, was es enthält u
 | Schnittstelle | Was es ist | Wo |
 |---|---|---|
 | Steuerverbindung | TCP, standardmäßig Port 5800: Rahmen `0xB5, Typ, Länge, Nutzlast, CRC-16`, Hello mit dem Token, Arm, Write, Abort, Ping, StopOnHome, Spindle; der Knoten antwortet mit Info, Status (alle 200 ms), Rx, HomeSeen und Error | [docs/PROTOCOL.md](docs/PROTOCOL.md), `core/frame.hpp`, `main/link_server.cpp` |
-| Web-Panel | HTTP auf Port 80 und HTTPS auf Port 443 (der Modus ist eine Einstellung), acht Sprachen, API unter `/api/v1/` (`GET`/`PUT /api/v1/machine`, `GET /api/v1/machine/status` und die gemeinsamen Routen der Basis) | [docs/NODE_FIRMWARE.md](docs/NODE_FIRMWARE.md), `main/web_server.cpp`, `panel/` |
+| Web-Panel | HTTP auf Port 80 und HTTPS auf Port 443 (der Modus ist eine Einstellung), 37 Sprachen, API unter `/api/v1/` (`GET`/`PUT /api/v1/machine`, `GET /api/v1/machine/status` und die gemeinsamen Routen der Basis) | [docs/NODE_FIRMWARE.md](docs/NODE_FIRMWARE.md), `main/web_server.cpp`, `panel/` |
 | RS-232 zur Steuereinheit | UART mit 38400 Baud 8N1 über einen MAX3232, mit DTR (aus), DCD und RI (ein) | [docs/WIRING.md](docs/WIRING.md), `main/central_uart.cpp` |
 | Lampen | HOME X, HOME Y, HOME Z, ENABLE und TOOL, fünf Eingänge über einen Pufferttransistor | [docs/WIRING.md](docs/WIRING.md), `main/lamps.cpp` |
 | Spindel | ein Drehzahl-PWM für einen 0-10-V-Wandler und Leitungen für Vorwärts-/Rückwärtslauf | [docs/BOARD.md](docs/BOARD.md), `main/spindle.cpp` |
@@ -238,7 +239,8 @@ EH3D-NODE-BUNGARD/
 │   └── github_update.cpp entropy.cpp            das Update von GitHub und das Kopieren eines Slots
 ├── panel/
 │   ├── index.html style.css                     die Seite und das Layout des Seitenmenüs
-│   └── app.js text.js                           die Seiten und die Texte in acht Sprachen
+│   ├── app.js text.js                           die Seiten und die Texte in 37 Sprachen
+│   └── locales/                                 die Wörter von 29 weiteren Sprachen, je eine Datei
 ├── tests/                                       Host-Tests von Verbindung, Einstellungen, gemeinsamer Basis und Paneltexten
 ├── docs/                                        Protokoll, Firmware, Verdrahtung, Platine
 ├── tools/                                       Build, Panel-Pack, Prüfungen, Ersatzknoten

@@ -1,0 +1,435 @@
+# Slovenčina (sk): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+appName	Uzol EH3D Bungard
+grpNode	Uzol
+grpNetwork	Sieť
+grpSystem	Systém
+navMenu	Hlavná ponuka
+navStatus	Stav
+navMachine	Stroj
+navUpdate	Firmvér
+navLog	Záznam
+skip	Preskočiť na obsah
+themeToLight	Svetlý motív
+themeToDark	Tmavý motív
+showShort	Zobraziť
+e_other	Uzol odpovedal chybou: {0}
+statusNoControl	Táto stránka zobrazuje stav uzla. Panel so strojom robí jediné: zastaví ho. Pohybovať ním možno len cez overené spojenie programu (riadiace spojenie), nikdy odtiaľto.
+stLost	Uzol neodpovedá
+stLink	Riadiace spojenie
+stLinkUp	Spojenie je aktívne
+stLinkDown	Spojenie je prerušené
+stClientYes	Program je pripojený
+stClientNo	Žiadny program nie je pripojený
+stAuthYes	Prihlásený
+stAuthNo	Neprihlásený
+stArmed	Stroj je odistený
+stDisarmed	Stroj nie je odistený
+stQueue	Bajty čakajúce vo fronte
+stQueueBytes	Fronta
+stSent	Odoslané bajty
+stLamps	Kontrolky stroja
+stLampsHelp	Päť kontroliek riadiacej jednotky, čítaných naživo. HOME X, Y a Z sa rozsvietia, keď je os na koncovom spínači.
+lampHomeX	HOME X
+lampHomeY	HOME Y
+lampHomeZ	HOME Z
+lampEnable	ENABLE
+lampTool	TOOL
+lampOn	svieti
+lampOff	nesvieti
+stLines	Linky riadiacej jednotky
+stLinesHelp	Linky, ktoré riadiaca jednotka vracia uzlu. DCD a RI hlásia jej stavy chyby a nástroja.
+lineCts	CTS
+lineDsr	DSR
+lineRi	RI
+lineDcd	DCD
+stSpindle	Vreteno
+stSpindleBar	Otáčky voči maximu
+spForward	Vpred
+spReverse	Vzad
+spStopped	Zastavené
+spMax	Maximálne otáčky: {0} rpm
+spNoSpindle	Nie sú nastavené žiadne otáčky vretena (maximum 0 rpm).
+stNode	Uzol
+mRestartNote	Zmeny týchto nastavení sa prejavia po reštarte uzla.
+mLink	Riadiace spojenie
+mLinkIntro	TCP port, na ktorý sa program pripája, aby ovládal stroj. Každé spojenie sa musí prihlásiť prístupovým tokenom.
+fPort	TCP port
+fPortHint	Od 1 do 65535.
+fIdle	Časový limit nečinnosti (sekundy)
+fIdleHint	Odistený program, ktorý takto dlho nič neposiela, sa zastaví: fronta sa vyprázdni a budiče sa vypnú. 0,5 až 60.
+fQueue	Veľkosť fronty (bajty)
+fQueueHint	Koľko bajtov uzol drží, kým ich pošle riadiacej jednotke. 1024 až 4194304.
+fFinish	Dokončiť prácu vo fronte, ak program zmizne
+fFinishHint	Vypnuté (odporúčané): uzol sa okamžite zastaví, ako vždy. Zapnuté: ak program alebo server stíchne či sa odpojí, uzol dobehne bajty, ktoré už má vo fronte (program práce zreže tak, aby koniec bol bezpečným miestom), a potom vypne vreteno a budiče.
+finishWarn	Stroj sa bude pohybovať sám, bez pripojenej osoby, kým sa fronta nevyprázdni alebo neuplynie čas uvedený nižšie. Zapnite to len po kontrole nástroja a práce a s vedomím, kde je tlačidlo zastavenia.
+fDrain	Najdlhší čas samostatného behu (sekundy)
+fDrainHint	Po tomto čase uzol zastaví všetko, čo zostalo. 10 až 3600.
+stStop	Zastaviť stroj
+stStopHint	Vyprázdni frontu a vypne vreteno a budiče, bez ohľadu na to, či je program pripojený.
+stStopped	Zastavené.
+stDraining	Program zmizol a uzol dokončuje prácu, ktorú drží. Nič nové neprijíma; tlačidlom zastavenia ju ukončíte hneď.
+fToken	Prístupový token
+fTokenHint	Zapíše sa do uzla a už sa nikdy nezobrazí. Zadajte nový alebo ho vygenerujte a potom Uložiť.
+tokenIsSet	Token je nastavený
+tokenNotSet	Token nie je nastavený
+tokenWillChange	Uloží sa nový token
+tokenWillClear	Token sa odstráni
+tokenShown	Skopírujte ho teraz: po uložení sa už nezobrazí.
+tokenSet	Nastaviť token
+tokenGenerate	Vygenerovať
+tokenKeep	Ponechať aktuálny token
+tokenClear	Odstrániť token
+fAllowOpen	Povoliť ovládanie bez tokenu
+fAllowOpenHint	Len pre skúšobný stôl.
+allowOpenWarn	Ktokoľvek v sieti sa môže pripojiť a pohybovať strojom bez tokenu. Zapnite to len na skúšobnom stole, nikdy v zdieľanej sieti.
+noTokenNote	Bez tokenu uzol odmieta byť ovládaný. Nastavte ho pred použitím stroja.
+mUart	Riadiaca jednotka (RS-232)
+mUartIntro	Piny, ktoré idú na prevodník úrovní RS-232 a cez neho na konektor riadiacej jednotky. Ide o čísla GPIO od 0 do 48.
+fTx	Pin TX (pin 3 DB9)
+fRx	Pin RX (pin 2 DB9)
+fRxHint	Riadiaca jednotka na tejto linke nič neposiela; -1 ju nechá voľnú.
+fDtr	Pin DTR (pin 4 DB9)
+fDcd	Pin DCD (pin 1 DB9)
+fRi	Pin RI (pin 9 DB9)
+fCts	Pin CTS
+fDsr	Pin DSR
+fNoneHint	-1: nezapojené.
+fInverted	Prevodník úrovní invertuje linky
+fInvertedHint	MAX3232 invertuje: vysoká úroveň na pine je záporné napätie RS-232. Vypnite len pri prevodníku, ktorý neinvertuje.
+mUartWiring	Uzol zaujíma miesto PC: je koncom DTE kábla a kábel je ten istý priamy kábel DB9, ktorý spájal PC s riadiacou jednotkou. Nikdy nepripájajte pin ESP32 k stroju bez prevodníka úrovní RS-232: piny majú 3,3 V a RS-232 plus a mínus 12 V. TX ide na pin 3 DB9, DTR na pin 4, DCD prichádza z pinu 1, RI z pinu 9 a zem na pin 5.
+mLamps	Kontrolky stroja
+mLampsIntro	Uzol číta kontrolky riadiacej jednotky (HOME X, HOME Y, HOME Z, ENABLE, TOOL), aby vedel, ktorá os je v referenčnej polohe. -1 nechá kontrolku nečítanú.
+fHomeX	Pin HOME X
+fHomeY	Pin HOME Y
+fHomeZ	Pin HOME Z
+fEnable	Pin ENABLE
+fTool	Pin TOOL
+fActiveLow	Svietiaca kontrolka stiahne svoj pin na nízku úroveň
+fActiveLowHint	Zapnuté pri bežnom budiči NPN: svietiaca kontrolka otvorí tranzistor a stiahne pin na nízku úroveň.
+mLampsWiring	Anódu každej kontrolky čítajte cez tranzistor NPN, so základňou na rezistore 10 kΩ. Nikdy nepripájajte LED optočlena priamo cez kontrolku: jej úbytok v priepustnom smere by kontrolku zhasol.
+mSpindle	Vreteno
+mSpindleIntro	Signál otáčok a linky chodu pre frekvenčný menič (VFD) vretena. Pre uzol bez vretena nastavte maximálne otáčky na 0.
+fMaxRpm	Maximálne otáčky (rpm)
+fMaxRpmHint	Otáčky pri 10 V (PWM 100 %); vyššia požiadavka sa na ne obmedzí. 0 až 60000.
+fPwmHz	Frekvencia PWM (Hz)
+fPwmHzHint	100 až 40000. Filter modulu prevodníka musí tomu vyhovovať.
+fPwmPin	Pin PWM otáčok
+fFwdPin	Pin chodu vpred
+fRevPin	Pin chodu vzad
+fRunPin	Pin chodu
+fDirPin	Pin smeru (zapnutý pre chod vzad)
+fPwmInverted	Invertovať PWM
+fDirSingle	Jedna linka chodu a jedna linka smeru
+fDirSingleHint	Zapnuté: prvý pin je linka chodu a druhý linka smeru. Vypnuté: jedna linka pre chod vpred a jedna pre chod vzad, nikdy obe naraz.
+fOutLow	Linky chodu a smeru sú aktívne v nízkej úrovni
+fSettle	Čas ustálenia medzi smermi (sekundy)
+fSettleHint	Vreteno sa nedá otočiť opačným smerom, kým takto dlho nestálo. 0 až 60.
+mSpindleWiring	Pin PWM veďte do modulu prevodníka PWM na 0-10 V s vlastným napájaním; jeho výstup ide na vstup otáčok meniča (VI a ACM pri meniči Huanyang). Linky chodu ovládajú vstupy FOR a REV meniča cez kontakty relé alebo optočleny, nikdy priamo z pinu: výstupy majú 3,3 V a pár miliampérov. Zachovajte spoločnú zem medzi uzlom, modulom prevodníka a vstupom otáčok meniča.
+mSpindleSafety	Všetky tri výstupy sú vypnuté pri zapnutí, pri každom zastavení stroja a vždy, keď sú otáčky 0. Pred prvým spustením skontrolujte nastavenia samotného meniča (ovládanie zo svoriek, analógový vstup otáčok, limity frekvencie) podľa štítku vretena: nesprávna frekvencia môže poškodiť vysokootáčkové vreteno.
+netNow	Aktuálne spojenie
+netTitle	Adresa
+hostnameHint	prázdne: uzol si vyberie názov podľa svojho identifikátora
+netRestartNote	Zmena názvu hostiteľa alebo spojenia sa prejaví po reštarte uzla.
+apNote	Konfiguračný prístupový bod je vlastná sieť Wi-Fi uzla, aby sa k nemu dalo dostať z telefónu, keď nemá adresu vo vašej sieti.
+setupWifiHelp	Uzol nemá kábel. Zadajte teraz sieť Wi-Fi, ku ktorej sa má pripojiť, alebo nechajte prázdne a použite vlastnú konfiguračnú sieť uzla, ktorej heslom je konfiguračný kód (neskôr ho môžete zmeniť v časti Sieť).
+rolesHelp	Správcovia môžu meniť všetko. Pozorovatelia vidia stav a nastavenia, ale nič nemenia.
+slotVersion	verzia {0}
+slotsUnknown	Uzol nenahlásil svoje sloty firmvéru.
+chooseFirst	Najprv vyberte súbor firmvéru.
+p_out_of_range	mimo rozsahu
+p_duplicate_pin	tento pin je použitý dvakrát
+p_reserved_pin	rezervovaný doskou
+p_not_a_number	nie je celé číslo
+e_machine_armed	Program má stroj odistený: nič sa nedá uložiť, reštartovať ani aktualizovať, kým ho nezaistí.
+staError	Posledná chyba Wi-Fi
+se_failed	pripojenie zlyhalo
+se_network_not_found	sieť sa nenašla
+se_wrong_password	heslo bolo odmietnuté
+navNetwork	Sieť
+navUsers	Používatelia
+navSystem	Systém
+language	Jazyk
+signOut	Odhlásiť sa
+loading	Načítava sa…
+unreachable	Uzol neodpovedá.
+signIn	Prihlásiť sa
+rememberMe	Ponechať ma prihláseného v tomto prehliadači
+rememberUser	Zapamätať si moje používateľské meno v tomto zariadení
+loginNote	Zapamätať sa dá len používateľské meno, a to len ak zaškrtnete políčko. Heslo si, ak chcete, uloží iba správca hesiel vášho prehliadača alebo systému; panel ho nikdy neukladá.
+user	Používateľ
+password	Heslo
+showPassword	Zobraziť heslo
+setupTitle	Nastaviť tento uzol
+setupCode	Konfiguračný kód
+adminName	Meno správcu
+createAdmin	Vytvoriť správcu
+setupWifi	Konfiguračná sieť Wi-Fi tohto uzla
+setupIntro	Tento uzol ešte nemá používateľa. Zadajte konfiguračný kód, ktorý uzol zobrazuje na svojej konzole USB každých 15 sekúnd, a zvoľte správcu.
+setupWifiTitle	Sieť Wi-Fi, ku ktorej sa uzol pripojí (voliteľné)
+setupWifiOptionalTitle	Sieť Wi-Fi (voliteľné)
+setupWifiOptionalHelp	Táto doska má port Ethernet: s pripojeným káblom nechajte toto prázdne. Ak chcete uzol používať cez Wi-Fi (napríklad na stole bez kábla), zadajte tu sieť, ku ktorej sa má pripojiť. Ak zostane bez adresy, po 90 sekundách znova otvorí svoju konfiguračnú sieť, aby bol dostupný.
+save	Uložiť
+saveRestart	Uložiť a reštartovať
+restart	Reštartovať
+discard	Zahodiť zmeny
+saved	Uložené.
+savedRestart	Uložené. Na použitie reštartujte uzol.
+unsaved	Sú tu neuložené zmeny.
+restarting	Uzol sa reštartuje…
+adminOnly	Toto môže zmeniť len správca.
+yes	áno
+no	nie
+add	Pridať
+delete	Odstrániť
+refresh	Obnoviť
+working	Pracuje sa…
+confirmAsk	Naozaj?
+nodeId	Identifikátor
+firmware	Firmvér
+uptime	Beží už
+address	Adresa
+netmask	Maska podsiete
+gateway	Brána
+mac	MAC
+link	Spojenie
+linkUp	aktívne
+linkDown	prerušené
+nodeTitle	Uzol
+uplink	Pripojenie k sieti
+uplinkEthernet	Ethernetový kábel (PoE)
+uplinkWifi	Wi-Fi (pripája sa k inej sieti)
+dhcp	Získať adresu automaticky (DHCP)
+dns1	Server DNS 1
+dns2	Server DNS 2
+hostname	Názov hostiteľa
+wifiAp	Prístupový bod (Wi-Fi, ktorú tento uzol ponúka)
+apEnable	Ponúkať sieť Wi-Fi
+ssid	Názov siete (SSID)
+security	Zabezpečenie
+secOpen	otvorená (bez hesla)
+secWpa2	WPA2
+secWpa3	WPA3
+secWpa2Wpa3	WPA2 + WPA3
+wifiPassword	Heslo Wi-Fi (8 až 63 znakov)
+passwordSet	heslo je uložené; ak ho chcete ponechať, nechajte prázdne
+hidden	Skryť názov siete
+wifiChannel	Kanál
+channelAuto	automaticky (1, 6 alebo 11 podľa uzla)
+channelNow	Tento uzol by použil kanál {0}.
+wifiSta	Stanica Wi-Fi (tento uzol sa pripája k sieti Wi-Fi)
+staEnable	Pripojiť sa k sieti Wi-Fi
+scanNetworks	Hľadať siete
+scanning	Hľadá sa…
+noNetworks	Nezachytila sa žiadna sieť.
+scanNote	Počas hľadania môže vlastný prístupový bod uzla na chvíľu odpojiť svojich klientov.
+useNetwork	Použiť
+signal	signál
+wiredNote	Po kábli si uzol pýta adresu cez DHCP, ak ju tu nezadáte pevne. Jeho vlastná sieť Wi-Fi, ak ju ponecháte, je samostatná sieť (192.168.4.x) na dosiahnutie uzla z telefónu; nie je prepojená s drôtovou. Zmeny sa prejavia po reštarte.
+staNote	Uzol nemá kábel: zadajte mu sieť Wi-Fi vášho domu alebo pracoviska. Ak stanicu necháte vypnutú, použite jeho vlastný prístupový bod.
+noWifiWarn	Uzol nemá kábel: nechajte zapnuté aspoň jedno z dvoch, prístupový bod alebo stanicu, inak ho nebude možné dosiahnuť.
+ethernetMissing	Čip Ethernet neodpovedá (pozrite si návod na zapojenie).
+station	Stanica Wi-Fi
+notConnected	nepripojené
+apActive	Prístupový bod
+apClients	klienti
+channel	kanál
+setupNetwork	konfiguračná sieť
+usersTitle	Používatelia tohto panela
+role	Rola
+roleAdmin	správca
+roleViewer	pozorovateľ (len na čítanie)
+addUser	Pridať používateľa
+newPassword	Nové heslo (8 alebo viac znakov)
+setPassword	Nastaviť heslo
+myAccount	Moje heslo
+currentPassword	Aktuálne heslo
+changePassword	Zmeniť moje heslo
+passwordChanged	Heslo bolo zmenené. Prihláste sa znova.
+you	vy
+updateTitle	Aktualizovať firmvér
+updateHelp	Vyberte súbor firmvéru (.bin zostavený pre tento projekt, nie zlúčený obraz). Pred použitím sa skontroluje a ak sa nová verzia nespustí, uzol sa sám vráti k predchádzajúcej.
+chooseFile	Súbor firmvéru
+upload	Nahrať a nainštalovať
+uploading	Nahráva sa… {0} %
+updateDone	Nainštalovaná verzia {0}. Uzol sa teraz reštartuje.
+slot	Beží z
+slotsTitle	Sloty firmvéru
+slotsHelp	Uzol drží dva sloty firmvéru, ota_0 a ota_1. Aktualizácia sa zapisuje do toho, ktorý nebeží. Tu môžete kedykoľvek spustiť ten druhý, aby ste sa vrátili k predchádzajúcej verzii alebo prešli na práve nainštalovanú. Nastavenia sa zachovajú.
+slotRunning	práve beží
+slotNextBoot	spustí sa nabudúce
+slotEmpty	prázdny, bez firmvéru
+switchSlot	Spustiť {0}
+switchSlotNone	Druhý slot neobsahuje firmvér
+switchAsk	Reštartovať uzol a spustiť {0} (verzia {1})?
+logTitle	Záznam uzla
+copyLog	Kopírovať záznam
+copied	Skopírované
+copyFailed	Kopírovanie sa nepodarilo: vyberte text a skopírujte ho ručne
+maintenance	Údržba
+rebootNode	Reštartovať uzol
+factoryTitle	Obnovenie továrenských nastavení
+factoryHelp	Vymaže všetky nastavenia a všetkých používateľov; uzol sa spustí znova v konfigurácii. Na potvrdenie napíšte RESET.
+author	Autor
+license	Licencia
+e_unauthorized	Vaša relácia skončila. Prihláste sa znova.
+e_wrong_credentials	Nesprávny používateľ alebo heslo.
+e_too_many_attempts	Príliš veľa pokusov. Chvíľu počkajte.
+e_wrong_code	Konfiguračný kód je nesprávny.
+e_invalid_name	Názov nie je platný (3 až 32 znakov: a až z, 0 až 9, . _ -).
+e_weak_password	Heslo musí mať 8 až 64 znakov.
+e_exists	Tento používateľ už existuje.
+e_not_found	Nenájdené.
+e_too_many_users	Môžu byť najviac štyria používatelia.
+e_last_admin	Posledného správcu nemožno odstrániť ani degradovať.
+e_wrong_password	Aktuálne heslo je nesprávne.
+e_invalid_role	Rola nie je platná.
+e_forbidden	Toto nemôžete urobiť.
+e_storage	Do flash sa nepodarilo zapísať.
+e_invalid	Niektoré hodnoty nie sú platné; sú označené vo formulári.
+e_not_json	Požiadavke sa nerozumelo.
+e_too_large	Požiadavka je príliš veľká.
+e_bad_size	Veľkosť súboru nie je platná pre firmvér.
+e_not_firmware	Tento súbor nie je firmvér ESP32.
+e_image_invalid	Obraz firmvéru je poškodený alebo neúplný.
+e_wrong_firmware	Tento firmvér patrí inému projektu.
+e_upload_interrupted	Nahrávanie bolo prerušené.
+e_upload_stalled	Nahrávanie sa zaseklo a bolo zastavené: skúste znova.
+e_network	Uzol sa nepodarilo kontaktovať.
+e_setup_required	Najprv nastavte uzol: vytvorte jeho správcu.
+e_confirm_required	Vyžaduje sa potvrdenie: pošlite slovo RESET.
+e_bad_host	Táto adresa nie je platná.
+e_invalid_time	Tento čas nie je platný.
+e_would_lock_out	Tento zoznam by vás vyradil z panela: pridajte sieť, ktorú práve používate.
+e_slot_empty	Druhý slot neobsahuje firmvér.
+e_ota_begin	Aktualizácia nemohla začať zápis.
+e_ota_boot	Nový firmvér sa nepodarilo zvoliť pre ďalšie spustenie.
+e_ota_write	Aktualizáciu sa nepodarilo zapísať do flash.
+e_no_partition	Pre aktualizáciu nie je voľný slot.
+e_outside_network	Táto sieť nesmie používať panel: použite sieť domu alebo VPN.
+e_wifi_busy	Rádio je obsadené; skúste to o chvíľu znova.
+e_scan_failed	Hľadanie zlyhalo.
+e_wifi_unavailable	Wi-Fi sa nepodarilo spustiť.
+p_required	povinné
+p_invalid	neplatné
+p_range	mimo rozsahu
+p_too_long	príliš dlhé
+p_conflict	už sa používa
+p_reserved	rezervované doskou
+p_invalid_key	8 až 63 tlačiteľných znakov
+p_outside_subnet	mimo podsiete
+addBackupNetwork	Pridať záložnú sieť
+appIdf	ESP-IDF (firmvér)
+backupNetworksHint	Skúšajú sa v poradí, ak sa nedá nejaký čas pripojiť k sieti vyššie.
+backupNetworksTitle	Záložné siete
+board	Doska
+bootloaderIdf	ESP-IDF (bootloader)
+brownoutLevel	Úroveň detektora poklesu napätia
+checkGithub	Skontrolovať teraz
+checking	Kontroluje sa…
+chip	Čip
+clockNotSet	nenastavené
+copyAsk	Skopírovať bežiaci firmvér ({0}, verzia {1}) cez druhý slot ({2})? To, čo v ňom je, sa vymaže. Uzol sa nereštartuje.
+copyDone	Skopírované: oba sloty teraz obsahujú verziu {0}.
+copyRunning	Kopíruje sa… {0} %
+copySlot	Kopírovať {0} do {1}
+cores	jadrá
+cpuFreq	Frekvencia CPU
+dns	DNS
+flash	Flash
+flashAllocated	Rezervované oddielmi
+flashEncryption	Šifrovanie flash
+flashFree	voľné
+flashTotal	Celkom
+flashUnallocated	Nepridelené žiadnemu oddielu
+githubAvailable	K dispozícii je verzia {0}.
+githubDownloading	Sťahuje sa firmvér z GitHubu… {0} %
+githubUpToDate	Toto je už najnovšia verzia na GitHube.
+githubUpdateNote	Stiahne samostatný obraz aplikácie, ktorý uverejňuje samotné vydanie na GitHube (nikdy nie bootloader), a nainštaluje ho rovnako ako nahraný súbor. Ručné nahrávanie vyššie funguje presne ako predtým: toto je doplnok, nie náhrada, pre uzol, ktorý nemá dôvod pripájať sa na internet.
+githubUpdateTitle	Skontrolovať novú verziu na GitHube
+githubVerifying	Obraz sa overuje podľa hashu vydania…
+installUpdate	Stiahnuť a nainštalovať
+installing	Inštaluje sa…
+layout	Rozloženie
+localTime	Miestny čas
+memory	Voľná pamäť
+navAbout	O programe
+navHelp	Pomoc
+navOverview	Prehľad
+navWifi	Wi-Fi
+nodeName	Názov
+none	žiadne
+ovFlash	Pamäť flash
+ovHardware	Hardvér
+ovNetwork	Sieť
+ovNode	Tento uzol
+ovTime	Dátum a čas
+ownNetwork	vlastná sieť
+psram	PSRAM
+radios	Rádiá
+reasonOther	iné
+removeNetwork	Odstrániť
+resetReason	Posledný reštart
+secureBoot	Zabezpečené spúšťanie
+timeFromNtp	Internetový časový server (synchronizovaný)
+timeManual	nastavené ručne
+timeNtpWaiting	čaká sa na internetový časový server
+timeSource	Zdroj času
+timeZone	Časové pásmo
+aboutDescription	uzol rodiny EH3D pre skriňu stroja Bungard CCD: spája RS-232 riadiacej jednotky so sieťou, zobrazuje jej kontrolky, linky a vreteno a uchováva nastavenia, používateľov a firmvér uzla.
+aboutIndependent	Projekt je nezávislý: nevytvára ho, neschvaľuje ani nepodporuje Bungard Elektronik.
+ovMachineLink	Spojenie so strojom
+stClient	Program
+wifiMoved	Siete Wi-Fi sú na vlastnej stránke, Wi-Fi.
+navHelpTab_overview	Prehľad
+help_overview_title	Prehľad
+help_overview_text	Tento panel nastavuje a sleduje uzol. Prehľad ukazuje, čo uzol je a v akom je stave; Stav sleduje, čo robí, kým to robí; stránky Sieť a Wi-Fi obsahujú spôsob pripojenia; Používatelia, Firmvér a Záznam sú systémové.\n\nVšetko sa ukladá v uzle a použije sa, keď to povie spodný pruh. Zmena, ktorá vyžaduje reštart, to povie pred opustením stránky.
+navHelpTab_status	Stav
+help_status_title	Stav
+help_status_text	Stav zobrazuje riadiace spojenie, kontrolky a linky riadiacej jednotky, vreteno a frontu, obnovované každú sekundu. Tlačidlo Zastaviť zastaví stroj hneď: fronta sa vyprázdni a vreteno a budiče sa vypnú. Môže stroj len zabezpečiť.\n\nAk uzol neodpovedá, stránka to oznámi a pýta sa ďalej.
+navHelpTab_machine	Stroj
+help_machine_title	Stroj
+help_machine_text	Stroj obsahuje to, čo viaže uzol na riadiacu jednotku: sériové piny a rýchlosť, prístupový token riadiaceho spojenia, port a limity fronty. Zmena sa použije po uložení; niektoré vyžadujú reštart a pruh to povie.\n\nToken je len na zápis: nikdy sa znova nezobrazí. Pripájajúci sa program ho potrebuje; bez neho uzol odmieta pohybovať strojom.
+navHelpTab_network	Sieť
+help_network_title	Sieť
+help_network_text	Sieť ukazuje, ako je uzol práve pripojený, a nastavuje jeho názov a adresu: DHCP alebo pevnú adresu. Na doske s káblom si ako vstup vyberiete kábel alebo Wi-Fi.\n\nZmena adresy sa použije po reštarte. Ak po zmene uzol stratíte, k panelu sa stále dostanete cez jeho vlastný prístupový bod (ak je zapnutý) alebo cez kábel.
+navHelpTab_wifi	Wi-Fi
+help_wifi_title	Wi-Fi
+help_wifi_text	Wi-Fi nastavuje sieť, ku ktorej sa uzol pripája, a prístupový bod, ktorý môže otvoriť. Pod hlavnou sieťou môžete pridať až tri záložné siete: ak sa hlavná stratí, uzol ich skúša postupne, takže nevypadne zo siete. Hľadať vypíše siete v dosahu.\n\nHeslá sú len na zápis: panel ich nikdy znova nezobrazí a prázdne pole zachová uložené.
+navHelpTab_users	Používatelia
+help_users_title	Používatelia
+help_users_text	Správcovia menia nastavenia; pozorovatelia sa iba pozerajú. Každá osoba má meno a heslo. Správca pridáva osoby, mení heslá a odstraňuje osoby; posledného správcu nemožno odstrániť.\n\nPríliš veľa nesprávnych hesiel zablokuje meno na istý čas. Vlastné heslo sa mení na tej istej stránke.
+navHelpTab_update	Firmvér
+help_update_title	Firmvér
+help_update_text	Firmvér sa dá aktualizovať tromi spôsobmi. Z GitHubu: uzol vyhľadá najnovšie vydanie svojho projektu, stiahne ho, overí, že jeho hash zodpovedá tomu, ktorý vydanie uvádza, a nainštaluje ho do druhého slotu. Nahraním súboru .bin tohto projektu. Alebo prepnutím na druhý slot, ktorý ešte drží predtým bežiacu verziu.\n\nKopírovať zapíše bežiaci firmvér do druhého slotu, takže oba majú rovnakú verziu (záložná kópia). Po aktualizácii sa uzol reštartuje.
+navHelpTab_log	Záznam
+help_log_title	Záznam
+help_log_text	Záznam je to, čo uzol hlási pri práci: sieť, riadiace spojenie, aktualizácie a chyby. Uchováva sa v pamäti, takže po reštarte začína prázdny.\n\nSkopírujte ho, keď žiadate o pomoc: obsahuje, čo sa stalo, v poradí.
+navHelpTab_system	Systém
+help_system_title	Systém
+help_system_text	Systém obsahuje reštart uzla a obnovenie továrenských nastavení, ktoré vymaže všetky nastavenia a všetkých používateľov (na potvrdenie napíšte RESET). Ak chcete len zistiť, či problém zmizne, najprv reštartujte.\n\nReštart na chvíľu preruší spojenie so strojom: urobte ho, keď nebeží žiadna úloha.
+reasonPower_on	zapnutie napájania
+reasonSoftware	reštart z panela
+reasonCrash	PÁD
+reasonWatchdog	watchdog
+reasonBrownout	nízke napätie
+reasonDeep_sleep	hlboký spánok
+e_bad_json	Požiadavka nie je platný JSON.
+e_bad_url	Adresa aktualizácie nie je oficiálna.
+e_checksum_mismatch	Stiahnutý firmvér nezodpovedá kontrolnému súčtu vydania: bol odmietnutý a nič sa nezmenilo.
+e_client_init	Sťahovanie sa nepodarilo spustiť.
+e_connect_failed	Sťahovanie sa nepripojilo: skontrolujte sieť uzla a skúste znova.
+e_no_asset	Vydanie neobsahuje firmvér pre túto dosku.
+e_no_asset_for_board	Existuje novšie vydanie, ale neobsahuje obraz firmvéru pre túto dosku.
+e_no_checksum	Vydanie neobsahuje vedľa obrazu firmvéru súbor s kontrolným súčtom, preto sa neinštaluje.
+e_no_memory	Uzlu došla pamäť.
+e_no_release	Nenašlo sa žiadne vydanie.
+e_no_slot	Nie je iný slot, do ktorého by sa dalo kopírovať.
+e_no_task	Aktualizáciu sa nepodarilo spustiť (žiadna voľná úloha).
+e_not_newer	Tento firmvér nie je novší ako ten, ktorý beží.
+e_ota_busy	Inštalácia z GitHubu už prebieha.
+e_read_error	Sťahovanie bolo prerušené pri čítaní.
+e_read_failed	Bežiaci slot sa nepodarilo prečítať.
+e_short_read	Sťahovanie skončilo skôr, než bol súbor úplný.
+e_source_invalid	Bežiaci firmvér sa nepodarilo overiť, preto sa neskopíroval.
+e_up_to_date	Firmvér je už aktuálny.
+e_version_mismatch	Verzia súboru nie je verziou vydania.

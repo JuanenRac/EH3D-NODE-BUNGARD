@@ -1,0 +1,435 @@
+# Íslenska (is): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+appName	EH3D Bungard-hnútur
+grpNode	Hnútur
+grpNetwork	Net
+grpSystem	Kerfi
+navMenu	Aðalvalmynd
+navStatus	Staða
+navMachine	Vél
+navUpdate	Fastbúnaður
+navLog	Atburðaskrá
+skip	Fara í efnið
+themeToLight	Ljóst þema
+themeToDark	Dökkt þema
+showShort	Sýna
+e_other	Hnúturinn svaraði með villu: {0}
+statusNoControl	Þessi síða sýnir stöðu hnútsins. Það eina sem stjórnborðið gerir við vélina er að stöðva hana: aðeins er hægt að hreyfa hana um auðkennda tengingu forrits (stýritenginguna), aldrei héðan.
+stLost	Hnúturinn svarar ekki
+stLink	Stýritenging
+stLinkUp	Tengingin er virk
+stLinkDown	Tengingin er niðri
+stClientYes	Forrit tengt
+stClientNo	Ekkert forrit tengt
+stAuthYes	Innskráð(ur)
+stAuthNo	Ekki innskráð(ur)
+stArmed	Vélin er virkjuð
+stDisarmed	Vélin er ekki virkjuð
+stQueue	Bæti sem bíða í biðröðinni
+stQueueBytes	Biðröð
+stSent	Send bæti
+stLamps	Ljós vélarinnar
+stLampsHelp	Ljósin fimm á stjórneiningunni, lesin í beinni. HOME X, Y og Z lýsa þegar ás er á endarofa sínum.
+lampHomeX	HOME X
+lampHomeY	HOME Y
+lampHomeZ	HOME Z
+lampEnable	ENABLE
+lampTool	TOOL
+lampOn	kveikt
+lampOff	slökkt
+stLines	Línur stjórneiningarinnar
+stLinesHelp	Línurnar sem stjórneiningin knýr aftur til hnútsins. DCD og RI tilkynna villu- og verkfærastöðu hennar.
+lineCts	CTS
+lineDsr	DSR
+lineRi	RI
+lineDcd	DCD
+stSpindle	Snælda
+stSpindleBar	Hraði miðað við hámark
+spForward	Áfram
+spReverse	Aftur á bak
+spStopped	Stöðvuð
+spMax	Hámarkshraði: {0} rpm
+spNoSpindle	Enginn snúningshraði snældu er stilltur (hámark 0 rpm).
+stNode	Hnútur
+mRestartNote	Breytingar á þessum stillingum taka gildi eftir endurræsingu hnútsins.
+mLink	Stýritenging
+mLinkIntro	TCP-gáttin sem forrit tengist til að stjórna vélinni. Sérhver tenging verður að skrá sig inn með aðgangslyklinum.
+fPort	TCP-gátt
+fPortHint	Frá 1 til 65535.
+fIdle	Tímamörk aðgerðaleysis (sekúndur)
+fIdleHint	Virkjað forrit sem sendir ekkert svona lengi er stöðvað: biðröðin er tæmd og drifrásirnar slökktar. 0,5 til 60.
+fQueue	Stærð biðraðar (bæti)
+fQueueHint	Hve mörg bæti hnúturinn geymir áður en hann sendir þau til stjórneiningarinnar. 1024 til 4194304.
+fFinish	Ljúka verkinu sem hann heldur á ef forritið hverfur
+fFinishHint	Slökkt (mælt með): hnúturinn stöðvast strax, eins og alltaf. Kveikt: ef forritið eða þjónninn þagnar eða dettur út keyrir hnúturinn til enda þau bæti sem þegar eru í biðröðinni (forritið sker verkið þannig að endirinn sé öruggur staður) og slekkur svo á snældunni og drifrásunum.
+finishWarn	Vélin heldur áfram að hreyfast sjálf, án þess að nokkur sé tengdur, þar til biðröðin er tóm eða tíminn hér að neðan er liðinn. Kveiktu á þessu aðeins þegar verkfæri og verk hafa verið yfirfarin og þú veist hvar stöðvunarhnappurinn er.
+fDrain	Lengsti tími á eigin vegum (sekúndur)
+fDrainHint	Eftir þennan tíma stöðvar hnúturinn það sem eftir er. 10 til 3600.
+stStop	Stöðva vélina
+stStopHint	Tæmir biðröðina og slekkur á snældunni og drifrásunum, hvort sem forrit er tengt eða ekki.
+stStopped	Stöðvuð.
+stDraining	Forritið hvarf og hnúturinn er að ljúka verkinu sem hann heldur á. Hann tekur ekki við neinu nýju; notaðu stöðvunarhnappinn til að ljúka því strax.
+fToken	Aðgangslykill
+fTokenHint	Skrifaður í hnútinn og aldrei sýndur aftur. Sláðu inn nýjan eða búðu til einn og ýttu svo á Vista.
+tokenIsSet	Aðgangslykill er stilltur
+tokenNotSet	Enginn aðgangslykill er stilltur
+tokenWillChange	Nýr aðgangslykill verður vistaður
+tokenWillClear	Aðgangslykillinn verður fjarlægður
+tokenShown	Afritaðu hann núna: hann er ekki sýndur aftur eftir vistun.
+tokenSet	Stilla aðgangslykil
+tokenGenerate	Búa til einn
+tokenKeep	Halda núverandi aðgangslykli
+tokenClear	Fjarlægja aðgangslykil
+fAllowOpen	Leyfa stjórn án aðgangslykils
+fAllowOpenHint	Aðeins fyrir prófunarbekk.
+allowOpenWarn	Hver sem er á netinu getur tengst og hreyft vélina, án aðgangslykils. Kveiktu á þessu aðeins á prófunarbekk, aldrei á sameiginlegu neti.
+noTokenNote	Án aðgangslykils neitar hnúturinn að láta stjórna sér. Stilltu einn áður en vélin er notuð.
+mUart	Stjórneining (RS-232)
+mUartIntro	Pinnarnir sem fara í RS-232 stigabreytinn og í gegnum hann í tengi stjórneiningarinnar. Þeir eru GPIO-númer frá 0 til 48.
+fTx	TX-pinni (DB9 pinni 3)
+fRx	RX-pinni (DB9 pinni 2)
+fRxHint	Stjórneiningin sendir ekkert á þessari línu; -1 lætur hana vera lausa.
+fDtr	DTR-pinni (DB9 pinni 4)
+fDcd	DCD-pinni (DB9 pinni 1)
+fRi	RI-pinni (DB9 pinni 9)
+fCts	CTS-pinni
+fDsr	DSR-pinni
+fNoneHint	-1: ekki tengt.
+fInverted	Stigabreytirinn snýr línunum við
+fInvertedHint	MAX3232 snýr við: hátt stig á pinnanum er neikvæð RS-232 spenna. Slökktu á þessu aðeins fyrir breyti sem snýr ekki við.
+mUartWiring	Hnúturinn tekur sæti tölvunnar: hann er DTE-endi kapalsins og kapallinn er sami beini DB9-kapallinn og tengdi tölvuna við stjórneininguna. Tengdu aldrei ESP32-pinna við vélina án RS-232 stigabreytis: pinnarnir eru 3,3 V og RS-232 er plús og mínus 12 V. TX fer á DB9 pinna 3, DTR á pinna 4, DCD kemur frá pinna 1, RI frá pinna 9 og jörð á pinna 5.
+mLamps	Ljós vélarinnar
+mLampsIntro	Hnúturinn les ljós stjórneiningarinnar (HOME X, HOME Y, HOME Z, ENABLE, TOOL) svo hann viti hvaða ás er í upphafsstöðu. -1 skilur ljós eftir ólesið.
+fHomeX	HOME X-pinni
+fHomeY	HOME Y-pinni
+fHomeZ	HOME Z-pinni
+fEnable	ENABLE-pinni
+fTool	TOOL-pinni
+fActiveLow	Logandi ljós dregur pinna sinn niður
+fActiveLowHint	Kveikt með venjulegum NPN-biðminni: logandi ljós kveikir á smárafanum og dregur pinnann niður.
+mLampsWiring	Lestu forskaut hvers ljóss í gegnum NPN-smára, með grunninn á 10 kΩ viðnámi. Settu aldrei ljósdíóðu ljóstengis beint yfir ljósið: framspennufall hennar myndi slökkva á ljósinu.
+mSpindle	Snælda
+mSpindleIntro	Hraðamerkið og keyrslulínurnar fyrir tíðnibreyti (VFD) snældunnar. Stilltu hámarkshraða á 0 fyrir hnút án snældu.
+fMaxRpm	Hámarkshraði (rpm)
+fMaxRpmHint	Hraðinn við 10 V (100 % PWM); hærri beiðni er skorin niður í hann. 0 til 60000.
+fPwmHz	PWM-tíðni (Hz)
+fPwmHzHint	100 til 40000. Sía breytieiningarinnar verður að henta.
+fPwmPin	PWM-pinni fyrir hraða
+fFwdPin	Pinni fyrir keyrslu áfram
+fRevPin	Pinni fyrir keyrslu aftur á bak
+fRunPin	Keyrslupinni
+fDirPin	Stefnupinni (kveikt fyrir aftur á bak)
+fPwmInverted	Snúa PWM við
+fDirSingle	Ein keyrslulína og ein stefnulína
+fDirSingleHint	Kveikt: fyrsti pinninn er keyrslulínan og sá seinni stefnulínan. Slökkt: ein lína fyrir áfram og ein fyrir aftur á bak, aldrei báðar í einu.
+fOutLow	Keyrslu- og stefnulínur eru virkar á lágu stigi
+fSettle	Biðtími milli átta (sekúndur)
+fSettleHint	Ekki er hægt að snúa snældunni við fyrr en hún hefur staðið kyrr svona lengi. 0 til 60.
+mSpindleWiring	Leiddu PWM-pinnann í PWM-í-0-10 V breytieiningu með eigin straumgjafa; úttak hennar fer á hraðainntak tíðnibreytisins (VI og ACM á Huanyang-breyti). Keyrslulínurnar stýra inntökum FOR og REV á breytinum í gegnum gengissnertur eða ljóstengi, aldrei beint frá pinnanum: úttökin eru 3,3 V og fáein milliamper. Hafðu sameiginlega jörð milli hnútsins, breytieiningarinnar og hraðainntaks breytisins.
+mSpindleSafety	Öll þrjú úttökin eru slökkt við ræsingu, við sérhverja stöðvun vélarinnar og hvenær sem hraðinn er 0. Athugaðu stillingar breytisins sjálfs (stýring frá tengiklemmum, hliðrænt hraðainntak, tíðnimörk) miðað við merkiplötu snældunnar fyrir fyrstu ræsingu: röng tíðni getur skemmt háhraðasnældu.
+netNow	Núverandi tenging
+netTitle	Vistfang
+hostnameHint	autt: hnúturinn velur nafn út frá auðkenni sínu
+netRestartNote	Breyting á hýsilnafni eða tengingu tekur gildi eftir endurræsingu hnútsins.
+apNote	Uppsetningaraðgangspunkturinn er eigið Wi-Fi net hnútsins, til að ná í hann úr síma þegar hann hefur ekkert vistfang á þínu neti.
+setupWifiHelp	Hnúturinn hefur enga kapal. Gefðu núna upp Wi-Fi netið sem hann á að tengjast, eða hafðu autt og notaðu eigið uppsetningarnet hnútsins, en lykilorð þess er uppsetningarkóðinn (þú getur breytt því síðar undir Net).
+rolesHelp	Stjórnendur geta breytt öllu. Áhorfendur sjá stöðuna og stillingarnar en breyta engu.
+slotVersion	útgáfa {0}
+slotsUnknown	Hnúturinn tilkynnti ekki fastbúnaðarhólfin sín.
+chooseFirst	Veldu fyrst fastbúnaðarskrá.
+p_out_of_range	utan marka
+p_duplicate_pin	þessi pinni er notaður tvisvar
+p_reserved_pin	frátekinn af spjaldinu
+p_not_a_number	ekki heil tala
+e_machine_armed	Forrit hefur vélina virkjaða: ekki er hægt að vista, endurræsa eða uppfæra neitt fyrr en það afvirkjar hana.
+staError	Síðasta Wi-Fi villa
+se_failed	tengingin mistókst
+se_network_not_found	netið fannst ekki
+se_wrong_password	lykilorðinu var hafnað
+navNetwork	Net
+navUsers	Notendur
+navSystem	Kerfi
+language	Tungumál
+signOut	Skrá út
+loading	Hleð…
+unreachable	Hnúturinn svarar ekki.
+signIn	Skrá inn
+rememberMe	Halda mér innskráðum í þessum vafra
+rememberUser	Muna notandanafnið mitt á þessu tæki
+loginNote	Aðeins notandanafnið er hægt að muna, og aðeins ef þú hakar í reitinn. Lykilorðið er vistað, ef þú vilt, eingöngu af lykilorðastjóra vafrans eða kerfisins; stjórnborðið geymir það aldrei.
+user	Notandi
+password	Lykilorð
+showPassword	Sýna lykilorðið
+setupTitle	Setja upp þennan hnút
+setupCode	Uppsetningarkóði
+adminName	Nafn stjórnanda
+createAdmin	Stofna stjórnanda
+setupWifi	Uppsetnings-Wi-Fi þessa hnúts
+setupIntro	Þessi hnútur hefur engan notanda enn. Sláðu inn uppsetningarkóðann sem hnúturinn sýnir á USB-stjórnborðinu sínu á 15 sekúndna fresti og veldu stjórnandann.
+setupWifiTitle	Wi-Fi net sem hnúturinn á að tengjast (valfrjálst)
+setupWifiOptionalTitle	Wi-Fi net (valfrjálst)
+setupWifiOptionalHelp	Þetta spjald er með Ethernet-tengi: ef kapall er tengdur skaltu hafa þetta autt. Til að nota hnútinn í staðinn um Wi-Fi (til dæmis á bekk án kapals) skaltu gefa hér upp netið sem hann á að tengjast. Ef hann endar án vistfangs opnar hann uppsetningarnet sitt aftur eftir 90 sekúndur svo hægt sé að ná til hans.
+save	Vista
+saveRestart	Vista og endurræsa
+restart	Endurræsa
+discard	Hætta við breytingar
+saved	Vistað.
+savedRestart	Vistað. Endurræstu hnútinn til að það taki gildi.
+unsaved	Það eru óvistaðar breytingar.
+restarting	Hnúturinn er að endurræsa sig…
+adminOnly	Aðeins stjórnandi getur breytt þessu.
+yes	já
+no	nei
+add	Bæta við
+delete	Eyða
+refresh	Endurnýja
+working	Vinn…
+confirmAsk	Ertu viss?
+nodeId	Auðkenni
+firmware	Fastbúnaður
+uptime	Í gangi í
+address	Vistfang
+netmask	Undirnetsgríma
+gateway	Gátt
+mac	MAC
+link	Tenging
+linkUp	virk
+linkDown	niðri
+nodeTitle	Hnútur
+uplink	Tenging við netið
+uplinkEthernet	Ethernet-kapall (PoE)
+uplinkWifi	Wi-Fi (tengist öðru neti)
+dhcp	Fá vistfangið sjálfkrafa (DHCP)
+dns1	DNS-þjónn 1
+dns2	DNS-þjónn 2
+hostname	Hýsilnafn
+wifiAp	Aðgangspunktur (Wi-Fi sem þessi hnútur býður)
+apEnable	Bjóða Wi-Fi net
+ssid	Heiti nets (SSID)
+security	Öryggi
+secOpen	opið (án lykilorðs)
+secWpa2	WPA2
+secWpa3	WPA3
+secWpa2Wpa3	WPA2 + WPA3
+wifiPassword	Wi-Fi lykilorð (8 til 63 stafir)
+passwordSet	lykilorð er vistað; hafðu autt til að halda því
+hidden	Fela heiti netsins
+wifiChannel	Rás
+channelAuto	sjálfvirkt (1, 6 eða 11 eftir hnúti)
+channelNow	Þessi hnútur myndi nota rás {0}.
+wifiSta	Wi-Fi stöð (þessi hnútur tengist Wi-Fi neti)
+staEnable	Tengjast Wi-Fi neti
+scanNetworks	Leita að netum
+scanning	Leita…
+noNetworks	Ekkert net heyrðist.
+scanNote	Meðan á leitinni stendur getur aðgangspunktur hnútsins sjálfs aftengt biðlara sína í augnablik.
+useNetwork	Nota
+signal	merki
+wiredNote	Á kaplinum biður hnúturinn um vistfang sitt með DHCP nema þú festir það hér. Eigið Wi-Fi net hans, ef þú heldur því, er sérstakt net (192.168.4.x) til að ná í hnútinn úr síma; það er ekki tengt við kapalnetið. Breytingar taka gildi eftir endurræsingu.
+staNote	Hnúturinn hefur engan kapal: gefðu honum Wi-Fi net heimilisins eða staðarins. Ef þú slekkur á stöðinni skaltu nota eigin aðgangspunkt hans.
+noWifiWarn	Hnúturinn hefur engan kapal: hafðu kveikt á að minnsta kosti öðru af tvennu, aðgangspunktinum eða stöðinni, annars næst ekki til hans.
+ethernetMissing	Ethernet-kubburinn svarar ekki (sjá tengileiðbeiningarnar).
+station	Wi-Fi stöð
+notConnected	ekki tengt
+apActive	Aðgangspunktur
+apClients	biðlarar
+channel	rás
+setupNetwork	uppsetningarnet
+usersTitle	Notendur þessa stjórnborðs
+role	Hlutverk
+roleAdmin	stjórnandi
+roleViewer	áhorfandi (skrifvarið)
+addUser	Bæta við notanda
+newPassword	Nýtt lykilorð (8 stafir eða fleiri)
+setPassword	Stilla lykilorð
+myAccount	Mitt lykilorð
+currentPassword	Núverandi lykilorð
+changePassword	Breyta lykilorðinu mínu
+passwordChanged	Lykilorði breytt. Skráðu þig inn aftur.
+you	þú
+updateTitle	Uppfæra fastbúnað
+updateHelp	Veldu fastbúnaðarskrána (.bin sem er smíðuð fyrir þetta verkefni, ekki sameinaða myndin). Hún er athuguð áður en hún er notuð og ef nýja útgáfan ræsist ekki fer hnúturinn sjálfur aftur í þá fyrri.
+chooseFile	Fastbúnaðarskrá
+upload	Hlaða upp og setja upp
+uploading	Hleð upp… {0} %
+updateDone	Útgáfa {0} sett upp. Hnúturinn endurræsir sig núna.
+slot	Keyrir úr
+slotsTitle	Fastbúnaðarhólf
+slotsHelp	Hnúturinn geymir tvö fastbúnaðarhólf, ota_0 og ota_1. Uppfærsla er skrifuð í það sem er ekki í gangi. Hér geturðu ræst hitt hvenær sem er, til að fara aftur í fyrri útgáfu eða áfram í þá sem var nýlega sett upp. Stillingarnar haldast.
+slotRunning	í gangi núna
+slotNextBoot	ræsist næst
+slotEmpty	tómt - enginn fastbúnaður
+switchSlot	Ræsa {0}
+switchSlotNone	Hitt hólfið geymir engan fastbúnað
+switchAsk	Endurræsa hnútinn og ræsa {0} (útgáfa {1})?
+logTitle	Atburðaskrá hnútsins
+copyLog	Afrita atburðaskrána
+copied	Afritað
+copyFailed	Ekki tókst að afrita - veldu textann og afritaðu hann í höndunum
+maintenance	Viðhald
+rebootNode	Endurræsa hnútinn
+factoryTitle	Endurstilling á verksmiðjustillingar
+factoryHelp	Eyðir öllum stillingum og öllum notendum; hnúturinn byrjar aftur í uppsetningu. Sláðu inn RESET til að staðfesta.
+author	Höfundur
+license	Leyfi
+e_unauthorized	Lotunni þinni lauk. Skráðu þig inn aftur.
+e_wrong_credentials	Rangur notandi eða lykilorð.
+e_too_many_attempts	Of margar tilraunir. Bíddu augnablik.
+e_wrong_code	Uppsetningarkóðinn er rangur.
+e_invalid_name	Nafnið er ekki gilt (3 til 32 stafir: a til z, 0 til 9, . _ -).
+e_weak_password	Lykilorðið verður að vera 8 til 64 stafir.
+e_exists	Sá notandi er þegar til.
+e_not_found	Fannst ekki.
+e_too_many_users	Notendur mega vera í mesta lagi fjórir.
+e_last_admin	Ekki er hægt að fjarlægja eða lækka síðasta stjórnandann.
+e_wrong_password	Núverandi lykilorð er rangt.
+e_invalid_role	Hlutverkið er ekki gilt.
+e_forbidden	Þú getur ekki gert þetta.
+e_storage	Ekki tókst að skrifa í flassminnið.
+e_invalid	Sum gildi eru ekki gild; þau eru merkt í eyðublaðinu.
+e_not_json	Beiðnin skildist ekki.
+e_too_large	Beiðnin er of stór.
+e_bad_size	Stærð skrárinnar er ekki gild fyrir fastbúnað.
+e_not_firmware	Sú skrá er ekki ESP32 fastbúnaður.
+e_image_invalid	Fastbúnaðarmyndin er skemmd eða ófullgerð.
+e_wrong_firmware	Sá fastbúnaður tilheyrir öðru verkefni.
+e_upload_interrupted	Upphleðslan var trufluð.
+e_upload_stalled	Upphleðslan stöðvaðist og var hætt: reyndu aftur.
+e_network	Ekki tókst að ná sambandi við hnútinn.
+e_setup_required	Settu hnútinn upp fyrst: stofnaðu stjórnanda hans.
+e_confirm_required	Staðfestingar er krafist: sendu orðið RESET.
+e_bad_host	Þetta vistfang er ekki gilt.
+e_invalid_time	Þessi tími er ekki gildur.
+e_would_lock_out	Þessi listi myndi loka þig úti úr stjórnborðinu: bættu við netinu sem þú notar núna.
+e_slot_empty	Hitt hólfið geymir engan fastbúnað.
+e_ota_begin	Uppfærslan gat ekki byrjað að skrifa.
+e_ota_boot	Ekki tókst að velja nýja fastbúnaðinn fyrir næstu ræsingu.
+e_ota_write	Ekki tókst að skrifa uppfærsluna í flassminnið.
+e_no_partition	Ekkert laust hólf er fyrir uppfærsluna.
+e_outside_network	Þetta net má ekki nota stjórnborðið: notaðu net heimilisins eða VPN.
+e_wifi_busy	Útvarpið er upptekið; reyndu aftur eftir augnablik.
+e_scan_failed	Leitin mistókst.
+e_wifi_unavailable	Ekki tókst að ræsa Wi-Fi.
+p_required	nauðsynlegt
+p_invalid	ekki gilt
+p_range	utan marka
+p_too_long	of langt
+p_conflict	þegar í notkun
+p_reserved	frátekið af spjaldinu
+p_invalid_key	8 til 63 prentanlegir stafir
+p_outside_subnet	utan undirnetsins
+addBackupNetwork	Bæta við varaneti
+appIdf	ESP-IDF (fastbúnaður)
+backupNetworksHint	Reynd í röð ef ekki næst samband við netið hér að ofan um stund.
+backupNetworksTitle	Varanet
+board	Spjald
+bootloaderIdf	ESP-IDF (bootloader)
+brownoutLevel	Stig brown-out-nema
+checkGithub	Athuga núna
+checking	Athuga…
+chip	Kubbur
+clockNotSet	ekki stillt
+copyAsk	Afrita fastbúnaðinn sem er í gangi ({0}, útgáfa {1}) yfir í hitt hólfið ({2})? Því sem er þar núna er eytt. Hnúturinn endurræsir sig ekki.
+copyDone	Afritað: bæði hólfin geyma nú útgáfu {0}.
+copyRunning	Afrita… {0} %
+copySlot	Afrita {0} í {1}
+cores	kjarnar
+cpuFreq	Tíðni örgjörva
+dns	DNS
+flash	Flass
+flashAllocated	Frátekið af disksneiðunum
+flashEncryption	Flassdulkóðun
+flashFree	laust
+flashTotal	Samtals
+flashUnallocated	Ekki úthlutað neinni disksneið
+githubAvailable	Útgáfa {0} er í boði.
+githubDownloading	Sæki fastbúnaðinn frá GitHub… {0} %
+githubUpToDate	Þetta er þegar nýjasta útgáfan á GitHub.
+githubUpdateNote	Sækir sjálfstæðu forritsmyndina sem útgáfa GitHub sjálfs birtir (aldrei bootloader) og setur hana upp á sama hátt og upphlaðna skrá. Handvirka upphleðslan hér að ofan virkar nákvæmlega eins og áður - þetta er viðbót, ekki staðgengill, fyrir hnút sem hefur enga ástæðu til að ná í internetið.
+githubUpdateTitle	Leita að nýrri útgáfu á GitHub
+githubVerifying	Staðfesti myndina gegn tætigildi útgáfunnar…
+installUpdate	Sækja og setja upp
+installing	Set upp…
+layout	Uppsetning
+localTime	Staðartími
+memory	Laust minni
+navAbout	Um
+navHelp	Hjálp
+navOverview	Yfirlit
+navWifi	Wi-Fi
+nodeName	Nafn
+none	ekkert
+ovFlash	Flassminni
+ovHardware	Vélbúnaður
+ovNetwork	Net
+ovNode	Þessi hnútur
+ovTime	Dagsetning og tími
+ownNetwork	eigið net
+psram	PSRAM
+radios	Útvörp
+reasonOther	annað
+removeNetwork	Fjarlægja
+resetReason	Síðasta endurræsing
+secureBoot	Örugg ræsing
+timeFromNtp	Tímaþjónn á internetinu (samstilltur)
+timeManual	stillt í höndunum
+timeNtpWaiting	bíð eftir tímaþjóni á internetinu
+timeSource	Tímagjafi
+timeZone	Tímabelti
+aboutDescription	hnútur í EH3D-fjölskyldunni fyrir kassa Bungard CCD vélar: hann tengir RS-232 stjórneiningarinnar við netið, sýnir ljós hennar, línur og snælduna og geymir stillingar, notendur og fastbúnað hnútsins.
+aboutIndependent	Verkefnið er sjálfstætt: það er ekki gert, samþykkt eða stutt af Bungard Elektronik.
+ovMachineLink	Tenging við vélina
+stClient	Forrit
+wifiMoved	Wi-Fi netin eru á sinni eigin síðu, Wi-Fi.
+navHelpTab_overview	Yfirlit
+help_overview_title	Yfirlit
+help_overview_text	Þetta stjórnborð setur upp og vaktar hnútinn. Yfirlitið sýnir hvað hnúturinn er og hvernig honum líður; Staða fylgist með því sem hann gerir um leið og hann gerir það; síðurnar Net og Wi-Fi geyma hvernig hann er tengdur; Notendur, Fastbúnaður og Atburðaskrá eru fyrir kerfið.\n\nAllt er vistað í hnútnum og tekur gildi þegar stikan neðst segir til um það. Breyting sem krefst endurræsingar segir það áður en þú yfirgefur síðuna.
+navHelpTab_status	Staða
+help_status_title	Staða
+help_status_text	Staða sýnir stýritenginguna, ljós og línur stjórneiningarinnar, snælduna og biðröðina, uppfært á hverri sekúndu. Hnappurinn Stöðva stöðvar vélina strax: biðröðin er tæmd og snældan og drifrásirnar slokkna. Hann getur aðeins gert vélina öruggari.\n\nEf hnúturinn svarar ekki segir síðan frá því og heldur áfram að spyrja.
+navHelpTab_machine	Vél
+help_machine_title	Vél
+help_machine_text	Vél geymir það sem tengir hnútinn við stjórneininguna: raðpinnana og hraðann, aðgangslykil stýritengingarinnar, gáttina og mörk biðraðarinnar. Breyting tekur gildi við vistun; sumar krefjast endurræsingar og stikan segir til um það.\n\nAðgangslykillinn er aðeins skrifanlegur: hann er aldrei sýndur aftur. Forrit sem tengist þarf á honum að halda; án hans neitar hnúturinn að hreyfa vélina.
+navHelpTab_network	Net
+help_network_title	Net
+help_network_text	Net sýnir hvernig hnúturinn er tengdur núna og stillir nafn hans og vistfang: DHCP eða fast vistfang. Á spjaldi með kapli velurðu kapalinn eða Wi-Fi sem leiðina inn.\n\nBreyting á vistfangi tekur gildi eftir endurræsingu. Ef þú missir sambandið við hnútinn eftir breytingu nást stjórnborðið áfram um eigin aðgangspunkt hans (ef kveikt er á honum) eða kapalinn.
+navHelpTab_wifi	Wi-Fi
+help_wifi_title	Wi-Fi
+help_wifi_text	Wi-Fi stillir netið sem hnúturinn tengist og aðgangspunktinn sem hann getur opnað. Undir aðalnetinu geturðu bætt við allt að þremur varanetum: ef aðalnetið tapast reynir hnúturinn þau hvert af öðru svo hann detti ekki af netinu. Leita telur upp netin innan seilingar.\n\nLykilorðin eru aðeins skrifanleg: stjórnborðið sýnir þau aldrei aftur og tómur reitur heldur því vistaða.
+navHelpTab_users	Notendur
+help_users_title	Notendur
+help_users_text	Stjórnendur breyta stillingum; áhorfendur skoða aðeins. Hver manneskja hefur nafn og lykilorð. Stjórnandi bætir við fólki, breytir lykilorðum og fjarlægir það; ekki er hægt að fjarlægja síðasta stjórnandann.\n\nOf mörg röng lykilorð loka á nafn um stund. Eigin lykilorði breytirðu á sömu síðu.
+navHelpTab_update	Fastbúnaður
+help_update_title	Fastbúnaður
+help_update_text	Hægt er að uppfæra fastbúnaðinn á þrjá vegu. Frá GitHub: hnúturinn finnur nýjustu útgáfu eigin verkefnis, sækir hana, athugar að tætigildi hennar sé það sem útgáfan birtir og setur hana upp í hinu hólfinu. Með því að hlaða upp .bin-skrá þessa verkefnis. Eða með því að skipta yfir í hitt hólfið, sem geymir enn útgáfuna sem var í gangi áður.\n\nAfrita skrifar fastbúnaðinn sem er í gangi í hitt hólfið svo bæði geymi sömu útgáfu (afrit til að falla aftur á). Eftir uppfærslu endurræsir hnúturinn sig.
+navHelpTab_log	Atburðaskrá
+help_log_title	Atburðaskrá
+help_log_text	Atburðaskráin er það sem hnúturinn segir á meðan hann vinnur: netið, stýritengingin, uppfærslurnar og villurnar. Hún er geymd í minni og er því tóm eftir endurræsingu.\n\nAfritaðu hana þegar þú biður um hjálp: hún geymir það sem gerðist, í réttri röð.
+navHelpTab_system	Kerfi
+help_system_title	Kerfi
+help_system_text	Kerfi geymir endurræsingu hnútsins og endurstillingu á verksmiðjustillingar, sem eyðir öllum stillingum og öllum notendum (sláðu inn RESET til að staðfesta). Endurræstu fyrst ef þú vilt bara sjá hvort vandamál hverfur.\n\nEndurræsing rýfur tenginguna við vélina í augnablik: gerðu það þegar ekkert verk er í gangi.
+reasonPower_on	kveikt á straumi
+reasonSoftware	endurræsing úr stjórnborðinu
+reasonCrash	HRUN
+reasonWatchdog	watchdog
+reasonBrownout	lág spenna
+reasonDeep_sleep	djúpsvefn
+e_bad_json	Beiðnin er ekki gilt JSON.
+e_bad_url	Vistfang uppfærslunnar er ekki það opinbera.
+e_checksum_mismatch	Sótti fastbúnaðurinn passar ekki við prófsummu útgáfunnar: honum var hafnað og engu breytt.
+e_client_init	Ekki tókst að hefja niðurhalið.
+e_connect_failed	Niðurhalið tengdist ekki: athugaðu net hnútsins og reyndu aftur.
+e_no_asset	Útgáfan hefur engan fastbúnað fyrir þetta spjald.
+e_no_asset_for_board	Til er nýrri útgáfa, en hún hefur enga fastbúnaðarmynd fyrir þetta spjald.
+e_no_checksum	Útgáfan hefur enga prófsummuskrá við hlið fastbúnaðarmyndarinnar og er því ekki sett upp.
+e_no_memory	Hnúturinn varð uppiskroppa með minni.
+e_no_release	Engin útgáfa fannst.
+e_no_slot	Ekkert annað hólf er til að afrita í.
+e_no_task	Ekki tókst að hefja uppfærsluna (ekkert laust verkefni).
+e_not_newer	Sá fastbúnaður er ekki nýrri en sá sem er í gangi.
+e_ota_busy	Uppsetning frá GitHub er þegar í gangi.
+e_read_error	Niðurhalið var truflað við lestur.
+e_read_failed	Ekki tókst að lesa hólfið sem er í gangi.
+e_short_read	Niðurhalinu lauk áður en skráin var fullgerð.
+e_source_invalid	Ekki tókst að staðfesta fastbúnaðinn sem er í gangi og því var hann ekki afritaður.
+e_up_to_date	Fastbúnaðurinn er þegar uppfærður.
+e_version_mismatch	Útgáfa skrárinnar er ekki útgáfa útgáfunnar.

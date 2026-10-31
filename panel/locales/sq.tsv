@@ -1,0 +1,435 @@
+# Shqip (sq): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+appName	Nyja EH3D Bungard
+grpNode	Nyja
+grpNetwork	Rrjeti
+grpSystem	Sistemi
+navMenu	Menyja kryesore
+navStatus	Gjendja
+navMachine	Makina
+navUpdate	Firmware
+navLog	Regjistri
+skip	Kalo te përmbajtja
+themeToLight	Tema e çelët
+themeToDark	Tema e errët
+showShort	Shfaq
+e_other	Nyja u përgjigj me një gabim: {0}
+statusNoControl	Kjo faqe tregon gjendjen e nyjes. E vetmja gjë që paneli i bën makinës është ta ndalojë: lëvizja e saj është e mundur vetëm përmes lidhjes së vërtetuar të një programi (lidhja e kontrollit), asnjëherë që këtu.
+stLost	Nyja nuk përgjigjet
+stLink	Lidhja e kontrollit
+stLinkUp	Lidhja është aktive
+stLinkDown	Lidhja është e ndërprerë
+stClientYes	Programi është i lidhur
+stClientNo	Asnjë program i lidhur
+stAuthYes	Hyrja u krye
+stAuthNo	Pa hyrje
+stArmed	Makina është e armatosur
+stDisarmed	Makina nuk është e armatosur
+stQueue	Bajte që presin në radhë
+stQueueBytes	Radha
+stSent	Bajte të dërguar
+stLamps	Llambat e makinës
+stLampsHelp	Pesë llambat e njësisë së kontrollit, të lexuara drejtpërdrejt. HOME X, Y dhe Z ndizen kur një bosht është te çelësi i fundit të kursit.
+lampHomeX	HOME X
+lampHomeY	HOME Y
+lampHomeZ	HOME Z
+lampEnable	ENABLE
+lampTool	TOOL
+lampOn	ndezur
+lampOff	fikur
+stLines	Linjat e njësisë së kontrollit
+stLinesHelp	Linjat me të cilat njësia e kontrollit i përgjigjet nyjes. DCD dhe RI raportojnë gabimin dhe gjendjen e veglës së saj.
+lineCts	CTS
+lineDsr	DSR
+lineRi	RI
+lineDcd	DCD
+stSpindle	Boshti
+stSpindleBar	Shpejtësia kundrejt maksimumit
+spForward	Përpara
+spReverse	Mbrapsht
+spStopped	Ndalur
+spMax	Shpejtësia maksimale: {0} rpm
+spNoSpindle	Nuk është caktuar shpejtësi e boshtit (maksimumi 0 rpm).
+stNode	Nyja
+mRestartNote	Ndryshimet e këtyre cilësimeve zbatohen pas rinisjes së nyjes.
+mLink	Lidhja e kontrollit
+mLinkIntro	Porta TCP me të cilën lidhet një program për të drejtuar makinën. Çdo lidhje duhet të hyjë me tokenin e hyrjes.
+fPort	Porta TCP
+fPortHint	Nga 1 në 65535.
+fIdle	Afati i pasivitetit (sekonda)
+fIdleHint	Një program i armatosur që nuk dërgon asgjë për kaq kohë ndalohet: radha zbrazet dhe drejtuesit fiken. Nga 0,5 në 60.
+fQueue	Madhësia e radhës (bajte)
+fQueueHint	Sa bajte mban nyja përpara se t'i dërgojë te njësia e kontrollit. Nga 1024 në 4194304.
+fFinish	Përfundo punën që mban nëse programi zhduket
+fFinishHint	Joaktiv (e rekomanduar): nyja ndalon menjëherë, si gjithmonë. Aktiv: nëse programi ose serveri heshtin ose shkëputen, nyja ekzekuton deri në fund bajtet që ka tashmë në radhë (programi e pret punën që fundi të jetë një vend i sigurt), pastaj fik boshtin dhe drejtuesit.
+finishWarn	Makina do të vazhdojë të lëvizë vetë, pa asnjë të lidhur, derisa radha të zbrazet ose të mbarojë koha më poshtë. Aktivizojeni vetëm pasi të keni kontrolluar veglën dhe punën dhe dijeni ku është butoni i ndalimit.
+fDrain	Koha më e gjatë e vetme (sekonda)
+fDrainHint	Pas kësaj kohe nyja ndalon çfarëdo që ka mbetur. Nga 10 në 3600.
+stStop	Ndalo makinën
+stStopHint	Zbraz radhën dhe fik boshtin dhe drejtuesit, qoftë një program i lidhur apo jo.
+stStopped	U ndal.
+stDraining	Programi u zhduk dhe nyja po e përfundon punën që mban. Nuk pranon asgjë të re; përdorni butonin e ndalimit për ta mbyllur tani.
+fToken	Tokeni i hyrjes
+fTokenHint	Shkruhet në nyje dhe nuk shfaqet më kurrë. Shkruani një të ri ose gjenerojeni, pastaj Ruaj.
+tokenIsSet	Një token është caktuar
+tokenNotSet	Nuk është caktuar token
+tokenWillChange	Një token i ri do të ruhet
+tokenWillClear	Tokeni do të hiqet
+tokenShown	Kopjojeni tani: pas ruajtjes nuk shfaqet më.
+tokenSet	Cakto token
+tokenGenerate	Gjenero një
+tokenKeep	Mbaj tokenin aktual
+tokenClear	Fshi tokenin
+fAllowOpen	Lejo kontrollin pa token
+fAllowOpenHint	Vetëm për një banak prove.
+allowOpenWarn	Kushdo në rrjet mund të lidhet dhe të lëvizë makinën, pa token. Aktivizojeni vetëm në një banak prove, asnjëherë në një rrjet që e ndani me të tjerë.
+noTokenNote	Pa token nyja refuzon të kontrollohet. Caktoni një përpara se të përdorni makinën.
+mUart	Njësia e kontrollit (RS-232)
+mUartIntro	Pinat që shkojnë te konvertuesi i nivelit RS-232 dhe, përmes tij, te lidhësi i njësisë së kontrollit. Janë numra GPIO nga 0 në 48.
+fTx	Pina TX (pina 3 e DB9)
+fRx	Pina RX (pina 2 e DB9)
+fRxHint	Njësia e kontrollit nuk dërgon asgjë në këtë linjë; -1 e lë të lirë.
+fDtr	Pina DTR (pina 4 e DB9)
+fDcd	Pina DCD (pina 1 e DB9)
+fRi	Pina RI (pina 9 e DB9)
+fCts	Pina CTS
+fDsr	Pina DSR
+fNoneHint	-1: nuk është i lidhur.
+fInverted	Konvertuesi i nivelit i përmbys linjat
+fInvertedHint	Një MAX3232 përmbys: një nivel i lartë në pin është një tension negativ RS-232. Çaktivizojeni vetëm për një konvertues që nuk përmbys.
+mUartWiring	Nyja zë vendin e kompjuterit: është skaji DTE i kabllos, dhe kablloja është e njëjta kabllo e drejtë DB9 që lidhte kompjuterin me njësinë e kontrollit. Mos e lidhni asnjëherë një pin të ESP32 me makinën pa një konvertues niveli RS-232: pinat janë 3,3 V dhe RS-232 është plus dhe minus 12 V. TX shkon te pina 3 e DB9, DTR te pina 4, DCD vjen nga pina 1, RI nga pina 9 dhe toka te pina 5.
+mLamps	Llambat e makinës
+mLampsIntro	Nyja lexon llambat e njësisë së kontrollit (HOME X, HOME Y, HOME Z, ENABLE, TOOL), që të dijë cili bosht është në pozicionin fillestar. -1 e lë një llambë pa lexuar.
+fHomeX	Pina HOME X
+fHomeY	Pina HOME Y
+fHomeZ	Pina HOME Z
+fEnable	Pina ENABLE
+fTool	Pina TOOL
+fActiveLow	Një llambë e ndezur e tërheq pinin e saj në nivel të ulët
+fActiveLowHint	Aktiv me buferin e zakonshëm NPN: një llambë e ndezur e ndez tranzistorin dhe e tërheq pinin në nivel të ulët.
+mLampsWiring	Lexoni anodën e çdo llambe përmes një tranzistori NPN, me bazën në një rezistencë 10 kΩ. Mos e vendosni asnjëherë LED-in e një optoçifti drejtpërdrejt përgjatë llambës: renia e tij e tensionit do ta shuante llambën.
+mSpindle	Boshti
+mSpindleIntro	Sinjali i shpejtësisë dhe linjat e ecjes për konvertuesin e frekuencës (VFD) të boshtit. Caktoni shpejtësinë maksimale 0 për një nyje pa bosht.
+fMaxRpm	Shpejtësia maksimale (rpm)
+fMaxRpmHint	Shpejtësia në 10 V (100 % PWM); një kërkesë më e lartë kufizohet në të. Nga 0 në 60000.
+fPwmHz	Frekuenca PWM (Hz)
+fPwmHzHint	Nga 100 në 40000. Filtri i modulit konvertues duhet t'i përshtatet.
+fPwmPin	Pina PWM e shpejtësisë
+fFwdPin	Pina e ecjes përpara
+fRevPin	Pina e ecjes mbrapsht
+fRunPin	Pina e ecjes
+fDirPin	Pina e drejtimit (aktive për mbrapsht)
+fPwmInverted	Përmbys PWM
+fDirSingle	Një linjë ecjeje dhe një linjë drejtimi
+fDirSingleHint	Aktiv: pina e parë është linja e ecjes dhe e dyta linja e drejtimit. Joaktiv: një linjë për përpara dhe një për mbrapsht, kurrë të dyja njëkohësisht.
+fOutLow	Linjat e ecjes dhe të drejtimit janë aktive në nivel të ulët
+fSettle	Koha e qetësimit mes drejtimeve (sekonda)
+fSettleHint	Boshti nuk mund të kthehet mbrapsht derisa të jetë ndalur kaq kohë. Nga 0 në 60.
+mSpindleWiring	Çojeni pinin PWM te një modul konvertues PWM në 0-10 V me furnizimin e vet; dalja e tij shkon te hyrja e shpejtësisë së drejtuesit (VI dhe ACM në një drejtues Huanyang). Linjat e ecjes komandojnë hyrjet FOR dhe REV të drejtuesit përmes kontakteve të releve ose optoçifteve, kurrë drejtpërdrejt nga pini: daljet janë 3,3 V dhe disa miliamper. Mbani një tokë të përbashkët mes nyjes, modulit konvertues dhe hyrjes së shpejtësisë së drejtuesit.
+mSpindleSafety	Të tria daljet janë të fikura në ndezjen e energjisë, në çdo ndalim të makinës dhe sa herë që shpejtësia është 0. Kontrolloni cilësimet e vetë drejtuesit (komandimi nga terminalet, hyrja analoge e shpejtësisë, kufijtë e frekuencës) me pllakën e boshtit përpara nisjes së parë: një frekuencë e gabuar mund ta dëmtojë një bosht me shpejtësi të lartë.
+netNow	Lidhja aktuale
+netTitle	Adresa
+hostnameHint	bosh: nyja zgjedh një emër nga identifikuesi i saj
+netRestartNote	Një ndryshim i emrit të hostit ose i lidhjes zbatohet pas rinisjes së nyjes.
+apNote	Pika e hyrjes së konfigurimit është rrjeti Wi-Fi i vetë nyjes, për ta arritur nga një telefon kur nuk ka adresë në rrjetin tuaj.
+setupWifiHelp	Nyja nuk ka kabllo. Jepni rrjetin Wi-Fi me të cilin duhet të lidhet tani, ose lëreni bosh dhe përdorni rrjetin e konfigurimit të vetë nyjes, fjalëkalimi i të cilit është kodi i konfigurimit (mund ta ndryshoni më vonë te Rrjeti).
+rolesHelp	Administratorët mund të ndryshojnë gjithçka. Shikuesit mund të shohin gjendjen dhe cilësimet, por nuk ndryshojnë asgjë.
+slotVersion	versioni {0}
+slotsUnknown	Nyja nuk raportoi slotet e firmware-it.
+chooseFirst	Zgjidhni më parë një skedar firmware.
+p_out_of_range	jashtë intervalit
+p_duplicate_pin	ky pin përdoret dy herë
+p_reserved_pin	i rezervuar nga pllaka
+p_not_a_number	nuk është numër i plotë
+e_machine_armed	Një program e ka armatosur makinën: asgjë nuk mund të ruhet, riniset ose përditësohet derisa ta çarmatosë.
+staError	Gabimi i fundit i Wi-Fi
+se_failed	lidhja dështoi
+se_network_not_found	rrjeti nuk u gjet
+se_wrong_password	fjalëkalimi u refuzua
+navNetwork	Rrjeti
+navUsers	Përdoruesit
+navSystem	Sistemi
+language	Gjuha
+signOut	Dil
+loading	Po ngarkohet…
+unreachable	Nyja nuk përgjigjet.
+signIn	Hyr
+rememberMe	Më mbaj të identifikuar në këtë shfletues
+rememberUser	Mbaj mend emrin tim të përdoruesit në këtë pajisje
+loginNote	Mund të mbahet mend vetëm emri i përdoruesit, dhe vetëm nëse shënoni kutinë. Fjalëkalimi ruhet, nëse e dëshironi, vetëm nga menaxheri i fjalëkalimeve i shfletuesit ose i sistemit tuaj; paneli nuk e ruan asnjëherë.
+user	Përdoruesi
+password	Fjalëkalimi
+showPassword	Shfaq fjalëkalimin
+setupTitle	Konfiguro këtë nyje
+setupCode	Kodi i konfigurimit
+adminName	Emri i administratorit
+createAdmin	Krijo administratorin
+setupWifi	Wi-Fi i konfigurimit të kësaj nyjeje
+setupIntro	Kjo nyje nuk ka ende përdorues. Shkruani kodin e konfigurimit që nyja e shfaq në konsolën e saj USB çdo 15 sekonda dhe zgjidhni administratorin.
+setupWifiTitle	Rrjeti Wi-Fi me të cilin duhet të lidhet nyja (opsionale)
+setupWifiOptionalTitle	Rrjeti Wi-Fi (opsionale)
+setupWifiOptionalHelp	Kjo pllakë ka një portë Ethernet: me një kabllo të futur, lëreni bosh. Për ta përdorur nyjen me Wi-Fi në vend të kësaj (për shembull në një banak prove pa kabllo), jepni këtu rrjetin me të cilin duhet të lidhet. Nëse mbetet pa adresë, e hap sërish rrjetin e vet të konfigurimit pas 90 sekondash, që të mund të arrihet.
+save	Ruaj
+saveRestart	Ruaj dhe rinis
+restart	Rinis
+discard	Hiq ndryshimet
+saved	U ruajt.
+savedRestart	U ruajt. Rinisni nyjen për ta zbatuar.
+unsaved	Ka ndryshime të paruajtura.
+restarting	Nyja po riniset…
+adminOnly	Vetëm një administrator mund ta ndryshojë këtë.
+yes	po
+no	jo
+add	Shto
+delete	Fshi
+refresh	Rifresko
+working	Në punë…
+confirmAsk	Jeni i sigurt?
+nodeId	Identifikuesi
+firmware	Firmware
+uptime	Në punë prej
+address	Adresa
+netmask	Maska e nënrrjetit
+gateway	Porta e hyrjes (gateway)
+mac	MAC
+link	Lidhja
+linkUp	aktive
+linkDown	e ndërprerë
+nodeTitle	Nyja
+uplink	Lidhja me rrjetin
+uplinkEthernet	Kabllo Ethernet (PoE)
+uplinkWifi	Wi-Fi (bashkohet me një rrjet tjetër)
+dhcp	Merr adresën automatikisht (DHCP)
+dns1	Serveri DNS 1
+dns2	Serveri DNS 2
+hostname	Emri i hostit
+wifiAp	Pika e hyrjes (Wi-Fi që ofron kjo nyje)
+apEnable	Ofro një rrjet Wi-Fi
+ssid	Emri i rrjetit (SSID)
+security	Siguria
+secOpen	e hapur (pa fjalëkalim)
+secWpa2	WPA2
+secWpa3	WPA3
+secWpa2Wpa3	WPA2 + WPA3
+wifiPassword	Fjalëkalimi i Wi-Fi (8 deri në 63 karaktere)
+passwordSet	një fjalëkalim është ruajtur; lëreni bosh për ta mbajtur
+hidden	Fshih emrin e rrjetit
+wifiChannel	Kanali
+channelAuto	automatik (1, 6 ose 11 sipas nyjes)
+channelNow	Kjo nyje do të përdorte kanalin {0}.
+wifiSta	Stacioni Wi-Fi (kjo nyje bashkohet me një rrjet Wi-Fi)
+staEnable	Bashkohu me një rrjet Wi-Fi
+scanNetworks	Kërko rrjete
+scanning	Po kërkohet…
+noNetworks	Nuk u dëgjua asnjë rrjet.
+scanNote	Gjatë kërkimit, pika e hyrjes e vetë nyjes mund t'i shkëputë klientët e saj për një çast.
+useNetwork	Përdor
+signal	sinjali
+wiredNote	Në kabllo nyja e kërkon adresën me DHCP, përveç nëse e fiksoni këtu. Rrjeti i saj Wi-Fi, nëse e mbani, është një rrjet i veçantë (192.168.4.x) për ta arritur nyjen nga një telefon; nuk është i lidhur me atë me kabllo. Ndryshimet zbatohen pas një rinisjeje.
+staNote	Nyja nuk ka kabllo: jepini rrjetin Wi-Fi të shtëpisë ose të vendit tuaj. Nëse e lini stacionin të fikur, përdorni pikën e saj të hyrjes.
+noWifiWarn	Nyja nuk ka kabllo: mbani të ndezur të paktën njërën nga të dyja, pikën e hyrjes ose stacionin, përndryshe nuk mund të arrihet.
+ethernetMissing	Çipi Ethernet nuk përgjigjet (shihni udhëzuesin e instalimit).
+station	Stacioni Wi-Fi
+notConnected	nuk është i lidhur
+apActive	Pika e hyrjes
+apClients	klientë
+channel	kanali
+setupNetwork	rrjeti i konfigurimit
+usersTitle	Përdoruesit e këtij paneli
+role	Roli
+roleAdmin	administrator
+roleViewer	shikues (vetëm lexim)
+addUser	Shto një përdorues
+newPassword	Fjalëkalimi i ri (8 karaktere ose më shumë)
+setPassword	Cakto fjalëkalimin
+myAccount	Fjalëkalimi im
+currentPassword	Fjalëkalimi aktual
+changePassword	Ndrysho fjalëkalimin tim
+passwordChanged	Fjalëkalimi u ndryshua. Hyni sërish.
+you	ju
+updateTitle	Përditëso firmware-in
+updateHelp	Zgjidhni skedarin e firmware-it (një .bin i ndërtuar për këtë projekt, jo imazhi i bashkuar). Kontrollohet përpara përdorimit, dhe nëse versioni i ri nuk niset, nyja kthehet vetë te i mëparshmi.
+chooseFile	Skedari i firmware-it
+upload	Ngarko dhe instalo
+uploading	Po ngarkohet… {0}%
+updateDone	U instalua versioni {0}. Nyja riniset tani.
+slot	Në punë nga
+slotsTitle	Slotet e firmware-it
+slotsHelp	Nyja mban dy slote firmware, ota_0 dhe ota_1. Një përditësim shkruhet në atë që nuk është në punë. Këtu mund ta nisni tjetrin në çdo kohë - për t'u kthyer te versioni i mëparshëm ose për të shkuar te ai që sapo u instalua. Cilësimet ruhen.
+slotRunning	në punë tani
+slotNextBoot	niset herën tjetër
+slotEmpty	bosh - pa firmware
+switchSlot	Nis {0}
+switchSlotNone	Slot-i tjetër nuk ka firmware
+switchAsk	Të riniset nyja dhe të niset {0} (versioni {1})?
+logTitle	Regjistri i nyjes
+copyLog	Kopjo regjistrin
+copied	U kopjua
+copyFailed	Nuk u kopjua - zgjidhni tekstin dhe kopjojeni me dorë
+maintenance	Mirëmbajtja
+rebootNode	Rinis nyjen
+factoryTitle	Rivendosja e fabrikës
+factoryHelp	Fshin çdo cilësim dhe çdo përdorues; nyja niset sërish në konfigurim. Shkruani RESET për ta konfirmuar.
+author	Autori
+license	Licenca
+e_unauthorized	Sesioni juaj përfundoi. Hyni sërish.
+e_wrong_credentials	Përdorues ose fjalëkalim i gabuar.
+e_too_many_attempts	Shumë përpjekje. Prisni një çast.
+e_wrong_code	Kodi i konfigurimit është i gabuar.
+e_invalid_name	Emri nuk është i vlefshëm (3 deri në 32 karaktere: a deri në z, 0 deri në 9, . _ -).
+e_weak_password	Fjalëkalimi duhet të ketë 8 deri në 64 karaktere.
+e_exists	Ai përdorues ekziston tashmë.
+e_not_found	Nuk u gjet.
+e_too_many_users	Mund të ketë më së shumti katër përdorues.
+e_last_admin	Administratori i fundit nuk mund të hiqet ose të ulet në rol.
+e_wrong_password	Fjalëkalimi aktual është i gabuar.
+e_invalid_role	Roli nuk është i vlefshëm.
+e_forbidden	Nuk mund ta bëni këtë.
+e_storage	Flash nuk mund të shkruhej.
+e_invalid	Disa vlera nuk janë të vlefshme; janë shënuar në formular.
+e_not_json	Kërkesa nuk u kuptua.
+e_too_large	Kërkesa është shumë e madhe.
+e_bad_size	Madhësia e skedarit nuk është e vlefshme për një firmware.
+e_not_firmware	Ai skedar nuk është firmware ESP32.
+e_image_invalid	Imazhi i firmware-it është i dëmtuar ose i paplotë.
+e_wrong_firmware	Ai firmware i përket një projekti tjetër.
+e_upload_interrupted	Ngarkimi u ndërpre.
+e_upload_stalled	Ngarkimi ngeci dhe u ndalua: provoni sërish.
+e_network	Nuk u arrit nyja.
+e_setup_required	Konfiguroni më parë nyjen: krijoni administratorin e saj.
+e_confirm_required	Kërkohet konfirmim: dërgoni fjalën RESET.
+e_bad_host	Ajo adresë nuk është e vlefshme.
+e_invalid_time	Ajo kohë nuk është e vlefshme.
+e_would_lock_out	Ajo listë do t'ju mbyllte jashtë panelit: shtoni rrjetin që po përdorni tani.
+e_slot_empty	Slot-i tjetër nuk ka firmware.
+e_ota_begin	Përditësimi nuk mundi të fillonte shkrimin.
+e_ota_boot	Firmware-i i ri nuk u zgjodh dot për nisjen tjetër.
+e_ota_write	Përditësimi nuk u shkrua dot në flash.
+e_no_partition	Nuk ka slot të lirë për përditësimin.
+e_outside_network	Ky rrjet nuk lejohet të përdorë panelin: përdorni rrjetin e shtëpisë ose VPN-në.
+e_wifi_busy	Radioja është e zënë; provoni sërish pas një çasti.
+e_scan_failed	Kërkimi dështoi.
+e_wifi_unavailable	Wi-Fi nuk u nis dot.
+p_required	e detyrueshme
+p_invalid	e pavlefshme
+p_range	jashtë intervalit
+p_too_long	shumë e gjatë
+p_conflict	e përdorur tashmë
+p_reserved	e rezervuar nga pllaka
+p_invalid_key	8 deri në 63 karaktere të printueshme
+p_outside_subnet	jashtë nënrrjetit
+addBackupNetwork	Shto një rrjet rezervë
+appIdf	ESP-IDF (firmware)
+backupNetworksHint	Provohen me radhë nëse rrjeti më sipër nuk mund të arrihet për njëfarë kohe.
+backupNetworksTitle	Rrjetet rezervë
+board	Pllaka
+bootloaderIdf	ESP-IDF (bootloader)
+brownoutLevel	Niveli i detektorit brown-out
+checkGithub	Kontrollo tani
+checking	Po kontrollohet…
+chip	Çipi
+clockNotSet	nuk është caktuar
+copyAsk	Të kopjohet firmware-i në punë ({0}, versioni {1}) mbi slot-in tjetër ({2})? Ajo që mban tani fshihet. Nyja nuk riniset.
+copyDone	U kopjua: të dy slotet mbajnë tani versionin {0}.
+copyRunning	Po kopjohet… {0}%
+copySlot	Kopjo {0} te {1}
+cores	bërthama
+cpuFreq	Frekuenca e CPU-së
+dns	DNS
+flash	Flash
+flashAllocated	Rezervuar nga ndarjet
+flashEncryption	Enkriptimi i flash-it
+flashFree	e lirë
+flashTotal	Gjithsej
+flashUnallocated	E padhënë asnjë ndarjeje
+githubAvailable	Versioni {0} është i disponueshëm.
+githubDownloading	Po shkarkohet firmware-i nga GitHub… {0}%
+githubUpToDate	Ky është tashmë versioni më i ri në GitHub.
+githubUpdateNote	Shkarkon imazhin e pavarur të aplikacionit që publikon vetë botimi i GitHub-it (kurrë bootloader-in) dhe e instalon njësoj si një skedar të ngarkuar. Ngarkimi manual më sipër funksionon saktësisht si më parë - ky është një shtesë, jo një zëvendësim, për një nyje që nuk ka arsye të dalë në Internet.
+githubUpdateTitle	Kontrollo GitHub për një version të ri
+githubVerifying	Po kontrollohet imazhi me hash-in e botimit…
+installUpdate	Shkarko dhe instalo
+installing	Po instalohet…
+layout	Struktura
+localTime	Ora vendore
+memory	Memoria e lirë
+navAbout	Rreth
+navHelp	Ndihmë
+navOverview	Përmbledhje
+navWifi	Wi-Fi
+nodeName	Emri
+none	asnjë
+ovFlash	Memoria flash
+ovHardware	Hardueri
+ovNetwork	Rrjeti
+ovNode	Kjo nyje
+ovTime	Data dhe ora
+ownNetwork	rrjet i vetë
+psram	PSRAM
+radios	Radiot
+reasonOther	tjetër
+removeNetwork	Hiq
+resetReason	Rinisja e fundit
+secureBoot	Nisja e sigurt (Secure boot)
+timeFromNtp	Serveri i kohës në Internet (i sinkronizuar)
+timeManual	caktuar me dorë
+timeNtpWaiting	po pritet serveri i kohës në Internet
+timeSource	Burimi i kohës
+timeZone	Zona orare
+aboutDescription	një nyje e familjes EH3D për kutinë e një makine Bungard CCD: lidh RS-232 të njësisë së kontrollit me rrjetin, tregon llambat, linjat dhe boshtin e saj dhe mban cilësimet, përdoruesit dhe firmware-in e nyjes.
+aboutIndependent	Projekti është i pavarur: nuk është bërë, miratuar apo mbështetur nga Bungard Elektronik.
+ovMachineLink	Lidhja me makinën
+stClient	Programi
+wifiMoved	Rrjetet Wi-Fi janë në faqen e tyre, Wi-Fi.
+navHelpTab_overview	Përmbledhja
+help_overview_title	Përmbledhja
+help_overview_text	Ky panel konfiguron dhe vëzhgon nyjen. Përmbledhja tregon çfarë është nyja dhe si është; Gjendja ndjek çfarë bën ndërsa ndodh; faqet Rrjeti dhe Wi-Fi përmbajnë si është e lidhur; Përdoruesit, Firmware dhe Regjistri janë për sistemin.\n\nGjithçka ruhet në nyje dhe zbatohet kur e thotë shiriti në fund. Një ndryshim që kërkon rinisje e thotë përpara se të largoheni nga faqja.
+navHelpTab_status	Gjendja
+help_status_title	Gjendja
+help_status_text	Gjendja tregon lidhjen e kontrollit, llambat dhe linjat e njësisë së kontrollit, boshtin dhe radhën, të rifreskuara çdo sekondë. Butoni Ndalo e ndalon makinën menjëherë: radha zbrazet dhe boshti e drejtuesit fiken. Mund ta bëjë makinën vetëm më të sigurt.\n\nNëse nyja nuk përgjigjet, faqja e thotë dhe vazhdon të pyesë.
+navHelpTab_machine	Makina
+help_machine_title	Makina
+help_machine_text	Makina përmban atë që lidh nyjen me njësinë e kontrollit: pinat serialë dhe shpejtësinë, tokenin e hyrjes të lidhjes së kontrollit, portën dhe kufijtë e radhës. Një ndryshim zbatohet pas ruajtjes; disa kërkojnë rinisje dhe shiriti e thotë.\n\nTokeni është vetëm për shkrim: nuk shfaqet më kurrë. Një program që lidhet e ka nevojë; pa të nyja refuzon të lëvizë makinën.
+navHelpTab_network	Rrjeti
+help_network_title	Rrjeti
+help_network_text	Rrjeti tregon si është e lidhur nyja tani dhe cakton emrin dhe adresën e saj: DHCP, ose një adresë të fiksuar. Në një pllakë me kabllo zgjidhni kabllon ose Wi-Fi si mënyrën e hyrjes.\n\nNjë ndryshim adrese zbatohet pas rinisjes. Nëse e humbisni nyjen pas një ndryshimi, pika e saj e hyrjes (kur është e ndezur) ose kablloja arrijnë prapë panelin.
+navHelpTab_wifi	Wi-Fi
+help_wifi_title	Wi-Fi
+help_wifi_text	Wi-Fi cakton rrjetin me të cilin lidhet nyja dhe pikën e hyrjes që mund të hapë. Nën rrjetin kryesor mund të shtoni deri në tri rrjete rezervë: nëse humbet kryesori, nyja i provon me radhë, kështu që nuk bie nga rrjeti. Skanimi liston rrjetet në rreze.\n\nFjalëkalimet janë vetëm për shkrim: paneli nuk i shfaq më kurrë, dhe një fushë e lënë bosh mban atë të ruajturin.
+navHelpTab_users	Përdoruesit
+help_users_title	Përdoruesit
+help_users_text	Administratorët ndryshojnë cilësimet; shikuesit vetëm shikojnë. Çdo person ka një emër dhe një fjalëkalim. Një administrator shton persona, ndryshon fjalëkalime dhe i heq; administratori i fundit nuk mund të hiqet.\n\nShumë fjalëkalime të gabuara e bllokojnë një emër për njëfarë kohe. Fjalëkalimi juaj ndryshohet në të njëjtën faqe.
+navHelpTab_update	Firmware
+help_update_title	Firmware
+help_update_text	Firmware mund të përditësohet në tri mënyra. Nga GitHub: nyja kërkon botimin më të ri të projektit të vet, e shkarkon, kontrollon që hash-i i tij përputhet me atë që publikon botimi dhe e instalon në slot-in tjetër. Duke ngarkuar një skedar .bin të këtij projekti. Ose duke kaluar te slot-i tjetër, që mban ende versionin që ishte në punë më parë.\n\nKopjimi shkruan firmware-in në punë në slot-in tjetër, që të dy mbajnë të njëjtin version (një kopje për t'u kthyer). Pas një përditësimi nyja riniset.
+navHelpTab_log	Regjistri
+help_log_title	Regjistri
+help_log_text	Regjistri është ajo që thotë nyja ndërsa punon: rrjeti, lidhja e kontrollit, përditësimet dhe gabimet. Mbahet në memorie, prandaj fillon bosh pas rinisjes.\n\nKopjojeni kur kërkoni ndihmë: përmban çfarë ndodhi, me radhë.
+navHelpTab_system	Sistemi
+help_system_title	Sistemi
+help_system_text	Sistemi ka rinisjen e nyjes dhe rivendosjen e fabrikës, që fshin çdo cilësim dhe çdo përdorues (shkruani RESET për ta konfirmuar). Rinisni më parë nëse doni vetëm të shihni nëse një problem zhduket.\n\nNjë rinisje e ndërpret për një çast lidhjen e makinës: bëjeni kur nuk është në ecuri asnjë punë.
+reasonPower_on	ndezja e energjisë
+reasonSoftware	rinisje nga paneli
+reasonCrash	RRËMBIM
+reasonWatchdog	watchdog
+reasonBrownout	tension i ulët
+reasonDeep_sleep	gjumë i thellë
+e_bad_json	Kërkesa nuk është JSON i vlefshëm.
+e_bad_url	Adresa e përditësimit nuk është ajo zyrtare.
+e_checksum_mismatch	Firmware-i i shkarkuar nuk përputhet me shumën kontrolluese të botimit: u refuzua dhe asgjë nuk ndryshoi.
+e_client_init	Shkarkimi nuk u nis dot.
+e_connect_failed	Shkarkimi nuk u lidh: kontrolloni rrjetin e nyjes dhe provoni sërish.
+e_no_asset	Botimi nuk ka firmware për këtë pllakë.
+e_no_asset_for_board	Ekziston një botim më i ri, por nuk ka imazh firmware për këtë pllakë.
+e_no_checksum	Botimi nuk ka skedar të shumës kontrolluese pranë imazhit të firmware-it, prandaj nuk instalohet.
+e_no_memory	Nyjes iu mbaroi memoria.
+e_no_release	Nuk u gjet asnjë botim.
+e_no_slot	Nuk ka slot tjetër ku të kopjohet.
+e_no_task	Përditësimi nuk u nis dot (nuk ka detyrë të lirë).
+e_not_newer	Ai firmware nuk është më i ri se ai në punë.
+e_ota_busy	Një instalim nga GitHub është tashmë në ecuri.
+e_read_error	Shkarkimi u ndërpre gjatë leximit.
+e_read_failed	Slot-i në punë nuk u lexua dot.
+e_short_read	Shkarkimi mbaroi para se skedari të ishte i plotë.
+e_source_invalid	Firmware-i në punë nuk u verifikua dot, prandaj nuk u kopjua.
+e_up_to_date	Firmware-i është tashmë i përditësuar.
+e_version_mismatch	Versioni i skedarit nuk është ai i botimit.

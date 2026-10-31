@@ -180,7 +180,8 @@ static void test_node_helpers() {
   CHECK(time_zone_is_valid("UTC0") && time_zone_is_valid("CET-1CEST,M3.5.0,M10.5.0/3") && time_zone_is_valid("<+03>-3") && time_zone_is_valid(std::string(48, 'A')));
   CHECK(!time_zone_is_valid("") && !time_zone_is_valid(std::string(49, 'A')) && !time_zone_is_valid("Europe Madrid") && !time_zone_is_valid("UTC0;rm") && !time_zone_is_valid("a\"b") && !time_zone_is_valid("A\n"));
   for (const char* code : {"en", "es", "de", "fr", "it", "ja", "zh", "pt"}) CHECK(language_is_known(code));
-  for (const char* code : {"", "EN", "e", "eng", "pt-PT", "ru", "xx"}) CHECK(!language_is_known(code));
+  for (const char* code : {"bg", "hr", "cs", "da", "nl", "et", "fi", "el", "hu", "ga", "lv", "lt", "mt", "pl", "ro", "sk", "sl", "sv", "no", "is", "uk", "ru", "sr", "sq", "ca", "gl", "eu", "pt-br", "fr-ca"}) CHECK(language_is_known(code));
+  for (const char* code : {"", "EN", "e", "eng", "pt-PT", "pt-BR", "xx", "es-MX"}) CHECK(!language_is_known(code));
   for (const int hours : {0, 1, 2, 3, 4, 6, 12, 24, 48}) CHECK(auto_restart_hours_is_valid(hours));
   for (const int hours : {-1, 5, 7, 8, 13, 23, 25, 47, 49, 100}) CHECK(!auto_restart_hours_is_valid(hours));
   AccessPoint ap;

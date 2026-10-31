@@ -18,7 +18,7 @@
 
 ---
 
-**Honesty check - what actually runs today:** firmware in C++17 for the ESP32-S3 (ESP-IDF 5.5) that turns the RS-232 port of the control unit of a Bungard CCD machine into a network port: a program connects over TCP with an access token, arms the machine and sends the bytes of a move, which the node queues and puts on the line at the line's own pace. It also reads the machine's lamps (HOME X, Y and Z, ENABLE, TOOL), drives a spindle through a 0-10 V speed signal and run/direction lines, and has a web panel with a side menu (eight languages) for set-up, users, network, update and the machine's own settings. The rules of the link and the settings are tested on a computer (10 test programs, 2,235 checks counted) and the firmware builds without warnings for both boards. **It has not been flashed or run on a board yet**, nothing has been connected to a machine, and the carrier board that brings the RS-232 converter, the lamp inputs and the spindle's drive together is a design on paper.
+**Honesty check - what actually runs today:** firmware in C++17 for the ESP32-S3 (ESP-IDF 5.5) that turns the RS-232 port of the control unit of a Bungard CCD machine into a network port: a program connects over TCP with an access token, arms the machine and sends the bytes of a move, which the node queues and puts on the line at the line's own pace. It also reads the machine's lamps (HOME X, Y and Z, ENABLE, TOOL), drives a spindle through a 0-10 V speed signal and run/direction lines, and has a web panel with a side menu (37 languages) for set-up, users, network, update and the machine's own settings. The rules of the link and the settings are tested on a computer (10 test programs, 2,235 checks counted) and the firmware builds without warnings for both boards. **It has not been flashed or run on a board yet**, nothing has been connected to a machine, and the carrier board that brings the RS-232 converter, the lamp inputs and the spindle's drive together is a design on paper.
 
 ---
 
@@ -47,7 +47,7 @@ Each line is one part of this repository and the light says how far it is today.
 | Software | 🟡 | The firmware for the ESP32-S3 (ESP-IDF 5.5, C++17) builds without warnings for both boards, Ethernet and Wi-Fi; no image has been flashed. |
 | Tests | 🟡 | 10 host test programs pass (`ctest`): 2,235 checks counted in the link, settings, machine rules and the shared base, plus the check of the panel texts (315 rows in 8 languages) and of the task stacks (10 tasks). |
 | Control link | 🟡 | The framed protocol (CRC, token login, arming, byte queue, stop when the session goes quiet) is covered by the host tests; no program has talked to a real node. |
-| Web panel | 🟡 | The web panel (side menu, eight languages: set-up, machine, network, users, update, log, system) has its texts checked and is exercised against a mock of the node in a browser; it has never been served from a board. |
+| Web panel | 🟡 | The web panel (side menu, 37 languages: set-up, machine, network, users, update, log, system) has its texts checked and is exercised against a mock of the node in a browser; it has never been served from a board. |
 | Spindle and lamps | 🟠 | The 0-10 V speed signal, the run and direction lines (no reversing while turning) and the five lamp inputs are tested on the host; no spindle drive or machine has been connected. |
 | Updates | 🟠 | Upload into one of two firmware slots with rollback and confirmation is tested on the host; an update has never run on a board. |
 | Security | 🟡 | Set-up code on the USB console, access token, users and roles, optional HTTPS, and nothing secret compiled in; it stops by itself when the link drops. It has no emergency-stop input yet and no independent review. |
@@ -60,7 +60,7 @@ Each line is one part of this repository and the light says how far it is today.
 * The **serial line to the control unit**: 38400 baud 8N1 through a MAX3232, with the DTR, DCD and RI lines of the handshake. The pins, and whether the transceiver inverts the lines, are settings.
 * The **lamps**: HOME X, HOME Y, HOME Z, ENABLE and TOOL are read through a buffer transistor, shown in the status and on the panel, and a request can make the node drop the rest of a search the moment an axis is home, so the program no longer has to read the home line in the middle of the stream.
 * The **spindle**: a speed PWM for a 0-10 V converter (24000 rpm at full signal by default, for a variable-frequency drive such as the Huanyang HY02D223B) and run forward / reverse lines, with no change of direction while it turns or right after it stops, and a stop whenever the machine is stopped.
-* The **panel** (HTTP and HTTPS, eight languages, the menu on the left of a wide screen and on top of a phone): first-run set-up with a code shown on the USB console, users, Ethernet or Wi-Fi, the control link, the RS-232 pins, the lamps and the spindle, a log, and updates by upload into one of two firmware slots with rollback. Nothing secret is compiled into the image.
+* The **panel** (HTTP and HTTPS, 37 languages, the menu on the left of a wide screen and on top of a phone): first-run set-up with a code shown on the USB console, users, Ethernet or Wi-Fi, the control link, the RS-232 pins, the lamps and the spindle, a log, and updates by upload into one of two firmware slots with rollback. Nothing secret is compiled into the image.
 * The **self-protection**: a guard that watches the tasks and the memory, a gate at the door of the panel when memory is short, and the confirmation of a new image once the node can be reached.
 * The **boards**: the Waveshare ESP32-S3-ETH (W5500 Ethernet) and an ESP32-S3-WROOM-1 N16R8 (Wi-Fi), one image for each. The design of the carrier board (100 x 100 mm) is in `docs/BOARD.md`.
 * The **machines**: the Bungard CCD MTC and CCD/2 MTC, with the serial-port control unit of the DOS software 4.6. The two ATC models are not covered; the XL models and later machines have a modern control unit of their own.
@@ -126,6 +126,7 @@ How the parts of this repository fit together: who uses it, what it holds and wh
 * **Update with rollback:** an image goes into the slot that is not running and is on probation until the node can be reached; the boot loader goes back when it cannot.
 * **Looks after itself:** a guard watches the tasks and the memory, and a node that has no address after ninety seconds opens the set-up network again so it cannot be left unreachable.
 * **The panel of the node as the nodes of A.R.M.O.R. have it:** a menu in groups (node, network, system) with the language and the sign-out at its foot; a Summary (the node, its hardware, its clock, its flash and its network), a Wi-Fi page with up to three backup networks that the node tries when the main one is lost, a complete Help and an About page, and, in Firmware, the update from GitHub (it looks for the newest release of the project, checks its SHA-256 and installs it in the other slot), the switch between the two slots and the copy of the running one into the other.
+* **37 languages:** the web panel of the node speaks English, Spanish, Italian, German, French, Portuguese, Chinese, Japanese, Bulgarian, Croatian, Czech, Danish, Dutch, Estonian, Finnish, Greek, Hungarian, Irish, Latvian, Lithuanian, Maltese, Polish, Romanian, Slovak, Slovenian, Swedish, Norwegian, Icelandic, Ukrainian, Russian, Serbian, Albanian, Catalan, Galician, Basque, Brazilian Portuguese and Canadian French. The words of the 29 languages beyond the first eight are translated by the model and wait for a review by native speakers; a text that a language does not have is shown in English.
 
 ## 🔒 Security & Safety
 
@@ -149,7 +150,7 @@ How the parts of this repository fit together: who uses it, what it holds and wh
 | Interface | What it is | Where |
 |---|---|---|
 | Control link | TCP, port 5800 by default: frames `0xB5, type, length, payload, CRC-16`, Hello with the token, Arm, Write, Abort, Ping, StopOnHome, Spindle; the node answers Info, Status (every 200 ms), Rx, HomeSeen and Error | [docs/PROTOCOL.md](docs/PROTOCOL.md), `core/frame.hpp`, `main/link_server.cpp` |
-| Web panel | HTTP on port 80 and HTTPS on port 443 (the mode is a setting), eight languages, API under `/api/v1/` (`GET`/`PUT /api/v1/machine`, `GET /api/v1/machine/status`, and the shared routes of the base) | [docs/NODE_FIRMWARE.md](docs/NODE_FIRMWARE.md), `main/web_server.cpp`, `panel/` |
+| Web panel | HTTP on port 80 and HTTPS on port 443 (the mode is a setting), 37 languages, API under `/api/v1/` (`GET`/`PUT /api/v1/machine`, `GET /api/v1/machine/status`, and the shared routes of the base) | [docs/NODE_FIRMWARE.md](docs/NODE_FIRMWARE.md), `main/web_server.cpp`, `panel/` |
 | RS-232 to the control unit | UART at 38400 baud 8N1 through a MAX3232, with DTR (out), DCD and RI (in) | [docs/WIRING.md](docs/WIRING.md), `main/central_uart.cpp` |
 | Lamps | HOME X, HOME Y, HOME Z, ENABLE and TOOL, five inputs through a buffer transistor | [docs/WIRING.md](docs/WIRING.md), `main/lamps.cpp` |
 | Spindle | a speed PWM for a 0-10 V converter and run forward / reverse lines | [docs/BOARD.md](docs/BOARD.md), `main/spindle.cpp` |
@@ -238,7 +239,8 @@ EH3D-NODE-BUNGARD/
 │   └── github_update.cpp entropy.cpp            the update from GitHub and the copy of a slot
 ├── panel/
 │   ├── index.html style.css                     the page and the side menu layout
-│   └── app.js text.js                           the pages and the texts in eight languages
+│   ├── app.js text.js                           the pages and the texts in 37 languages
+│   └── locales/                                 the words of 29 more languages, one file each
 ├── tests/                                       host tests of the link, the settings, the shared base and the panel's texts
 ├── docs/                                        protocol, firmware, wiring, board
 ├── tools/                                       image build, panel pack, checks, mock node

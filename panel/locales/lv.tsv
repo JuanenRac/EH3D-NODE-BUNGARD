@@ -1,0 +1,435 @@
+# Latviešu (lv): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+appName	EH3D Bungard mezgls
+grpNode	Mezgls
+grpNetwork	Tīkls
+grpSystem	Sistēma
+navMenu	Galvenā izvēlne
+navStatus	Stāvoklis
+navMachine	Iekārta
+navUpdate	Programmaparatūra
+navLog	Žurnāls
+skip	Pāriet uz saturu
+themeToLight	Gaišā tēma
+themeToDark	Tumšā tēma
+showShort	Rādīt
+e_other	Mezgls atbildēja ar kļūdu: {0}
+statusNoControl	Šī lapa rāda mezgla stāvokli. Vienīgais, ko panelis dara ar iekārtu, ir tās apturēšana: iekārtu var pārvietot tikai ar programmas autentificēto savienojumu (vadības saiti), nekad no šejienes.
+stLost	Mezgls neatbild
+stLink	Vadības saite
+stLinkUp	Saite ir aktīva
+stLinkDown	Saite nedarbojas
+stClientYes	Programma pieslēgta
+stClientNo	Nav pieslēgtas programmas
+stAuthYes	Pieteicies
+stAuthNo	Nav pieteicies
+stArmed	Iekārta bruņota
+stDisarmed	Iekārta nav bruņota
+stQueue	Baiti rindā
+stQueueBytes	Rinda
+stSent	Nosūtītie baiti
+stLamps	Iekārtas lampiņas
+stLampsHelp	Vadības bloka piecas lampiņas, nolasītas tiešraidē. HOME X, Y un Z iedegas, kad ass ir uz gala slēdža.
+lampHomeX	HOME X
+lampHomeY	HOME Y
+lampHomeZ	HOME Z
+lampEnable	ENABLE
+lampTool	TOOL
+lampOn	ieslēgta
+lampOff	izslēgta
+stLines	Vadības bloka līnijas
+stLinesHelp	Līnijas, ko vadības bloks virza atpakaļ uz mezglu. DCD un RI ziņo par tā kļūdas un instrumenta stāvokli.
+lineCts	CTS
+lineDsr	DSR
+lineRi	RI
+lineDcd	DCD
+stSpindle	Spindelis
+stSpindleBar	Ātrums attiecībā pret maksimālo
+spForward	Uz priekšu
+spReverse	Atpakaļgaitā
+spStopped	Apturēts
+spMax	Maksimālais ātrums: {0} apgr./min
+spNoSpindle	Spindeļa ātrums nav iestatīts (maksimums 0 apgr./min).
+stNode	Mezgls
+mRestartNote	Šo iestatījumu izmaiņas stājas spēkā pēc mezgla restartēšanas.
+mLink	Vadības saite
+mLinkIntro	TCP ports, kuram programma pieslēdzas, lai vadītu iekārtu. Katram savienojumam jāpiesakās ar piekļuves marķieri.
+fPort	TCP ports
+fPortHint	No 1 līdz 65535.
+fIdle	Dīkstāves noildze (sekundes)
+fIdleHint	Bruņota programma, kas tik ilgi neko nesūta, tiek apturēta: rinda tiek iztukšota un dziņi izslēgti. No 0,5 līdz 60.
+fQueue	Rindas izmērs (baiti)
+fQueueHint	Cik baitu mezgls glabā, pirms tos nosūta vadības blokam. No 1024 līdz 4194304.
+fFinish	Pabeigt turēto darbu, ja programma pazūd
+fFinishHint	Izslēgts (ieteicams): mezgls apstājas uzreiz, kā vienmēr. Ieslēgts: ja programma vai serveris apklust vai atvienojas, mezgls izpilda līdz galam rindā jau esošos baitus (programma sagriež darbu tā, lai beigas būtu drošā vietā), pēc tam izslēdz spindeli un dziņus.
+finishWarn	Iekārta turpinās kustēties pati, bez neviena pieslēguma, līdz rinda ir tukša vai beidzas zemāk norādītais laiks. Ieslēdziet to tikai tad, kad instruments un darbs ir pārbaudīti, un zināt, kur atrodas apturēšanas poga.
+fDrain	Ilgākais patstāvīgais laiks (sekundes)
+fDrainHint	Pēc šī laika mezgls aptur visu, kas vēl palicis. No 10 līdz 3600.
+stStop	Apturēt iekārtu
+stStopHint	Iztukšo rindu un izslēdz spindeli un dziņus neatkarīgi no tā, vai programma ir pieslēgta.
+stStopped	Apturēts.
+stDraining	Programma pazuda, un mezgls pabeidz turēto darbu. Tas nepieņem neko jaunu; lai to beigtu tūlīt, izmantojiet apturēšanas pogu.
+fToken	Piekļuves marķieris
+fTokenHint	Tiek ierakstīts mezglā un vairs netiek rādīts. Ievadiet jaunu vai ģenerējiet, pēc tam nospiediet Saglabāt.
+tokenIsSet	Marķieris ir iestatīts
+tokenNotSet	Marķieris nav iestatīts
+tokenWillChange	Tiks saglabāts jauns marķieris
+tokenWillClear	Marķieris tiks noņemts
+tokenShown	Nokopējiet to tagad: pēc saglabāšanas tas vairs netiek rādīts.
+tokenSet	Iestatīt marķieri
+tokenGenerate	Ģenerēt
+tokenKeep	Paturēt pašreizējo marķieri
+tokenClear	Dzēst marķieri
+fAllowOpen	Atļaut vadību bez marķiera
+fAllowOpenHint	Tikai testa stendam.
+allowOpenWarn	Ikviens tīklā var pieslēgties un kustināt iekārtu bez marķiera. Ieslēdziet to tikai testa stendā, nekad kopīgotā tīklā.
+noTokenNote	Bez marķiera mezgls atsakās tikt vadīts. Iestatiet to pirms iekārtas izmantošanas.
+mUart	Vadības bloks (RS-232)
+mUartIntro	Izvadi, kas iet uz RS-232 līmeņa pārveidotāju un caur to uz vadības bloka savienotāju. Tie ir GPIO numuri no 0 līdz 48.
+fTx	TX izvads (DB9 kontakts 3)
+fRx	RX izvads (DB9 kontakts 2)
+fRxHint	Vadības bloks šajā līnijā neko nesūta; -1 atstāj to brīvu.
+fDtr	DTR izvads (DB9 kontakts 4)
+fDcd	DCD izvads (DB9 kontakts 1)
+fRi	RI izvads (DB9 kontakts 9)
+fCts	CTS izvads
+fDsr	DSR izvads
+fNoneHint	-1: nav pieslēgts.
+fInverted	Līmeņa pārveidotājs invertē līnijas
+fInvertedHint	MAX3232 invertē: augsts līmenis uz izvada ir negatīvs RS-232 spriegums. Izslēdziet tikai pārveidotājam, kas neinvertē.
+mUartWiring	Mezgls ieņem datora vietu: tas ir kabeļa DTE gals, un kabelis ir tas pats taisnais DB9 kabelis, kas savienoja datoru ar vadības bloku. Nekad nepieslēdziet ESP32 izvadu iekārtai bez RS-232 līmeņa pārveidotāja: izvadi ir 3,3 V, bet RS-232 ir plus un mīnus 12 V. TX iet uz DB9 kontaktu 3, DTR uz kontaktu 4, DCD nāk no kontakta 1, RI no kontakta 9, bet zeme uz kontaktu 5.
+mLamps	Iekārtas lampiņas
+mLampsIntro	Mezgls nolasa vadības bloka lampiņas (HOME X, HOME Y, HOME Z, ENABLE, TOOL), tāpēc zina, kura ass ir sākumpozīcijā. -1 atstāj lampiņu nenolasītu.
+fHomeX	HOME X izvads
+fHomeY	HOME Y izvads
+fHomeZ	HOME Z izvads
+fEnable	ENABLE izvads
+fTool	TOOL izvads
+fActiveLow	Iedegta lampiņa velk savu izvadu zemu
+fActiveLowHint	Ieslēgts ar ierasto NPN buferi: iedegta lampiņa ieslēdz tranzistoru un velk izvadu zemu.
+mLampsWiring	Nolasiet katras lampiņas anodu caur NPN tranzistoru, kura bāze ir pieslēgta 10 kΩ rezistoram. Nekad nepieslēdziet optopāra LED tieši pāri lampiņai: tā tiešais sprieguma kritums lampiņu nodzēstu.
+mSpindle	Spindelis
+mSpindleIntro	Ātruma signāls un darbības līnijas spindeļa frekvences pārveidotājam (VFD). Mezglam bez spindeļa iestatiet maksimālo ātrumu uz 0.
+fMaxRpm	Maksimālais ātrums (apgr./min)
+fMaxRpmHint	Ātrums pie 10 V (100 % PWM); lielāks pieprasījums tiek ierobežots līdz tam. No 0 līdz 60000.
+fPwmHz	PWM frekvence (Hz)
+fPwmHzHint	No 100 līdz 40000. Pārveidotāja moduļa filtram tā jāatbilst.
+fPwmPin	Ātruma PWM izvads
+fFwdPin	Gaitas uz priekšu izvads
+fRevPin	Gaitas atpakaļ izvads
+fRunPin	Gaitas izvads
+fDirPin	Virziena izvads (ieslēgts atpakaļgaitai)
+fPwmInverted	Invertēt PWM
+fDirSingle	Viena gaitas līnija un viena virziena līnija
+fDirSingleHint	Ieslēgts: pirmais izvads ir gaitas līnija, otrais ir virziena līnija. Izslēgts: viena līnija uz priekšu un viena atpakaļ, nekad abas reizē.
+fOutLow	Gaitas un virziena līnijas ir aktīvas ar zemu līmeni
+fSettle	Nogaidīšanas laiks starp virzieniem (sekundes)
+fSettleHint	Spindeli nevar reversēt, kamēr tas nav bijis apturēts tik ilgi. No 0 līdz 60.
+mSpindleWiring	Pievadiet PWM izvadu PWM uz 0-10 V pārveidotāja modulim ar savu barošanu; tā izeja iet uz dziņa ātruma ieeju (VI un ACM Huanyang dziņam). Gaitas līnijas vada dziņa FOR un REV ieejas caur releja kontaktiem vai optopāriem, nekad tieši no izvada: izejas ir 3,3 V un daži miliampēri. Uzturiet kopīgu zemi starp mezglu, pārveidotāja moduli un dziņa ātruma ieeju.
+mSpindleSafety	Visas trīs izejas ir izslēgtas pie ieslēgšanas, pie jebkuras iekārtas apturēšanas un vienmēr, kad ātrums ir 0. Pirms pirmās palaišanas salīdziniet paša dziņa iestatījumus (vadība no spailēm, analogā ātruma ieeja, frekvences robežas) ar spindeļa datu plāksnīti: nepareiza frekvence var sabojāt ātrgaitas spindeli.
+netNow	Pašreizējais savienojums
+netTitle	Adrese
+hostnameHint	tukšs: mezgls izvēlas vārdu no sava identifikatora
+netRestartNote	Hosta nosaukuma vai savienojuma maiņa stājas spēkā pēc mezgla restartēšanas.
+apNote	Iestatīšanas piekļuves punkts ir paša mezgla Wi-Fi tīkls, lai tam piekļūtu no tālruņa, kad tam nav adreses jūsu tīklā.
+setupWifiHelp	Mezglam nav kabeļa. Norādiet Wi-Fi tīklu, kuram tam tagad jāpievienojas, vai atstājiet tukšu un izmantojiet paša mezgla iestatīšanas tīklu, kura parole ir iestatīšanas kods (vēlāk to varat mainīt sadaļā Tīkls).
+rolesHelp	Administratori var mainīt visu. Skatītāji var redzēt stāvokli un iestatījumus, bet neko nemaina.
+slotVersion	versija {0}
+slotsUnknown	Mezgls nenosūtīja informāciju par savām programmaparatūras vietām.
+chooseFirst	Vispirms izvēlieties programmaparatūras failu.
+p_out_of_range	ārpus diapazona
+p_duplicate_pin	šis izvads izmantots divreiz
+p_reserved_pin	rezervēts platei
+p_not_a_number	nav vesels skaitlis
+e_machine_armed	Programma ir bruņojusi iekārtu: neko nevar saglabāt, restartēt vai atjaunināt, kamēr tā nav atbruņota.
+staError	Pēdējā Wi-Fi kļūda
+se_failed	savienojums neizdevās
+se_network_not_found	tīkls netika atrasts
+se_wrong_password	parole tika noraidīta
+navNetwork	Tīkls
+navUsers	Lietotāji
+navSystem	Sistēma
+language	Valoda
+signOut	Iziet
+loading	Ielādē…
+unreachable	Mezgls neatbild.
+signIn	Pieteikties
+rememberMe	Atcerēties mani šajā pārlūkā
+rememberUser	Atcerēties manu lietotājvārdu šajā ierīcē
+loginNote	Var atcerēties tikai lietotājvārdu, un tikai tad, ja atzīmējat rūtiņu. Paroli, ja vēlaties, saglabā tikai paša pārlūka vai sistēmas paroļu pārvaldnieks; panelis to nekad neglabā.
+user	Lietotājs
+password	Parole
+showPassword	Rādīt paroli
+setupTitle	Iestatīt šo mezglu
+setupCode	Iestatīšanas kods
+adminName	Administratora vārds
+createAdmin	Izveidot administratoru
+setupWifi	Šī mezgla iestatīšanas Wi-Fi
+setupIntro	Šim mezglam vēl nav lietotāja. Ievadiet iestatīšanas kodu, ko mezgls ik pēc 15 sekundēm rāda savā USB konsolē, un izvēlieties administratoru.
+setupWifiTitle	Wi-Fi tīkls, kuram mezglam jāpievienojas (neobligāti)
+setupWifiOptionalTitle	Wi-Fi tīkls (neobligāti)
+setupWifiOptionalHelp	Šai platei ir Ethernet pieslēgvieta: ja kabelis ir pieslēgts, atstājiet tukšu. Lai mezglu izmantotu pa Wi-Fi (piemēram, uz galda bez kabeļa), norādiet šeit tīklu, kuram tam jāpievienojas. Ja tas paliek bez adreses, pēc 90 sekundēm tas atkal atver savu iestatīšanas tīklu, lai tam varētu piekļūt.
+save	Saglabāt
+saveRestart	Saglabāt un restartēt
+restart	Restartēt
+discard	Atmest izmaiņas
+saved	Saglabāts.
+savedRestart	Saglabāts. Restartējiet mezglu, lai to lietotu.
+unsaved	Ir nesaglabātas izmaiņas.
+restarting	Mezgls restartējas…
+adminOnly	To var mainīt tikai administrators.
+yes	jā
+no	nē
+add	Pievienot
+delete	Dzēst
+refresh	Atsvaidzināt
+working	Darbojas…
+confirmAsk	Vai esat pārliecināts?
+nodeId	Identifikators
+firmware	Programmaparatūra
+uptime	Darbojas jau
+address	Adrese
+netmask	Apakštīkla maska
+gateway	Vārteja
+mac	MAC
+link	Saite
+linkUp	aktīva
+linkDown	nedarbojas
+nodeTitle	Mezgls
+uplink	Savienojums ar tīklu
+uplinkEthernet	Ethernet kabelis (PoE)
+uplinkWifi	Wi-Fi (pievienojas citam tīklam)
+dhcp	Saņemt adresi automātiski (DHCP)
+dns1	DNS serveris 1
+dns2	DNS serveris 2
+hostname	Hosta nosaukums
+wifiAp	Piekļuves punkts (Wi-Fi, ko piedāvā šis mezgls)
+apEnable	Piedāvāt Wi-Fi tīklu
+ssid	Tīkla nosaukums (SSID)
+security	Drošība
+secOpen	atvērts (bez paroles)
+secWpa2	WPA2
+secWpa3	WPA3
+secWpa2Wpa3	WPA2 + WPA3
+wifiPassword	Wi-Fi parole (no 8 līdz 63 rakstzīmēm)
+passwordSet	parole ir saglabāta; atstājiet tukšu, lai to paturētu
+hidden	Slēpt tīkla nosaukumu
+wifiChannel	Kanāls
+channelAuto	automātisks (1, 6 vai 11 pēc mezgla)
+channelNow	Šis mezgls izmantotu kanālu {0}.
+wifiSta	Wi-Fi stacija (šis mezgls pievienojas Wi-Fi tīklam)
+staEnable	Pievienoties Wi-Fi tīklam
+scanNetworks	Meklēt tīklus
+scanning	Meklē…
+noNetworks	Neviens tīkls netika sadzirdēts.
+scanNote	Meklēšanas laikā paša mezgla piekļuves punkts uz brīdi var atvienot savus klientus.
+useNetwork	Izmantot
+signal	signāls
+wiredNote	Pa kabeli mezgls pieprasa adresi ar DHCP, ja vien to šeit nenorādāt fiksētu. Tā paša Wi-Fi tīkls, ja to paturat, ir atsevišķs tīkls (192.168.4.x), lai piekļūtu mezglam no tālruņa; tas nav savienots ar vadu tīklu. Izmaiņas stājas spēkā pēc restartēšanas.
+staNote	Mezglam nav kabeļa: norādiet tam savas mājas vai vietas Wi-Fi tīklu. Ja staciju atstājat izslēgtu, izmantojiet tā paša piekļuves punktu.
+noWifiWarn	Mezglam nav kabeļa: paturiet ieslēgtu vismaz vienu no abiem, piekļuves punktu vai staciju, citādi tam nevar piekļūt.
+ethernetMissing	Ethernet mikroshēma neatbild (skatiet pieslēguma shēmas rokasgrāmatu).
+station	Wi-Fi stacija
+notConnected	nav pieslēgts
+apActive	Piekļuves punkts
+apClients	klienti
+channel	kanāls
+setupNetwork	iestatīšanas tīkls
+usersTitle	Šī paneļa lietotāji
+role	Loma
+roleAdmin	administrators
+roleViewer	skatītājs (tikai lasīšana)
+addUser	Pievienot lietotāju
+newPassword	Jaunā parole (8 rakstzīmes vai vairāk)
+setPassword	Iestatīt paroli
+myAccount	Mana parole
+currentPassword	Pašreizējā parole
+changePassword	Mainīt manu paroli
+passwordChanged	Parole nomainīta. Piesakieties vēlreiz.
+you	jūs
+updateTitle	Atjaunināt programmaparatūru
+updateHelp	Izvēlieties programmaparatūras failu (.bin, kas izveidots šim projektam, nevis apvienotais attēls). Tas tiek pārbaudīts pirms lietošanas, un, ja jaunā versija nesāk darboties, mezgls pats atgriežas pie iepriekšējās.
+chooseFile	Programmaparatūras fails
+upload	Augšupielādēt un instalēt
+uploading	Augšupielādē… {0}%
+updateDone	Instalēta versija {0}. Mezgls tagad restartējas.
+slot	Darbojas no
+slotsTitle	Programmaparatūras vietas
+slotsHelp	Mezgls glabā divas programmaparatūras vietas, ota_0 un ota_1. Atjauninājums tiek ierakstīts tajā, kas nedarbojas. Šeit jebkurā laikā varat palaist otru vietu, lai atgrieztos pie iepriekšējās versijas vai pārietu uz tikko instalēto. Iestatījumi tiek saglabāti.
+slotRunning	darbojas tagad
+slotNextBoot	startēs nākamreiz
+slotEmpty	tukša - nav programmaparatūras
+switchSlot	Startēt {0}
+switchSlotNone	Otrā vietā nav programmaparatūras
+switchAsk	Restartēt mezglu un startēt {0} (versija {1})?
+logTitle	Mezgla žurnāls
+copyLog	Kopēt žurnālu
+copied	Nokopēts
+copyFailed	Nevarēja nokopēt - atlasiet tekstu un nokopējiet to ar roku
+maintenance	Apkope
+rebootNode	Restartēt mezglu
+factoryTitle	Rūpnīcas atiestatīšana
+factoryHelp	Dzēš katru iestatījumu un katru lietotāju; mezgls atkal sāk ar iestatīšanu. Lai apstiprinātu, ierakstiet RESET.
+author	Autors
+license	Licence
+e_unauthorized	Jūsu sesija beidzās. Piesakieties vēlreiz.
+e_wrong_credentials	Nepareizs lietotājs vai parole.
+e_too_many_attempts	Pārāk daudz mēģinājumu. Uzgaidiet brīdi.
+e_wrong_code	Iestatīšanas kods ir nepareizs.
+e_invalid_name	Vārds nav derīgs (3 līdz 32 rakstzīmes: a līdz z, 0 līdz 9, . _ -).
+e_weak_password	Parolei jābūt no 8 līdz 64 rakstzīmēm garai.
+e_exists	Šāds lietotājs jau pastāv.
+e_not_found	Nav atrasts.
+e_too_many_users	Var būt ne vairāk kā četri lietotāji.
+e_last_admin	Pēdējo administratoru nevar noņemt vai pazemināt.
+e_wrong_password	Pašreizējā parole ir nepareiza.
+e_invalid_role	Loma nav derīga.
+e_forbidden	Jūs to nevarat darīt.
+e_storage	Neizdevās ierakstīt zibatmiņā.
+e_invalid	Dažas vērtības nav derīgas; tās ir atzīmētas veidlapā.
+e_not_json	Pieprasījums netika saprasts.
+e_too_large	Pieprasījums ir pārāk liels.
+e_bad_size	Faila izmērs nav derīgs programmaparatūrai.
+e_not_firmware	Šis fails nav ESP32 programmaparatūra.
+e_image_invalid	Programmaparatūras attēls ir bojāts vai nepilnīgs.
+e_wrong_firmware	Šī programmaparatūra pieder citam projektam.
+e_upload_interrupted	Augšupielāde tika pārtraukta.
+e_upload_stalled	Augšupielāde iestrēga un tika apturēta: mēģiniet vēlreiz.
+e_network	Nevarēja sasniegt mezglu.
+e_setup_required	Vispirms iestatiet mezglu: izveidojiet tā administratoru.
+e_confirm_required	Nepieciešams apstiprinājums: nosūtiet vārdu RESET.
+e_bad_host	Šī adrese nav derīga.
+e_invalid_time	Šis laiks nav derīgs.
+e_would_lock_out	Šis saraksts jūs izslēgtu no paneļa: pievienojiet tīklu, kuru tagad izmantojat.
+e_slot_empty	Otrā vietā nav programmaparatūras.
+e_ota_begin	Atjauninājums nevarēja sākt ierakstīšanu.
+e_ota_boot	Nevarēja izvēlēties jauno programmaparatūru nākamajai startēšanai.
+e_ota_write	Atjauninājumu nevarēja ierakstīt zibatmiņā.
+e_no_partition	Atjauninājumam nav brīvas vietas.
+e_outside_network	Šim tīklam nav atļauts izmantot paneli: izmantojiet mājas tīklu vai VPN.
+e_wifi_busy	Radio ir aizņemts; mēģiniet vēlreiz pēc brīža.
+e_scan_failed	Meklēšana neizdevās.
+e_wifi_unavailable	Wi-Fi nevarēja palaist.
+p_required	obligāts
+p_invalid	nav derīgs
+p_range	ārpus diapazona
+p_too_long	pārāk garš
+p_conflict	jau izmantots
+p_reserved	rezervēts platei
+p_invalid_key	no 8 līdz 63 drukājamām rakstzīmēm
+p_outside_subnet	ārpus apakštīkla
+addBackupNetwork	Pievienot rezerves tīklu
+appIdf	ESP-IDF (programmaparatūra)
+backupNetworksHint	Tiek mēģināti pēc kārtas, ja augstāk norādītajam tīklam kādu laiku nevar pievienoties.
+backupNetworksTitle	Rezerves tīkli
+board	Plate
+bootloaderIdf	ESP-IDF (sāknētājs)
+brownoutLevel	Sprieguma krituma detektora līmenis
+checkGithub	Pārbaudīt tagad
+checking	Pārbauda…
+chip	Mikroshēma
+clockNotSet	nav iestatīts
+copyAsk	Kopēt darbojošos programmaparatūru ({0}, versija {1}) uz otru vietu ({2})? Tas, kas tajā ir tagad, tiks dzēsts. Mezgls netiek restartēts.
+copyDone	Nokopēts: abās vietās tagad ir versija {0}.
+copyRunning	Kopē… {0}%
+copySlot	Kopēt {0} uz {1}
+cores	kodoli
+cpuFreq	CPU frekvence
+dns	DNS
+flash	Zibatmiņa
+flashAllocated	Rezervēts nodalījumiem
+flashEncryption	Zibatmiņas šifrēšana
+flashFree	brīvs
+flashTotal	Kopā
+flashUnallocated	Nav piešķirts nevienam nodalījumam
+githubAvailable	Pieejama versija {0}.
+githubDownloading	Lejupielādē programmaparatūru no GitHub… {0}%
+githubUpToDate	Šī jau ir jaunākā versija GitHub.
+githubUpdateNote	Lejupielādē atsevišķo lietotnes attēlu, ko publicē paša GitHub izlaidums (nekad ne sāknētāju), un instalē to tāpat kā augšupielādētu failu. Iepriekš minētā manuālā augšupielāde darbojas tieši kā agrāk - šī ir papildinājums, nevis aizstājējs, mezglam, kam nav iemesla sasniegt internetu.
+githubUpdateTitle	Pārbaudīt GitHub jaunu versiju
+githubVerifying	Pārbauda attēlu pret izlaiduma jaucējkodu…
+installUpdate	Lejupielādēt un instalēt
+installing	Instalē…
+layout	Izkārtojums
+localTime	Vietējais laiks
+memory	Brīvā atmiņa
+navAbout	Par programmu
+navHelp	Palīdzība
+navOverview	Pārskats
+navWifi	Wi-Fi
+nodeName	Nosaukums
+none	nav
+ovFlash	Zibatmiņa
+ovHardware	Aparatūra
+ovNetwork	Tīkls
+ovNode	Šis mezgls
+ovTime	Datums un laiks
+ownNetwork	paša tīkls
+psram	PSRAM
+radios	Radio
+reasonOther	cits
+removeNetwork	Noņemt
+resetReason	Pēdējā restartēšana
+secureBoot	Drošā sāknēšana
+timeFromNtp	Interneta laika serveris (sinhronizēts)
+timeManual	iestatīts ar roku
+timeNtpWaiting	gaida interneta laika serveri
+timeSource	Laika avots
+timeZone	Laika josla
+aboutDescription	EH3D saimes mezgls Bungard CCD iekārtas kārbai: tas savieno vadības bloka RS-232 ar tīklu, rāda tā lampiņas, līnijas un spindeli un glabā mezgla iestatījumus, lietotājus un programmaparatūru.
+aboutIndependent	Projekts ir neatkarīgs: to neizstrādā, neapstiprina un neatbalsta Bungard Elektronik.
+ovMachineLink	Saite ar iekārtu
+stClient	Programma
+wifiMoved	Wi-Fi tīkli ir savā lapā, Wi-Fi.
+navHelpTab_overview	Kopsavilkums
+help_overview_title	Kopsavilkums
+help_overview_text	Šis panelis iestata un uzrauga mezglu. Kopsavilkums rāda, kas ir mezgls un kādā stāvoklī tas ir; Stāvoklis seko tam, ko tas dara reāllaikā; lapas Tīkls un Wi-Fi satur savienojuma iestatījumus; Lietotāji, Programmaparatūra un Žurnāls ir sistēmai.\n\nViss tiek saglabāts mezglā un stājas spēkā, kad to norāda apakšējā josla. Izmaiņa, kurai nepieciešama restartēšana, par to paziņo pirms lapas atstāšanas.
+navHelpTab_status	Stāvoklis
+help_status_title	Stāvoklis
+help_status_text	Stāvoklis rāda vadības saiti, vadības bloka lampiņas un līnijas, spindeli un rindu, atsvaidzināts katru sekundi. Poga Apturēt aptur iekārtu tūlīt: rinda tiek iztukšota, bet spindelis un dziņi izslēgti. Tā var iekārtu padarīt tikai drošāku.\n\nJa mezgls neatbild, lapa to paziņo un turpina jautāt.
+navHelpTab_machine	Iekārta
+help_machine_title	Iekārta
+help_machine_text	Iekārta satur to, kas saista mezglu ar vadības bloku: seriālos izvadus un ātrumu, vadības saites piekļuves marķieri, portu un rindas ierobežojumus. Izmaiņa stājas spēkā pēc saglabāšanas; dažām nepieciešama restartēšana, un josla par to paziņo.\n\nMarķieris ir tikai rakstāms: tas vairs nekad netiek rādīts. Programmai, kas pieslēdzas, tas ir vajadzīgs; bez tā mezgls atsakās kustināt iekārtu.
+navHelpTab_network	Tīkls
+help_network_title	Tīkls
+help_network_text	Tīkls rāda, kā mezgls pašlaik ir pieslēgts, un iestata tā nosaukumu un adresi: DHCP vai fiksētu adresi. Platei ar kabeli kā ieeju izvēlaties kabeli vai Wi-Fi.\n\nAdreses maiņa stājas spēkā pēc restartēšanas. Ja pēc izmaiņas zaudējat mezglu, panelim joprojām var piekļūt ar paša piekļuves punktu (ja tas ir ieslēgts) vai kabeli.
+navHelpTab_wifi	Wi-Fi
+help_wifi_title	Wi-Fi
+help_wifi_text	Wi-Fi iestata tīklu, kuram mezgls pievienojas, un piekļuves punktu, ko tas var atvērt. Zem galvenā tīkla varat pievienot līdz trim rezerves tīkliem: ja galvenais tiek zaudēts, mezgls tos izmēģina pēc kārtas, lai neizkristu no tīkla. Meklēšana uzskaita tīklus darbības rādiusā.\n\nParoles ir tikai rakstāmas: panelis tās vairs nekad nerāda, un tukšs lauks patur saglabāto.
+navHelpTab_users	Lietotāji
+help_users_title	Lietotāji
+help_users_text	Administratori maina iestatījumus; skatītāji tikai skatās. Katram cilvēkam ir vārds un parole. Administrators pievieno cilvēkus, maina paroles un noņem tos; pēdējo administratoru nevar noņemt.\n\nPārāk daudz nepareizu paroļu uz laiku bloķē vārdu. Savu paroli maina tajā pašā lapā.
+navHelpTab_update	Programmaparatūra
+help_update_title	Programmaparatūra
+help_update_text	Programmaparatūru var atjaunināt trīs veidos. No GitHub: mezgls meklē sava projekta jaunāko izlaidumu, lejupielādē to, pārbauda, vai jaucējkods atbilst izlaiduma publicētajam, un instalē to otrajā vietā. Augšupielādējot šī projekta .bin failu. Vai pārslēdzoties uz otru vietu, kurā joprojām ir iepriekš darbojusies versija.\n\nKopēšana ieraksta darbojošos programmaparatūru otrajā vietā, lai abās būtu viena versija (rezerves kopija). Pēc atjauninājuma mezgls restartējas.
+navHelpTab_log	Žurnāls
+help_log_title	Žurnāls
+help_log_text	Žurnāls ir tas, ko mezgls saka darbības laikā: tīkls, vadības saite, atjauninājumi un kļūdas. Tas tiek glabāts atmiņā, tāpēc pēc restartēšanas sākas tukšs.\n\nNokopējiet to, kad lūdzat palīdzību: tajā ir tas, kas notika, secīgi.
+navHelpTab_system	Sistēma
+help_system_title	Sistēma
+help_system_text	Sistēmā ir mezgla restartēšana un rūpnīcas atiestatīšana, kas dzēš katru iestatījumu un katru lietotāju (apstiprināšanai ierakstiet RESET). Ja vēlaties tikai redzēt, vai problēma izzūd, vispirms restartējiet.\n\nRestartēšana uz brīdi pārtrauc iekārtas saiti: dariet to, kad nenotiek neviens darbs.
+reasonPower_on	ieslēgšana
+reasonSoftware	restartēšana no paneļa
+reasonCrash	AVĀRIJA
+reasonWatchdog	sargtaimeris
+reasonBrownout	zems spriegums
+reasonDeep_sleep	dziļais miegs
+e_bad_json	Pieprasījums nav derīgs JSON.
+e_bad_url	Atjauninājuma adrese nav oficiālā.
+e_checksum_mismatch	Lejupielādētā programmaparatūra neatbilst izlaiduma kontrolsummai: tā tika noraidīta un nekas nemainījās.
+e_client_init	Lejupielādi nevarēja sākt.
+e_connect_failed	Lejupielāde nepieslēdzās: pārbaudiet mezgla tīklu un mēģiniet vēlreiz.
+e_no_asset	Izlaidumā nav programmaparatūras šai platei.
+e_no_asset_for_board	Pastāv jaunāks izlaidums, taču tajā nav programmaparatūras attēla šai platei.
+e_no_checksum	Izlaidumā līdzās programmaparatūras attēlam nav kontrolsummas faila, tāpēc tas netiek instalēts.
+e_no_memory	Mezglam pietrūka atmiņas.
+e_no_release	Izlaidums netika atrasts.
+e_no_slot	Nav otras vietas, uz kuru kopēt.
+e_no_task	Atjauninājumu nevarēja sākt (nav brīva uzdevuma).
+e_not_newer	Šī programmaparatūra nav jaunāka par darbojošos.
+e_ota_busy	Instalēšana no GitHub jau notiek.
+e_read_error	Lejupielāde tika pārtraukta lasīšanas laikā.
+e_read_failed	Darbojošos vietu nevarēja nolasīt.
+e_short_read	Lejupielāde beidzās, pirms fails bija pilnīgs.
+e_source_invalid	Darbojošos programmaparatūru nevarēja pārbaudīt, tāpēc tā netika nokopēta.
+e_up_to_date	Programmaparatūra jau ir atjaunināta.
+e_version_mismatch	Faila versija nav izlaiduma versija.

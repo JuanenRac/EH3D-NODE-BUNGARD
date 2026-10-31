@@ -1,0 +1,435 @@
+# Română (ro): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+appName	Nod EH3D Bungard
+grpNode	Nod
+grpNetwork	Rețea
+grpSystem	Sistem
+navMenu	Meniu principal
+navStatus	Stare
+navMachine	Mașină
+navUpdate	Firmware
+navLog	Jurnal
+skip	Sari la conținut
+themeToLight	Temă deschisă
+themeToDark	Temă închisă
+showShort	Arată
+e_other	Nodul a răspuns cu o eroare: {0}
+statusNoControl	Această pagină arată starea nodului. Singurul lucru pe care panoul îl face cu mașina este să o oprească: mașina poate fi mișcată doar prin legătura autentificată a unui program (legătura de comandă), niciodată de aici.
+stLost	Nodul nu răspunde
+stLink	Legătură de comandă
+stLinkUp	Legătura este activă
+stLinkDown	Legătura nu este activă
+stClientYes	Program conectat
+stClientNo	Niciun program conectat
+stAuthYes	Autentificat
+stAuthNo	Neautentificat
+stArmed	Mașină armată
+stDisarmed	Mașină nearmată
+stQueue	Octeți în așteptare în coadă
+stQueueBytes	Coadă
+stSent	Octeți trimiși
+stLamps	Lămpile mașinii
+stLampsHelp	Cele cinci lămpi ale unității de comandă, citite în direct. HOME X, Y și Z se aprind când o axă este pe limitator.
+lampHomeX	HOME X
+lampHomeY	HOME Y
+lampHomeZ	HOME Z
+lampEnable	ENABLE
+lampTool	TOOL
+lampOn	aprinsă
+lampOff	stinsă
+stLines	Liniile unității de comandă
+stLinesHelp	Liniile pe care unitatea de comandă le comandă înapoi spre nod. DCD și RI raportează starea ei de eroare și de sculă.
+lineCts	CTS
+lineDsr	DSR
+lineRi	RI
+lineDcd	DCD
+stSpindle	Ax
+stSpindleBar	Viteza față de maximă
+spForward	Înainte
+spReverse	Înapoi
+spStopped	Oprit
+spMax	Viteză maximă: {0} rpm
+spNoSpindle	Nu este setată nicio viteză a axului (maxim 0 rpm).
+stNode	Nod
+mRestartNote	Modificările acestor setări se aplică după repornirea nodului.
+mLink	Legătură de comandă
+mLinkIntro	Portul TCP la care se conectează un program pentru a conduce mașina. Fiecare conexiune trebuie să se autentifice cu tokenul de acces.
+fPort	Port TCP
+fPortHint	De la 1 la 65535.
+fIdle	Timp de inactivitate (secunde)
+fIdleHint	Un program armat care nu trimite nimic atâta timp este oprit: coada este golită și acționările sunt oprite. De la 0,5 la 60.
+fQueue	Dimensiunea cozii (octeți)
+fQueueHint	Câți octeți păstrează nodul înainte de a-i trimite unității de comandă. De la 1024 la 4194304.
+fFinish	Termină lucrarea deținută dacă programul dispare
+fFinishHint	Dezactivat (recomandat): nodul se oprește imediat, ca întotdeauna. Activat: dacă programul sau serverul tace ori se deconectează, nodul execută până la capăt octeții aflați deja în coadă (programul taie lucrarea astfel încât finalul să fie un loc sigur), apoi oprește axul și acționările.
+finishWarn	Mașina va continua să se miște singură, fără nimeni conectat, până se golește coada sau expiră timpul de mai jos. Activați aceasta doar după ce ați verificat scula și lucrarea și dacă știți unde este butonul de oprire.
+fDrain	Cel mai lung timp de funcționare autonomă (secunde)
+fDrainHint	După acest timp nodul oprește tot ce a mai rămas. De la 10 la 3600.
+stStop	Oprește mașina
+stStopHint	Golește coada și oprește axul și acționările, indiferent dacă un program este conectat sau nu.
+stStopped	Oprit.
+stDraining	Programul a dispărut, iar nodul termină lucrarea pe care o deține. Nu primește nimic nou; folosiți butonul de oprire pentru a o încheia acum.
+fToken	Token de acces
+fTokenHint	Scris în nod și niciodată afișat din nou. Introduceți unul nou sau generați unul, apoi Salvați.
+tokenIsSet	Un token este setat
+tokenNotSet	Niciun token nu este setat
+tokenWillChange	Un token nou va fi salvat
+tokenWillClear	Tokenul va fi eliminat
+tokenShown	Copiați-l acum: nu mai este afișat după salvare.
+tokenSet	Setează tokenul
+tokenGenerate	Generează unul
+tokenKeep	Păstrează tokenul curent
+tokenClear	Șterge tokenul
+fAllowOpen	Permite comanda fără token
+fAllowOpenHint	Doar pentru un banc de probă.
+allowOpenWarn	Oricine din rețea se poate conecta și mișca mașina, fără token. Activați aceasta doar pe un banc de probă, niciodată pe o rețea partajată.
+noTokenNote	Fără token, nodul refuză să fie comandat. Setați unul înainte de a folosi mașina.
+mUart	Unitate de comandă (RS-232)
+mUartIntro	Pinii care merg la convertorul de nivel RS-232 și, prin el, la conectorul unității de comandă. Sunt numere GPIO de la 0 la 48.
+fTx	Pin TX (pinul 3 DB9)
+fRx	Pin RX (pinul 2 DB9)
+fRxHint	Unitatea de comandă nu trimite nimic pe această linie; -1 o lasă liberă.
+fDtr	Pin DTR (pinul 4 DB9)
+fDcd	Pin DCD (pinul 1 DB9)
+fRi	Pin RI (pinul 9 DB9)
+fCts	Pin CTS
+fDsr	Pin DSR
+fNoneHint	-1: neconectat.
+fInverted	Convertorul de nivel inversează liniile
+fInvertedHint	Un MAX3232 inversează: un nivel înalt pe pin este o tensiune RS-232 negativă. Dezactivați doar pentru un convertor care nu inversează.
+mUartWiring	Nodul ia locul PC-ului: este capătul DTE al cablului, iar cablul este același cablu DB9 drept care lega PC-ul de unitatea de comandă. Nu conectați niciodată un pin ESP32 la mașină fără un convertor de nivel RS-232: pinii sunt la 3,3 V, iar RS-232 este la plus și minus 12 V. TX merge la pinul 3 DB9, DTR la pinul 4, DCD vine de la pinul 1, RI de la pinul 9, iar masa la pinul 5.
+mLamps	Lămpile mașinii
+mLampsIntro	Nodul citește lămpile unității de comandă (HOME X, HOME Y, HOME Z, ENABLE, TOOL), astfel încât știe ce axă este la origine. -1 lasă o lampă necitită.
+fHomeX	Pin HOME X
+fHomeY	Pin HOME Y
+fHomeZ	Pin HOME Z
+fEnable	Pin ENABLE
+fTool	Pin TOOL
+fActiveLow	O lampă aprinsă trage pinul la nivel jos
+fActiveLowHint	Activat cu bufferul NPN obișnuit: o lampă aprinsă deschide tranzistorul și trage pinul la nivel jos.
+mLampsWiring	Citiți anodul fiecărei lămpi printr-un tranzistor NPN, cu baza pe un rezistor de 10 kΩ. Nu puneți niciodată LED-ul unui optocuplor direct pe lampă: căderea lui de tensiune directă ar stinge lampa.
+mSpindle	Ax
+mSpindleIntro	Semnalul de viteză și liniile de pornire pentru variatorul de frecvență (VFD) al axului. Setați viteza maximă la 0 pentru un nod fără ax.
+fMaxRpm	Viteză maximă (rpm)
+fMaxRpmHint	Viteza la 10 V (100 % PWM); o cerere mai mare este limitată la ea. De la 0 la 60000.
+fPwmHz	Frecvență PWM (Hz)
+fPwmHzHint	De la 100 la 40000. Filtrul modulului convertor trebuie să se potrivească.
+fPwmPin	Pin PWM viteză
+fFwdPin	Pin pornire înainte
+fRevPin	Pin pornire înapoi
+fRunPin	Pin pornire
+fDirPin	Pin sens (activ pentru înapoi)
+fPwmInverted	Inversează PWM
+fDirSingle	O linie de pornire și o linie de sens
+fDirSingleHint	Activat: primul pin este linia de pornire, iar al doilea linia de sens. Dezactivat: o linie pentru înainte și una pentru înapoi, niciodată ambele odată.
+fOutLow	Liniile de pornire și de sens sunt active pe nivel jos
+fSettle	Timp de stabilizare între sensuri (secunde)
+fSettleHint	Axul nu poate fi inversat până nu a fost oprit atâta timp. De la 0 la 60.
+mSpindleWiring	Aplicați pinul PWM unui modul convertor PWM în 0-10 V cu alimentare proprie; ieșirea lui merge la intrarea de viteză a variatorului (VI și ACM la un variator Huanyang). Liniile de pornire comandă intrările FOR și REV ale variatorului prin contacte de releu sau optocuploare, niciodată direct din pin: ieșirile sunt la 3,3 V și câțiva miliamperi. Păstrați o masă comună între nod, modulul convertor și intrarea de viteză a variatorului.
+mSpindleSafety	Toate cele trei ieșiri sunt oprite la pornire, la orice oprire a mașinii și ori de câte ori viteza este 0. Verificați setările variatorului însuși (comandă de la borne, intrare analogică de viteză, limite de frecvență) față de plăcuța axului înainte de prima pornire: o frecvență greșită poate deteriora un ax de turație mare.
+netNow	Conexiunea curentă
+netTitle	Adresă
+hostnameHint	gol: nodul alege un nume din identificatorul său
+netRestartNote	O schimbare a numelui de gazdă sau a conexiunii se aplică după repornirea nodului.
+apNote	Punctul de acces de configurare este propria rețea Wi-Fi a nodului, pentru a-l ajunge de pe un telefon când nu are adresă în rețeaua dumneavoastră.
+setupWifiHelp	Nodul nu are cablu. Indicați rețeaua Wi-Fi la care trebuie să se conecteze acum sau lăsați gol și folosiți rețeaua de configurare a nodului, a cărei parolă este codul de configurare (o puteți schimba mai târziu în Rețea).
+rolesHelp	Administratorii pot schimba orice. Observatorii pot vedea starea și setările, dar nu schimbă nimic.
+slotVersion	versiunea {0}
+slotsUnknown	Nodul nu a raportat sloturile sale de firmware.
+chooseFirst	Alegeți mai întâi un fișier firmware.
+p_out_of_range	în afara intervalului
+p_duplicate_pin	acest pin este folosit de două ori
+p_reserved_pin	rezervat de placă
+p_not_a_number	nu este un număr întreg
+e_machine_armed	Un program a armat mașina: nimic nu poate fi salvat, repornit sau actualizat până când o dezarmează.
+staError	Ultima eroare Wi-Fi
+se_failed	conexiunea a eșuat
+se_network_not_found	rețeaua nu a fost găsită
+se_wrong_password	parola a fost refuzată
+navNetwork	Rețea
+navUsers	Utilizatori
+navSystem	Sistem
+language	Limbă
+signOut	Deconectare
+loading	Se încarcă…
+unreachable	Nodul nu răspunde.
+signIn	Autentificare
+rememberMe	Menține-mă conectat în acest browser
+rememberUser	Reține numele meu de utilizator pe acest dispozitiv
+loginNote	Doar numele de utilizator poate fi reținut, și numai dacă bifați căsuța. Parola este salvată, dacă doriți, doar de managerul de parole al browserului sau al sistemului dumneavoastră; panoul nu o stochează niciodată.
+user	Utilizator
+password	Parolă
+showPassword	Arată parola
+setupTitle	Configurați acest nod
+setupCode	Cod de configurare
+adminName	Numele administratorului
+createAdmin	Creează administrator
+setupWifi	Wi-Fi de configurare al acestui nod
+setupIntro	Acest nod nu are încă niciun utilizator. Introduceți codul de configurare pe care nodul îl afișează pe consola sa USB la fiecare 15 secunde și alegeți administratorul.
+setupWifiTitle	Rețea Wi-Fi la care să se conecteze nodul (opțional)
+setupWifiOptionalTitle	Rețea Wi-Fi (opțional)
+setupWifiOptionalHelp	Această placă are un port Ethernet: cu un cablu conectat, lăsați gol. Pentru a folosi nodul prin Wi-Fi (de exemplu pe un banc fără cablu), indicați aici rețeaua la care să se conecteze. Dacă rămâne fără adresă, își redeschide rețeaua de configurare după 90 de secunde, pentru a putea fi ajuns.
+save	Salvează
+saveRestart	Salvează și repornește
+restart	Repornește
+discard	Renunță la modificări
+saved	Salvat.
+savedRestart	Salvat. Reporniți nodul pentru a aplica.
+unsaved	Există modificări nesalvate.
+restarting	Nodul se repornește…
+adminOnly	Doar un administrator poate schimba aceasta.
+yes	da
+no	nu
+add	Adaugă
+delete	Șterge
+refresh	Reîmprospătează
+working	Se lucrează…
+confirmAsk	Sunteți sigur?
+nodeId	Identificator
+firmware	Firmware
+uptime	În funcțiune de
+address	Adresă
+netmask	Mască de subrețea
+gateway	Gateway
+mac	MAC
+link	Legătură
+linkUp	activă
+linkDown	inactivă
+nodeTitle	Nod
+uplink	Conexiunea la rețea
+uplinkEthernet	Cablu Ethernet (PoE)
+uplinkWifi	Wi-Fi (se conectează la altă rețea)
+dhcp	Obține adresa automat (DHCP)
+dns1	Server DNS 1
+dns2	Server DNS 2
+hostname	Nume de gazdă
+wifiAp	Punct de acces (Wi-Fi oferit de acest nod)
+apEnable	Oferă o rețea Wi-Fi
+ssid	Numele rețelei (SSID)
+security	Securitate
+secOpen	deschisă (fără parolă)
+secWpa2	WPA2
+secWpa3	WPA3
+secWpa2Wpa3	WPA2 + WPA3
+wifiPassword	Parolă Wi-Fi (de la 8 la 63 de caractere)
+passwordSet	o parolă este stocată; lăsați gol pentru a o păstra
+hidden	Ascunde numele rețelei
+wifiChannel	Canal
+channelAuto	automat (1, 6 sau 11 în funcție de nod)
+channelNow	Acest nod ar folosi canalul {0}.
+wifiSta	Stație Wi-Fi (acest nod se conectează la o rețea Wi-Fi)
+staEnable	Conectează-te la o rețea Wi-Fi
+scanNetworks	Caută rețele
+scanning	Se caută…
+noNetworks	Nu s-a auzit nicio rețea.
+scanNote	În timpul căutării, punctul de acces propriu al nodului poate deconecta clienții săi pentru o clipă.
+useNetwork	Folosește
+signal	semnal
+wiredNote	Pe cablu, nodul cere adresa prin DHCP, dacă nu o fixați aici. Propria sa rețea Wi-Fi, dacă o păstrați, este o rețea separată (192.168.4.x) pentru a ajunge la nod de pe un telefon; nu este unită cu cea prin cablu. Modificările se aplică după repornire.
+staNote	Nodul nu are cablu: dați-i rețeaua Wi-Fi a casei sau a locului dumneavoastră. Dacă lăsați stația oprită, folosiți punctul de acces propriu.
+noWifiWarn	Nodul nu are cablu: păstrați activat cel puțin unul dintre cele două, punctul de acces sau stația, altfel nu poate fi ajuns.
+ethernetMissing	Cipul Ethernet nu răspunde (vedeți ghidul de cablare).
+station	Stație Wi-Fi
+notConnected	neconectat
+apActive	Punct de acces
+apClients	clienți
+channel	canal
+setupNetwork	rețea de configurare
+usersTitle	Utilizatorii acestui panou
+role	Rol
+roleAdmin	administrator
+roleViewer	observator (doar citire)
+addUser	Adaugă un utilizator
+newPassword	Parolă nouă (8 caractere sau mai multe)
+setPassword	Setează parola
+myAccount	Parola mea
+currentPassword	Parola curentă
+changePassword	Schimbă parola mea
+passwordChanged	Parolă schimbată. Autentificați-vă din nou.
+you	dumneavoastră
+updateTitle	Actualizează firmware-ul
+updateHelp	Alegeți fișierul firmware (un .bin construit pentru acest proiect, nu imaginea îmbinată). Este verificat înainte de utilizare, iar dacă versiunea nouă nu pornește, nodul revine singur la cea anterioară.
+chooseFile	Fișier firmware
+upload	Încarcă și instalează
+uploading	Se încarcă… {0}%
+updateDone	Versiunea {0} instalată. Nodul repornește acum.
+slot	Rulează din
+slotsTitle	Sloturi firmware
+slotsHelp	Nodul păstrează două sloturi firmware, ota_0 și ota_1. O actualizare se scrie în cel care nu rulează. Aici puteți porni oricând celălalt - pentru a reveni la versiunea anterioară sau a trece la cea tocmai instalată. Setările se păstrează.
+slotRunning	rulează acum
+slotNextBoot	pornește data viitoare
+slotEmpty	gol - fără firmware
+switchSlot	Pornește {0}
+switchSlotNone	Celălalt slot nu conține firmware
+switchAsk	Reporniți nodul și porniți {0} (versiunea {1})?
+logTitle	Jurnalul nodului
+copyLog	Copiază jurnalul
+copied	Copiat
+copyFailed	Nu s-a putut copia - selectați textul și copiați-l manual
+maintenance	Întreținere
+rebootNode	Repornește nodul
+factoryTitle	Resetare la setările din fabrică
+factoryHelp	Șterge toate setările și toți utilizatorii; nodul pornește din nou în configurare. Tastați RESET pentru a confirma.
+author	Autor
+license	Licență
+e_unauthorized	Sesiunea dumneavoastră s-a încheiat. Autentificați-vă din nou.
+e_wrong_credentials	Utilizator sau parolă greșită.
+e_too_many_attempts	Prea multe încercări. Așteptați un moment.
+e_wrong_code	Codul de configurare este greșit.
+e_invalid_name	Numele nu este valid (3 până la 32 de caractere: a până la z, 0 până la 9, . _ -).
+e_weak_password	Parola trebuie să aibă între 8 și 64 de caractere.
+e_exists	Acel utilizator există deja.
+e_not_found	Nu a fost găsit.
+e_too_many_users	Pot exista cel mult patru utilizatori.
+e_last_admin	Ultimul administrator nu poate fi eliminat sau retrogradat.
+e_wrong_password	Parola curentă este greșită.
+e_invalid_role	Rolul nu este valid.
+e_forbidden	Nu puteți face asta.
+e_storage	Memoria flash nu a putut fi scrisă.
+e_invalid	Unele valori nu sunt valide; sunt marcate în formular.
+e_not_json	Cererea nu a fost înțeleasă.
+e_too_large	Cererea este prea mare.
+e_bad_size	Dimensiunea fișierului nu este validă pentru un firmware.
+e_not_firmware	Acel fișier nu este un firmware ESP32.
+e_image_invalid	Imaginea firmware este deteriorată sau incompletă.
+e_wrong_firmware	Acel firmware aparține altui proiect.
+e_upload_interrupted	Încărcarea a fost întreruptă.
+e_upload_stalled	Încărcarea s-a blocat și a fost oprită: încercați din nou.
+e_network	Nodul nu a putut fi contactat.
+e_setup_required	Configurați mai întâi nodul: creați administratorul său.
+e_confirm_required	Este necesară confirmarea: trimiteți cuvântul RESET.
+e_bad_host	Acea adresă nu este validă.
+e_invalid_time	Acea oră nu este validă.
+e_would_lock_out	Acea listă v-ar bloca accesul la panou: adăugați rețeaua pe care o folosiți acum.
+e_slot_empty	Celălalt slot nu conține firmware.
+e_ota_begin	Actualizarea nu a putut începe scrierea.
+e_ota_boot	Noul firmware nu a putut fi ales pentru următoarea pornire.
+e_ota_write	Actualizarea nu a putut fi scrisă în flash.
+e_no_partition	Nu există niciun slot liber pentru actualizare.
+e_outside_network	Această rețea nu are voie să folosească panoul: folosiți rețeaua casei sau VPN-ul.
+e_wifi_busy	Radioul este ocupat; încercați din nou peste un moment.
+e_scan_failed	Căutarea a eșuat.
+e_wifi_unavailable	Wi-Fi nu a putut fi pornit.
+p_required	obligatoriu
+p_invalid	nevalid
+p_range	în afara intervalului
+p_too_long	prea lung
+p_conflict	deja folosit
+p_reserved	rezervat de placă
+p_invalid_key	de la 8 la 63 de caractere imprimabile
+p_outside_subnet	în afara subrețelei
+addBackupNetwork	Adaugă o rețea de rezervă
+appIdf	ESP-IDF (firmware)
+backupNetworksHint	Încercate pe rând dacă rețeaua de mai sus nu poate fi contactată o vreme.
+backupNetworksTitle	Rețele de rezervă
+board	Placă
+bootloaderIdf	ESP-IDF (bootloader)
+brownoutLevel	Nivelul detectorului de cădere de tensiune (brown-out)
+checkGithub	Verifică acum
+checking	Se verifică…
+chip	Cip
+clockNotSet	nesetat
+copyAsk	Copiați firmware-ul care rulează ({0}, versiunea {1}) peste celălalt slot ({2})? Ce conține acum este șters. Nodul nu repornește.
+copyDone	Copiat: ambele sloturi conțin acum versiunea {0}.
+copyRunning	Se copiază… {0}%
+copySlot	Copiază {0} în {1}
+cores	nuclee
+cpuFreq	Frecvența CPU
+dns	DNS
+flash	Flash
+flashAllocated	Rezervat de partiții
+flashEncryption	Criptare flash
+flashFree	liber
+flashTotal	Total
+flashUnallocated	Neatribuit niciunei partiții
+githubAvailable	Versiunea {0} este disponibilă.
+githubDownloading	Se descarcă firmware-ul de pe GitHub… {0}%
+githubUpToDate	Aceasta este deja cea mai nouă versiune de pe GitHub.
+githubUpdateNote	Descarcă imaginea de sine stătătoare a aplicației publicată de release-ul GitHub (niciodată bootloaderul) și o instalează la fel ca un fișier încărcat. Încărcarea manuală de mai sus funcționează exact ca înainte - este un adaos, nu un înlocuitor, pentru un nod fără motiv să ajungă la Internet.
+githubUpdateTitle	Verifică GitHub pentru o versiune nouă
+githubVerifying	Se verifică imaginea față de hash-ul release-ului…
+installUpdate	Descarcă și instalează
+installing	Se instalează…
+layout	Structură
+localTime	Ora locală
+memory	Memorie liberă
+navAbout	Despre
+navHelp	Ajutor
+navOverview	Prezentare generală
+navWifi	Wi-Fi
+nodeName	Nume
+none	niciunul
+ovFlash	Memorie flash
+ovHardware	Hardware
+ovNetwork	Rețea
+ovNode	Acest nod
+ovTime	Data și ora
+ownNetwork	rețea proprie
+psram	PSRAM
+radios	Radiouri
+reasonOther	altul
+removeNetwork	Elimină
+resetReason	Ultima repornire
+secureBoot	Secure boot
+timeFromNtp	Server de timp de pe Internet (sincronizat)
+timeManual	setat manual
+timeNtpWaiting	se așteaptă serverul de timp de pe Internet
+timeSource	Sursa timpului
+timeZone	Fus orar
+aboutDescription	un nod din familia EH3D pentru cutia unei mașini Bungard CCD: leagă RS-232 al unității de comandă de rețea, îi arată lămpile, liniile și axul și păstrează setările, utilizatorii și firmware-ul nodului.
+aboutIndependent	Proiectul este independent: nu este realizat, avizat sau susținut de Bungard Elektronik.
+ovMachineLink	Legătura cu mașina
+stClient	Program
+wifiMoved	Rețelele Wi-Fi sunt pe pagina lor, Wi-Fi.
+navHelpTab_overview	Rezumat
+help_overview_title	Rezumat
+help_overview_text	Acest panou configurează și supraveghează nodul. Rezumatul arată ce este nodul și cum este; Starea urmărește ce face pe măsură ce se întâmplă; paginile Rețea și Wi-Fi conțin modul în care este conectat; Utilizatori, Firmware și Jurnal sunt pentru sistem.\n\nTotul este salvat în nod și se aplică atunci când bara de jos spune aceasta. O modificare care necesită repornire o spune înainte să părăsiți pagina.
+navHelpTab_status	Stare
+help_status_title	Stare
+help_status_text	Starea arată legătura de comandă, lămpile și liniile unității de comandă, axul și coada, reîmprospătate în fiecare secundă. Butonul Oprește oprește mașina acum: coada este golită, iar axul și acționările se opresc. Poate doar să facă mașina mai sigură.\n\nDacă nodul nu răspunde, pagina spune aceasta și continuă să întrebe.
+navHelpTab_machine	Mașină
+help_machine_title	Mașină
+help_machine_text	Mașină conține ce leagă nodul de unitatea de comandă: pinii și viteza serială, tokenul de acces al legăturii de comandă, portul și limitele cozii. O modificare se aplică după salvare; unele necesită repornire, iar bara o spune.\n\nTokenul este doar pentru scriere: nu mai este afișat niciodată. Un program care se conectează are nevoie de el; fără token, nodul refuză să miște mașina.
+navHelpTab_network	Rețea
+help_network_title	Rețea
+help_network_text	Rețea arată cum este conectat acum nodul și îi setează numele și adresa: DHCP sau o adresă fixă. Pe o placă cu cablu alegeți cablul sau Wi-Fi drept cale de intrare.\n\nO schimbare de adresă se aplică după repornire. Dacă pierdeți nodul după o schimbare, propriul punct de acces (când este activat) sau cablul tot ajung la panou.
+navHelpTab_wifi	Wi-Fi
+help_wifi_title	Wi-Fi
+help_wifi_text	Wi-Fi setează rețeaua la care se conectează nodul și punctul de acces pe care îl poate deschide. Sub rețeaua principală puteți adăuga până la trei rețele de rezervă: dacă cea principală se pierde, nodul le încearcă pe rând, ca să nu cadă din rețea. Căutarea listează rețelele din raza de acțiune.\n\nParolele sunt doar pentru scriere: panoul nu le mai arată niciodată, iar un câmp lăsat gol păstrează valoarea stocată.
+navHelpTab_users	Utilizatori
+help_users_title	Utilizatori
+help_users_text	Administratorii schimbă setările; observatorii doar privesc. Fiecare persoană are un nume și o parolă. Un administrator adaugă persoane, schimbă parole și le elimină; ultimul administrator nu poate fi eliminat.\n\nPrea multe parole greșite blochează un nume pentru o vreme. Propria parolă se schimbă în aceeași pagină.
+navHelpTab_update	Firmware
+help_update_title	Firmware
+help_update_text	Firmware-ul poate fi actualizat în trei feluri. De pe GitHub: nodul caută cel mai nou release al propriului proiect, îl descarcă, verifică dacă hash-ul coincide cu cel publicat de release și îl instalează în celălalt slot. Prin încărcarea unui fișier .bin al acestui proiect. Sau trecând la celălalt slot, care încă are versiunea ce rula înainte.\n\nCopierea scrie firmware-ul care rulează în celălalt slot, astfel încât ambele să aibă aceeași versiune (o copie la care să reveniți). După o actualizare nodul repornește.
+navHelpTab_log	Jurnal
+help_log_title	Jurnal
+help_log_text	Jurnalul este ceea ce spune nodul în timp ce lucrează: rețeaua, legătura de comandă, actualizările și erorile. Este păstrat în memorie, deci începe gol după o repornire.\n\nCopiați-l când cereți ajutor: conține ce s-a întâmplat, în ordine.
+navHelpTab_system	Sistem
+help_system_title	Sistem
+help_system_text	Sistem conține repornirea nodului și resetarea la setările din fabrică, care șterge toate setările și toți utilizatorii (tastați RESET pentru a confirma). Reporniți mai întâi dacă vreți doar să vedeți dacă o problemă dispare.\n\nO repornire oprește legătura mașinii pentru un moment: faceți-o când nu rulează nicio lucrare.
+reasonPower_on	pornire alimentare
+reasonSoftware	repornire din panou
+reasonCrash	CRASH
+reasonWatchdog	watchdog
+reasonBrownout	tensiune scăzută
+reasonDeep_sleep	somn profund
+e_bad_json	Cererea nu este JSON valid.
+e_bad_url	Adresa actualizării nu este cea oficială.
+e_checksum_mismatch	Firmware-ul descărcat nu corespunde sumei de control a release-ului: a fost refuzat și nimic nu s-a schimbat.
+e_client_init	Descărcarea nu a putut fi pornită.
+e_connect_failed	Descărcarea nu s-a conectat: verificați rețeaua nodului și încercați din nou.
+e_no_asset	Release-ul nu are firmware pentru această placă.
+e_no_asset_for_board	Există un release mai nou, dar nu are imagine firmware pentru această placă.
+e_no_checksum	Release-ul nu conține un fișier de sumă de control lângă imaginea firmware, deci nu este instalat.
+e_no_memory	Nodul a rămas fără memorie.
+e_no_release	Nu a fost găsit niciun release.
+e_no_slot	Nu există alt slot în care să se copieze.
+e_no_task	Actualizarea nu a putut fi pornită (niciun task liber).
+e_not_newer	Acel firmware nu este mai nou decât cel care rulează.
+e_ota_busy	O instalare de pe GitHub rulează deja.
+e_read_error	Descărcarea a fost întreruptă la citire.
+e_read_failed	Slotul care rulează nu a putut fi citit.
+e_short_read	Descărcarea s-a încheiat înainte ca fișierul să fie complet.
+e_source_invalid	Firmware-ul care rulează nu a putut fi verificat, deci nu a fost copiat.
+e_up_to_date	Firmware-ul este deja actualizat.
+e_version_mismatch	Versiunea fișierului nu este cea a release-ului.

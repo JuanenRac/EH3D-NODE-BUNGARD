@@ -1,0 +1,435 @@
+# Nederlands (nl): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+appName	EH3D-node Bungard
+grpNode	Node
+grpNetwork	Netwerk
+grpSystem	Systeem
+navMenu	Hoofdmenu
+navStatus	Status
+navMachine	Machine
+navUpdate	Firmware
+navLog	Logboek
+skip	Naar de inhoud
+themeToLight	Licht thema
+themeToDark	Donker thema
+showShort	Tonen
+e_other	De node antwoordde met een fout: {0}
+statusNoControl	Deze pagina toont de status van de node. Het enige wat het paneel met de machine doet, is hem stoppen: bewegen kan alleen via de geauthenticeerde verbinding van een programma (de besturingsverbinding), nooit vanaf hier.
+stLost	Geen antwoord van de node
+stLink	Besturingsverbinding
+stLinkUp	Verbinding actief
+stLinkDown	Verbinding verbroken
+stClientYes	Programma verbonden
+stClientNo	Geen programma verbonden
+stAuthYes	Aangemeld
+stAuthNo	Niet aangemeld
+stArmed	Machine geactiveerd
+stDisarmed	Machine niet geactiveerd
+stQueue	Bytes in de wachtrij
+stQueueBytes	Wachtrij
+stSent	Verzonden bytes
+stLamps	Machinelampjes
+stLampsHelp	De vijf lampjes van de besturingseenheid, live uitgelezen. HOME X, Y en Z branden wanneer een as op zijn eindschakelaar staat.
+lampHomeX	HOME X
+lampHomeY	HOME Y
+lampHomeZ	HOME Z
+lampEnable	ENABLE
+lampTool	TOOL
+lampOn	aan
+lampOff	uit
+stLines	Lijnen van de besturingseenheid
+stLinesHelp	De lijnen die de besturingseenheid naar de node terugstuurt. DCD en RI melden de fout- en gereedschapstoestand.
+lineCts	CTS
+lineDsr	DSR
+lineRi	RI
+lineDcd	DCD
+stSpindle	Spindel
+stSpindleBar	Toerental t.o.v. het maximum
+spForward	Vooruit
+spReverse	Achteruit
+spStopped	Gestopt
+spMax	Maximaal toerental: {0} rpm
+spNoSpindle	Er is geen spindeltoerental ingesteld (maximum 0 rpm).
+stNode	Node
+mRestartNote	Wijzigingen in deze instellingen worden toegepast na een herstart van de node.
+mLink	Besturingsverbinding
+mLinkIntro	De TCP-poort waarmee een programma verbinding maakt om de machine aan te sturen. Elke verbinding moet inloggen met het toegangstoken.
+fPort	TCP-poort
+fPortHint	Van 1 tot 65535.
+fIdle	Time-out bij inactiviteit (seconden)
+fIdleHint	Een geactiveerd programma dat zo lang niets verstuurt, wordt gestopt: de wachtrij wordt geleegd en de aandrijvingen worden uitgeschakeld. 0,5 tot 60.
+fQueue	Grootte van de wachtrij (bytes)
+fQueueHint	Hoeveel bytes de node bewaart voordat hij ze naar de besturingseenheid stuurt. 1024 tot 4194304.
+fFinish	Lopende taak afmaken als het programma wegvalt
+fFinishHint	Uit (aanbevolen): de node stopt meteen, zoals altijd. Aan: als het programma of de server stilvalt of wegvalt, voert de node de bytes die al in zijn wachtrij staan helemaal uit (het programma snijdt de taak zo dat het einde een veilige plek is) en schakelt dan de spindel en de aandrijvingen uit.
+finishWarn	De machine blijft zelfstandig bewegen, zonder dat iemand verbonden is, tot de wachtrij leeg is of de onderstaande tijd verstreken is. Zet dit alleen aan met gecontroleerd gereedschap en werkstuk, en weet waar de stopknop zit.
+fDrain	Langste tijd zelfstandig (seconden)
+fDrainHint	Na zo lang stopt de node alles wat er nog is. 10 tot 3600.
+stStop	Machine stoppen
+stStopHint	Leegt de wachtrij en schakelt de spindel en de aandrijvingen uit, of er nu een programma verbonden is of niet.
+stStopped	Gestopt.
+stDraining	Het programma is weggevallen en de node maakt de taak af die hij heeft. Hij neemt niets nieuws aan; gebruik de stopknop om hem nu te beëindigen.
+fToken	Toegangstoken
+fTokenHint	Wordt naar de node geschreven en nooit meer getoond. Typ een nieuw token of genereer er een en kies dan Opslaan.
+tokenIsSet	Er is een token ingesteld
+tokenNotSet	Er is geen token ingesteld
+tokenWillChange	Er wordt een nieuw token opgeslagen
+tokenWillClear	Het token wordt verwijderd
+tokenShown	Kopieer het nu: na het opslaan wordt het niet meer getoond.
+tokenSet	Token instellen
+tokenGenerate	Genereer er een
+tokenKeep	Huidig token behouden
+tokenClear	Token wissen
+fAllowOpen	Besturing zonder token toestaan
+fAllowOpenHint	Alleen voor een testopstelling.
+allowOpenWarn	Iedereen op het netwerk kan verbinden en de machine bewegen, zonder token. Zet dit alleen aan op een testopstelling, nooit op een netwerk dat je deelt.
+noTokenNote	Zonder token weigert de node bestuurd te worden. Stel er een in voordat je de machine gebruikt.
+mUart	Besturingseenheid (RS-232)
+mUartIntro	De pinnen die naar de RS-232-niveauomzetter gaan en via die naar de connector van de besturingseenheid. Het zijn GPIO-nummers van 0 tot 48.
+fTx	TX-pin (DB9 pin 3)
+fRx	RX-pin (DB9 pin 2)
+fRxHint	De besturingseenheid stuurt niets op deze lijn; -1 laat hem vrij.
+fDtr	DTR-pin (DB9 pin 4)
+fDcd	DCD-pin (DB9 pin 1)
+fRi	RI-pin (DB9 pin 9)
+fCts	CTS-pin
+fDsr	DSR-pin
+fNoneHint	-1: niet aangesloten.
+fInverted	De niveauomzetter inverteert de lijnen
+fInvertedHint	Een MAX3232 inverteert: een hoog niveau op de pin is een negatieve RS-232-spanning. Zet dit alleen uit voor een omzetter die niet inverteert.
+mUartWiring	De node neemt de plaats van de pc in: hij is het DTE-uiteinde van de kabel, en de kabel is dezelfde rechte DB9-kabel die de pc met de besturingseenheid verbond. Sluit nooit een ESP32-pin op de machine aan zonder RS-232-niveauomzetter: de pinnen zijn 3,3 V en RS-232 is plus en min 12 V. TX gaat naar DB9 pin 3, DTR naar pin 4, DCD komt van pin 1, RI van pin 9 en massa naar pin 5.
+mLamps	Machinelampjes
+mLampsIntro	De node leest de lampjes van de besturingseenheid (HOME X, HOME Y, HOME Z, ENABLE, TOOL), zodat hij weet welke as in de beginstand staat. -1 laat een lampje ongelezen.
+fHomeX	HOME X-pin
+fHomeY	HOME Y-pin
+fHomeZ	HOME Z-pin
+fEnable	ENABLE-pin
+fTool	TOOL-pin
+fActiveLow	Een brandend lampje trekt zijn pin laag
+fActiveLowHint	Aan bij de gebruikelijke NPN-buffer: een brandend lampje zet de transistor aan en trekt de pin laag.
+mLampsWiring	Lees de anode van elk lampje via een NPN-transistor, met de basis op een weerstand van 10 kΩ. Zet nooit de led van een optocoupler rechtstreeks over het lampje: de doorlaatspanning zou het lampje doven.
+mSpindle	Spindel
+mSpindleIntro	Het toerentalsignaal en de looplijnen voor de frequentieregelaar (VFD) van de spindel. Stel het maximale toerental in op 0 voor een node zonder spindel.
+fMaxRpm	Maximaal toerental (rpm)
+fMaxRpmHint	Het toerental bij 10 V (100 % PWM); een hogere vraag wordt daartoe beperkt. 0 tot 60000.
+fPwmHz	PWM-frequentie (Hz)
+fPwmHzHint	100 tot 40000. Het filter van de omzettermodule moet erbij passen.
+fPwmPin	Toerental-PWM-pin
+fFwdPin	Pin vooruit draaien
+fRevPin	Pin achteruit draaien
+fRunPin	Pin draaien
+fDirPin	Richtingspin (aan voor achteruit)
+fPwmInverted	PWM omkeren
+fDirSingle	Eén looplijn en één richtingslijn
+fDirSingleHint	Aan: de eerste pin is de looplijn en de tweede de richtingslijn. Uit: één lijn voor vooruit en één voor achteruit, nooit beide tegelijk.
+fOutLow	Loop- en richtingslijnen zijn actief laag
+fSettle	Rusttijd tussen richtingen (seconden)
+fSettleHint	De spindel kan pas worden omgekeerd als hij zo lang gestopt is geweest. 0 tot 60.
+mSpindleWiring	Voer de PWM-pin naar een PWM-naar-0-10-V-omzettermodule met eigen voeding; de uitgang gaat naar de toerentalingang van de regelaar (VI en ACM bij een Huanyang-regelaar). De looplijnen sturen de FOR- en REV-ingangen van de regelaar aan via relaiscontacten of optocouplers, nooit rechtstreeks vanaf de pin: de uitgangen zijn 3,3 V en een paar milliampère. Houd een gemeenschappelijke massa tussen de node, de omzettermodule en de toerentalingang van de regelaar.
+mSpindleSafety	Alle drie de uitgangen zijn uit bij het opstarten, bij elke stop van de machine en wanneer het toerental 0 is. Controleer de eigen instellingen van de regelaar (besturing vanaf de klemmen, analoge toerentalingang, frequentiegrenzen) aan de hand van het typeplaatje van de spindel voor de eerste start: een verkeerde frequentie kan een hoogtoerige spindel beschadigen.
+netNow	Huidige verbinding
+netTitle	Adres
+hostnameHint	leeg: de node kiest een naam uit zijn id
+netRestartNote	Een wijziging van de hostnaam of van de verbinding wordt toegepast na een herstart van de node.
+apNote	Het installatietoegangspunt is het eigen wifi-netwerk van de node, om hem vanaf een telefoon te bereiken als hij geen adres op jouw netwerk heeft.
+setupWifiHelp	De node heeft geen kabel. Geef het wifi-netwerk waarmee hij nu moet verbinden, of laat het leeg en gebruik het eigen installatienetwerk van de node, waarvan het wachtwoord de installatiecode is (je kunt het later wijzigen onder Netwerk).
+rolesHelp	Beheerders kunnen alles wijzigen. Kijkers zien de status en de instellingen, maar wijzigen niets.
+slotVersion	versie {0}
+slotsUnknown	De node heeft zijn firmwaresloten niet gemeld.
+chooseFirst	Kies eerst een firmwarebestand.
+p_out_of_range	buiten bereik
+p_duplicate_pin	deze pin wordt twee keer gebruikt
+p_reserved_pin	gereserveerd door het bord
+p_not_a_number	geen geheel getal
+e_machine_armed	Een programma heeft de machine geactiveerd: er kan niets worden opgeslagen, herstart of bijgewerkt totdat het deactiveert.
+staError	Laatste wifi-fout
+se_failed	de verbinding is mislukt
+se_network_not_found	het netwerk is niet gevonden
+se_wrong_password	het wachtwoord is geweigerd
+navNetwork	Netwerk
+navUsers	Gebruikers
+navSystem	Systeem
+language	Taal
+signOut	Afmelden
+loading	Laden…
+unreachable	De node antwoordt niet.
+signIn	Aanmelden
+rememberMe	Aangemeld blijven in deze browser
+rememberUser	Mijn gebruikersnaam onthouden op dit apparaat
+loginNote	Alleen de gebruikersnaam kan worden onthouden, en alleen als je het vakje aanvinkt. Het wachtwoord wordt, als je dat wilt, alleen bewaard door de eigen wachtwoordbeheerder van je browser of systeem; het paneel slaat het nooit op.
+user	Gebruiker
+password	Wachtwoord
+showPassword	Wachtwoord tonen
+setupTitle	Deze node instellen
+setupCode	Installatiecode
+adminName	Naam van de beheerder
+createAdmin	Beheerder aanmaken
+setupWifi	Installatie-wifi van deze node
+setupIntro	Deze node heeft nog geen gebruiker. Voer de installatiecode in die de node elke 15 seconden op zijn USB-console toont, en kies de beheerder.
+setupWifiTitle	Wifi-netwerk waarmee de node moet verbinden (optioneel)
+setupWifiOptionalTitle	Wifi-netwerk (optioneel)
+setupWifiOptionalHelp	Dit bord heeft een Ethernet-poort: laat dit leeg als er een kabel is aangesloten. Om de node in plaats daarvan via wifi te gebruiken (bijvoorbeeld op een testopstelling zonder kabel), geef hier het netwerk waarmee hij moet verbinden. Als hij zonder adres blijft, opent hij na 90 seconden opnieuw zijn installatienetwerk zodat hij bereikbaar is.
+save	Opslaan
+saveRestart	Opslaan en herstarten
+restart	Herstarten
+discard	Wijzigingen negeren
+saved	Opgeslagen.
+savedRestart	Opgeslagen. Herstart de node om het toe te passen.
+unsaved	Er zijn niet-opgeslagen wijzigingen.
+restarting	De node herstart…
+adminOnly	Alleen een beheerder kan dit wijzigen.
+yes	ja
+no	nee
+add	Toevoegen
+delete	Verwijderen
+refresh	Vernieuwen
+working	Bezig…
+confirmAsk	Weet je het zeker?
+nodeId	Id
+firmware	Firmware
+uptime	Actief sinds
+address	Adres
+netmask	Subnetmasker
+gateway	Gateway
+mac	MAC
+link	Verbinding
+linkUp	actief
+linkDown	niet actief
+nodeTitle	Node
+uplink	Verbinding met het netwerk
+uplinkEthernet	Ethernetkabel (PoE)
+uplinkWifi	Wifi (maakt verbinding met een ander netwerk)
+dhcp	Adres automatisch ophalen (DHCP)
+dns1	DNS-server 1
+dns2	DNS-server 2
+hostname	Hostnaam
+wifiAp	Toegangspunt (wifi die deze node aanbiedt)
+apEnable	Een wifi-netwerk aanbieden
+ssid	Netwerknaam (SSID)
+security	Beveiliging
+secOpen	open (geen wachtwoord)
+secWpa2	WPA2
+secWpa3	WPA3
+secWpa2Wpa3	WPA2 + WPA3
+wifiPassword	Wifi-wachtwoord (8 tot 63 tekens)
+passwordSet	er is een wachtwoord opgeslagen; laat leeg om het te behouden
+hidden	Netwerknaam verbergen
+wifiChannel	Kanaal
+channelAuto	automatisch (1, 6 of 11 per node)
+channelNow	Deze node zou kanaal {0} gebruiken.
+wifiSta	Wifi-station (deze node maakt verbinding met een wifi-netwerk)
+staEnable	Verbinden met een wifi-netwerk
+scanNetworks	Netwerken zoeken
+scanning	Zoeken…
+noNetworks	Er is geen netwerk gehoord.
+scanNote	Tijdens het zoeken kan het eigen toegangspunt van de node zijn clients even verliezen.
+useNetwork	Gebruiken
+signal	signaal
+wiredNote	Op de kabel vraagt de node zijn adres via DHCP, tenzij je het hier vastzet. Zijn eigen wifi-netwerk, als je het behoudt, is een apart netwerk (192.168.4.x) om de node vanaf een telefoon te bereiken; het is niet verbonden met het bekabelde netwerk. Wijzigingen worden toegepast na een herstart.
+staNote	De node heeft geen kabel: geef hem het wifi-netwerk van je huis of locatie. Als je het station uitgeschakeld laat, gebruik dan zijn eigen toegangspunt.
+noWifiWarn	De node heeft geen kabel: laat minstens een van de twee, het toegangspunt of het station, ingeschakeld, anders is hij niet bereikbaar.
+ethernetMissing	De Ethernet-chip antwoordt niet (zie de aansluithandleiding).
+station	Wifi-station
+notConnected	niet verbonden
+apActive	Toegangspunt
+apClients	clients
+channel	kanaal
+setupNetwork	installatienetwerk
+usersTitle	Gebruikers van dit paneel
+role	Rol
+roleAdmin	beheerder
+roleViewer	kijker (alleen lezen)
+addUser	Gebruiker toevoegen
+newPassword	Nieuw wachtwoord (8 tekens of meer)
+setPassword	Wachtwoord instellen
+myAccount	Mijn wachtwoord
+currentPassword	Huidig wachtwoord
+changePassword	Mijn wachtwoord wijzigen
+passwordChanged	Wachtwoord gewijzigd. Meld je opnieuw aan.
+you	jij
+updateTitle	De firmware bijwerken
+updateHelp	Kies het firmwarebestand (een .bin gebouwd voor dit project, niet de samengevoegde image). Het wordt gecontroleerd voordat het wordt gebruikt, en als de nieuwe versie niet opstart, gaat de node vanzelf terug naar de vorige.
+chooseFile	Firmwarebestand
+upload	Uploaden en installeren
+uploading	Uploaden… {0}%
+updateDone	Versie {0} geïnstalleerd. De node herstart nu.
+slot	Draait vanaf
+slotsTitle	Firmwaresloten
+slotsHelp	De node heeft twee firmwaresloten, ota_0 en ota_1. Een update wordt geschreven naar het slot dat niet draait. Hier kun je op elk moment het andere starten - om terug te gaan naar de vorige versie of vooruit naar de zojuist geïnstalleerde. De instellingen blijven behouden.
+slotRunning	draait nu
+slotNextBoot	start als volgende
+slotEmpty	leeg - geen firmware
+switchSlot	{0} starten
+switchSlotNone	Het andere slot bevat geen firmware
+switchAsk	De node herstarten en {0} (versie {1}) starten?
+logTitle	Logboek van de node
+copyLog	Logboek kopiëren
+copied	Gekopieerd
+copyFailed	Kopiëren mislukt - selecteer de tekst en kopieer hem met de hand
+maintenance	Onderhoud
+rebootNode	De node herstarten
+factoryTitle	Fabrieksinstellingen
+factoryHelp	Wist elke instelling en elke gebruiker; de node start opnieuw in de installatie. Typ RESET om te bevestigen.
+author	Auteur
+license	Licentie
+e_unauthorized	Je sessie is beëindigd. Meld je opnieuw aan.
+e_wrong_credentials	Onjuiste gebruiker of wachtwoord.
+e_too_many_attempts	Te veel pogingen. Wacht even.
+e_wrong_code	De installatiecode is onjuist.
+e_invalid_name	De naam is niet geldig (3 tot 32 tekens: a tot z, 0 tot 9, . _ -).
+e_weak_password	Het wachtwoord moet 8 tot 64 tekens hebben.
+e_exists	Die gebruiker bestaat al.
+e_not_found	Niet gevonden.
+e_too_many_users	Er kunnen maximaal vier gebruikers zijn.
+e_last_admin	De laatste beheerder kan niet worden verwijderd of gedegradeerd.
+e_wrong_password	Het huidige wachtwoord is onjuist.
+e_invalid_role	De rol is niet geldig.
+e_forbidden	Dat mag je niet doen.
+e_storage	Het flashgeheugen kon niet worden beschreven.
+e_invalid	Sommige waarden zijn niet geldig; ze zijn gemarkeerd in het formulier.
+e_not_json	Het verzoek is niet begrepen.
+e_too_large	Het verzoek is te groot.
+e_bad_size	De bestandsgrootte is niet geldig voor een firmware.
+e_not_firmware	Dat bestand is geen ESP32-firmware.
+e_image_invalid	De firmware-image is beschadigd of onvolledig.
+e_wrong_firmware	Die firmware hoort bij een ander project.
+e_upload_interrupted	Het uploaden is onderbroken.
+e_upload_stalled	Het uploaden bleef hangen en is gestopt: probeer het opnieuw.
+e_network	De node kon niet worden bereikt.
+e_setup_required	Stel eerst de node in: maak zijn beheerder aan.
+e_confirm_required	Bevestiging is vereist: stuur het woord RESET.
+e_bad_host	Dat adres is niet geldig.
+e_invalid_time	Die tijd is niet geldig.
+e_would_lock_out	Die lijst zou je buitensluiten van het paneel: voeg het netwerk toe dat je nu gebruikt.
+e_slot_empty	Het andere slot bevat geen firmware.
+e_ota_begin	De update kon niet beginnen met schrijven.
+e_ota_boot	De nieuwe firmware kon niet worden gekozen om als volgende te starten.
+e_ota_write	De update kon niet naar flash worden geschreven.
+e_no_partition	Er is geen vrij slot voor de update.
+e_outside_network	Dit netwerk mag het paneel niet gebruiken: gebruik het netwerk van het huis of de VPN.
+e_wifi_busy	De radio is bezig; probeer het zo opnieuw.
+e_scan_failed	Het zoeken is mislukt.
+e_wifi_unavailable	Wifi kon niet worden gestart.
+p_required	verplicht
+p_invalid	ongeldig
+p_range	buiten bereik
+p_too_long	te lang
+p_conflict	al in gebruik
+p_reserved	gereserveerd door het bord
+p_invalid_key	8 tot 63 afdrukbare tekens
+p_outside_subnet	buiten het subnet
+addBackupNetwork	Reservenetwerk toevoegen
+appIdf	ESP-IDF (firmware)
+backupNetworksHint	Worden op volgorde geprobeerd als het netwerk hierboven een tijd niet kan worden bereikt.
+backupNetworksTitle	Reservenetwerken
+board	Bord
+bootloaderIdf	ESP-IDF (bootloader)
+brownoutLevel	Niveau van de brown-outdetector
+checkGithub	Nu controleren
+checking	Controleren…
+chip	Chip
+clockNotSet	niet ingesteld
+copyAsk	De draaiende firmware ({0}, versie {1}) kopiëren over het andere slot ({2})? Wat daar nu in staat, wordt gewist. De node herstart niet.
+copyDone	Gekopieerd: beide sloten bevatten nu versie {0}.
+copyRunning	Kopiëren… {0}%
+copySlot	{0} naar {1} kopiëren
+cores	kernen
+cpuFreq	CPU-frequentie
+dns	DNS
+flash	Flash
+flashAllocated	Gereserveerd door de partities
+flashEncryption	Flashversleuteling
+flashFree	vrij
+flashTotal	Totaal
+flashUnallocated	Aan geen enkele partitie toegewezen
+githubAvailable	Versie {0} is beschikbaar.
+githubDownloading	Firmware downloaden van GitHub… {0}%
+githubUpToDate	Dit is al de nieuwste versie op GitHub.
+githubUpdateNote	Downloadt de zelfstandige app-image die de release van GitHub zelf publiceert (nooit de bootloader) en installeert die op dezelfde manier als een geüpload bestand. Het handmatig uploaden hierboven werkt precies als voorheen - dit is een aanvulling, geen vervanging, voor een node die geen reden heeft om het internet te bereiken.
+githubUpdateTitle	GitHub controleren op een nieuwe versie
+githubVerifying	De image controleren met de hash van de release…
+installUpdate	Downloaden en installeren
+installing	Installeren…
+layout	Indeling
+localTime	Lokale tijd
+memory	Vrij geheugen
+navAbout	Over
+navHelp	Help
+navOverview	Overzicht
+navWifi	Wifi
+nodeName	Naam
+none	geen
+ovFlash	Flashgeheugen
+ovHardware	Hardware
+ovNetwork	Netwerk
+ovNode	Deze node
+ovTime	Datum en tijd
+ownNetwork	eigen netwerk
+psram	PSRAM
+radios	Radio's
+reasonOther	overig
+removeNetwork	Verwijderen
+resetReason	Laatste herstart
+secureBoot	Secure boot
+timeFromNtp	Tijdserver op internet (gesynchroniseerd)
+timeManual	met de hand ingesteld
+timeNtpWaiting	wachten op de tijdserver op internet
+timeSource	Tijdbron
+timeZone	Tijdzone
+aboutDescription	een node van de EH3D-familie voor de kast van een Bungard CCD-machine: hij verbindt de RS-232 van de besturingseenheid met het netwerk, toont de lampjes, lijnen en de spindel ervan en bewaart de instellingen, gebruikers en firmware van de node.
+aboutIndependent	Het project is onafhankelijk: het is niet gemaakt, goedgekeurd of ondersteund door Bungard Elektronik.
+ovMachineLink	Machineverbinding
+stClient	Programma
+wifiMoved	De wifi-netwerken staan op hun eigen pagina, Wifi.
+navHelpTab_overview	Overzicht
+help_overview_title	Overzicht
+help_overview_text	Dit paneel stelt de node in en bewaakt hem. Het Overzicht toont wat de node is en hoe het ermee gaat; Status volgt wat hij doet terwijl het gebeurt; de pagina's Netwerk en Wifi bevatten hoe hij verbonden is; Gebruikers, Firmware en Logboek zijn voor het systeem.\n\nAlles wordt in de node opgeslagen en toegepast wanneer de balk onderaan dat zegt. Een wijziging die een herstart nodig heeft, zegt dat voordat je de pagina verlaat.
+navHelpTab_status	Status
+help_status_title	Status
+help_status_text	Status toont de besturingsverbinding, de lampjes en lijnen van de besturingseenheid, de spindel en de wachtrij, elke seconde ververst. De knop Stop stopt de machine nu: de wachtrij wordt geleegd en de spindel en de aandrijvingen gaan uit. Hij kan de machine alleen veiliger maken.\n\nAls de node niet antwoordt, zegt de pagina dat en blijft hij vragen.
+navHelpTab_machine	Machine
+help_machine_title	Machine
+help_machine_text	Machine bevat wat de node aan de besturingseenheid bindt: de seriële pinnen en snelheid, het toegangstoken van de besturingsverbinding, de poort en de grenzen van de wachtrij. Een wijziging wordt toegepast na opslaan; sommige hebben een herstart nodig en de balk zegt dat.\n\nHet token is alleen schrijfbaar: het wordt nooit meer getoond. Een programma dat verbindt, heeft het nodig; zonder token weigert de node de machine te bewegen.
+navHelpTab_network	Netwerk
+help_network_title	Netwerk
+help_network_text	Netwerk toont hoe de node nu verbonden is en stelt zijn naam en adres in: DHCP of een vast adres. Op een bord met kabel kies je de kabel of wifi als weg naar binnen.\n\nEen adreswijziging wordt toegepast na een herstart. Als je de node na een wijziging kwijtraakt, is het paneel nog steeds bereikbaar via zijn eigen toegangspunt (als dat aan staat) of de kabel.
+navHelpTab_wifi	Wifi
+help_wifi_title	Wifi
+help_wifi_text	Wifi stelt het netwerk in waarmee de node verbindt en het toegangspunt dat hij kan openen. Onder het hoofdnetwerk kun je tot drie reservenetwerken toevoegen: als het hoofdnetwerk wegvalt, probeert de node ze om de beurt, zodat hij niet van het netwerk valt. Zoeken toont de netwerken binnen bereik.\n\nDe wachtwoorden zijn alleen schrijfbaar: het paneel toont ze nooit meer, en een leeg veld behoudt het opgeslagen wachtwoord.
+navHelpTab_users	Gebruikers
+help_users_title	Gebruikers
+help_users_text	Beheerders wijzigen instellingen; kijkers kijken alleen. Elke persoon heeft een naam en een wachtwoord. Een beheerder voegt mensen toe, wijzigt wachtwoorden en verwijdert ze; de laatste beheerder kan niet worden verwijderd.\n\nTe veel onjuiste wachtwoorden blokkeren een naam een tijdje. Je eigen wachtwoord wijzig je op dezelfde pagina.
+navHelpTab_update	Firmware
+help_update_title	Firmware
+help_update_text	De firmware kan op drie manieren worden bijgewerkt. Vanaf GitHub: de node zoekt de nieuwste release van zijn eigen project, downloadt die, controleert of de hash overeenkomt met wat de release publiceert, en installeert hem in het andere slot. Door een .bin-bestand van dit project te uploaden. Of door over te schakelen naar het andere slot, dat nog de eerder draaiende versie bevat.\n\nKopiëren schrijft de draaiende firmware naar het andere slot, zodat beide dezelfde versie bevatten (een kopie om op terug te vallen). Na een update herstart de node.
+navHelpTab_log	Logboek
+help_log_title	Logboek
+help_log_text	Het logboek is wat de node zegt terwijl hij werkt: het netwerk, de besturingsverbinding, de updates en de fouten. Het wordt in het geheugen bewaard, dus het is na een herstart leeg.\n\nKopieer het als je om hulp vraagt: het bevat wat er gebeurd is, op volgorde.
+navHelpTab_system	Systeem
+help_system_title	Systeem
+help_system_text	Systeem bevat de herstart van de node en de fabrieksinstellingen, die elke instelling en elke gebruiker wissen (typ RESET om te bevestigen). Herstart eerst als je alleen wilt zien of een probleem verdwijnt.\n\nEen herstart onderbreekt de verbinding van de machine even: doe het als er geen taak loopt.
+reasonPower_on	inschakelen
+reasonSoftware	herstart vanuit het paneel
+reasonCrash	CRASH
+reasonWatchdog	watchdog
+reasonBrownout	lage spanning
+reasonDeep_sleep	diepe slaap
+e_bad_json	Het verzoek is geen geldige JSON.
+e_bad_url	Het adres van de update is niet het officiële.
+e_checksum_mismatch	De gedownloade firmware komt niet overeen met de controlesom van de release: hij is geweigerd en er is niets gewijzigd.
+e_client_init	Het downloaden kon niet worden gestart.
+e_connect_failed	Het downloaden maakte geen verbinding: controleer het netwerk van de node en probeer het opnieuw.
+e_no_asset	De release heeft geen firmware voor dit bord.
+e_no_asset_for_board	Er is een nieuwere release, maar die heeft geen firmware-image voor dit bord.
+e_no_checksum	De release heeft naast de firmware-image geen controlesombestand, dus hij wordt niet geïnstalleerd.
+e_no_memory	De node had geen geheugen meer.
+e_no_release	Er is geen release gevonden.
+e_no_slot	Er is geen ander slot om naar te kopiëren.
+e_no_task	De update kon niet worden gestart (geen vrije taak).
+e_not_newer	Die firmware is niet nieuwer dan de draaiende.
+e_ota_busy	Er loopt al een installatie vanaf GitHub.
+e_read_error	Het downloaden werd tijdens het lezen onderbroken.
+e_read_failed	Het draaiende slot kon niet worden gelezen.
+e_short_read	Het downloaden eindigde voordat het bestand compleet was.
+e_source_invalid	De draaiende firmware kon niet worden geverifieerd, dus hij is niet gekopieerd.
+e_up_to_date	De firmware is al up-to-date.
+e_version_mismatch	De versie van het bestand is niet die van de release.

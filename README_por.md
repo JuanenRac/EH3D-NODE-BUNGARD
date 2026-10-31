@@ -18,7 +18,7 @@
 
 ---
 
-**Verificação de honestidade - o que funciona hoje:** firmware em C++17 para o ESP32-S3 (ESP-IDF 5.5) que transforma a porta RS-232 da unidade de controlo de uma máquina Bungard CCD numa porta de rede: um programa liga-se por TCP com um token de acesso, arma a máquina e envia os bytes de um movimento, que o nó põe em fila e envia para a linha ao ritmo próprio da linha. Também lê os LED da máquina (HOME X, Y e Z, ENABLE, TOOL), comanda um fuso com um sinal de velocidade de 0-10 V e linhas de marcha e sentido, e tem um painel web com menu lateral (oito idiomas) para a configuração inicial, os utilizadores, a rede, a atualização e as definições da própria máquina. As regras da ligação e as definições são testadas num computador (10 programas de teste, 2235 verificações contadas) e o firmware compila sem avisos para as duas placas. **Ainda não foi gravado nem executado numa placa**, nada foi ligado a uma máquina, e a placa de suporte que reúne o conversor RS-232, as entradas dos LED e o variador do fuso é um projeto em papel.
+**Verificação de honestidade - o que funciona hoje:** firmware em C++17 para o ESP32-S3 (ESP-IDF 5.5) que transforma a porta RS-232 da unidade de controlo de uma máquina Bungard CCD numa porta de rede: um programa liga-se por TCP com um token de acesso, arma a máquina e envia os bytes de um movimento, que o nó põe em fila e envia para a linha ao ritmo próprio da linha. Também lê os LED da máquina (HOME X, Y e Z, ENABLE, TOOL), comanda um fuso com um sinal de velocidade de 0-10 V e linhas de marcha e sentido, e tem um painel web com menu lateral (37 línguas) para a configuração inicial, os utilizadores, a rede, a atualização e as definições da própria máquina. As regras da ligação e as definições são testadas num computador (10 programas de teste, 2235 verificações contadas) e o firmware compila sem avisos para as duas placas. **Ainda não foi gravado nem executado numa placa**, nada foi ligado a uma máquina, e a placa de suporte que reúne o conversor RS-232, as entradas dos LED e o variador do fuso é um projeto em papel.
 
 ---
 
@@ -47,7 +47,7 @@ Cada linha é uma parte deste repositório e a luz diz até onde chega hoje. É 
 | Software | 🟡 | O firmware para o ESP32-S3 (ESP-IDF 5.5, C++17) compila sem avisos para as duas placas, Ethernet e Wi-Fi; nenhuma imagem foi gravada. |
 | Testes | 🟡 | Passam 10 programas de teste no computador (`ctest`): 2235 verificações contadas na ligação, nas definições, nas regras da máquina e na base partilhada, mais a verificação dos textos do painel (315 linhas em 8 idiomas) e das pilhas das tarefas (10 tarefas). |
 | Ligação de controlo | 🟡 | O protocolo com tramas (CRC, início de sessão com token, armamento, fila de bytes, paragem quando a sessão se cala) está coberto pelos testes no computador; nenhum programa falou com um nó real. |
-| Painel web | 🟡 | O painel web (menu lateral, oito idiomas: configuração inicial, máquina, rede, utilizadores, atualização, registo, sistema) tem os textos verificados e é exercitado contra uma simulação do nó num navegador; nunca foi servido a partir de uma placa. |
+| Painel web | 🟡 | O painel web (menu lateral, 37 línguas: configuração inicial, máquina, rede, utilizadores, atualização, registo, sistema) tem os textos verificados e é exercitado contra uma simulação do nó num navegador; nunca foi servido a partir de uma placa. |
 | Fuso e LED | 🟠 | O sinal de velocidade de 0-10 V, as linhas de marcha e sentido (sem inverter enquanto roda) e as cinco entradas de LED são testados no computador; nenhum variador nem máquina foi ligado. |
 | Atualizações | 🟠 | O carregamento para um dos dois espaços de firmware com reversão e confirmação é testado no computador; uma atualização nunca correu numa placa. |
 | Segurança | 🟡 | Código de configuração na consola USB, token de acesso, utilizadores e papéis, HTTPS opcional e nada de secreto compilado; pára sozinho quando a ligação cai. Ainda não tem entrada de paragem de emergência nem revisão independente. |
@@ -60,7 +60,7 @@ Cada linha é uma parte deste repositório e a luz diz até onde chega hoje. É 
 * A **linha série para a unidade de controlo**: 38400 baud 8N1 através de um MAX3232, com as linhas DTR, DCD e RI do handshake. Os pinos e o facto de o transcetor inverter ou não as linhas são definições.
 * Os **LED**: HOME X, HOME Y, HOME Z, ENABLE e TOOL são lidos através de um transístor separador, mostrados no estado e no painel, e um pedido pode fazer o nó abandonar o resto de uma procura assim que um eixo chega a casa, de modo que o programa já não tem de ler a linha de casa a meio do fluxo.
 * O **fuso**: um PWM de velocidade para um conversor de 0-10 V (24000 rpm a sinal máximo por omissão, para um variador de frequência como o Huanyang HY02D223B) e linhas de marcha para a frente / para trás, sem mudança de sentido enquanto roda nem logo depois de parar, e uma paragem sempre que a máquina pára.
-* O **painel** (HTTP e HTTPS, oito idiomas, o menu à esquerda num ecrã largo e em cima num telemóvel): configuração inicial com um código mostrado na consola USB, utilizadores, Ethernet ou Wi-Fi, a ligação de controlo, os pinos RS-232, os LED e o fuso, um registo e atualizações por carregamento para um dos dois espaços de firmware com reversão. Nada de secreto é compilado na imagem.
+* O **painel** (HTTP e HTTPS, 37 línguas, o menu à esquerda num ecrã largo e em cima num telemóvel): configuração inicial com um código mostrado na consola USB, utilizadores, Ethernet ou Wi-Fi, a ligação de controlo, os pinos RS-232, os LED e o fuso, um registo e atualizações por carregamento para um dos dois espaços de firmware com reversão. Nada de secreto é compilado na imagem.
 * A **autoproteção**: um guarda que vigia as tarefas e a memória, um portão à porta do painel quando falta memória e a confirmação de uma imagem nova assim que o nó é alcançável.
 * As **placas**: a Waveshare ESP32-S3-ETH (Ethernet W5500) e uma ESP32-S3-WROOM-1 N16R8 (Wi-Fi), uma imagem para cada uma. O projeto da placa de suporte (100 x 100 mm) está em `docs/BOARD.md`.
 * As **máquinas**: a Bungard CCD MTC e a CCD/2 MTC, com a unidade de controlo de porta série do software DOS 4.6. Os dois modelos ATC não estão cobertos; os modelos XL e as máquinas posteriores têm uma unidade de controlo moderna própria.
@@ -126,6 +126,7 @@ Como as partes deste repositório se encaixam: quem o usa, o que contém e de qu
 * **Atualização com reversão:** uma imagem entra no espaço que não está em uso e fica em prova até o nó ser alcançável; o carregador de arranque volta atrás quando não é.
 * **Cuida de si:** um guarda vigia as tarefas e a memória, e um nó sem endereço após noventa segundos reabre a rede de configuração para não ficar inalcançável.
 * **O painel do nó como o têm os nós do A.R.M.O.R.:** um menu em grupos (nó, rede, sistema) com o idioma e o fim de sessão ao fundo; um Resumo (o nó, o seu hardware, o seu relógio, a sua flash e a sua rede), uma página Wi-Fi com até três redes de reserva que o nó tenta quando a principal se perde, uma Ajuda completa e uma página Acerca de e, em Firmware, a atualização a partir do GitHub (procura a versão mais recente do projeto, verifica o seu SHA-256 e instala-a no outro slot), a troca entre os dois slots e a cópia do que corre para o outro.
+* **37 línguas:** o painel web do nó fala inglês, espanhol, italiano, alemão, francês, português, chinês, japonês, búlgaro, croata, checo, dinamarquês, neerlandês, estónio, finlandês, grego, húngaro, irlandês, letão, lituano, maltês, polaco, romeno, eslovaco, esloveno, sueco, norueguês, islandês, ucraniano, russo, sérvio, albanês, catalão, galego, basco, português do Brasil e francês do Canadá. As palavras das 29 línguas além das oito primeiras foram traduzidas pelo modelo e aguardam a revisão de falantes nativos; um texto que falte numa língua aparece em inglês.
 
 ## 🔒 Segurança e proteção
 
@@ -149,7 +150,7 @@ Como as partes deste repositório se encaixam: quem o usa, o que contém e de qu
 | Interface | O que é | Onde |
 |---|---|---|
 | Ligação de controlo | TCP, porta 5800 por omissão: tramas `0xB5, tipo, comprimento, carga, CRC-16`, Hello com o token, Arm, Write, Abort, Ping, StopOnHome, Spindle; o nó responde Info, Status (a cada 200 ms), Rx, HomeSeen e Error | [docs/PROTOCOL.md](docs/PROTOCOL.md), `core/frame.hpp`, `main/link_server.cpp` |
-| Painel web | HTTP na porta 80 e HTTPS na 443 (o modo é uma definição), oito idiomas, API em `/api/v1/` (`GET`/`PUT /api/v1/machine`, `GET /api/v1/machine/status` e as rotas partilhadas da base) | [docs/NODE_FIRMWARE.md](docs/NODE_FIRMWARE.md), `main/web_server.cpp`, `panel/` |
+| Painel web | HTTP na porta 80 e HTTPS na 443 (o modo é uma definição), 37 línguas, API em `/api/v1/` (`GET`/`PUT /api/v1/machine`, `GET /api/v1/machine/status` e as rotas partilhadas da base) | [docs/NODE_FIRMWARE.md](docs/NODE_FIRMWARE.md), `main/web_server.cpp`, `panel/` |
 | RS-232 para a unidade de controlo | UART a 38400 baud 8N1 através de um MAX3232, com DTR (saída), DCD e RI (entradas) | [docs/WIRING.md](docs/WIRING.md), `main/central_uart.cpp` |
 | LED | HOME X, HOME Y, HOME Z, ENABLE e TOOL, cinco entradas através de um transístor separador | [docs/WIRING.md](docs/WIRING.md), `main/lamps.cpp` |
 | Fuso | um PWM de velocidade para um conversor de 0-10 V e linhas de marcha para a frente / para trás | [docs/BOARD.md](docs/BOARD.md), `main/spindle.cpp` |
@@ -238,7 +239,8 @@ EH3D-NODE-BUNGARD/
 │   └── github_update.cpp entropy.cpp            a atualização a partir do GitHub e a cópia de um slot
 ├── panel/
 │   ├── index.html style.css                     a página e a disposição do menu lateral
-│   └── app.js text.js                           as páginas e os textos em oito idiomas
+│   ├── app.js text.js                           as páginas e os textos em 37 línguas
+│   └── locales/                                 as palavras de mais 29 línguas, um ficheiro cada
 ├── tests/                                       testes no computador da ligação, das definições, da base partilhada e dos textos do painel
 ├── docs/                                        protocolo, firmware, cablagem, placa
 ├── tools/                                       compilação, painel, verificações, nó simulado

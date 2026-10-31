@@ -1,0 +1,435 @@
+# Gaeilge (ga): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+appName	Nód EH3D Bungard
+grpNode	Nód
+grpNetwork	Líonra
+grpSystem	Córas
+navMenu	Príomh-roghchlár
+navStatus	Stádas
+navMachine	Meaisín
+navUpdate	Firmware
+navLog	Logleabhar
+skip	Léim chuig an ábhar
+themeToLight	Téama éadrom
+themeToDark	Téama dorcha
+showShort	Taispeáin
+e_other	D'fhreagair an nód le hearráid: {0}
+statusNoControl	Taispeánann an leathanach seo stádas an nóid. Is é an t-aon rud a dhéanann an painéal leis an meaisín ná é a stopadh: ní féidir é a bhogadh ach tríd an nasc fíordheimhnithe de chuid cláir (an nasc rialaithe), ná riamh as seo.
+stLost	Níl an nód ag freagairt
+stLink	Nasc rialaithe
+stLinkUp	Tá an nasc beo
+stLinkDown	Tá an nasc imithe
+stClientYes	Clár nasctha
+stClientNo	Níl aon chlár nasctha
+stAuthYes	Sínithe isteach
+stAuthNo	Gan síniú isteach
+stArmed	Meaisín armtha
+stDisarmed	Meaisín gan armú
+stQueue	Bearta ag fanacht sa scuaine
+stQueueBytes	Scuaine
+stSent	Bearta seolta
+stLamps	Lampaí an mheaisín
+stLampsHelp	Cúig lampa na haonaid rialaithe, léite beo. Lasann HOME X, Y agus Z nuair a bhíonn aise ar a lasc teorann.
+lampHomeX	HOME X
+lampHomeY	HOME Y
+lampHomeZ	HOME Z
+lampEnable	ENABLE
+lampTool	TOOL
+lampOn	ar lasadh
+lampOff	múchta
+stLines	Línte na haonaid rialaithe
+stLinesHelp	Na línte a thiomáineann an t-aonad rialaithe ar ais chuig an nód. Tuairiscíonn DCD agus RI a staid earráide agus uirlise.
+lineCts	CTS
+lineDsr	DSR
+lineRi	RI
+lineDcd	DCD
+stSpindle	Fearsaid
+stSpindleBar	Luas i gcomparáid leis an uasluas
+spForward	Ar aghaidh
+spReverse	Droim ar ais
+spStopped	Stoptha
+spMax	Uasluas: {0} rpm
+spNoSpindle	Níl aon luas fearsaide socraithe (uasmhéid 0 rpm).
+stNode	Nód
+mRestartNote	Cuirtear athruithe ar na socruithe seo i bhfeidhm tar éis an nód a atosú.
+mLink	Nasc rialaithe
+mLinkIntro	An port TCP a nascann clár leis chun an meaisín a thiomáint. Ní mór gach nasc síniú isteach leis an gcomhartha rochtana.
+fPort	Port TCP
+fPortHint	Ó 1 go 65535.
+fIdle	Teorainn aimsire díomhaoin (soicindí)
+fIdleHint	Stoptar clár armtha nach seolann aon rud ar feadh an ama seo: folmhaítear an scuaine agus múchtar na tiománaithe. 0,5 go 60.
+fQueue	Méid na scuaine (bearta)
+fQueueHint	Cé mhéad beart a choinníonn an nód sula seolann sé chuig an aonad rialaithe iad. 1024 go 4194304.
+fFinish	Críochnaigh an obair atá aige má imíonn an clár
+fFinishHint	As (molta): stopann an nód láithreach, mar is gnách. Air: má thagann ciúnas ar an gclár nó ar an bhfreastalaí, nó má thiteann sé, reáchtálann an nód na bearta atá sa scuaine cheana go dtí an deireadh (gearrann an clár an obair ionas gur áit shábháilte é an deireadh), agus ansin múchann sé an fhearsaid agus na tiománaithe.
+finishWarn	Leanfaidh an meaisín ag bogadh leis féin, gan aon duine nasctha, go dtí go mbeidh an scuaine folamh nó go mbeidh an t-am thíos caite. Cuir air é seo ach amháin nuair atá an uirlis agus an obair seiceáilte, agus fios agat cá bhfuil an cnaipe stoptha.
+fDrain	An t-am is faide leis féin (soicindí)
+fDrainHint	Tar éis an ama seo stopann an nód cibé rud atá fágtha. 10 go 3600.
+stStop	Stop an meaisín
+stStopHint	Folmhaíonn sé an scuaine agus múchann sé an fhearsaid agus na tiománaithe, cibé acu atá clár nasctha nó nach bhfuil.
+stStopped	Stoptha.
+stDraining	D'imigh an clár agus tá an nód ag críochnú na hoibre atá aige. Ní ghlacann sé le haon rud nua; úsáid an cnaipe stoptha chun é a chur i gcrích anois.
+fToken	Comhartha rochtana
+fTokenHint	Scríobhtar chuig an nód é agus ní thaispeántar arís é. Clóscríobh ceann nua nó gin ceann, ansin Sábháil.
+tokenIsSet	Tá comhartha socraithe
+tokenNotSet	Níl aon chomhartha socraithe
+tokenWillChange	Sábhálfar comhartha nua
+tokenWillClear	Bainfear an comhartha
+tokenShown	Cóipeáil anois é: ní thaispeántar arís é tar éis a shábháil.
+tokenSet	Socraigh comhartha
+tokenGenerate	Gin ceann
+tokenKeep	Coinnigh an comhartha reatha
+tokenClear	Glan an comhartha
+fAllowOpen	Ceadaigh rialú gan comhartha
+fAllowOpenHint	Do bhinse tástála amháin.
+allowOpenWarn	Is féidir le duine ar bith ar an líonra nascadh agus an meaisín a bhogadh, gan comhartha. Cuir air é seo ar bhinse tástála amháin, ná riamh ar líonra comhroinnte.
+noTokenNote	Gan comhartha diúltaíonn an nód a rialú. Socraigh ceann sula n-úsáideann tú an meaisín.
+mUart	Aonad rialaithe (RS-232)
+mUartIntro	Na bioráin a théann chuig an tiontaire leibhéil RS-232 agus, tríd, chuig nascóir an aonaid rialaithe. Is uimhreacha GPIO iad ó 0 go 48.
+fTx	Bior TX (bior 3 de DB9)
+fRx	Bior RX (bior 2 de DB9)
+fRxHint	Ní sheolann an t-aonad rialaithe aon rud ar an líne seo; fágann -1 saor í.
+fDtr	Bior DTR (bior 4 de DB9)
+fDcd	Bior DCD (bior 1 de DB9)
+fRi	Bior RI (bior 9 de DB9)
+fCts	Bior CTS
+fDsr	Bior DSR
+fNoneHint	-1: gan sreangú.
+fInverted	Aisiompaíonn an tiontaire leibhéil na línte
+fInvertedHint	Aisiompaíonn MAX3232: is voltas RS-232 diúltach é leibhéal ard ar an mbior. Múch é seo le haghaidh tiontaire nach n-aisiompaíonn amháin.
+mUartWiring	Glacann an nód áit an ríomhaire: is é deireadh DTE an chábla é, agus is é an cábla céanna é, cábla DB9 díreach, a cheangail an ríomhaire leis an aonad rialaithe. Ná ceangail bior ESP32 leis an meaisín riamh gan tiontaire leibhéil RS-232: is 3,3 V iad na bioráin agus is móide agus lúide 12 V é RS-232. Téann TX go bior 3 de DB9, DTR go bior 4, tagann DCD ó bhior 1, RI ó bhior 9, agus an talamh go bior 5.
+mLamps	Lampaí an mheaisín
+mLampsIntro	Léann an nód lampaí an aonaid rialaithe (HOME X, HOME Y, HOME Z, ENABLE, TOOL), ionas go mbeidh a fhios aige cén aise atá sa bhaile. Fágann -1 lampa gan léamh.
+fHomeX	Bior HOME X
+fHomeY	Bior HOME Y
+fHomeZ	Bior HOME Z
+fEnable	Bior ENABLE
+fTool	Bior TOOL
+fActiveLow	Tarraingíonn lampa ar lasadh a bhior go híseal
+fActiveLowHint	Air leis an maolán NPN is gnách: casann lampa ar lasadh an trasraitheoir air agus tarraingíonn sé an bior go híseal.
+mLampsWiring	Léigh anóid gach lampa trí thrasraitheoir NPN, agus a bhonn ar fhriotóir 10 kΩ. Ná cuir LED optoghabhálaí díreach trasna ar an lampa riamh: mhúchfadh a thitim tosaithe an lampa.
+mSpindle	Fearsaid
+mSpindleIntro	An comhartha luais agus na línte rite do thiomántán minicíochta athraithí (VFD) na fearsaide. Socraigh an t-uasluas ag 0 do nód gan fearsaid.
+fMaxRpm	Uasluas (rpm)
+fMaxRpmHint	An luas ag 10 V (100 % PWM); gearrtar iarratas níos airde síos chuige. 0 go 60000.
+fPwmHz	Minicíocht PWM (Hz)
+fPwmHzHint	100 go 40000. Caithfidh scagaire an mhodúil tiontaire a bheith oiriúnach di.
+fPwmPin	Bior PWM luais
+fFwdPin	Bior rite ar aghaidh
+fRevPin	Bior rite droim ar ais
+fRunPin	Bior rite
+fDirPin	Bior treo (air le haghaidh droim ar ais)
+fPwmInverted	Aisiompaigh an PWM
+fDirSingle	Líne rite amháin agus líne treo amháin
+fDirSingleHint	Air: is í an chéad bhior an líne rite agus is í an dara ceann an líne treo. As: líne amháin ar aghaidh agus ceann amháin droim ar ais, ná an dá cheann ag an am céanna riamh.
+fOutLow	Tá línte rite agus treo gníomhach íseal
+fSettle	Am socraithe idir treonna (soicindí)
+fSettleHint	Ní féidir an fhearsaid a aisiompú go dtí go mbeidh sí stoptha chomh fada seo. 0 go 60.
+mSpindleWiring	Tabhair an bior PWM chuig modúl tiontaire PWM go 0-10 V lena sholáthar féin; téann a aschur chuig ionchur luais an tiomántáin (VI agus ACM ar thiomántán Huanyang). Tiomáineann na línte rite ionchuir FOR agus REV an tiomántáin trí theagmhálacha athsheachadáin nó optoghabhálaithe, ná go díreach ón mbior riamh: is 3,3 V agus cúpla milleaimp iad na haschuir. Coinnigh talamh comhchoitianta idir an nód, an modúl tiontaire agus ionchur luais an tiomántáin.
+mSpindleSafety	Tá na trí aschur as ag cumhachtú, ar aon stopadh den mheaisín agus aon uair a bhíonn an luas 0. Seiceáil socruithe an tiomántáin féin (rialú ó na teirminéil, ionchur luais analógach, teorainneacha minicíochta) le pláta ainm na fearsaide roimh an gcéad tosú: d'fhéadfadh minicíocht mhícheart dochar a dhéanamh d'fhearsaid ardluais.
+netNow	An nasc reatha
+netTitle	Seoladh
+hostnameHint	folamh: roghnaíonn an nód ainm óna aitheantóir
+netRestartNote	Cuirtear athrú ar ainm an óstaigh nó ar an nasc i bhfeidhm tar éis an nód a atosú.
+apNote	Is é an pointe rochtana socraithe líonra Wi-Fi féin an nóid, chun teacht air ó fhón nuair nach bhfuil seoladh aige ar do líonra féin.
+setupWifiHelp	Níl cábla ag an nód. Tabhair an líonra Wi-Fi ar cheart dó páirt a ghlacadh ann anois, nó fág folamh é agus úsáid líonra socraithe an nóid féin, a bhfuil a phasfhocal mar chód socraithe (is féidir leat é a athrú níos déanaí faoi Líonra).
+rolesHelp	Is féidir le riarthóirí gach rud a athrú. Feiceann breathnóirí an stádas agus na socruithe ach ní athraíonn siad rud ar bith.
+slotVersion	leagan {0}
+slotsUnknown	Níor thuairiscigh an nód a sliotáin firmware.
+chooseFirst	Roghnaigh comhad firmware ar dtús.
+p_out_of_range	lasmuigh den raon
+p_duplicate_pin	úsáidtear an bior seo faoi dhó
+p_reserved_pin	curtha in áirithe ag an gclár
+p_not_a_number	ní slánuimhir é
+e_machine_armed	Tá an meaisín armtha ag clár: ní féidir aon rud a shábháil, a atosú ná a nuashonrú go dtí go ndí-armaíonn sé é.
+staError	Earráid Wi-Fi is déanaí
+se_failed	theip ar an nasc
+se_network_not_found	níor aimsíodh an líonra
+se_wrong_password	diúltaíodh don phasfhocal
+navNetwork	Líonra
+navUsers	Úsáideoirí
+navSystem	Córas
+language	Teanga
+signOut	Sínigh amach
+loading	Ag luchtú…
+unreachable	Níl an nód ag freagairt.
+signIn	Sínigh isteach
+rememberMe	Coinnigh sínithe isteach mé sa bhrabhsálaí seo
+rememberUser	Cuimhnigh ar m'ainm úsáideora ar an ngléas seo
+loginNote	Ní féidir ach an t-ainm úsáideora a mheabhrú, agus ach amháin má thiceálann tú an bosca. Ní shábhálann an pasfhocal ach bainisteoir pasfhocal do bhrabhsálaí nó do chórais féin, más maith leat; ní stórálann an painéal riamh é.
+user	Úsáideoir
+password	Pasfhocal
+showPassword	Taispeáin an pasfhocal
+setupTitle	Socraigh an nód seo
+setupCode	Cód socraithe
+adminName	Ainm an riarthóra
+createAdmin	Cruthaigh riarthóir
+setupWifi	Wi-Fi socraithe an nóid seo
+setupIntro	Níl aon úsáideoir ag an nód seo go fóill. Cuir isteach an cód socraithe a thaispeánann an nód ar a chonsól USB gach 15 soicind, agus roghnaigh an riarthóir.
+setupWifiTitle	Líonra Wi-Fi a mbeidh an nód ag dul isteach ann (roghnach)
+setupWifiOptionalTitle	Líonra Wi-Fi (roghnach)
+setupWifiOptionalHelp	Tá port Ethernet ag an gclár seo: le cábla plugáilte isteach, fág folamh é seo. Chun an nód a úsáid thar Wi-Fi ina ionad (mar shampla ar bhinse gan cábla), tabhair anseo an líonra ar cheart dó páirt a ghlacadh ann. Mura bhfaigheann sé seoladh, osclaíonn sé a líonra socraithe arís tar éis 90 soicind ionas gur féidir teacht air.
+save	Sábháil
+saveRestart	Sábháil agus atosaigh
+restart	Atosaigh
+discard	Scrios na hathruithe
+saved	Sábháilte.
+savedRestart	Sábháilte. Atosaigh an nód chun é a chur i bhfeidhm.
+unsaved	Tá athruithe gan sábháil ann.
+restarting	Tá an nód ag atosú…
+adminOnly	Ní féidir ach le riarthóir é seo a athrú.
+yes	tá
+no	níl
+add	Cuir leis
+delete	Scrios
+refresh	Athnuaigh
+working	Ag obair…
+confirmAsk	An bhfuil tú cinnte?
+nodeId	Aitheantóir
+firmware	Firmware
+uptime	Ag rith le
+address	Seoladh
+netmask	Masc fhoslíonra
+gateway	Geata
+mac	MAC
+link	Nasc
+linkUp	beo
+linkDown	imithe
+nodeTitle	Nód
+uplink	Nasc leis an líonra
+uplinkEthernet	Cábla Ethernet (PoE)
+uplinkWifi	Wi-Fi (téann isteach i líonra eile)
+dhcp	Faigh an seoladh go huathoibríoch (DHCP)
+dns1	Freastalaí DNS 1
+dns2	Freastalaí DNS 2
+hostname	Ainm óstaigh
+wifiAp	Pointe rochtana (Wi-Fi a thairgeann an nód seo)
+apEnable	Tairg líonra Wi-Fi
+ssid	Ainm an líonra (SSID)
+security	Slándáil
+secOpen	oscailte (gan pasfhocal)
+secWpa2	WPA2
+secWpa3	WPA3
+secWpa2Wpa3	WPA2 + WPA3
+wifiPassword	Pasfhocal Wi-Fi (8 go 63 carachtar)
+passwordSet	tá pasfhocal stóráilte; fág folamh é chun é a choinneáil
+hidden	Folaigh ainm an líonra
+wifiChannel	Cainéal
+channelAuto	uathoibríoch (1, 6 nó 11 de réir an nóid)
+channelNow	Úsáidfeadh an nód seo cainéal {0}.
+wifiSta	Stáisiún Wi-Fi (téann an nód seo isteach i líonra Wi-Fi)
+staEnable	Téigh isteach i líonra Wi-Fi
+scanNetworks	Cuardaigh líonraí
+scanning	Ag cuardach…
+noNetworks	Níor chualathas aon líonra.
+scanNote	Le linn an chuardaigh, féadfaidh pointe rochtana an nóid féin a chliaint a scaoileadh ar feadh nóiméid.
+useNetwork	Úsáid
+signal	comhartha
+wiredNote	Ar an gcábla iarrann an nód a sheoladh trí DHCP mura socraíonn tú anseo é. Más rud é go gcoinníonn tú a líonra Wi-Fi féin, is líonra ar leith é (192.168.4.x) chun teacht ar an nód ó fhón; níl sé nasctha leis an líonra sreangaithe. Cuirtear na hathruithe i bhfeidhm tar éis atosú.
+staNote	Níl cábla ag an nód: tabhair líonra Wi-Fi do thí nó do shuímh dó. Má fhágann tú an stáisiún múchta, úsáid a phointe rochtana féin.
+noWifiWarn	Níl cábla ag an nód: coinnigh ceann amháin ar a laghad den dá cheann, an pointe rochtana nó an stáisiún, air, nó ní féidir teacht air.
+ethernetMissing	Níl an tsliseog Ethernet ag freagairt (féach treoir na sreangaithe).
+station	Stáisiún Wi-Fi
+notConnected	gan nasc
+apActive	Pointe rochtana
+apClients	cliaint
+channel	cainéal
+setupNetwork	líonra socraithe
+usersTitle	Úsáideoirí an phainéil seo
+role	Ról
+roleAdmin	riarthóir
+roleViewer	breathnóir (léamh amháin)
+addUser	Cuir úsáideoir leis
+newPassword	Pasfhocal nua (8 gcarachtar nó níos mó)
+setPassword	Socraigh pasfhocal
+myAccount	Mo phasfhocal
+currentPassword	An pasfhocal reatha
+changePassword	Athraigh mo phasfhocal
+passwordChanged	Athraíodh an pasfhocal. Sínigh isteach arís.
+you	tusa
+updateTitle	Nuashonraigh an firmware
+updateHelp	Roghnaigh an comhad firmware (.bin a tógadh don tionscadal seo, ní an íomhá chomhcheangailte). Seiceáiltear é sula n-úsáidtear é, agus mura dtosaíonn an leagan nua, filleann an nód ar an leagan roimhe leis féin.
+chooseFile	Comhad firmware
+upload	Uaslódáil agus suiteáil
+uploading	Ag uaslódáil… {0}%
+updateDone	Suiteáladh leagan {0}. Atosaíonn an nód anois.
+slot	Ag rith ó
+slotsTitle	Sliotáin firmware
+slotsHelp	Coinníonn an nód dhá shliotán firmware, ota_0 agus ota_1. Scríobhtar nuashonrú chuig an gceann nach bhfuil ag rith. Anseo is féidir leat an ceann eile a thosú am ar bith - chun filleadh ar an leagan roimhe nó dul ar aghaidh chuig an gceann a suiteáladh díreach. Coinnítear na socruithe.
+slotRunning	ag rith anois
+slotNextBoot	tosóidh sé ina dhiaidh seo
+slotEmpty	folamh - gan firmware
+switchSlot	Tosaigh {0}
+switchSlotNone	Níl aon firmware sa sliotán eile
+switchAsk	An atosóidh tú an nód agus an dtosóidh tú {0} (leagan {1})?
+logTitle	Logleabhar an nóid
+copyLog	Cóipeáil an logleabhar
+copied	Cóipeáilte
+copyFailed	Níorbh fhéidir cóipeáil - roghnaigh an téacs agus cóipeáil de láimh é
+maintenance	Cothabháil
+rebootNode	Atosaigh an nód
+factoryTitle	Athshocrú monarchan
+factoryHelp	Scriosann sé gach socrú agus gach úsáideoir; tosaíonn an nód arís sa socrú. Clóscríobh RESET chun a dhearbhú.
+author	Údar
+license	Ceadúnas
+e_unauthorized	Tháinig deireadh le do sheisiún. Sínigh isteach arís.
+e_wrong_credentials	Úsáideoir nó pasfhocal mícheart.
+e_too_many_attempts	An iomarca iarrachtaí. Fan nóiméad.
+e_wrong_code	Tá an cód socraithe mícheart.
+e_invalid_name	Níl an t-ainm bailí (3 go 32 carachtar: a go z, 0 go 9, . _ -).
+e_weak_password	Caithfidh 8 go 64 carachtar a bheith sa phasfhocal.
+e_exists	Tá an t-úsáideoir sin ann cheana.
+e_not_found	Gan aimsiú.
+e_too_many_users	Is féidir ceathrar úsáideoirí ar a mhéad a bheith ann.
+e_last_admin	Ní féidir an riarthóir deireanach a bhaint ná a ísliú.
+e_wrong_password	Tá an pasfhocal reatha mícheart.
+e_invalid_role	Níl an ról bailí.
+e_forbidden	Ní féidir leat é sin a dhéanamh.
+e_storage	Níorbh fhéidir scríobh chuig an flash.
+e_invalid	Níl roinnt luachanna bailí; tá siad marcáilte san fhoirm.
+e_not_json	Níor tuigeadh an t-iarratas.
+e_too_large	Tá an t-iarratas rómhór.
+e_bad_size	Níl méid an chomhaid bailí do firmware.
+e_not_firmware	Ní firmware ESP32 é an comhad sin.
+e_image_invalid	Tá an íomhá firmware damáistithe nó neamhiomlán.
+e_wrong_firmware	Is le tionscadal eile an firmware sin.
+e_upload_interrupted	Cuireadh isteach ar an uaslódáil.
+e_upload_stalled	Stop an uaslódáil agus cuireadh deireadh léi: bain triail eile as.
+e_network	Níorbh fhéidir teacht ar an nód.
+e_setup_required	Socraigh an nód ar dtús: cruthaigh a riarthóir.
+e_confirm_required	Tá dearbhú ag teastáil: seol an focal RESET.
+e_bad_host	Níl an seoladh sin bailí.
+e_invalid_time	Níl an t-am sin bailí.
+e_would_lock_out	Dhúnfadh an liosta sin amach as an bpainéal thú: cuir an líonra atá in úsáid agat anois leis.
+e_slot_empty	Níl aon firmware sa sliotán eile.
+e_ota_begin	Níorbh fhéidir leis an nuashonrú tosú ag scríobh.
+e_ota_boot	Níorbh fhéidir an firmware nua a roghnú le tosú ina dhiaidh seo.
+e_ota_write	Níorbh fhéidir an nuashonrú a scríobh chuig an flash.
+e_no_partition	Níl aon sliotán saor don nuashonrú.
+e_outside_network	Níl cead ag an líonra seo an painéal a úsáid: úsáid líonra an tí nó an VPN.
+e_wifi_busy	Tá an raidió gnóthach; bain triail eile as faoi chionn nóiméid.
+e_scan_failed	Theip ar an gcuardach.
+e_wifi_unavailable	Níorbh fhéidir an Wi-Fi a thosú.
+p_required	riachtanach
+p_invalid	neamhbhailí
+p_range	lasmuigh den raon
+p_too_long	rófhada
+p_conflict	in úsáid cheana
+p_reserved	curtha in áirithe ag an gclár
+p_invalid_key	8 go 63 carachtar inphriontáilte
+p_outside_subnet	lasmuigh den fhoslíonra
+addBackupNetwork	Cuir líonra cúltaca leis
+appIdf	ESP-IDF (firmware)
+backupNetworksHint	Bainfear triail astu in ord mura féidir an líonra thuas a úsáid ar feadh tamaill.
+backupNetworksTitle	Líonraí cúltaca
+board	Clár
+bootloaderIdf	ESP-IDF (bootloader)
+brownoutLevel	Leibhéal an bhrathadóra titime voltais
+checkGithub	Seiceáil anois
+checking	Ag seiceáil…
+chip	Sliseog
+clockNotSet	gan socrú
+copyAsk	An gcóipeálfaidh tú an firmware atá ag rith ({0}, leagan {1}) thar an sliotán eile ({2})? Scriostar an méid atá ann anois. Ní atosaíonn an nód.
+copyDone	Cóipeáilte: tá leagan {0} sa dá shliotán anois.
+copyRunning	Ag cóipeáil… {0}%
+copySlot	Cóipeáil {0} chuig {1}
+cores	cóir
+cpuFreq	Minicíocht an LAP
+dns	DNS
+flash	Flash
+flashAllocated	In áirithe ag na deighiltí
+flashEncryption	Criptiú flash
+flashFree	saor
+flashTotal	Iomlán
+flashUnallocated	Gan sannadh d'aon deighilt
+githubAvailable	Tá leagan {0} ar fáil.
+githubDownloading	Ag íoslódáil an firmware ó GitHub… {0}%
+githubUpToDate	Is é seo an leagan is nuaí cheana ar GitHub.
+githubUpdateNote	Íoslódálann sé íomhá an aip neamhspleách a fhoilsíonn eisiúint GitHub féin (ná an bootloader riamh) agus suiteálann sé ar an mbealach céanna é le comhad uaslódáilte. Oibríonn an uaslódáil láimhe thuas díreach mar a d'oibrigh sí roimhe - is breisiú é seo, ní ionadach, do nód nach bhfuil cúis aige teacht ar an Idirlíon.
+githubUpdateTitle	Seiceáil GitHub le haghaidh leagan nua
+githubVerifying	Ag seiceáil na híomhá i gcoinne hais na heisiúna…
+installUpdate	Íoslódáil agus suiteáil
+installing	Ag suiteáil…
+layout	Leagan amach
+localTime	Am áitiúil
+memory	Cuimhne shaor
+navAbout	Maidir leis
+navHelp	Cabhair
+navOverview	Forbhreathnú
+navWifi	Wi-Fi
+nodeName	Ainm
+none	aon
+ovFlash	Cuimhne flash
+ovHardware	Crua-earraí
+ovNetwork	Líonra
+ovNode	An nód seo
+ovTime	Dáta agus am
+ownNetwork	líonra féin
+psram	PSRAM
+radios	Raidiónna
+reasonOther	eile
+removeNetwork	Bain
+resetReason	An t-atosú is déanaí
+secureBoot	Tosú slán
+timeFromNtp	Freastalaí ama an Idirlín (sioncronaithe)
+timeManual	socraithe de láimh
+timeNtpWaiting	ag fanacht le freastalaí ama an Idirlín
+timeSource	Foinse an ama
+timeZone	Crios ama
+aboutDescription	nód de theaghlach EH3D do bhosca meaisín Bungard CCD: ceanglaíonn sé RS-232 an aonaid rialaithe leis an líonra, taispeánann sé a lampaí, a línte agus an fhearsaid, agus coinníonn sé socruithe, úsáideoirí agus firmware an nóid.
+aboutIndependent	Tá an tionscadal neamhspleách: ní dhearna, níor cheadaigh ná níor thacaigh Bungard Elektronik leis.
+ovMachineLink	Nasc leis an meaisín
+stClient	Clár
+wifiMoved	Tá na líonraí Wi-Fi ar a leathanach féin, Wi-Fi.
+navHelpTab_overview	Achoimre
+help_overview_title	Achoimre
+help_overview_text	Socraíonn an painéal seo an nód agus déanann sé monatóireacht air. Taispeánann an Achoimre cad is nód ann agus conas atá sé; leanann Stádas a bhfuil á dhéanamh aige de réir mar a tharlaíonn sé; coinníonn na leathanaigh Líonra agus Wi-Fi an chaoi a bhfuil sé nasctha; is don chóras iad Úsáideoirí, Firmware agus Logleabhar.\n\nSábháiltear gach rud sa nód agus cuirtear i bhfeidhm é nuair a deir an barra thíos amhlaidh. Deir athrú a bhfuil atosú ag teastáil uaidh amhlaidh sula bhfágann tú an leathanach.
+navHelpTab_status	Stádas
+help_status_title	Stádas
+help_status_text	Taispeánann Stádas an nasc rialaithe, lampaí agus línte an aonaid rialaithe, an fhearsaid agus an scuaine, athnuaite gach soicind. Stopann an cnaipe Stop an meaisín láithreach: folmhaítear an scuaine agus múchtar an fhearsaid agus na tiománaithe. Ní féidir leis ach an meaisín a dhéanamh níos sábháilte.\n\nMura bhfreagraíonn an nód, deir an leathanach amhlaidh agus leanann sé ag fiafraí.
+navHelpTab_machine	Meaisín
+help_machine_title	Meaisín
+help_machine_text	Coinníonn Meaisín an méid a cheanglaíonn an nód leis an aonad rialaithe: na bioráin sraitheacha agus an luas, comhartha rochtana an naisc rialaithe, an port agus teorainneacha na scuaine. Cuirtear athrú i bhfeidhm tar éis a shábháil; teastaíonn atosú ó chuid acu agus deir an barra amhlaidh.\n\nNí féidir ach scríobh chuig an gcomhartha: ní thaispeántar arís é. Tá sé ag teastáil ó chlár a nascann; gan é diúltaíonn an nód an meaisín a bhogadh.
+navHelpTab_network	Líonra
+help_network_title	Líonra
+help_network_text	Taispeánann Líonra an chaoi a bhfuil an nód nasctha anois agus socraíonn sé a ainm agus a sheoladh: DHCP, nó seoladh seasta. Ar chlár le cábla roghnaíonn tú an cábla nó Wi-Fi mar bhealach isteach.\n\nCuirtear athrú seolta i bhfeidhm tar éis atosú. Má chailleann tú an nód tar éis athraithe, shroicheann a phointe rochtana féin (nuair atá sé air) nó an cábla an painéal fós.
+navHelpTab_wifi	Wi-Fi
+help_wifi_title	Wi-Fi
+help_wifi_text	Socraíonn Wi-Fi an líonra a rachaidh an nód isteach ann agus an pointe rochtana is féidir leis a oscailt. Faoin bpríomhlíonra is féidir suas le trí líonra cúltaca a chur leis: má chailltear an ceann príomha, baineann an nód triail astu ar a seal, ionas nach dtiteann sé den líonra. Liostaíonn Cuardaigh na líonraí laistigh den raon.\n\nNí féidir ach scríobh chuig na pasfhocail: ní thaispeánann an painéal arís iad, agus coinníonn réimse folamh an ceann stóráilte.
+navHelpTab_users	Úsáideoirí
+help_users_title	Úsáideoirí
+help_users_text	Athraíonn riarthóirí socruithe; ní bhreathnaíonn breathnóirí ach. Tá ainm agus pasfhocal ag gach duine. Cuireann riarthóir daoine leis, athraíonn sé pasfhocail agus baineann sé daoine; ní féidir an riarthóir deireanach a bhaint.\n\nBlocálann an iomarca pasfhocal mícheart ainm ar feadh tamaill. Athraítear do phasfhocal féin ar an leathanach céanna.
+navHelpTab_update	Firmware
+help_update_title	Firmware
+help_update_text	Is féidir an firmware a nuashonrú trí bhealach. Ó GitHub: cuardaíonn an nód an eisiúint is nuaí dá thionscadal féin, íoslódálann sé í, seiceálann sé go bhfuil a hais mar a fhoilsíonn an eisiúint, agus suiteálann sé sa sliotán eile í. Trí chomhad .bin den tionscadal seo a uaslódáil. Nó trí aistriú chuig an sliotán eile, a choinníonn an leagan a bhí ag rith roimhe fós.\n\nScríobhann Cóipeáil an firmware atá ag rith chuig an sliotán eile, ionas go mbeidh an leagan céanna ar an mbeirt (cóip le filleadh uirthi). Tar éis nuashonraithe atosaíonn an nód.
+navHelpTab_log	Logleabhar
+help_log_title	Logleabhar
+help_log_text	Is é an logleabhar an méid a deir an nód agus é ag obair: an líonra, an nasc rialaithe, na nuashonruithe agus na hearráidí. Coinnítear sa chuimhne é, mar sin tosaíonn sé folamh tar éis atosaithe.\n\nCóipeáil é nuair a iarrann tú cabhair: coinníonn sé an méid a tharla, in ord.
+navHelpTab_system	Córas
+help_system_title	Córas
+help_system_text	Tá atosú an nóid agus athshocrú na monarchan i gCóras, a scriosann gach socrú agus gach úsáideoir (clóscríobh RESET chun a dhearbhú). Atosaigh ar dtús mura bhfuil uait ach a fheiceáil an dtéann fadhb ar shiúl.\n\nBriseann atosú nasc an mheaisín ar feadh nóiméid: déan é nuair nach bhfuil aon obair ar siúl.
+reasonPower_on	cumhacht air
+reasonSoftware	atosú ón bpainéal
+reasonCrash	TUAIRT
+reasonWatchdog	madra faire
+reasonBrownout	voltas íseal
+reasonDeep_sleep	codladh domhain
+e_bad_json	Ní JSON bailí é an t-iarratas.
+e_bad_url	Ní hé an seoladh oifigiúil seoladh an nuashonraithe.
+e_checksum_mismatch	Ní hionann an firmware íoslódáilte agus suim sheiceála na heisiúna: diúltaíodh dó agus níor athraíodh aon rud.
+e_client_init	Níorbh fhéidir an íoslódáil a thosú.
+e_connect_failed	Níor nasc an íoslódáil: seiceáil líonra an nóid agus bain triail eile as.
+e_no_asset	Níl aon firmware san eisiúint don chlár seo.
+e_no_asset_for_board	Tá eisiúint níos nuaí ann, ach níl aon íomhá firmware inti don chlár seo.
+e_no_checksum	Níl aon chomhad suime seiceála san eisiúint in aice leis an íomhá firmware, mar sin ní shuiteáiltear é.
+e_no_memory	Tháinig deireadh le cuimhne an nóid.
+e_no_release	Níor aimsíodh aon eisiúint.
+e_no_slot	Níl sliotán eile ann le cóipeáil chuige.
+e_no_task	Níorbh fhéidir an nuashonrú a thosú (níl aon tasc saor).
+e_not_newer	Níl an firmware sin níos nuaí ná an ceann atá ag rith.
+e_ota_busy	Tá suiteáil ó GitHub ar siúl cheana.
+e_read_error	Cuireadh isteach ar an íoslódáil le linn léamh.
+e_read_failed	Níorbh fhéidir an sliotán atá ag rith a léamh.
+e_short_read	Chríochnaigh an íoslódáil sula raibh an comhad iomlán.
+e_source_invalid	Níorbh fhéidir an firmware atá ag rith a fhíorú, mar sin níor cóipeáladh é.
+e_up_to_date	Tá an firmware cothrom le dáta cheana.
+e_version_mismatch	Ní hé leagan an chomhaid leagan na heisiúna.

@@ -1,0 +1,435 @@
+# Slovenščina (sl): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+appName	Vozlišče EH3D Bungard
+grpNode	Vozlišče
+grpNetwork	Omrežje
+grpSystem	Sistem
+navMenu	Glavni meni
+navStatus	Stanje
+navMachine	Stroj
+navUpdate	Firmware
+navLog	Dnevnik
+skip	Preskoči na vsebino
+themeToLight	Svetla tema
+themeToDark	Temna tema
+showShort	Pokaži
+e_other	Vozlišče je odgovorilo z napako: {0}
+statusNoControl	Ta stran prikazuje stanje vozlišča. Edino, kar plošča naredi s strojem, je, da ga ustavi: premikanje je mogoče le prek overjene povezave programa (nadzorna povezava), nikoli od tu.
+stLost	Vozlišče ne odgovarja
+stLink	Nadzorna povezava
+stLinkUp	Povezava je aktivna
+stLinkDown	Povezava je prekinjena
+stClientYes	Program je povezan
+stClientNo	Noben program ni povezan
+stAuthYes	Prijavljen
+stAuthNo	Ni prijavljen
+stArmed	Stroj je odklenjen
+stDisarmed	Stroj ni odklenjen
+stQueue	Bajti, ki čakajo v vrsti
+stQueueBytes	Vrsta
+stSent	Poslani bajti
+stLamps	Lučke stroja
+stLampsHelp	Pet lučk krmilne enote, brano v živo. HOME X, Y in Z zasvetijo, ko je os na končnem stikalu.
+lampHomeX	HOME X
+lampHomeY	HOME Y
+lampHomeZ	HOME Z
+lampEnable	ENABLE
+lampTool	TOOL
+lampOn	sveti
+lampOff	ne sveti
+stLines	Linije krmilne enote
+stLinesHelp	Linije, ki jih krmilna enota vrača vozlišču. DCD in RI sporočata njeni stanji napake in orodja.
+lineCts	CTS
+lineDsr	DSR
+lineRi	RI
+lineDcd	DCD
+stSpindle	Vreteno
+stSpindleBar	Hitrost glede na največjo
+spForward	Naprej
+spReverse	Vzvratno
+spStopped	Ustavljeno
+spMax	Največja hitrost: {0} rpm
+spNoSpindle	Hitrost vretena ni nastavljena (največ 0 rpm).
+stNode	Vozlišče
+mRestartNote	Spremembe teh nastavitev začnejo veljati po ponovnem zagonu vozlišča.
+mLink	Nadzorna povezava
+mLinkIntro	Vrata TCP, na katera se poveže program za upravljanje stroja. Vsaka povezava se mora prijaviti z dostopnim žetonom.
+fPort	Vrata TCP
+fPortHint	Od 1 do 65535.
+fIdle	Časovna omejitev nedejavnosti (sekunde)
+fIdleHint	Odklenjen program, ki tako dolgo ne pošlje ničesar, se ustavi: vrsta se izprazni, gonilniki se izklopijo. 0,5 do 60.
+fQueue	Velikost vrste (bajti)
+fQueueHint	Koliko bajtov vozlišče hrani, preden jih pošlje krmilni enoti. 1024 do 4194304.
+fFinish	Dokončaj delo v vrsti, če program izgine
+fFinishHint	Izklopljeno (priporočeno): vozlišče se takoj ustavi, kot vedno. Vklopljeno: če program ali strežnik utihne ali odpade, vozlišče izvede do konca bajte, ki jih že ima v vrsti (program delo prekine tako, da je konec varno mesto), nato izklopi vreteno in gonilnike.
+finishWarn	Stroj se bo premikal sam, brez povezane osebe, dokler se vrsta ne izprazni ali ne poteče spodnji čas. Vklopite le, ko sta orodje in delo preverjena in veste, kje je tipka za ustavitev.
+fDrain	Najdaljši čas samostojnega delovanja (sekunde)
+fDrainHint	Po tem času vozlišče ustavi vse, kar je ostalo. 10 do 3600.
+stStop	Ustavi stroj
+stStopHint	Izprazni vrsto in izklopi vreteno ter gonilnike, ne glede na to, ali je program povezan.
+stStopped	Ustavljeno.
+stDraining	Program je izginil in vozlišče dokončuje delo, ki ga ima. Ne sprejema ničesar novega; z gumbom za ustavitev ga končate takoj.
+fToken	Dostopni žeton
+fTokenHint	Zapiše se v vozlišče in se nikoli več ne prikaže. Vnesite novega ali ga ustvarite, nato Shrani.
+tokenIsSet	Žeton je nastavljen
+tokenNotSet	Žeton ni nastavljen
+tokenWillChange	Shranil se bo nov žeton
+tokenWillClear	Žeton bo odstranjen
+tokenShown	Kopirajte ga zdaj: po shranjevanju se ne prikaže več.
+tokenSet	Nastavi žeton
+tokenGenerate	Ustvari žeton
+tokenKeep	Obdrži trenutni žeton
+tokenClear	Odstrani žeton
+fAllowOpen	Dovoli upravljanje brez žetona
+fAllowOpenHint	Samo za preskusno mizo.
+allowOpenWarn	Kdorkoli v omrežju se lahko poveže in premika stroj brez žetona. Vklopite le na preskusni mizi, nikoli v skupnem omrežju.
+noTokenNote	Brez žetona vozlišče zavrne upravljanje. Nastavite ga pred uporabo stroja.
+mUart	Krmilna enota (RS-232)
+mUartIntro	Nožice, ki vodijo do pretvornika nivojev RS-232 in prek njega do priključka krmilne enote. So številke GPIO od 0 do 48.
+fTx	Nožica TX (nožica 3 DB9)
+fRx	Nožica RX (nožica 2 DB9)
+fRxHint	Krmilna enota po tej liniji ne pošilja ničesar; -1 jo pusti prosto.
+fDtr	Nožica DTR (nožica 4 DB9)
+fDcd	Nožica DCD (nožica 1 DB9)
+fRi	Nožica RI (nožica 9 DB9)
+fCts	Nožica CTS
+fDsr	Nožica DSR
+fNoneHint	-1: ni priključeno.
+fInverted	Pretvornik nivojev obrne linije
+fInvertedHint	MAX3232 obrača: visok nivo na nožici je negativna napetost RS-232. Izklopite le za pretvornik, ki ne obrača.
+mUartWiring	Vozlišče prevzame mesto računalnika: je konec DTE kabla, kabel pa je isti ravni kabel DB9, ki je povezoval računalnik s krmilno enoto. Nikoli ne priključite nožice ESP32 na stroj brez pretvornika nivojev RS-232: nožice so 3,3 V, RS-232 pa plus in minus 12 V. TX gre na nožico 3 DB9, DTR na nožico 4, DCD prihaja z nožice 1, RI z nožice 9, masa pa na nožico 5.
+mLamps	Lučke stroja
+mLampsIntro	Vozlišče bere lučke krmilne enote (HOME X, HOME Y, HOME Z, ENABLE, TOOL), da ve, katera os je v izhodišču. -1 pusti lučko neprebrano.
+fHomeX	Nožica HOME X
+fHomeY	Nožica HOME Y
+fHomeZ	Nožica HOME Z
+fEnable	Nožica ENABLE
+fTool	Nožica TOOL
+fActiveLow	Prižgana lučka povleče svojo nožico na nizek nivo
+fActiveLowHint	Vklopljeno z običajnim medpomnilnikom NPN: prižgana lučka odpre tranzistor in povleče nožico na nizek nivo.
+mLampsWiring	Anodo vsake lučke berite prek tranzistorja NPN z bazo na uporu 10 kΩ. Nikoli ne priključite LED optopovezovalnika neposredno čez lučko: njen prevodni padec napetosti bi lučko ugasnil.
+mSpindle	Vreteno
+mSpindleIntro	Signal hitrosti in linije zagona za frekvenčni pretvornik (VFD) vretena. Pri vozlišču brez vretena nastavite največjo hitrost na 0.
+fMaxRpm	Največja hitrost (rpm)
+fMaxRpmHint	Hitrost pri 10 V (PWM 100 %); višja zahteva se omeji nanjo. 0 do 60000.
+fPwmHz	Frekvenca PWM (Hz)
+fPwmHzHint	100 do 40000. Filter modula pretvornika mora ustrezati.
+fPwmPin	Nožica PWM hitrosti
+fFwdPin	Nožica zagona naprej
+fRevPin	Nožica zagona vzvratno
+fRunPin	Nožica zagona
+fDirPin	Nožica smeri (vklopljena za vzvratno)
+fPwmInverted	Obrni PWM
+fDirSingle	Ena linija zagona in ena linija smeri
+fDirSingleHint	Vklopljeno: prva nožica je linija zagona, druga linija smeri. Izklopljeno: ena linija za naprej in ena za vzvratno, nikoli obe hkrati.
+fOutLow	Liniji zagona in smeri sta aktivni pri nizkem nivoju
+fSettle	Čas umiritve med smermi (sekunde)
+fSettleHint	Vretena ni mogoče obrniti, dokler ni toliko časa mirovalo. 0 do 60.
+mSpindleWiring	Nožico PWM speljite na modul pretvornika PWM v 0-10 V z lastnim napajanjem; njegov izhod gre na vhod hitrosti pretvornika (VI in ACM pri pretvorniku Huanyang). Liniji zagona krmilita vhoda FOR in REV pretvornika prek kontaktov releja ali optopovezovalnikov, nikoli neposredno z nožice: izhodi so 3,3 V in nekaj miliamperov. Ohranite skupno maso med vozliščem, modulom pretvornika in vhodom hitrosti pretvornika.
+mSpindleSafety	Vsi trije izhodi so izklopljeni ob vklopu, ob vsaki ustavitvi stroja in kadar je hitrost 0. Pred prvim zagonom preverite nastavitve samega pretvornika (krmiljenje s sponk, analogni vhod hitrosti, omejitve frekvence) glede na tablico vretena: napačna frekvenca lahko poškoduje visokohitrostno vreteno.
+netNow	Trenutna povezava
+netTitle	Naslov
+hostnameHint	prazno: vozlišče izbere ime iz svojega identifikatorja
+netRestartNote	Sprememba imena gostitelja ali povezave začne veljati po ponovnem zagonu vozlišča.
+apNote	Dostopna točka za nastavitev je lastno omrežje Wi-Fi vozlišča, da ga dosežete s telefona, kadar nima naslova v vašem omrežju.
+setupWifiHelp	Vozlišče nima kabla. Zdaj navedite omrežje Wi-Fi, s katerim naj se poveže, ali pustite prazno in uporabite lastno omrežje vozlišča za nastavitev, katerega geslo je koda za nastavitev (spremenite ga lahko pozneje v razdelku Omrežje).
+rolesHelp	Skrbniki lahko spreminjajo vse. Opazovalci vidijo stanje in nastavitve, vendar ničesar ne spreminjajo.
+slotVersion	različica {0}
+slotsUnknown	Vozlišče ni sporočilo svojih rež firmwara.
+chooseFirst	Najprej izberite datoteko firmwara.
+p_out_of_range	izven obsega
+p_duplicate_pin	ta nožica je uporabljena dvakrat
+p_reserved_pin	rezervirano za ploščo
+p_not_a_number	ni celo število
+e_machine_armed	Program je stroj odklenil: ničesar ni mogoče shraniti, znova zagnati ali posodobiti, dokler ga ne zaklene.
+staError	Zadnja napaka Wi-Fi
+se_failed	povezava ni uspela
+se_network_not_found	omrežje ni bilo najdeno
+se_wrong_password	geslo je bilo zavrnjeno
+navNetwork	Omrežje
+navUsers	Uporabniki
+navSystem	Sistem
+language	Jezik
+signOut	Odjava
+loading	Nalaganje…
+unreachable	Vozlišče ne odgovarja.
+signIn	Prijava
+rememberMe	Ohrani prijavo v tem brskalniku
+rememberUser	Zapomni si moje uporabniško ime v tej napravi
+loginNote	Zapomni se lahko le uporabniško ime, in to samo, če označite polje. Geslo, če želite, shrani izključno upravitelj gesel vašega brskalnika ali sistema; plošča ga nikoli ne shrani.
+user	Uporabnik
+password	Geslo
+showPassword	Pokaži geslo
+setupTitle	Nastavitev tega vozlišča
+setupCode	Koda za nastavitev
+adminName	Ime skrbnika
+createAdmin	Ustvari skrbnika
+setupWifi	Wi-Fi za nastavitev tega vozlišča
+setupIntro	To vozlišče še nima uporabnika. Vnesite kodo za nastavitev, ki jo vozlišče vsakih 15 sekund prikaže na svoji konzoli USB, in izberite skrbnika.
+setupWifiTitle	Omrežje Wi-Fi, s katerim se vozlišče poveže (izbirno)
+setupWifiOptionalTitle	Omrežje Wi-Fi (izbirno)
+setupWifiOptionalHelp	Ta plošča ima vrata Ethernet: ko je kabel priključen, pustite to prazno. Če želite vozlišče uporabljati prek Wi-Fi (na primer na mizi brez kabla), tukaj navedite omrežje, s katerim se naj poveže. Če ostane brez naslova, po 90 sekundah znova odpre omrežje za nastavitev, da je dosegljivo.
+save	Shrani
+saveRestart	Shrani in znova zaženi
+restart	Znova zaženi
+discard	Zavrži spremembe
+saved	Shranjeno.
+savedRestart	Shranjeno. Za uveljavitev znova zaženite vozlišče.
+unsaved	Obstajajo neshranjene spremembe.
+restarting	Vozlišče se znova zaganja…
+adminOnly	To lahko spremeni samo skrbnik.
+yes	da
+no	ne
+add	Dodaj
+delete	Izbriši
+refresh	Osveži
+working	Delam…
+confirmAsk	Ste prepričani?
+nodeId	Identifikator
+firmware	Firmware
+uptime	Deluje že
+address	Naslov
+netmask	Maska podomrežja
+gateway	Prehod
+mac	MAC
+link	Povezava
+linkUp	aktivna
+linkDown	prekinjena
+nodeTitle	Vozlišče
+uplink	Povezava z omrežjem
+uplinkEthernet	Kabel Ethernet (PoE)
+uplinkWifi	Wi-Fi (se pridruži drugemu omrežju)
+dhcp	Samodejno pridobi naslov (DHCP)
+dns1	Strežnik DNS 1
+dns2	Strežnik DNS 2
+hostname	Ime gostitelja
+wifiAp	Dostopna točka (Wi-Fi, ki ga ponuja to vozlišče)
+apEnable	Ponudi omrežje Wi-Fi
+ssid	Ime omrežja (SSID)
+security	Varnost
+secOpen	odprto (brez gesla)
+secWpa2	WPA2
+secWpa3	WPA3
+secWpa2Wpa3	WPA2 + WPA3
+wifiPassword	Geslo Wi-Fi (8 do 63 znakov)
+passwordSet	geslo je shranjeno; pustite prazno, če ga želite obdržati
+hidden	Skrij ime omrežja
+wifiChannel	Kanal
+channelAuto	samodejno (1, 6 ali 11 glede na vozlišče)
+channelNow	To vozlišče bi uporabilo kanal {0}.
+wifiSta	Postaja Wi-Fi (to vozlišče se pridruži omrežju Wi-Fi)
+staEnable	Pridruži se omrežju Wi-Fi
+scanNetworks	Poišči omrežja
+scanning	Iskanje…
+noNetworks	Nobeno omrežje ni bilo zaznano.
+scanNote	Med iskanjem lahko dostopna točka samega vozlišča za trenutek odklopi svoje odjemalce.
+useNetwork	Uporabi
+signal	signal
+wiredNote	Po kablu vozlišče naslov zahteva prek DHCP, razen če ga tukaj določite. Njegovo lastno omrežje Wi-Fi, če ga obdržite, je ločeno omrežje (192.168.4.x) za dostop do vozlišča s telefona; ni povezano z žičnim. Spremembe začnejo veljati po ponovnem zagonu.
+staNote	Vozlišče nima kabla: dajte mu omrežje Wi-Fi svojega doma ali objekta. Če postajo pustite izklopljeno, uporabite njegovo lastno dostopno točko.
+noWifiWarn	Vozlišče nima kabla: pustite vklopljeno vsaj eno od obeh, dostopno točko ali postajo, sicer ni dosegljivo.
+ethernetMissing	Čip Ethernet ne odgovarja (glejte vodnik za ožičenje).
+station	Postaja Wi-Fi
+notConnected	ni povezano
+apActive	Dostopna točka
+apClients	odjemalci
+channel	kanal
+setupNetwork	omrežje za nastavitev
+usersTitle	Uporabniki te plošče
+role	Vloga
+roleAdmin	skrbnik
+roleViewer	opazovalec (samo branje)
+addUser	Dodaj uporabnika
+newPassword	Novo geslo (8 znakov ali več)
+setPassword	Nastavi geslo
+myAccount	Moje geslo
+currentPassword	Trenutno geslo
+changePassword	Spremeni moje geslo
+passwordChanged	Geslo je spremenjeno. Prijavite se znova.
+you	vi
+updateTitle	Posodobitev firmwara
+updateHelp	Izberite datoteko firmwara (.bin, zgrajen za ta projekt, ne združena slika). Pred uporabo se preveri, in če se nova različica ne zažene, se vozlišče samo vrne na prejšnjo.
+chooseFile	Datoteka firmwara
+upload	Naloži in namesti
+uploading	Nalaganje… {0} %
+updateDone	Nameščena različica {0}. Vozlišče se zdaj znova zaganja.
+slot	Teče iz
+slotsTitle	Reže firmwara
+slotsHelp	Vozlišče hrani dve reži firmwara, ota_0 in ota_1. Posodobitev se zapiše v tisto, ki ne teče. Tukaj lahko kadar koli zaženete drugo, da se vrnete na prejšnjo različico ali preidete na pravkar nameščeno. Nastavitve ostanejo.
+slotRunning	trenutno teče
+slotNextBoot	se bo zagnala naslednjič
+slotEmpty	prazna - brez firmwara
+switchSlot	Zaženi {0}
+switchSlotNone	Druga reža ne vsebuje firmwara
+switchAsk	Znova zagnati vozlišče in zagnati {0} (različica {1})?
+logTitle	Dnevnik vozlišča
+copyLog	Kopiraj dnevnik
+copied	Kopirano
+copyFailed	Kopiranje ni uspelo - izberite besedilo in ga kopirajte ročno
+maintenance	Vzdrževanje
+rebootNode	Znova zaženi vozlišče
+factoryTitle	Ponastavitev na tovarniške nastavitve
+factoryHelp	Izbriše vse nastavitve in vse uporabnike; vozlišče se znova zažene v nastavitvi. Za potrditev vnesite RESET.
+author	Avtor
+license	Licenca
+e_unauthorized	Vaša seja se je končala. Prijavite se znova.
+e_wrong_credentials	Napačen uporabnik ali geslo.
+e_too_many_attempts	Preveč poskusov. Počakajte trenutek.
+e_wrong_code	Koda za nastavitev je napačna.
+e_invalid_name	Ime ni veljavno (3 do 32 znakov: a do z, 0 do 9, . _ -).
+e_weak_password	Geslo mora imeti 8 do 64 znakov.
+e_exists	Ta uporabnik že obstaja.
+e_not_found	Ni najdeno.
+e_too_many_users	Uporabniki so lahko največ štirje.
+e_last_admin	Zadnjega skrbnika ni mogoče odstraniti ali znižati.
+e_wrong_password	Trenutno geslo je napačno.
+e_invalid_role	Vloga ni veljavna.
+e_forbidden	Tega ne smete storiti.
+e_storage	V pomnilnik flash ni bilo mogoče pisati.
+e_invalid	Nekatere vrednosti niso veljavne; v obrazcu so označene.
+e_not_json	Zahteva ni bila razumljena.
+e_too_large	Zahteva je prevelika.
+e_bad_size	Velikost datoteke ni veljavna za firmware.
+e_not_firmware	Ta datoteka ni firmware za ESP32.
+e_image_invalid	Slika firmwara je poškodovana ali nepopolna.
+e_wrong_firmware	Ta firmware pripada drugemu projektu.
+e_upload_interrupted	Nalaganje je bilo prekinjeno.
+e_upload_stalled	Nalaganje se je zataknilo in je bilo ustavljeno: poskusite znova.
+e_network	Vozlišča ni bilo mogoče doseči.
+e_setup_required	Najprej nastavite vozlišče: ustvarite njegovega skrbnika.
+e_confirm_required	Potrebna je potrditev: pošljite besedo RESET.
+e_bad_host	Ta naslov ni veljaven.
+e_invalid_time	Ta čas ni veljaven.
+e_would_lock_out	Ta seznam bi vas izklopil iz plošče: dodajte omrežje, ki ga zdaj uporabljate.
+e_slot_empty	Druga reža ne vsebuje firmwara.
+e_ota_begin	Posodobitev ni mogla začeti pisanja.
+e_ota_boot	Novega firmwara ni bilo mogoče izbrati za naslednji zagon.
+e_ota_write	Posodobitve ni bilo mogoče zapisati v pomnilnik flash.
+e_no_partition	Za posodobitev ni proste reže.
+e_outside_network	To omrežje ne sme uporabljati plošče: uporabite domače omrežje ali VPN.
+e_wifi_busy	Radio je zaseden; poskusite znova čez trenutek.
+e_scan_failed	Iskanje ni uspelo.
+e_wifi_unavailable	Wi-Fi ni bilo mogoče zagnati.
+p_required	obvezno
+p_invalid	ni veljavno
+p_range	izven obsega
+p_too_long	predolgo
+p_conflict	že v uporabi
+p_reserved	rezervirano za ploščo
+p_invalid_key	8 do 63 tiskljivih znakov
+p_outside_subnet	izven podomrežja
+addBackupNetwork	Dodaj rezervno omrežje
+appIdf	ESP-IDF (firmware)
+backupNetworksHint	Preizkusijo se po vrsti, če se z zgornjim omrežjem nekaj časa ni mogoče povezati.
+backupNetworksTitle	Rezervna omrežja
+board	Plošča
+bootloaderIdf	ESP-IDF (bootloader)
+brownoutLevel	Nivo detektorja padca napetosti
+checkGithub	Preveri zdaj
+checking	Preverjanje…
+chip	Čip
+clockNotSet	ni nastavljeno
+copyAsk	Kopirati firmware, ki teče ({0}, različica {1}), čez drugo režo ({2})? Kar vsebuje zdaj, bo izbrisano. Vozlišče se ne zažene znova.
+copyDone	Kopirano: obe reži zdaj vsebujeta različico {0}.
+copyRunning	Kopiranje… {0} %
+copySlot	Kopiraj {0} v {1}
+cores	jedra
+cpuFreq	Frekvenca CPE
+dns	DNS
+flash	Flash
+flashAllocated	Rezervirano s particijami
+flashEncryption	Šifriranje flash
+flashFree	prosto
+flashTotal	Skupaj
+flashUnallocated	Ni dodeljeno nobeni particiji
+githubAvailable	Na voljo je različica {0}.
+githubDownloading	Prenos firmwara z GitHuba… {0} %
+githubUpToDate	To je že najnovejša različica na GitHubu.
+githubUpdateNote	Prenese samostojno sliko aplikacije, ki jo objavi sama izdaja na GitHubu (nikoli bootloaderja), in jo namesti enako kot naloženo datoteko. Ročno nalaganje zgoraj deluje popolnoma enako kot prej - to je dodatek, ne nadomestek, za vozlišče, ki nima razloga za dostop do interneta.
+githubUpdateTitle	Preveri novo različico na GitHubu
+githubVerifying	Preverjanje slike z zgoščeno vrednostjo izdaje…
+installUpdate	Prenesi in namesti
+installing	Nameščanje…
+layout	Razporeditev
+localTime	Lokalni čas
+memory	Prost pomnilnik
+navAbout	O programu
+navHelp	Pomoč
+navOverview	Pregled
+navWifi	Wi-Fi
+nodeName	Ime
+none	brez
+ovFlash	Pomnilnik flash
+ovHardware	Strojna oprema
+ovNetwork	Omrežje
+ovNode	To vozlišče
+ovTime	Datum in čas
+ownNetwork	lastno omrežje
+psram	PSRAM
+radios	Radii
+reasonOther	drugo
+removeNetwork	Odstrani
+resetReason	Zadnji ponovni zagon
+secureBoot	Varni zagon
+timeFromNtp	Internetni časovni strežnik (sinhronizirano)
+timeManual	nastavljeno ročno
+timeNtpWaiting	čakanje na internetni časovni strežnik
+timeSource	Vir časa
+timeZone	Časovni pas
+aboutDescription	vozlišče družine EH3D za omarico stroja Bungard CCD: povezuje RS-232 krmilne enote z omrežjem, prikazuje njene lučke, linije in vreteno ter hrani nastavitve, uporabnike in firmware vozlišča.
+aboutIndependent	Projekt je neodvisen: ga ne izdeluje, odobrava ali podpira Bungard Elektronik.
+ovMachineLink	Povezava s strojem
+stClient	Program
+wifiMoved	Omrežja Wi-Fi so na svoji strani, Wi-Fi.
+navHelpTab_overview	Pregled
+help_overview_title	Pregled
+help_overview_text	Ta plošča nastavlja in spremlja vozlišče. Pregled kaže, kaj vozlišče je in kako je; Stanje spremlja, kaj dela, medtem ko to dela; strani Omrežje in Wi-Fi vsebujeta način povezave; Uporabniki, Firmware in Dnevnik so za sistem.\n\nVse se shrani v vozlišče in začne veljati, ko to pove spodnja vrstica. Sprememba, ki zahteva ponovni zagon, to pove, preden zapustite stran.
+navHelpTab_status	Stanje
+help_status_title	Stanje
+help_status_text	Stanje kaže nadzorno povezavo, lučke in linije krmilne enote, vreteno in vrsto, osveženo vsako sekundo. Gumb Ustavi stroj ustavi takoj: vrsta se izprazni, vreteno in gonilniki se izklopijo. Stroj lahko naredi le varnejši.\n\nČe vozlišče ne odgovarja, stran to pove in sprašuje naprej.
+navHelpTab_machine	Stroj
+help_machine_title	Stroj
+help_machine_text	Stroj vsebuje to, kar veže vozlišče na krmilno enoto: serijske nožice in hitrost, dostopni žeton nadzorne povezave, vrata in omejitve vrste. Sprememba začne veljati po shranjevanju; nekatere zahtevajo ponovni zagon in vrstica to pove.\n\nŽeton je samo za pisanje: nikoli se več ne prikaže. Program, ki se poveže, ga potrebuje; brez njega vozlišče stroja noče premikati.
+navHelpTab_network	Omrežje
+help_network_title	Omrežje
+help_network_text	Omrežje kaže, kako je vozlišče zdaj povezano, in določa njegovo ime in naslov: DHCP ali stalen naslov. Na plošči s kablom izberete kabel ali Wi-Fi kot vhod.\n\nSprememba naslova začne veljati po ponovnem zagonu. Če po spremembi vozlišče izgubite, do plošče še vedno pridete prek njegove lastne dostopne točke (če je vklopljena) ali kabla.
+navHelpTab_wifi	Wi-Fi
+help_wifi_title	Wi-Fi
+help_wifi_text	Wi-Fi določa omrežje, s katerim se vozlišče poveže, in dostopno točko, ki jo lahko odpre. Pod glavnim omrežjem lahko dodate do tri rezervna omrežja: če se glavno izgubi, jih vozlišče preizkuša po vrsti in ne izpade iz omrežja. Iskanje našteje omrežja v dosegu.\n\nGesla so samo za pisanje: plošča jih nikoli več ne pokaže, prazno polje pa ohrani shranjeno.
+navHelpTab_users	Uporabniki
+help_users_title	Uporabniki
+help_users_text	Skrbniki spreminjajo nastavitve; opazovalci samo gledajo. Vsaka oseba ima ime in geslo. Skrbnik dodaja osebe, spreminja gesla in jih odstranjuje; zadnjega skrbnika ni mogoče odstraniti.\n\nPreveč napačnih gesel za nekaj časa zaklene ime. Lastno geslo spremenite na isti strani.
+navHelpTab_update	Firmware
+help_update_title	Firmware
+help_update_text	Firmware je mogoče posodobiti na tri načine. Z GitHuba: vozlišče poišče najnovejšo izdajo svojega projekta, jo prenese, preveri, da je njena zgoščena vrednost taka, kot jo objavlja izdaja, in jo namesti v drugo režo. Z nalaganjem datoteke .bin tega projekta. Ali s preklopom na drugo režo, ki še hrani različico, ki je tekla prej.\n\nKopiraj zapiše firmware, ki teče, v drugo režo, tako da imata obe isto različico (kopija, na katero se je mogoče vrniti). Po posodobitvi se vozlišče znova zažene.
+navHelpTab_log	Dnevnik
+help_log_title	Dnevnik
+help_log_text	Dnevnik je to, kar vozlišče sporoča med delom: omrežje, nadzorna povezava, posodobitve in napake. Hrani se v pomnilniku, zato je po ponovnem zagonu prazen.\n\nKopirajte ga, ko prosite za pomoč: vsebuje, kaj se je zgodilo, po vrstnem redu.
+navHelpTab_system	Sistem
+help_system_title	Sistem
+help_system_text	Sistem vsebuje ponovni zagon vozlišča in ponastavitev na tovarniške nastavitve, ki izbriše vse nastavitve in vse uporabnike (za potrditev vnesite RESET). Če želite le videti, ali težava izgine, najprej znova zaženite.\n\nPonovni zagon za trenutek prekine povezavo s strojem: naredite ga, ko ne teče nobeno delo.
+reasonPower_on	vklop napajanja
+reasonSoftware	ponovni zagon s plošče
+reasonCrash	NAPAKA
+reasonWatchdog	watchdog
+reasonBrownout	nizka napetost
+reasonDeep_sleep	globoko spanje
+e_bad_json	Zahteva ni veljaven JSON.
+e_bad_url	Naslov posodobitve ni uradni.
+e_checksum_mismatch	Preneseni firmware ne ustreza kontrolni vsoti izdaje: zavrnjen je bil in nič se ni spremenilo.
+e_client_init	Prenosa ni bilo mogoče začeti.
+e_connect_failed	Prenos se ni povezal: preverite omrežje vozlišča in poskusite znova.
+e_no_asset	Izdaja nima firmwara za to ploščo.
+e_no_asset_for_board	Obstaja novejša izdaja, vendar nima slike firmwara za to ploščo.
+e_no_checksum	Izdaja poleg slike firmwara nima datoteke s kontrolno vsoto, zato se ne namesti.
+e_no_memory	Vozlišču je zmanjkalo pomnilnika.
+e_no_release	Nobena izdaja ni bila najdena.
+e_no_slot	Ni druge reže, v katero bi lahko kopirali.
+e_no_task	Posodobitve ni bilo mogoče začeti (ni proste naloge).
+e_not_newer	Ta firmware ni novejši od tistega, ki teče.
+e_ota_busy	Namestitev z GitHuba že poteka.
+e_read_error	Prenos je bil med branjem prekinjen.
+e_read_failed	Reže, ki teče, ni bilo mogoče prebrati.
+e_short_read	Prenos se je končal, preden je bila datoteka popolna.
+e_source_invalid	Firmwara, ki teče, ni bilo mogoče preveriti, zato ni bil kopiran.
+e_up_to_date	Firmware je že posodobljen.
+e_version_mismatch	Različica datoteke ni različica izdaje.

@@ -239,17 +239,30 @@
         },
         {
           "desc": {
-            "en": "the pages and the texts in eight languages",
-            "es": "las páginas y los textos en ocho idiomas",
-            "de": "die Seiten und die Texte in acht Sprachen",
-            "fr": "les pages et les textes en huit langues",
-            "it": "le pagine e i testi in otto lingue",
-            "ja": "ページと 8 言語の文言",
-            "zh": "页面和八种语言的文本",
-            "pt": "as páginas e os textos em oito idiomas"
+            "en": "the pages and the texts in 37 languages",
+            "es": "las páginas y los textos en 37 idiomas",
+            "de": "die Seiten und die Texte in 37 Sprachen",
+            "fr": "les pages et les textes en 37 langues",
+            "it": "le pagine e i testi in 37 lingue",
+            "ja": "ページと 37 言語の文言",
+            "zh": "页面和37 种语言的文本",
+            "pt": "as páginas e os textos em 37 línguas"
           },
           "name": "app.js  text.js",
           "tree_name": "app.js text.js"
+        },
+        {
+          "name": "locales/",
+          "desc": {
+            "en": "the words of 29 more languages, one file each",
+            "es": "las palabras de 29 idiomas más, un fichero cada uno",
+            "it": "le parole di altre 29 lingue, un file ciascuna",
+            "de": "die Wörter von 29 weiteren Sprachen, je eine Datei",
+            "fr": "les mots de 29 autres langues, un fichier chacune",
+            "pt": "as palavras de mais 29 línguas, um ficheiro cada",
+            "zh": "另外 29 种语言的文字，每种一个文件",
+            "ja": "追加 29 言語の文言（1 言語 1 ファイル）"
+          }
         }
       ],
       "sub": {

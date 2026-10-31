@@ -2,6 +2,8 @@
    Copyright (C) 2026 JuanenRac (Electro Hobby 3D). GPL-3.0-or-later.
    Each row is [en, es, de, fr, it, ja, zh, pt]. This file is joined in front of app.js when the panel is packed. */
 const LANGS = [["en", "English"], ["es", "Español"], ["de", "Deutsch"], ["fr", "Français"], ["it", "Italiano"], ["ja", "日本語"], ["zh", "中文"], ["pt", "Português"]];
+LANGS.push(["bg", "Български"], ["hr", "Hrvatski"], ["cs", "Čeština"], ["da", "Dansk"], ["nl", "Nederlands"], ["et", "Eesti"], ["fi", "Suomi"], ["el", "Ελληνικά"], ["hu", "Magyar"], ["ga", "Gaeilge"], ["lv", "Latviešu"], ["lt", "Lietuvių"], ["mt", "Malti"], ["pl", "Polski"], ["ro", "Română"], ["sk", "Slovenčina"], ["sl", "Slovenščina"], ["sv", "Svenska"], ["no", "Norsk"], ["is", "Íslenska"], ["uk", "Українська"], ["ru", "Русский"], ["sr", "Српски"], ["sq", "Shqip"], ["ca", "Català"], ["gl", "Galego"], ["eu", "Euskara"], ["pt-br", "Português (Brasil)"], ["fr-ca", "Français (Canada)"]);
+const CORE_LANGS = 8;   // the languages of the table L below; the others come from /langs.js (panel/locales) when one of them is chosen
 const L = {
   // ---- shell and navigation
   appName: ["EH3D Bungard node", "Nodo EH3D Bungard", "EH3D-Bungard-Knoten", "Nœud EH3D Bungard", "Nodo EH3D Bungard", "EH3D Bungard ノード", "EH3D Bungard 节点", "Nó EH3D Bungard"],

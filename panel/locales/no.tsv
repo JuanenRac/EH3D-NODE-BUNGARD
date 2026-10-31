@@ -1,0 +1,435 @@
+# Norsk (no): Key<TAB>text, one per line; a text that is missing is shown in English (or in Portuguese / French for the two variants).
+appName	EH3D Bungard-node
+grpNode	Node
+grpNetwork	Nettverk
+grpSystem	System
+navMenu	Hovedmeny
+navStatus	Status
+navMachine	Maskin
+navUpdate	Firmware
+navLog	Logg
+skip	Hopp til innholdet
+themeToLight	Lyst tema
+themeToDark	Mørkt tema
+showShort	Vis
+e_other	Noden svarte med en feil: {0}
+statusNoControl	Denne siden viser nodens status. Det eneste panelet gjør med maskinen, er å stoppe den: å flytte den er bare mulig via et programs autentiserte lenke (styrelenken), aldri herfra.
+stLost	Ingen svar fra noden
+stLink	Styrelenke
+stLinkUp	Lenken er oppe
+stLinkDown	Lenken er nede
+stClientYes	Program tilkoblet
+stClientNo	Ingen program tilkoblet
+stAuthYes	Logget inn
+stAuthNo	Ikke logget inn
+stArmed	Maskinen er armert
+stDisarmed	Maskinen er ikke armert
+stQueue	Byte som venter i køen
+stQueueBytes	Kø
+stSent	Sendte byte
+stLamps	Maskinlamper
+stLampsHelp	Styreenhetens fem lamper, lest direkte. HOME X, Y og Z lyser når en akse står på endebryteren sin.
+lampHomeX	HOME X
+lampHomeY	HOME Y
+lampHomeZ	HOME Z
+lampEnable	ENABLE
+lampTool	TOOL
+lampOn	på
+lampOff	av
+stLines	Styreenhetens linjer
+stLinesHelp	Linjene styreenheten driver tilbake til noden. DCD og RI melder om feil- og verktøytilstandene.
+lineCts	CTS
+lineDsr	DSR
+lineRi	RI
+lineDcd	DCD
+stSpindle	Spindel
+stSpindleBar	Turtall i forhold til maksimum
+spForward	Forover
+spReverse	Bakover
+spStopped	Stoppet
+spMax	Maksimalt turtall: {0} rpm
+spNoSpindle	Ingen spindelhastighet er satt (maksimum 0 rpm).
+stNode	Node
+mRestartNote	Endringer i disse innstillingene trer i kraft etter en omstart av noden.
+mLink	Styrelenke
+mLinkIntro	TCP-porten et program kobler til for å styre maskinen. Hver tilkobling må logge inn med adgangstokenet.
+fPort	TCP-port
+fPortHint	Fra 1 til 65535.
+fIdle	Tidsavbrudd ved inaktivitet (sekunder)
+fIdleHint	Et armert program som ikke sender noe på så lang tid, stoppes: køen tømmes og driverne slås av. 0,5 til 60.
+fQueue	Køstørrelse (byte)
+fQueueHint	Hvor mange byte noden holder før de sendes til styreenheten. 1024 til 4194304.
+fFinish	Fullfør jobben den holder hvis programmet forsvinner
+fFinishHint	Av (anbefalt): noden stopper umiddelbart, som alltid. På: hvis programmet eller serveren blir stille eller faller ut, kjører noden ferdig byteene som allerede ligger i køen (programmet kutter jobben slik at slutten er et trygt sted) og slår deretter av spindelen og driverne.
+finishWarn	Maskinen vil fortsette å bevege seg av seg selv, uten at noen er tilkoblet, til køen er tom eller tiden nedenfor er ute. Slå dette på bare når verktøyet og arbeidet er kontrollert, og du vet hvor stoppknappen er.
+fDrain	Lengste tid på egen hånd (sekunder)
+fDrainHint	Etter denne tiden stopper noden det som er igjen. 10 til 3600.
+stStop	Stopp maskinen
+stStopHint	Tømmer køen og slår av spindelen og driverne, enten et program er tilkoblet eller ikke.
+stStopped	Stoppet.
+stDraining	Programmet forsvant, og noden fullfører jobben den holder. Den tar ikke imot noe nytt; bruk stoppknappen for å avslutte den med en gang.
+fToken	Adgangstoken
+fTokenHint	Skrives til noden og vises aldri igjen. Skriv inn et nytt eller generer ett, og trykk deretter Lagre.
+tokenIsSet	Et token er satt
+tokenNotSet	Ingen token er satt
+tokenWillChange	Et nytt token blir lagret
+tokenWillClear	Tokenet blir fjernet
+tokenShown	Kopier det nå: det vises ikke igjen etter lagring.
+tokenSet	Sett token
+tokenGenerate	Generer ett
+tokenKeep	Behold dagens token
+tokenClear	Fjern token
+fAllowOpen	Tillat styring uten token
+fAllowOpenHint	Bare for en prøvebenk.
+allowOpenWarn	Hvem som helst på nettverket kan koble til og flytte maskinen, uten token. Slå dette på bare på en prøvebenk, aldri på et delt nettverk.
+noTokenNote	Uten token nekter noden å bli styrt. Sett ett før du bruker maskinen.
+mUart	Styreenhet (RS-232)
+mUartIntro	Pinnene som går til RS-232-nivåomformeren og gjennom den til styreenhetens kontakt. Det er GPIO-numre fra 0 til 48.
+fTx	TX-pinne (DB9 pinne 3)
+fRx	RX-pinne (DB9 pinne 2)
+fRxHint	Styreenheten sender ikke noe på denne linjen; -1 lar den stå fri.
+fDtr	DTR-pinne (DB9 pinne 4)
+fDcd	DCD-pinne (DB9 pinne 1)
+fRi	RI-pinne (DB9 pinne 9)
+fCts	CTS-pinne
+fDsr	DSR-pinne
+fNoneHint	-1: ikke koblet.
+fInverted	Nivåomformeren inverterer linjene
+fInvertedHint	En MAX3232 inverterer: høyt nivå på pinnen er en negativ RS-232-spenning. Slå av bare for en omformer som ikke inverterer.
+mUartWiring	Noden tar PC-ens plass: den er DTE-enden av kabelen, og kabelen er den samme rette DB9-kabelen som koblet PC-en til styreenheten. Koble aldri en ESP32-pinne til maskinen uten en RS-232-nivåomformer: pinnene er 3,3 V og RS-232 er pluss og minus 12 V. TX går til DB9 pinne 3, DTR til pinne 4, DCD kommer fra pinne 1, RI fra pinne 9 og jord til pinne 5.
+mLamps	Maskinlamper
+mLampsIntro	Noden leser styreenhetens lamper (HOME X, HOME Y, HOME Z, ENABLE, TOOL), slik at den vet hvilken akse som står i hjemmeposisjon. -1 lar en lampe stå uleset.
+fHomeX	HOME X-pinne
+fHomeY	HOME Y-pinne
+fHomeZ	HOME Z-pinne
+fEnable	ENABLE-pinne
+fTool	TOOL-pinne
+fActiveLow	En tent lampe trekker pinnen lavt
+fActiveLowHint	På med den vanlige NPN-bufferen: en tent lampe slår på transistoren og trekker pinnen lavt.
+mLampsWiring	Les anoden til hver lampe gjennom en NPN-transistor, med basen på en 10 kΩ motstand. Koble aldri lysdioden til en optokobler rett over lampen: spenningsfallet i lederetningen ville slukke lampen.
+mSpindle	Spindel
+mSpindleIntro	Hastighetssignalet og kjørelinjene for spindelens frekvensomformer (VFD). Sett maksimalt turtall til 0 for en node uten spindel.
+fMaxRpm	Maksimalt turtall (rpm)
+fMaxRpmHint	Turtallet ved 10 V (100 % PWM); en høyere forespørsel kuttes til dette. 0 til 60000.
+fPwmHz	PWM-frekvens (Hz)
+fPwmHzHint	100 til 40000. Filteret i omformermodulen må passe.
+fPwmPin	PWM-pinne for turtall
+fFwdPin	Pinne for kjøring forover
+fRevPin	Pinne for kjøring bakover
+fRunPin	Kjørepinne
+fDirPin	Retningspinne (på for bakover)
+fPwmInverted	Inverter PWM
+fDirSingle	Én kjørelinje og én retningslinje
+fDirSingleHint	På: den første pinnen er kjørelinjen og den andre retningslinjen. Av: én linje for forover og én for bakover, aldri begge samtidig.
+fOutLow	Kjøre- og retningslinjene er aktive lave
+fSettle	Settletid mellom retninger (sekunder)
+fSettleHint	Spindelen kan ikke reverseres før den har stått stille så lenge. 0 til 60.
+mSpindleWiring	Før PWM-pinnen til en PWM-til-0-10 V-omformermodul med egen forsyning; utgangen går til frekvensomformerens hastighetsinngang (VI og ACM på en Huanyang-omformer). Kjørelinjene styrer omformerens innganger FOR og REV via relékontakter eller optokoblere, aldri direkte fra pinnen: utgangene er 3,3 V og noen få milliampere. Hold felles jord mellom noden, omformermodulen og omformerens hastighetsinngang.
+mSpindleSafety	Alle tre utgangene er av ved oppstart, ved ethvert stopp av maskinen og så snart turtallet er 0. Kontroller omformerens egne innstillinger (styring fra klemmene, analog hastighetsinngang, frekvensgrenser) mot spindelens typeskilt før første start: feil frekvens kan skade en høyhastighetsspindel.
+netNow	Gjeldende tilkobling
+netTitle	Adresse
+hostnameHint	tomt: noden velger et navn ut fra identifikatoren sin
+netRestartNote	En endring av vertsnavnet eller tilkoblingen trer i kraft etter en omstart av noden.
+apNote	Oppsettstilgangspunktet er nodens eget Wi-Fi-nettverk, for å nå den fra en telefon når den ikke har adresse på ditt.
+setupWifiHelp	Noden har ingen kabel. Oppgi nå Wi-Fi-nettverket den skal koble til, eller la feltet stå tomt og bruk nodens eget oppsettsnettverk, hvor passordet er oppsettskoden (du kan endre det senere under Nettverk).
+rolesHelp	Administratorer kan endre alt. Lesere kan se status og innstillinger, men endrer ingenting.
+slotVersion	versjon {0}
+slotsUnknown	Noden rapporterte ikke firmwareplassene sine.
+chooseFirst	Velg en firmwarefil først.
+p_out_of_range	utenfor området
+p_duplicate_pin	denne pinnen brukes to ganger
+p_reserved_pin	reservert av kortet
+p_not_a_number	ikke et heltall
+e_machine_armed	Et program har maskinen armert: ingenting kan lagres, startes på nytt eller oppdateres før det avarmerer.
+staError	Siste Wi-Fi-feil
+se_failed	tilkoblingen mislyktes
+se_network_not_found	nettverket ble ikke funnet
+se_wrong_password	passordet ble avvist
+navNetwork	Nettverk
+navUsers	Brukere
+navSystem	System
+language	Språk
+signOut	Logg ut
+loading	Laster…
+unreachable	Noden svarer ikke.
+signIn	Logg inn
+rememberMe	Hold meg innlogget i denne nettleseren
+rememberUser	Husk brukernavnet mitt på denne enheten
+loginNote	Bare brukernavnet kan huskes, og bare hvis du krysser av i ruten. Passordet lagres, hvis du ønsker det, kun av nettleserens eller systemets egen passordbehandler; panelet lagrer det aldri.
+user	Bruker
+password	Passord
+showPassword	Vis passordet
+setupTitle	Sett opp denne noden
+setupCode	Oppsettskode
+adminName	Administratorens navn
+createAdmin	Opprett administrator
+setupWifi	Oppsetts-Wi-Fi for denne noden
+setupIntro	Denne noden har ingen bruker ennå. Skriv inn oppsettskoden noden viser på USB-konsollen sin hvert 15. sekund, og velg administrator.
+setupWifiTitle	Wi-Fi-nettverk noden skal koble til (valgfritt)
+setupWifiOptionalTitle	Wi-Fi-nettverk (valgfritt)
+setupWifiOptionalHelp	Dette kortet har en Ethernet-port: med en kabel tilkoblet lar du dette stå tomt. For å bruke noden over Wi-Fi i stedet (for eksempel på en benk uten kabel) oppgir du her nettverket den skal koble til. Hvis den ender opp uten adresse, åpner den oppsettsnettverket sitt igjen etter 90 sekunder, slik at den kan nås.
+save	Lagre
+saveRestart	Lagre og start på nytt
+restart	Start på nytt
+discard	Forkast endringer
+saved	Lagret.
+savedRestart	Lagret. Start noden på nytt for å ta det i bruk.
+unsaved	Det finnes ulagrede endringer.
+restarting	Noden starter på nytt…
+adminOnly	Bare en administrator kan endre dette.
+yes	ja
+no	nei
+add	Legg til
+delete	Slett
+refresh	Oppdater
+working	Jobber…
+confirmAsk	Er du sikker?
+nodeId	Identifikator
+firmware	Firmware
+uptime	Har vært i gang i
+address	Adresse
+netmask	Nettmaske
+gateway	Gateway
+mac	MAC
+link	Lenke
+linkUp	oppe
+linkDown	nede
+nodeTitle	Node
+uplink	Tilkobling til nettverket
+uplinkEthernet	Ethernet-kabel (PoE)
+uplinkWifi	Wi-Fi (kobler til et annet nettverk)
+dhcp	Hent adressen automatisk (DHCP)
+dns1	DNS-server 1
+dns2	DNS-server 2
+hostname	Vertsnavn
+wifiAp	Tilgangspunkt (Wi-Fi som denne noden tilbyr)
+apEnable	Tilby et Wi-Fi-nettverk
+ssid	Nettverksnavn (SSID)
+security	Sikkerhet
+secOpen	åpent (uten passord)
+secWpa2	WPA2
+secWpa3	WPA3
+secWpa2Wpa3	WPA2 + WPA3
+wifiPassword	Wi-Fi-passord (8 til 63 tegn)
+passwordSet	et passord er lagret; la stå tomt for å beholde det
+hidden	Skjul nettverksnavnet
+wifiChannel	Kanal
+channelAuto	automatisk (1, 6 eller 11 etter node)
+channelNow	Denne noden ville brukt kanal {0}.
+wifiSta	Wi-Fi-stasjon (denne noden kobler til et Wi-Fi-nettverk)
+staEnable	Koble til et Wi-Fi-nettverk
+scanNetworks	Søk etter nettverk
+scanning	Søker…
+noNetworks	Ingen nettverk ble hørt.
+scanNote	Mens den søker, kan nodens eget tilgangspunkt kort koble fra klientene sine.
+useNetwork	Bruk
+signal	signal
+wiredNote	På kabelen ber noden om adressen sin via DHCP med mindre du setter den fast her. Dens eget Wi-Fi-nettverk, hvis du beholder det, er et eget nettverk (192.168.4.x) for å nå noden fra en telefon; det er ikke koblet til det kablede. Endringer trer i kraft etter en omstart.
+staNote	Noden har ingen kabel: gi den Wi-Fi-nettverket i huset eller anlegget ditt. Hvis du lar stasjonen være av, bruk dens eget tilgangspunkt.
+noWifiWarn	Noden har ingen kabel: la minst én av de to, tilgangspunktet eller stasjonen, være på, ellers kan den ikke nås.
+ethernetMissing	Ethernet-brikken svarer ikke (se koblingsveiledningen).
+station	Wi-Fi-stasjon
+notConnected	ikke tilkoblet
+apActive	Tilgangspunkt
+apClients	klienter
+channel	kanal
+setupNetwork	oppsettsnettverk
+usersTitle	Brukere av dette panelet
+role	Rolle
+roleAdmin	administrator
+roleViewer	leser (skrivebeskyttet)
+addUser	Legg til en bruker
+newPassword	Nytt passord (8 tegn eller mer)
+setPassword	Sett passord
+myAccount	Mitt passord
+currentPassword	Nåværende passord
+changePassword	Endre passordet mitt
+passwordChanged	Passordet er endret. Logg inn på nytt.
+you	du
+updateTitle	Oppdater firmware
+updateHelp	Velg firmwarefilen (en .bin bygget for dette prosjektet, ikke det sammenslåtte avbildet). Den kontrolleres før bruk, og hvis den nye versjonen ikke starter, går noden tilbake til den forrige av seg selv.
+chooseFile	Firmwarefil
+upload	Last opp og installer
+uploading	Laster opp… {0} %
+updateDone	Versjon {0} installert. Noden starter på nytt nå.
+slot	Kjører fra
+slotsTitle	Firmwareplasser
+slotsHelp	Noden har to firmwareplasser, ota_0 og ota_1. En oppdatering skrives til den som ikke kjører. Her kan du starte den andre når som helst, for å gå tilbake til forrige versjon eller fram til den som nettopp ble installert. Innstillingene beholdes.
+slotRunning	kjører nå
+slotNextBoot	starter neste gang
+slotEmpty	tom - ingen firmware
+switchSlot	Start {0}
+switchSlotNone	Den andre plassen inneholder ingen firmware
+switchAsk	Starte noden på nytt og starte {0} (versjon {1})?
+logTitle	Nodens logg
+copyLog	Kopier loggen
+copied	Kopiert
+copyFailed	Kunne ikke kopiere - marker teksten og kopier den for hånd
+maintenance	Vedlikehold
+rebootNode	Start noden på nytt
+factoryTitle	Tilbakestilling til fabrikkinnstillinger
+factoryHelp	Sletter alle innstillinger og alle brukere; noden starter på nytt i oppsett. Skriv RESET for å bekrefte.
+author	Opphavsperson
+license	Lisens
+e_unauthorized	Økten din er avsluttet. Logg inn på nytt.
+e_wrong_credentials	Feil bruker eller passord.
+e_too_many_attempts	For mange forsøk. Vent et øyeblikk.
+e_wrong_code	Oppsettskoden er feil.
+e_invalid_name	Navnet er ikke gyldig (3 til 32 tegn: a til z, 0 til 9, . _ -).
+e_weak_password	Passordet må ha 8 til 64 tegn.
+e_exists	Den brukeren finnes allerede.
+e_not_found	Ikke funnet.
+e_too_many_users	Det kan være høyst fire brukere.
+e_last_admin	Den siste administratoren kan ikke fjernes eller nedgraderes.
+e_wrong_password	Det nåværende passordet er feil.
+e_invalid_role	Rollen er ikke gyldig.
+e_forbidden	Du kan ikke gjøre det.
+e_storage	Flashminnet kunne ikke skrives til.
+e_invalid	Noen verdier er ikke gyldige; de er markert i skjemaet.
+e_not_json	Forespørselen ble ikke forstått.
+e_too_large	Forespørselen er for stor.
+e_bad_size	Filstørrelsen er ikke gyldig for en firmware.
+e_not_firmware	Den filen er ikke en ESP32-firmware.
+e_image_invalid	Firmwareavbildet er skadet eller ufullstendig.
+e_wrong_firmware	Den firmwaren tilhører et annet prosjekt.
+e_upload_interrupted	Opplastingen ble avbrutt.
+e_upload_stalled	Opplastingen stoppet opp og ble avbrutt: prøv igjen.
+e_network	Kunne ikke nå noden.
+e_setup_required	Sett opp noden først: opprett administratoren.
+e_confirm_required	Bekreftelse kreves: send ordet RESET.
+e_bad_host	Den adressen er ikke gyldig.
+e_invalid_time	Det tidspunktet er ikke gyldig.
+e_would_lock_out	Den listen ville låse deg ute fra panelet: legg til nettverket du bruker nå.
+e_slot_empty	Den andre plassen inneholder ingen firmware.
+e_ota_begin	Oppdateringen kunne ikke begynne å skrive.
+e_ota_boot	Den nye firmwaren kunne ikke velges for neste oppstart.
+e_ota_write	Oppdateringen kunne ikke skrives til flashminnet.
+e_no_partition	Det finnes ingen ledig plass for oppdateringen.
+e_outside_network	Dette nettverket har ikke lov til å bruke panelet: bruk hjemmenettverket eller VPN.
+e_wifi_busy	Radioen er opptatt; prøv igjen om et øyeblikk.
+e_scan_failed	Søket mislyktes.
+e_wifi_unavailable	Wi-Fi kunne ikke startes.
+p_required	påkrevd
+p_invalid	ikke gyldig
+p_range	utenfor området
+p_too_long	for lang
+p_conflict	allerede i bruk
+p_reserved	reservert av kortet
+p_invalid_key	8 til 63 skrivbare tegn
+p_outside_subnet	utenfor undernettet
+addBackupNetwork	Legg til reservenettverk
+appIdf	ESP-IDF (firmware)
+backupNetworksHint	Prøves i rekkefølge hvis nettverket ovenfor ikke kan nås på en stund.
+backupNetworksTitle	Reservenettverk
+board	Kort
+bootloaderIdf	ESP-IDF (bootloader)
+brownoutLevel	Nivå for brown-out-detektoren
+checkGithub	Sjekk nå
+checking	Sjekker…
+chip	Brikke
+clockNotSet	ikke stilt
+copyAsk	Kopiere firmwaren som kjører ({0}, versjon {1}) over den andre plassen ({2})? Det den inneholder nå, slettes. Noden starter ikke på nytt.
+copyDone	Kopiert: begge plassene inneholder nå versjon {0}.
+copyRunning	Kopierer… {0} %
+copySlot	Kopier {0} til {1}
+cores	kjerner
+cpuFreq	CPU-frekvens
+dns	DNS
+flash	Flash
+flashAllocated	Reservert av partisjonene
+flashEncryption	Flashkryptering
+flashFree	ledig
+flashTotal	Totalt
+flashUnallocated	Ikke tildelt noen partisjon
+githubAvailable	Versjon {0} er tilgjengelig.
+githubDownloading	Laster ned firmwaren fra GitHub… {0} %
+githubUpToDate	Dette er allerede den nyeste versjonen på GitHub.
+githubUpdateNote	Laster ned det frittstående app-avbildet som GitHubs egen release publiserer (aldri bootloaderen) og installerer det på samme måte som en opplastet fil. Den manuelle opplastingen ovenfor fungerer akkurat som før - dette er et tillegg, ikke en erstatning, for en node uten grunn til å nå internett.
+githubUpdateTitle	Sjekk GitHub for en ny versjon
+githubVerifying	Kontrollerer avbildet mot hashen til releasen…
+installUpdate	Last ned og installer
+installing	Installerer…
+layout	Oppsett
+localTime	Lokal tid
+memory	Ledig minne
+navAbout	Om
+navHelp	Hjelp
+navOverview	Oversikt
+navWifi	Wi-Fi
+nodeName	Navn
+none	ingen
+ovFlash	Flashminne
+ovHardware	Maskinvare
+ovNetwork	Nettverk
+ovNode	Denne noden
+ovTime	Dato og klokkeslett
+ownNetwork	eget nettverk
+psram	PSRAM
+radios	Radioer
+reasonOther	annet
+removeNetwork	Fjern
+resetReason	Siste omstart
+secureBoot	Sikker oppstart
+timeFromNtp	Tidsserver på internett (synkronisert)
+timeManual	stilt for hånd
+timeNtpWaiting	venter på tidsserveren på internett
+timeSource	Tidskilde
+timeZone	Tidssone
+aboutDescription	en node i EH3D-familien for kabinettet til en Bungard CCD-maskin: den kobler RS-232 på styreenheten til nettverket, viser lampene, linjene og spindelen og holder på innstillingene, brukerne og firmwaren til noden.
+aboutIndependent	Prosjektet er uavhengig: det er ikke laget, godkjent eller støttet av Bungard Elektronik.
+ovMachineLink	Maskinlenke
+stClient	Program
+wifiMoved	Wi-Fi-nettverkene ligger på sin egen side, Wi-Fi.
+navHelpTab_overview	Oversikt
+help_overview_title	Oversikt
+help_overview_text	Dette panelet setter opp og overvåker noden. Oversikten viser hva noden er og hvordan den har det; Status følger det den gjør mens den gjør det; sidene Nettverk og Wi-Fi inneholder hvordan den er koblet til; Brukere, Firmware og Logg er for systemet.\n\nAlt lagres i noden og trer i kraft når linjen nederst sier det. En endring som krever omstart, sier det før du forlater siden.
+navHelpTab_status	Status
+help_status_title	Status
+help_status_text	Status viser styrelenken, lampene og linjene til styreenheten, spindelen og køen, oppdatert hvert sekund. Stopp-knappen stopper maskinen nå: køen tømmes og spindelen og driverne slås av. Den kan bare gjøre maskinen tryggere.\n\nHvis noden ikke svarer, sier siden fra og fortsetter å spørre.
+navHelpTab_machine	Maskin
+help_machine_title	Maskin
+help_machine_text	Maskin inneholder det som binder noden til styreenheten: de serielle pinnene og hastigheten, adgangstokenet til styrelenken, porten og grensene for køen. En endring trer i kraft ved lagring; noen krever omstart, og linjen sier fra.\n\nTokenet er bare skrivbart: det vises aldri igjen. Et program som kobler til, trenger det; uten det nekter noden å flytte maskinen.
+navHelpTab_network	Nettverk
+help_network_title	Nettverk
+help_network_text	Nettverk viser hvordan noden er koblet til nå og setter navnet og adressen: DHCP eller en fast adresse. På et kort med kabel velger du kabelen eller Wi-Fi som innfallsport.\n\nEn adresseendring trer i kraft etter en omstart. Hvis du mister noden etter en endring, kommer du fortsatt til panelet via nodens eget tilgangspunkt (når det er på) eller kabelen.
+navHelpTab_wifi	Wi-Fi
+help_wifi_title	Wi-Fi
+help_wifi_text	Wi-Fi setter nettverket noden kobler til og tilgangspunktet den kan åpne. Under hovednettverket kan du legge til opptil tre reservenettverk: hvis hovednettverket går tapt, prøver noden dem etter tur, slik at den ikke faller av nettverket. Søk lister nettverkene innen rekkevidde.\n\nPassordene er bare skrivbare: panelet viser dem aldri igjen, og et tomt felt beholder det lagrede.
+navHelpTab_users	Brukere
+help_users_title	Brukere
+help_users_text	Administratorer endrer innstillinger; lesere ser bare. Hver person har et navn og et passord. En administrator legger til personer, endrer passord og fjerner dem; den siste administratoren kan ikke fjernes.\n\nFor mange gale passord blokkerer et navn en stund. Ditt eget passord endrer du på samme side.
+navHelpTab_update	Firmware
+help_update_title	Firmware
+help_update_text	Firmwaren kan oppdateres på tre måter. Fra GitHub: noden finner den nyeste releasen av sitt eget prosjekt, laster den ned, sjekker at hashen stemmer med den releasen publiserer, og installerer den på den andre plassen. Ved å laste opp en .bin-fil for dette prosjektet. Eller ved å bytte til den andre plassen, som fortsatt har versjonen som kjørte før.\n\nKopier skriver firmwaren som kjører til den andre plassen, slik at begge har samme versjon (en kopi å falle tilbake på). Etter en oppdatering starter noden på nytt.
+navHelpTab_log	Logg
+help_log_title	Logg
+help_log_text	Loggen er det noden sier mens den arbeider: nettverket, styrelenken, oppdateringene og feilene. Den holdes i minnet, så den er tom etter en omstart.\n\nKopier den når du ber om hjelp: den inneholder det som skjedde, i rekkefølge.
+navHelpTab_system	System
+help_system_title	System
+help_system_text	System har omstart av noden og tilbakestilling til fabrikkinnstillinger, som sletter alle innstillinger og alle brukere (skriv RESET for å bekrefte). Start på nytt først hvis du bare vil se om et problem forsvinner.\n\nEn omstart avbryter lenken til maskinen et øyeblikk: gjør det når ingen jobb kjører.
+reasonPower_on	påslått strøm
+reasonSoftware	omstart fra panelet
+reasonCrash	KRASJ
+reasonWatchdog	watchdog
+reasonBrownout	lav spenning
+reasonDeep_sleep	dyp søvn
+e_bad_json	Forespørselen er ikke gyldig JSON.
+e_bad_url	Adressen til oppdateringen er ikke den offisielle.
+e_checksum_mismatch	Den nedlastede firmwaren stemmer ikke med sjekksummen til releasen: den ble avvist og ingenting ble endret.
+e_client_init	Nedlastingen kunne ikke startes.
+e_connect_failed	Nedlastingen koblet ikke til: sjekk nodens nettverk og prøv igjen.
+e_no_asset	Releasen har ingen firmware for dette kortet.
+e_no_asset_for_board	Det finnes en nyere release, men den har ikke noe firmwareavbilde for dette kortet.
+e_no_checksum	Releasen har ingen sjekksumfil ved siden av firmwareavbildet, så den installeres ikke.
+e_no_memory	Noden gikk tom for minne.
+e_no_release	Ingen release ble funnet.
+e_no_slot	Det finnes ingen annen plass å kopiere til.
+e_no_task	Oppdateringen kunne ikke startes (ingen ledig oppgave).
+e_not_newer	Den firmwaren er ikke nyere enn den som kjører.
+e_ota_busy	En installasjon fra GitHub pågår allerede.
+e_read_error	Nedlastingen ble avbrutt under lesing.
+e_read_failed	Plassen som kjører, kunne ikke leses.
+e_short_read	Nedlastingen ble avsluttet før filen var komplett.
+e_source_invalid	Firmwaren som kjører, kunne ikke verifiseres, så den ble ikke kopiert.
+e_up_to_date	Firmwaren er allerede oppdatert.
+e_version_mismatch	Filens versjon er ikke releasens.

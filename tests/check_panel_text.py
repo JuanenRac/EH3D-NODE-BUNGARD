@@ -16,6 +16,8 @@ ROOT = Path(__file__).resolve().parent.parent
 PANEL = ROOT / "panel"
 LANGUAGES = 8
 CODES = ["en", "es", "de", "fr", "it", "ja", "zh", "pt"]
+EXTRA_CODES = ["bg", "hr", "cs", "da", "nl", "et", "fi", "el", "hu", "ga", "lv", "lt", "mt", "pl", "ro", "sk", "sl", "sv", "no", "is", "uk", "ru", "sr", "sq", "ca", "gl", "eu", "pt-br", "fr-ca"]
+LANGS_LIMIT_BYTES = 420 * 1024   # the gzip of langs.js (the other 29 languages), asked for only when one of them is chosen
 LIMIT_BYTES = 120 * 1024   # the gzip of index.html, app.js (with text.js) and style.css (the summary, the Wi-Fi, the update from GitHub and the help made it grow past 90 KB)
 FORBIDDEN = re.compile(r"armor|a\.r\.m\.o\.r|mqtt|zigbee|broker", re.I)
 # the codes the machine settings answer with next to a field, and the ones the panel itself raises
@@ -100,9 +102,44 @@ def check_rows(table, problems):
 
 
 def check_languages(text, problems):
-    listed = re.findall(r'\["([a-z]{2})", "[^"]+"\]', text.split("const L = {")[0])
-    if listed != CODES:
-        problems.append(f"LANGS lists {listed}, expected {CODES}")
+    listed = re.findall(r'\["([a-z]{2}(?:-[a-z]{2})?)", "[^"]+"\]', text.split("const L = {")[0])
+    if listed != CODES + EXTRA_CODES:
+        problems.append(f"LANGS lists {listed}, expected {CODES + EXTRA_CODES}")
+
+
+def check_locales(table, problems):
+    """panel/locales/CODE.tsv: only keys the panel has, a text for each (the two variants may list only what they change), the placeholders of the English text kept."""
+    sizes = 0
+    for code in EXTRA_CODES:
+        source = PANEL / "locales" / (code + ".tsv")
+        if not source.is_file():
+            problems.append(f"panel/locales/{code}.tsv is missing")
+            continue
+        seen = {}
+        for number, line in enumerate(source.read_text(encoding="utf-8").splitlines(), 1):
+            if line.startswith("#") or not line.strip():
+                continue
+            if "\t" not in line:
+                problems.append(f"{code}.tsv line {number}: no tab")
+                continue
+            key, text = line.split("\t", 1)
+            if key not in table:
+                problems.append(f"{code}.tsv: unknown key {key}")
+            elif not text.strip():
+                problems.append(f"{code}.tsv: {key} is empty")
+            else:
+                for hole in set(re.findall(r"\{\d+\}", table[key][0])):
+                    if hole not in text:
+                        problems.append(f"{code}.tsv: {key} lost {hole}")
+            seen[key] = text
+        missing = [k for k in table if k not in seen]
+        if code in ("pt-br", "fr-ca"):
+            if len(seen) < 5:
+                problems.append(f"{code}.tsv has only {len(seen)} texts of its own")
+        elif missing:
+            problems.append(f"{code}.tsv misses {len(missing)} texts, e.g. {missing[:3]}")
+        sizes += len(source.read_bytes())
+    return sizes
 
 
 def check_firmware_codes(table, problems):
@@ -137,6 +174,7 @@ def main():
     table = rows(text)
     check_languages(text, problems)
     check_rows(table, problems)
+    locales_bytes = check_locales(table, problems)
 
     for name in ("index.html", "app.js", "style.css", "text.js"):
         body = (PANEL / name).read_text(encoding="utf-8")
@@ -169,12 +207,16 @@ def main():
     if packed > LIMIT_BYTES:
         problems.append(f"the packed panel is {packed} bytes, over the {LIMIT_BYTES} limit")
 
+    langs_packed = len(gzip.compress(b"x" * 0 + b"".join(p.read_bytes() for p in sorted((PANEL / "locales").glob("*.tsv"))), 9, mtime=0))
+    if langs_packed > LANGS_LIMIT_BYTES:
+        problems.append(f"the packed languages are {langs_packed} bytes, over the {LANGS_LIMIT_BYTES} limit")
+
     if problems:
         print("PANEL_TEXT=FAIL")
         for problem in problems:
             print("  " + problem)
         return 1
-    print(f"PANEL_TEXT=PASS {len(table)} rows in {LANGUAGES} languages, {len(used)} keys used, {codes} firmware error codes with a text, {packed} bytes packed")
+    print(f"PANEL_TEXT=PASS {len(table)} rows in {LANGUAGES} languages, {len(used)} keys used, {codes} firmware error codes with a text, {packed} bytes packed, {len(EXTRA_CODES)} more languages in {langs_packed} bytes")
     return 0
 
 

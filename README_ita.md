@@ -18,7 +18,7 @@
 
 ---
 
-**Verifica di onestà - cosa funziona oggi:** firmware in C++17 per l'ESP32-S3 (ESP-IDF 5.5) che trasforma la porta RS-232 dell'unità di controllo di una macchina Bungard CCD in una porta di rete: un programma si connette via TCP con un token di accesso, arma la macchina e invia i byte di un movimento, che il nodo mette in coda e porta sulla linea al ritmo proprio della linea. Legge anche i LED della macchina (HOME X, Y e Z, ENABLE, TOOL), pilota un mandrino con un segnale di velocità 0-10 V e linee di marcia e direzione, e ha un pannello web con menu laterale (otto lingue) per la configurazione iniziale, gli utenti, la rete, l'aggiornamento e le impostazioni della macchina. Le regole del collegamento e le impostazioni sono provate su un computer (10 programmi di test, 2235 controlli contati) e il firmware compila senza avvisi per entrambe le schede. **Non è ancora stato scritto né eseguito su una scheda**, nulla è stato collegato a una macchina, e la scheda portante che riunisce il convertitore RS-232, gli ingressi dei LED e il variatore del mandrino è un progetto su carta.
+**Verifica di onestà - cosa funziona oggi:** firmware in C++17 per l'ESP32-S3 (ESP-IDF 5.5) che trasforma la porta RS-232 dell'unità di controllo di una macchina Bungard CCD in una porta di rete: un programma si connette via TCP con un token di accesso, arma la macchina e invia i byte di un movimento, che il nodo mette in coda e porta sulla linea al ritmo proprio della linea. Legge anche i LED della macchina (HOME X, Y e Z, ENABLE, TOOL), pilota un mandrino con un segnale di velocità 0-10 V e linee di marcia e direzione, e ha un pannello web con menu laterale (37 lingue) per la configurazione iniziale, gli utenti, la rete, l'aggiornamento e le impostazioni della macchina. Le regole del collegamento e le impostazioni sono provate su un computer (10 programmi di test, 2235 controlli contati) e il firmware compila senza avvisi per entrambe le schede. **Non è ancora stato scritto né eseguito su una scheda**, nulla è stato collegato a una macchina, e la scheda portante che riunisce il convertitore RS-232, gli ingressi dei LED e il variatore del mandrino è un progetto su carta.
 
 ---
 
@@ -47,7 +47,7 @@ Ogni riga è una parte di questo repository e il semaforo dice a che punto è og
 | Software | 🟡 | Il firmware per l'ESP32-S3 (ESP-IDF 5.5, C++17) compila senza avvisi per entrambe le schede, Ethernet e Wi-Fi; nessuna immagine è stata scritta. |
 | Test | 🟡 | Passano 10 programmi di test su computer (`ctest`): 2235 controlli contati su collegamento, impostazioni, regole della macchina e base condivisa, più il controllo dei testi del pannello (315 righe in 8 lingue) e degli stack dei task (10 task). |
 | Collegamento di controllo | 🟡 | Il protocollo a frame (CRC, login con token, armamento, coda di byte, stop quando la sessione tace) è coperto dai test su computer; nessun programma ha parlato con un nodo reale. |
-| Pannello web | 🟡 | Il pannello web (menu laterale, otto lingue: configurazione, macchina, rete, utenti, aggiornamento, registro, sistema) ha i testi controllati ed è provato contro una simulazione del nodo in un browser; non è mai stato servito da una scheda. |
+| Pannello web | 🟡 | Il pannello web (menu laterale, 37 lingue: configurazione, macchina, rete, utenti, aggiornamento, registro, sistema) ha i testi controllati ed è provato contro una simulazione del nodo in un browser; non è mai stato servito da una scheda. |
 | Mandrino e LED | 🟠 | Il segnale di velocità 0-10 V, le linee di marcia e direzione (nessuna inversione mentre gira) e i cinque ingressi dei LED sono provati sul computer; nessun variatore né macchina è stato collegato. |
 | Aggiornamenti | 🟠 | Il caricamento in uno dei due slot del firmware con ripristino e conferma è provato sul computer; un aggiornamento non è mai stato eseguito su una scheda. |
 | Sicurezza | 🟡 | Codice di configurazione sulla console USB, token di accesso, utenti e ruoli, HTTPS facoltativo e nulla di segreto compilato; si ferma da solo quando il collegamento cade. Non ha ancora un ingresso di arresto di emergenza né una revisione indipendente. |
@@ -60,7 +60,7 @@ Ogni riga è una parte di questo repository e il semaforo dice a che punto è og
 * La **linea seriale verso l'unità di controllo**: 38400 baud 8N1 tramite un MAX3232, con le linee DTR, DCD e RI dell'handshake. I pin e se il ricetrasmettitore inverte le linee sono impostazioni.
 * I **LED**: HOME X, HOME Y, HOME Z, ENABLE e TOOL vengono letti tramite un transistor buffer, mostrati nello stato e sul pannello, e una richiesta può far abbandonare al nodo il resto di una ricerca appena un asse è a casa, così il programma non deve più leggere la linea di home in mezzo al flusso.
 * Il **mandrino**: un PWM di velocità per un convertitore 0-10 V (24000 giri/min a segnale pieno per impostazione predefinita, per un variatore di frequenza come l'Huanyang HY02D223B) e linee di marcia avanti / indietro, senza cambio di senso mentre gira o subito dopo l'arresto, e uno stop ogni volta che la macchina viene fermata.
-* Il **pannello** (HTTP e HTTPS, otto lingue, il menu a sinistra su uno schermo largo e in alto su un telefono): configurazione iniziale con un codice mostrato sulla console USB, utenti, Ethernet o Wi-Fi, il collegamento di controllo, i pin RS-232, i LED e il mandrino, un registro e aggiornamenti tramite caricamento in uno dei due slot del firmware con ripristino. Nessun segreto è compilato nell'immagine.
+* Il **pannello** (HTTP e HTTPS, 37 lingue, il menu a sinistra su uno schermo largo e in alto su un telefono): configurazione iniziale con un codice mostrato sulla console USB, utenti, Ethernet o Wi-Fi, il collegamento di controllo, i pin RS-232, i LED e il mandrino, un registro e aggiornamenti tramite caricamento in uno dei due slot del firmware con ripristino. Nessun segreto è compilato nell'immagine.
 * L'**autoprotezione**: un guardiano che osserva i task e la memoria, un cancello alla porta del pannello quando la memoria scarseggia e la conferma di una nuova immagine appena il nodo è raggiungibile.
 * Le **schede**: la Waveshare ESP32-S3-ETH (Ethernet W5500) e una ESP32-S3-WROOM-1 N16R8 (Wi-Fi), un'immagine per ciascuna. Il progetto della scheda portante (100 x 100 mm) è in `docs/BOARD.md`.
 * Le **macchine**: la Bungard CCD MTC e la CCD/2 MTC, con l'unità di controllo a porta seriale del software DOS 4.6. I due modelli ATC non sono coperti; i modelli XL e le macchine successive hanno una propria unità di controllo moderna.
@@ -126,6 +126,7 @@ Come si incastrano le parti di questo repository: chi lo usa, che cosa contiene 
 * **Aggiornamento con ripristino:** un'immagine va nello slot non in uso ed è in prova finché il nodo non è raggiungibile; il bootloader torna indietro quando non lo è.
 * **Si prende cura di sé:** un guardiano osserva i task e la memoria, e un nodo senza indirizzo dopo novanta secondi riapre la rete di configurazione per non restare irraggiungibile.
 * **Il pannello del nodo come ce l'hanno i nodi di A.R.M.O.R.:** un menu a gruppi (nodo, rete, sistema) con la lingua e la chiusura della sessione in fondo; un Riepilogo (il nodo, il suo hardware, il suo orologio, la sua flash e la sua rete), una pagina Wi-Fi con fino a tre reti di riserva che il nodo prova quando si perde la principale, una Guida completa e una pagina Informazioni e, in Firmware, l'aggiornamento da GitHub (cerca l'ultima versione del progetto, controlla il suo SHA-256 e la installa nell'altro slot), il passaggio tra i due slot e la copia di quello in esecuzione nell'altro.
+* **37 lingue:** il pannello web del nodo parla inglese, spagnolo, italiano, tedesco, francese, portoghese, cinese, giapponese, bulgaro, croato, ceco, danese, olandese, estone, finlandese, greco, ungherese, irlandese, lettone, lituano, maltese, polacco, rumeno, slovacco, sloveno, svedese, norvegese, islandese, ucraino, russo, serbo, albanese, catalano, galiziano, basco, portoghese del Brasile e francese del Canada. Le parole dei 29 lingue oltre le prime otto sono tradotte dal modello e attendono la revisione di madrelingua; un testo che manca a una lingua appare in inglese.
 
 ## 🔒 Sicurezza e protezione
 
@@ -149,7 +150,7 @@ Come si incastrano le parti di questo repository: chi lo usa, che cosa contiene 
 | Interfaccia | Che cos'è | Dove |
 |---|---|---|
 | Collegamento di controllo | TCP, porta 5800 per impostazione predefinita: frame `0xB5, tipo, lunghezza, payload, CRC-16`, Hello con il token, Arm, Write, Abort, Ping, StopOnHome, Spindle; il nodo risponde Info, Status (ogni 200 ms), Rx, HomeSeen ed Error | [docs/PROTOCOL.md](docs/PROTOCOL.md), `core/frame.hpp`, `main/link_server.cpp` |
-| Pannello web | HTTP sulla porta 80 e HTTPS sulla 443 (la modalità è un'impostazione), otto lingue, API sotto `/api/v1/` (`GET`/`PUT /api/v1/machine`, `GET /api/v1/machine/status` e le route condivise della base) | [docs/NODE_FIRMWARE.md](docs/NODE_FIRMWARE.md), `main/web_server.cpp`, `panel/` |
+| Pannello web | HTTP sulla porta 80 e HTTPS sulla 443 (la modalità è un'impostazione), 37 lingue, API sotto `/api/v1/` (`GET`/`PUT /api/v1/machine`, `GET /api/v1/machine/status` e le route condivise della base) | [docs/NODE_FIRMWARE.md](docs/NODE_FIRMWARE.md), `main/web_server.cpp`, `panel/` |
 | RS-232 verso l'unità di controllo | UART a 38400 baud 8N1 tramite un MAX3232, con DTR (uscita), DCD e RI (ingressi) | [docs/WIRING.md](docs/WIRING.md), `main/central_uart.cpp` |
 | LED | HOME X, HOME Y, HOME Z, ENABLE e TOOL, cinque ingressi tramite un transistor buffer | [docs/WIRING.md](docs/WIRING.md), `main/lamps.cpp` |
 | Mandrino | un PWM di velocità per un convertitore 0-10 V e linee di marcia avanti / indietro | [docs/BOARD.md](docs/BOARD.md), `main/spindle.cpp` |
@@ -238,7 +239,8 @@ EH3D-NODE-BUNGARD/
 │   └── github_update.cpp entropy.cpp            l'aggiornamento da GitHub e la copia di uno slot
 ├── panel/
 │   ├── index.html style.css                     la pagina e la disposizione del menu laterale
-│   └── app.js text.js                           le pagine e i testi in otto lingue
+│   ├── app.js text.js                           le pagine e i testi in 37 lingue
+│   └── locales/                                 le parole di altre 29 lingue, un file ciascuna
 ├── tests/                                       test su computer del collegamento, delle impostazioni, della base condivisa e dei testi del pannello
 ├── docs/                                        protocollo, firmware, cablaggio, scheda
 ├── tools/                                       build, pannello, controlli, nodo finto
