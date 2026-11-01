@@ -95,7 +95,7 @@ class LinkHardware final : public bungard::Hardware {
     g_draining = false;
   }
   void reply(bungard::Type type, const std::uint8_t* payload, std::size_t n) override {
-    std::uint8_t out[bungard::kMaxFrameBytes];
+    static std::uint8_t out[bungard::kMaxFrameBytes];  // 2 KB: not on the stack of the link task; only that task replies
     const std::size_t len = bungard::encode(type, payload, n, out, sizeof out);
     if (len == 0 || !send_all(fd_, out, len)) ok_ = false;
   }
@@ -145,7 +145,8 @@ void serve(int fd) {
   settings.max_rpm = spindle_max_rpm();   // the output was set up for this top speed when the node started
   settings.draining = g_drain.active();    // a node that is still finishing a job of an earlier connection takes nothing new
   bungard::Session session(settings, make_info(), hw);
-  bungard::Decoder decoder;
+  static bungard::Decoder decoder;  // 4 KB: not on the stack; one client at a time
+  decoder.reset();
   static bungard::Frame frame;  // 2 KB: not on the stack
   std::uint8_t rx[256];
   std::uint32_t last_status = now_ms();

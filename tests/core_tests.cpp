@@ -548,6 +548,23 @@ static void queued_spindle_tests() {
     s.on_frame(frame_of(Type::Spindle, cmd(8000, 1)), 9);
     CHECK(hw.events.size() == 3 && hw.events[2].second);
   }
+  {  // a spindle started through the queue is stopped by Abort and Disarm, and cannot be turned the other way while it runs
+    FakeHardware hw;
+    hw.queue = ByteQueue(4096);
+    Session s({"t", false, 24000}, info, hw);
+    s.on_frame(frame_of(Type::Hello, text("t")), 0);
+    s.on_frame(frame_of(Type::Arm), 1);
+    s.on_frame(frame_of(Type::Spindle, cmd(24000, 0)), 2);
+    s.on_frame(frame_of(Type::Spindle, std::vector<std::uint8_t>{0x00, 0x30, 1, 0}), 3);   // 12288 rpm, reverse, at once
+    CHECK(hw.last_error() == Error::SpindleDirection && hw.spindle.empty());
+    s.on_frame(frame_of(Type::Abort), 4);
+    CHECK(hw.spindle.size() == 1 && hw.spindle[0].first == 0);
+    s.on_frame(frame_of(Type::Hello, text("t")), 5);
+    s.on_frame(frame_of(Type::Arm), 6);
+    s.on_frame(frame_of(Type::Spindle, cmd(24000, 0)), 7);
+    s.on_frame(frame_of(Type::Disarm), 8);
+    CHECK(hw.spindle.size() == 2 && hw.spindle[1].first == 0);
+  }
   {  // a queue that cannot take another command says so
     FakeHardware hw;
     hw.events_full = true;

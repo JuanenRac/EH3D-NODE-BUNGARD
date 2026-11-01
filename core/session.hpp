@@ -119,6 +119,7 @@ class Session {
     if (stop_mask_ != 0 && (lamps & stop_mask_) != 0) {
       stop_mask_ = 0;
       hw_.flush_queue();
+      stop_spindle();   // the flush may have thrown away a queued stop
       hw_.reply(Type::HomeSeen, &lamps, 1);
     }
   }
@@ -186,13 +187,16 @@ class Session {
   }
 
   // The spindle never keeps turning when the machine is stopped, disarmed or the link is lost.
+  // A start that went through the queue is applied by the writer, not by this session, so it counts too: it may be turning with spindle_rpm_ at 0.
   void stop_spindle() {
-    if (spindle_rpm_ == 0) return;
+    if (spindle_rpm_ == 0 && !queued_started_) return;
+    const bool reverse = queued_started_ ? queued_reverse_ : spindle_reverse_;
+    queued_started_ = false;
     spindle_rpm_ = 0;
     stopped_ms_ = now_ms_;
     stopped_valid_ = true;
     queued_rpm_ = 0;
-    hw_.set_spindle(0, spindle_reverse_);
+    hw_.set_spindle(0, reverse);
   }
 
   // Payload: rpm (u16 LE) and optionally the direction (0 forward, 1 reverse; left out: the last one used).
@@ -205,7 +209,7 @@ class Session {
     if (!armed_) { error(Error::NotArmed); return; }
     const bool reverse = f.length >= 3 ? f.payload[2] != 0 : spindle_reverse_;
     if (reverse != spindle_reverse_) {
-      if (spindle_rpm_ != 0) { error(Error::SpindleDirection); return; }
+      if (spindle_rpm_ != 0 || queued_started_) { error(Error::SpindleDirection); return; }
       if (stopped_valid_ && static_cast<std::uint32_t>(now_ms_ - stopped_ms_) < settings_.reverse_delay_ms) {
         error(Error::SpindleSettling);
         return;
@@ -241,6 +245,7 @@ class Session {
     }
     if (rpm > settings_.max_rpm) rpm = settings_.max_rpm;
     if (!hw_.spindle_event(rpm, reverse)) { error(Error::QueueFull); return; }
+    queued_started_ = true;
     queued_rpm_ = rpm;
     queued_reverse_ = reverse;
   }
@@ -259,6 +264,7 @@ class Session {
   std::uint32_t now_ms_ = 0;
   std::uint8_t stop_mask_ = 0;
   std::uint32_t spindle_rpm_ = 0;
+  bool queued_started_ = false;   // a start came through the queue and no stop has been ordered since
   bool spindle_reverse_ = false;
   std::uint32_t stopped_ms_ = 0;
   bool stopped_valid_ = false;
