@@ -22,6 +22,7 @@ extern "C" {
 
 #include "central_uart.hpp"
 #include "core/frame.hpp"
+#include "core/send_loop.hpp"
 #include "core/drain.hpp"
 #include "core/session.hpp"
 #include "lamps.hpp"
@@ -59,17 +60,19 @@ std::uint32_t g_queue_bytes = 32768;
 
 std::uint32_t now_ms() { return static_cast<std::uint32_t>(esp_timer_get_time() / 1000); }
 
+constexpr std::uint32_t kSendLimitMs = 1000;  // a program that does not take what is sent for this long is gone: the connection is dropped
+
 bool send_all(int fd, const std::uint8_t* data, std::size_t n) {
-  while (n > 0) {
-    const int sent = ::send(fd, data, n, 0);
-    if (sent < 0) {
-      if (errno == EAGAIN || errno == EWOULDBLOCK) { vTaskDelay(1); continue; }
-      return false;
-    }
-    data += sent;
-    n -= static_cast<std::size_t>(sent);
-  }
-  return true;
+  return bungard::send_within(
+      data, n, kSendLimitMs,
+      [fd](const std::uint8_t* p, std::size_t len) {
+        bungard::SendTry r;
+        const int sent = ::send(fd, p, len, 0);
+        if (sent >= 0) r.sent = sent;
+        else r.again = errno == EAGAIN || errno == EWOULDBLOCK || errno == ETIMEDOUT;
+        return r;
+      },
+      now_ms, [] { vTaskDelay(1); });
 }
 
 // The session's view of the machine: the UART queue, the DTR pin, and the replies that go back down the socket.
@@ -126,6 +129,14 @@ void serve(int fd) {
   setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof one);
   timeval tv{0, 5 * 1000};  // 5 ms: the loop reads the lamps, ticks the session and reports the status
   setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof tv);
+  // a send never waits for ever either (see core/send_loop.hpp), and a cable that is cut is noticed: the connection is probed after 5 s of silence, every 2 s, three times
+  timeval send_tv{0, 200 * 1000};
+  setsockopt(fd, SOL_SOCKET, SO_SNDTIMEO, &send_tv, sizeof send_tv);
+  int keep = 1, idle = 5, interval = 2, count = 3;
+  setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, &keep, sizeof keep);
+  setsockopt(fd, IPPROTO_TCP, TCP_KEEPIDLE, &idle, sizeof idle);
+  setsockopt(fd, IPPROTO_TCP, TCP_KEEPINTVL, &interval, sizeof interval);
+  setsockopt(fd, IPPROTO_TCP, TCP_KEEPCNT, &count, sizeof count);
 
   LinkHardware hw(fd);
   bungard::Settings settings;

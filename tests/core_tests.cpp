@@ -8,6 +8,7 @@
 #include "../core/byte_queue.hpp"
 #include "../core/drain.hpp"
 #include "../core/frame.hpp"
+#include "../core/send_loop.hpp"
 #include "../core/session.hpp"
 
 using namespace eh3d::bungard;
@@ -576,7 +577,38 @@ static void queued_spindle_tests() {
   }
 }
 
+static void send_loop_tests() {
+  // a connection that takes everything: all the bytes go, in as many tries as it needs
+  std::vector<std::uint8_t> data(100, 7), got;
+  std::uint32_t clock = 0;
+  auto now = [&]() { return clock; };
+  auto pause = [&]() { clock += 10; };
+  auto takes_30 = [&](const std::uint8_t* p, std::size_t n) { SendTry r; r.sent = n < 30 ? static_cast<long>(n) : 30; got.insert(got.end(), p, p + r.sent); return r; };
+  CHECK(send_within(data.data(), data.size(), 1000, takes_30, now, pause) && got.size() == 100);
+  // a connection with no room that never frees: it gives up at the limit instead of waiting for ever
+  clock = 0;
+  int tries = 0;
+  auto never = [&](const std::uint8_t*, std::size_t) { ++tries; SendTry r; r.again = true; return r; };
+  CHECK(!send_within(data.data(), data.size(), 1000, never, now, pause));
+  CHECK(clock >= 1000 && clock <= 1010 && tries > 50 && tries < 200);
+  // room that comes back in time
+  clock = 0;
+  int calls = 0;
+  got.clear();
+  auto late = [&](const std::uint8_t* p, std::size_t n) { SendTry r; if (++calls < 5) { r.again = true; return r; } r.sent = static_cast<long>(n); got.insert(got.end(), p, p + n); return r; };
+  CHECK(send_within(data.data(), data.size(), 1000, late, now, pause) && got.size() == 100);
+  // a failed connection is not waited for; a clock that wraps does not end the wait early
+  auto broken = [&](const std::uint8_t*, std::size_t) { return SendTry{}; };
+  CHECK(!send_within(data.data(), data.size(), 1000, broken, now, pause));
+  clock = 0xFFFFFF00u;
+  tries = 0;
+  CHECK(!send_within(data.data(), data.size(), 1000, never, now, pause) && static_cast<std::uint32_t>(clock - 0xFFFFFF00u) >= 1000);
+  // nothing to send is sent
+  CHECK(send_within(data.data(), 0, 1000, never, now, pause));
+}
+
 int main() {
+  send_loop_tests();
   frame_tests();
   queue_tests();
   session_tests();

@@ -18,6 +18,8 @@
 - **The build, build-test and test scripts show a live panel:** a banner with the name and version, one line per step with its time, the number of tests that passed and a summary at the end, with the whole output kept in a log file. `test.sh` and `test.bat` run only the tests and never change the version; without `tools/pretty_run.py` the scripts behave as they always did.
 - **The layout of the README is checked in the CI:** the validator runs `tools/universal_readme_check.py` and lists, as a warning, what differs from the universal layout of the README.
 - **The panel has its menu on the left, like the panels of the ARMOR nodes:** on a wide screen the pages are a column on the left (with an icon each), the brand, the language, the theme and the sign-out above them; on a narrow screen, a phone, the menu goes on top as a row that slides sideways. The Machine page keeps the parameters of the Bungard machine (control link, RS-232 unit, lamps and spindle).
+- **A send to the program never waits for ever:** the loop of the link gives a send one second (`core/send_loop.hpp`, tested with a stand-in socket), then drops the connection like any lost link; the socket also has a send timeout of 200 ms and keep-alive probes, so a cable that is cut is noticed and the idle timeout, the drain and the stop button of the panel keep running.
+- **The documented overrun after a stop is the real one:** up to 128 bytes (about 33 ms at 38400 baud) already in the transmit FIFO of the chip still go out before the `0xC0`.
 
 ## [0.0.2] - Settings, web panel, update with rollback, stop button and finishing the held job
 

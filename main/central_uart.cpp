@@ -29,7 +29,7 @@ namespace {
 constexpr char kTag[] = "eh3d-uart";
 constexpr uart_port_t kPort = UART_NUM_1;
 constexpr int kBaud = 38400;
-constexpr std::size_t kChunk = 32;  // bytes taken from the queue at a time: the most that still goes out after a stop
+constexpr std::size_t kChunk = 32;  // bytes taken from the queue at a time; after a stop, what is already in the 128-byte transmit FIFO of the chip still goes out (about 33 ms)
 
 eh3d::bungard::ByteQueue* g_queue = nullptr;
 SemaphoreHandle_t g_lock = nullptr;
