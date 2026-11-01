@@ -433,3 +433,16 @@ e_short_read	Descărcarea s-a încheiat înainte ca fișierul să fie complet.
 e_source_invalid	Firmware-ul care rulează nu a putut fi verificat, deci nu a fost copiat.
 e_up_to_date	Firmware-ul este deja actualizat.
 e_version_mismatch	Versiunea fișierului nu este cea a release-ului.
+saveNothing	Încă nu e nimic de salvat: schimbați o setare și Salvare se va activa
+exportConfig	Exportă setările
+importConfig	Importă setările
+configBackupTitle	Copia de siguranță a setărilor
+configBackupNote	Fișierul conține toate setările acestui nod, cu parolele Wi-Fi și jetonul de acces: păstrați-l unde îl puteți citi doar dumneavoastră. Importul încarcă fișierul în formularele paginilor Rețea, Wi-Fi și mașină fără să trimită nimic; verificați-le și apăsați Salvare pe fiecare pagină. Identitatea nodului (id, nume și nume de gazdă) nu este schimbată niciodată de un import.
+importBadFile	Fișierul nu este un fișier de setări al unui nod EH3D
+importLoaded	Fișierul este încărcat în formulare, nu s-a trimis încă nimic. Verificați paginile și apăsați Salvare pe fiecare care arată modificări.
+importFixedAddress	Fișierul poartă o adresă fixă: două noduri din aceeași rețea nu o pot folosi împreună.
+clockTitle	Ceas și reporniri
+ntpEnabled	Ia ora de la un server de timp (NTP)
+ntpServer	Server de timp (NTP)
+autoRestart	Repornește singur la fiecare
+autoRestartNever	Niciodată

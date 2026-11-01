@@ -433,3 +433,16 @@ e_short_read	La baixada ha acabat abans que el fitxer fos complet.
 e_source_invalid	No s'ha pogut verificar el firmware en execució, així que no s'ha copiat.
 e_up_to_date	El firmware ja està actualitzat.
 e_version_mismatch	La versió del fitxer no és la de la release.
+saveNothing	Encara no hi ha res a desar: canvia un ajust i s'activarà Desa
+exportConfig	Exporta la configuració
+importConfig	Importa la configuració
+configBackupTitle	Còpia de seguretat de la configuració
+configBackupNote	El fitxer conté tots els ajustos d'aquest node, amb les contrasenyes Wi-Fi i el token d'accés: guarda'l on només tu el puguis llegir. Importar carrega el fitxer als formularis de les pàgines Xarxa, Wi-Fi i màquina sense enviar res; revisa'ls i prem Desa a cada pàgina. La identitat del node (id, nom i nom de host) no canvia mai amb una importació.
+importBadFile	El fitxer no és un fitxer de configuració d'un node EH3D
+importLoaded	El fitxer és carregat als formularis, encara no s'ha enviat res. Revisa les pàgines i prem Desa a cada una que mostri canvis.
+importFixedAddress	El fitxer porta una adreça fixa: dos nodes en una xarxa no la poden compartir.
+clockTitle	Rellotge i reinicis
+ntpEnabled	Pren l'hora d'un servidor d'hora (NTP)
+ntpServer	Servidor d'hora (NTP)
+autoRestart	Reinicia't sol cada
+autoRestartNever	Mai

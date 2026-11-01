@@ -433,3 +433,16 @@ e_short_read	Atsisiuntimas baigėsi anksčiau, nei failas buvo pilnas.
 e_source_invalid	Veikiančios programinės įrangos nepavyko patikrinti, todėl ji nebuvo nukopijuota.
 e_up_to_date	Programinė įranga jau naujausia.
 e_version_mismatch	Failo versija nėra leidimo versija.
+saveNothing	Dar nėra ko išsaugoti: pakeiskite nustatymą ir Išsaugoti taps aktyvus
+exportConfig	Eksportuoti nustatymus
+importConfig	Importuoti nustatymus
+configBackupTitle	Nustatymų atsarginė kopija
+configBackupNote	Faile yra visi šio mazgo nustatymai su Wi-Fi slaptažodžiais ir prieigos raktu: laikykite jį ten, kur gali skaityti tik jūs. Importuojant failas įkeliamas į puslapių Tinklas, Wi-Fi ir mašina formas nieko nesiunčiant; patikrinkite jas ir kiekviename puslapyje spustelėkite Išsaugoti. Importas niekada nekeičia mazgo tapatybės (id, pavadinimo ir pagrindinio kompiuterio vardo).
+importBadFile	Failas nėra EH3D mazgo nustatymų failas
+importLoaded	Failas įkeltas į formas, kol kas nieko neišsiųsta. Patikrinkite puslapius ir spustelėkite Išsaugoti kiekviename, kuriame rodomi pakeitimai.
+importFixedAddress	Faile yra fiksuotas adresas: du mazgai viename tinkle jo dalytis negali.
+clockTitle	Laikrodis ir paleidimai iš naujo
+ntpEnabled	Gauti laiką iš laiko serverio (NTP)
+ntpServer	Laiko serveris (NTP)
+autoRestart	Pats paleisti iš naujo kas
+autoRestartNever	Niekada

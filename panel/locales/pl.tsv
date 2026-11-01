@@ -433,3 +433,16 @@ e_short_read	Pobieranie zakończyło się, zanim plik był kompletny.
 e_source_invalid	Nie udało się zweryfikować działającego oprogramowania, więc nie zostało skopiowane.
 e_up_to_date	Oprogramowanie jest już aktualne.
 e_version_mismatch	Wersja pliku nie jest wersją wydania.
+saveNothing	Na razie nie ma czego zapisać: zmień ustawienie, a Zapisz się włączy
+exportConfig	Eksportuj ustawienia
+importConfig	Importuj ustawienia
+configBackupTitle	Kopia zapasowa ustawień
+configBackupNote	Plik zawiera wszystkie ustawienia tego węzła, z hasłami Wi-Fi i tokenem dostępu: przechowuj go tam, gdzie tylko Ty możesz go odczytać. Import wczytuje plik do formularzy stron Sieć, Wi-Fi i maszyna, niczego nie wysyłając; sprawdź je i na każdej stronie naciśnij Zapisz. Import nigdy nie zmienia tożsamości węzła (id, nazwy i nazwy hosta).
+importBadFile	Plik nie jest plikiem ustawień węzła EH3D
+importLoaded	Plik jest wczytany do formularzy, nic nie zostało jeszcze wysłane. Sprawdź strony i naciśnij Zapisz na każdej, która pokazuje zmiany.
+importFixedAddress	Plik zawiera stały adres: dwa węzły w jednej sieci nie mogą go dzielić.
+clockTitle	Zegar i restarty
+ntpEnabled	Pobieraj czas z serwera czasu (NTP)
+ntpServer	Serwer czasu (NTP)
+autoRestart	Uruchamiaj się ponownie co
+autoRestartNever	Nigdy

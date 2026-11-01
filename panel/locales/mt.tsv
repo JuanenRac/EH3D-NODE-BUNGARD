@@ -433,3 +433,16 @@ e_short_read	It-tniżżil intemm qabel ma l-fajl kien komplut.
 e_source_invalid	Il-firmware li qed jaħdem ma setax jiġi vverifikat, għalhekk ma ġiex ikkopjat.
 e_up_to_date	Il-firmware diġà aġġornat.
 e_version_mismatch	Il-verżjoni tal-fajl mhijiex dik tar-release.
+saveNothing	Għad m'hemm xejn x'tiżgura: biddel issettjar u Żgura jsir attiv
+exportConfig	Esporta s-settings
+importConfig	Importa s-settings
+configBackupTitle	Kopja ta' backup tas-settings
+configBackupNote	Il-fajl fih is-settings kollha ta' dan in-node, bil-passwords tal-Wi-Fi u t-token tal-aċċess: żommu fejn inti biss tista' taqrah. L-importazzjoni tgħabbi l-fajl fil-formoli tal-paġni Netwerk, Wi-Fi u magna mingħajr ma tibgħat xejn; iċċekkjahom u agħfas Żgura f'kull paġna. L-identità tan-node (id, isem u isem tal-host) qatt ma tinbidel b'importazzjoni.
+importBadFile	Il-fajl mhuwiex fajl tas-settings ta' node EH3D
+importLoaded	Il-fajl ġie mgħobbi fil-formoli, għadu ma ntbagħat xejn. Iċċekkja l-paġni u agħfas Żgura f'dawk kollha li juru bidliet.
+importFixedAddress	Il-fajl għandu indirizz fiss: żewġ nodes fuq netwerk wieħed ma jistgħux jaqsmuh.
+clockTitle	Arloġġ u restarts
+ntpEnabled	Ħu l-ħin minn server tal-ħin (NTP)
+ntpServer	Server tal-ħin (NTP)
+autoRestart	Erġa' ibda waħdu kull
+autoRestartNever	Qatt

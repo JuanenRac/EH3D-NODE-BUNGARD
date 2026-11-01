@@ -433,3 +433,16 @@ e_short_read	A letöltés befejeződött, mielőtt a fájl teljes lett volna.
 e_source_invalid	A futó firmware-t nem sikerült ellenőrizni, ezért nem másolta.
 e_up_to_date	A firmware már naprakész.
 e_version_mismatch	A fájl verziója nem a kiadásé.
+saveNothing	Még nincs mit menteni: módosítson egy beállítást, és a Mentés aktív lesz
+exportConfig	Beállítások exportálása
+importConfig	Beállítások importálása
+configBackupTitle	A beállítások biztonsági mentése
+configBackupNote	A fájl ennek a csomópontnak minden beállítását tartalmazza, a Wi-Fi jelszavakkal és a hozzáférési tokennel együtt: tartsa olyan helyen, ahol csak Ön olvashatja. Az importálás a fájlt a Hálózat, a Wi-Fi és a gép oldal űrlapjaiba tölti, anélkül hogy bármit elküldene; ellenőrizze őket, és minden oldalon nyomja meg a Mentést. A csomópont azonosságát (azonosító, név és gépnév) az importálás soha nem változtatja meg.
+importBadFile	A fájl nem EH3D csomópont beállításfájlja
+importLoaded	A fájl be van töltve az űrlapokba, még semmi sincs elküldve. Ellenőrizze az oldalakat, és nyomja meg a Mentést mindegyiken, amelyik változást mutat.
+importFixedAddress	A fájl fix címet tartalmaz: két csomópont egy hálózaton nem oszthatja meg.
+clockTitle	Óra és újraindítások
+ntpEnabled	Idő lekérése időszerverről (NTP)
+ntpServer	Időszerver (NTP)
+autoRestart	Újraindul magától minden
+autoRestartNever	Soha

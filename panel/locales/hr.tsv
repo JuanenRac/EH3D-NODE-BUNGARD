@@ -433,3 +433,16 @@ e_short_read	Preuzimanje je završilo prije nego što je datoteka bila potpuna.
 e_source_invalid	Firmware koji radi nije se mogao provjeriti, pa nije kopiran.
 e_up_to_date	Firmware je već ažuran.
 e_version_mismatch	Verzija datoteke nije ona releasea.
+saveNothing	Još nema što spremiti: promijenite postavku i Spremi će se uključiti
+exportConfig	Izvezi postavke
+importConfig	Uvezi postavke
+configBackupTitle	Sigurnosna kopija postavki
+configBackupNote	Datoteka sadrži sve postavke ovog čvora, s Wi-Fi lozinkama i pristupnim tokenom: čuvajte je ondje gdje je samo vi možete čitati. Uvoz učitava datoteku u obrasce stranica Mreža, Wi-Fi i stroj bez slanja; provjerite ih i na svakoj stranici pritisnite Spremi. Uvoz nikada ne mijenja identitet čvora (id, naziv i naziv hosta).
+importBadFile	Datoteka nije datoteka postavki EH3D čvora
+importLoaded	Datoteka je učitana u obrasce, još ništa nije poslano. Provjerite stranice i pritisnite Spremi na svakoj koja prikazuje promjene.
+importFixedAddress	Datoteka nosi fiksnu adresu: dva čvora u istoj mreži ne mogu je dijeliti.
+clockTitle	Sat i ponovna pokretanja
+ntpEnabled	Uzimaj vrijeme s vremenskog poslužitelja (NTP)
+ntpServer	Vremenski poslužitelj (NTP)
+autoRestart	Sam se ponovno pokreni svakih
+autoRestartNever	Nikad

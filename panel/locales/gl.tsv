@@ -433,3 +433,16 @@ e_short_read	A descarga rematou antes de que o ficheiro estivese completo.
 e_source_invalid	Non se puido verificar o firmware en execución, así que non se copiou.
 e_up_to_date	O firmware xa está actualizado.
 e_version_mismatch	A versión do ficheiro non é a da release.
+saveNothing	Aínda non hai nada que gardar: cambia un axuste e activarase Gardar
+exportConfig	Exportar a configuración
+importConfig	Importar a configuración
+configBackupTitle	Copia de seguridade da configuración
+configBackupNote	O ficheiro contén todos os axustes deste nodo, cos seus contrasinais Wi-Fi e o token de acceso: gárdao onde só ti o poidas ler. Importar carga o ficheiro nos formularios das páxinas Rede, Wi-Fi e máquina sen enviar nada; revísaos e preme Gardar en cada páxina. A identidade do nodo (id, nome e nome de host) nunca cambia cunha importación.
+importBadFile	O ficheiro non é un ficheiro de configuración dun nodo EH3D
+importLoaded	O ficheiro está cargado nos formularios, aínda non se enviou nada. Revisa as páxinas e preme Gardar en cada unha que mostre cambios.
+importFixedAddress	O ficheiro trae un enderezo fixo: dous nodos nunha rede non o poden compartir.
+clockTitle	Reloxo e reinicios
+ntpEnabled	Tomar a hora dun servidor de hora (NTP)
+ntpServer	Servidor de hora (NTP)
+autoRestart	Reiniciarse só cada
+autoRestartNever	Nunca

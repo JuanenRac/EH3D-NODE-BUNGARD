@@ -433,3 +433,16 @@ e_short_read	Lataus päättyi ennen kuin tiedosto oli täydellinen.
 e_source_invalid	Käynnissä olevaa laiteohjelmistoa ei voitu tarkistaa, joten sitä ei kopioitu.
 e_up_to_date	Laiteohjelmisto on jo ajan tasalla.
 e_version_mismatch	Tiedoston versio ei ole julkaisun versio.
+saveNothing	Ei vielä tallennettavaa: muuta asetusta, niin Tallenna aktivoituu
+exportConfig	Vie asetukset
+importConfig	Tuo asetukset
+configBackupTitle	Asetusten varmuuskopio
+configBackupNote	Tiedosto sisältää tämän solmun kaikki asetukset Wi-Fi-salasanoineen ja käyttötunnuksineen: säilytä se paikassa, jossa vain sinä voit lukea sen. Tuonti lataa tiedoston Verkko-, Wi-Fi- ja kone-sivujen lomakkeisiin lähettämättä mitään; tarkista ne ja paina jokaisella sivulla Tallenna. Tuonti ei koskaan muuta solmun tunnistetta (tunnus, nimi ja isäntänimi).
+importBadFile	Tiedosto ei ole EH3D-solmun asetustiedosto
+importLoaded	Tiedosto on ladattu lomakkeisiin, mitään ei ole vielä lähetetty. Tarkista sivut ja paina Tallenna jokaisella sivulla, jolla on muutoksia.
+importFixedAddress	Tiedostossa on kiinteä osoite: kaksi solmua samassa verkossa ei voi jakaa sitä.
+clockTitle	Kello ja uudelleenkäynnistykset
+ntpEnabled	Hae aika aikapalvelimelta (NTP)
+ntpServer	Aikapalvelin (NTP)
+autoRestart	Käynnisty itse uudelleen joka
+autoRestartNever	Ei koskaan

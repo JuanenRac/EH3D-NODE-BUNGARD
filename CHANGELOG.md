@@ -20,6 +20,11 @@
 - **The panel has its menu on the left, like the panels of the ARMOR nodes:** on a wide screen the pages are a column on the left (with an icon each), the brand, the language, the theme and the sign-out above them; on a narrow screen, a phone, the menu goes on top as a row that slides sideways. The Machine page keeps the parameters of the Bungard machine (control link, RS-232 unit, lamps and spindle).
 - **A send to the program never waits for ever:** the loop of the link gives a send one second (`core/send_loop.hpp`, tested with a stand-in socket), then drops the connection like any lost link; the socket also has a send timeout of 200 ms and keep-alive probes, so a cable that is cut is noticed and the idle timeout, the drain and the stop button of the panel keep running.
 - **The documented overrun after a stop is the real one:** up to 128 bytes (about 33 ms at 38400 baud) already in the transmit FIFO of the chip still go out before the `0xC0`.
+- **A save bar that is always there:** Save and Save and restart show on every page with settings (off, with a note, until something changes) and Restart is always at hand for an administrator; before, the buttons appeared only after a change and the whole bar was hidden otherwise.
+- **Backup of the settings from the panel:** the System page exports every setting to a `.json` file (it holds the Wi-Fi passwords and the token) and imports one back into the forms without sending anything, so each page is saved with its own Save; the id, name and host name of the node are never changed by an import.
+- **The backup Wi-Fi networks are saved:** `networkBody()` did not carry `sta.backup`, so adding or removing one showed no change and was never sent. The fields the network pages send are now one list (`NETWORK_FIELDS`) and `tests/check_panel_text.py` fails when a page paints a field that is not in it (or the machine body lacks one it paints).
+- **More of the node's settings in the panel:** the Network page edits the name of the node, the time server and its use, the time zone and the periodic restart (the firmware already had them).
+- **Texts:** thirteen new texts in the 37 languages. Written for the browser and tried only on a computer, not on a board.
 
 ## [0.0.2] - Settings, web panel, update with rollback, stop button and finishing the held job
 

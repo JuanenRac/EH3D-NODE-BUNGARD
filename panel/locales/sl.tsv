@@ -433,3 +433,16 @@ e_short_read	Prenos se je končal, preden je bila datoteka popolna.
 e_source_invalid	Firmwara, ki teče, ni bilo mogoče preveriti, zato ni bil kopiran.
 e_up_to_date	Firmware je že posodobljen.
 e_version_mismatch	Različica datoteke ni različica izdaje.
+saveNothing	Še ni kaj shraniti: spremenite nastavitev in Shrani se bo vklopil
+exportConfig	Izvozi nastavitve
+importConfig	Uvozi nastavitve
+configBackupTitle	Varnostna kopija nastavitev
+configBackupNote	Datoteka vsebuje vse nastavitve tega vozlišča z gesli za Wi-Fi in dostopnim žetonom: hranite jo tam, kjer jo lahko berete samo vi. Uvoz naloži datoteko v obrazce strani Omrežje, Wi-Fi in stroj, ne da bi kar koli poslal; preglejte jih in na vsaki strani pritisnite Shrani. Uvoz nikoli ne spremeni identitete vozlišča (id, imena in imena gostitelja).
+importBadFile	Datoteka ni datoteka nastavitev vozlišča EH3D
+importLoaded	Datoteka je naložena v obrazce, še nič ni poslano. Preglejte strani in pritisnite Shrani na vsaki, ki kaže spremembe.
+importFixedAddress	Datoteka nosi stalni naslov: dve vozlišči v istem omrežju ga ne moreta deliti.
+clockTitle	Ura in ponovni zagoni
+ntpEnabled	Čas jemlji s časovnega strežnika (NTP)
+ntpServer	Časovni strežnik (NTP)
+autoRestart	Sam se ponovno zaženi vsakih
+autoRestartNever	Nikoli

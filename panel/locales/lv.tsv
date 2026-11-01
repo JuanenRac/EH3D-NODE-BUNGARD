@@ -433,3 +433,16 @@ e_short_read	Lejupielāde beidzās, pirms fails bija pilnīgs.
 e_source_invalid	Darbojošos programmaparatūru nevarēja pārbaudīt, tāpēc tā netika nokopēta.
 e_up_to_date	Programmaparatūra jau ir atjaunināta.
 e_version_mismatch	Faila versija nav izlaiduma versija.
+saveNothing	Vēl nav ko saglabāt: mainiet iestatījumu un Saglabāt kļūs aktīvs
+exportConfig	Eksportēt iestatījumus
+importConfig	Importēt iestatījumus
+configBackupTitle	Iestatījumu rezerves kopija
+configBackupNote	Failā ir visi šī mezgla iestatījumi ar Wi-Fi parolēm un piekļuves marķieri: glabājiet to vietā, kur to var lasīt tikai jūs. Importēšana ielādē failu lapu Tīkls, Wi-Fi un iekārta veidlapās, neko nesūtot; pārbaudiet tās un katrā lapā nospiediet Saglabāt. Importēšana nekad nemaina mezgla identitāti (id, nosaukumu un resursdatora nosaukumu).
+importBadFile	Fails nav EH3D mezgla iestatījumu fails
+importLoaded	Fails ir ielādēts veidlapās, vēl nekas nav nosūtīts. Pārbaudiet lapas un nospiediet Saglabāt katrā, kas rāda izmaiņas.
+importFixedAddress	Failā ir fiksēta adrese: divi mezgli vienā tīklā to nevar koplietot.
+clockTitle	Pulkstenis un atkārtotas palaišanas
+ntpEnabled	Ņemt laiku no laika servera (NTP)
+ntpServer	Laika serveris (NTP)
+autoRestart	Pašam restartēties ik pēc
+autoRestartNever	Nekad

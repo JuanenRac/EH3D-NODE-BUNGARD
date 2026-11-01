@@ -433,3 +433,16 @@ e_short_read	Sťahovanie skončilo skôr, než bol súbor úplný.
 e_source_invalid	Bežiaci firmvér sa nepodarilo overiť, preto sa neskopíroval.
 e_up_to_date	Firmvér je už aktuálny.
 e_version_mismatch	Verzia súboru nie je verziou vydania.
+saveNothing	Zatiaľ nie je čo uložiť: zmeňte nastavenie a Uložiť sa zapne
+exportConfig	Exportovať nastavenia
+importConfig	Importovať nastavenia
+configBackupTitle	Záloha nastavení
+configBackupNote	Súbor obsahuje všetky nastavenia tohto uzla vrátane hesiel Wi-Fi a prístupového tokenu: uložte ho tam, kde ho prečítate iba vy. Import načíta súbor do formulárov stránok Sieť, Wi-Fi a stroj bez toho, aby niečo odoslal; skontrolujte ich a na každej stránke stlačte Uložiť. Identitu uzla (id, názov a názov hostiteľa) import nikdy nezmení.
+importBadFile	Súbor nie je súborom nastavení uzla EH3D
+importLoaded	Súbor je načítaný do formulárov, zatiaľ sa nič neodoslalo. Skontrolujte stránky a na každej, ktorá ukazuje zmeny, stlačte Uložiť.
+importFixedAddress	Súbor nesie pevnú adresu: dva uzly v jednej sieti ju nemôžu zdieľať.
+clockTitle	Hodiny a reštarty
+ntpEnabled	Brať čas z časového servera (NTP)
+ntpServer	Časový server (NTP)
+autoRestart	Reštartovať sa sám každých
+autoRestartNever	Nikdy

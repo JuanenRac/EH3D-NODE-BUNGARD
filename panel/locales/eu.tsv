@@ -433,3 +433,16 @@ e_short_read	Deskarga fitxategia osatu aurretik amaitu da.
 e_source_invalid	Exekutatzen ari den firmwarea ezin izan da egiaztatu, beraz ez da kopiatu.
 e_up_to_date	Firmwarea eguneratuta dago jada.
 e_version_mismatch	Fitxategiaren bertsioa ez da release-arena.
+saveNothing	Oraindik ez dago gordetzeko ezer: aldatu ezarpen bat eta Gorde aktibatuko da
+exportConfig	Esportatu ezarpenak
+importConfig	Inportatu ezarpenak
+configBackupTitle	Ezarpenen babeskopia
+configBackupNote	Fitxategiak nodo honen ezarpen guztiak ditu, Wi-Fi pasahitzekin eta sarbide-tokenarekin: gorde zuk bakarrik irakur dezakezun lekuan. Inportatzeak fitxategia Sarea, Wi-Fi eta makina orrietako formularioetan kargatzen du ezer bidali gabe; egiaztatu eta sakatu Gorde orri bakoitzean. Nodoaren identitatea (id, izena eta ostalari-izena) ez da inoiz aldatzen inportazioarekin.
+importBadFile	Fitxategia ez da EH3D nodo baten ezarpen-fitxategia
+importLoaded	Fitxategia formularioetan kargatu da, oraindik ez da ezer bidali. Egiaztatu orriak eta sakatu Gorde aldaketak erakusten dituen bakoitzean.
+importFixedAddress	Fitxategiak helbide finkoa dakar: sare bereko bi nodok ezin dute partekatu.
+clockTitle	Erlojua eta berrabiaraztea
+ntpEnabled	Hartu ordua ordu-zerbitzari batetik (NTP)
+ntpServer	Ordu-zerbitzaria (NTP)
+autoRestart	Berrabiarazi bere kabuz hainbatero
+autoRestartNever	Inoiz ez

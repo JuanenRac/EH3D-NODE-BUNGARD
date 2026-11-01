@@ -433,3 +433,16 @@ e_short_read	Allalaadimine lõppes enne, kui fail oli täielik.
 e_source_invalid	Töötavat püsivara ei saanud kontrollida, seega seda ei kopeeritud.
 e_up_to_date	Püsivara on juba ajakohane.
 e_version_mismatch	Faili versioon ei ole väljalaske oma.
+saveNothing	Pole veel midagi salvestada: muutke seadet ja Salvesta muutub aktiivseks
+exportConfig	Ekspordi seaded
+importConfig	Impordi seaded
+configBackupTitle	Seadete varukoopia
+configBackupNote	Fail sisaldab selle sõlme kõiki seadeid koos Wi-Fi paroolide ja juurdepääsutunnusega: hoidke seda kohas, kus seda saate lugeda ainult teie. Import laadib faili lehtede Võrk, Wi-Fi ja masin vormidesse midagi saatmata; kontrollige neid ja vajutage igal lehel Salvesta. Sõlme identiteeti (id, nimi ja hostinimi) import kunagi ei muuda.
+importBadFile	Fail ei ole EH3D-sõlme seadete fail
+importLoaded	Fail on vormidesse laaditud, midagi pole veel saadetud. Kontrollige lehti ja vajutage Salvesta igal, mis näitab muudatusi.
+importFixedAddress	Fail sisaldab fikseeritud aadressi: kaks sõlme ühes võrgus ei saa seda jagada.
+clockTitle	Kell ja taaskäivitused
+ntpEnabled	Võta aeg ajaserverist (NTP)
+ntpServer	Ajaserver (NTP)
+autoRestart	Taaskäivita ennast iga
+autoRestartNever	Mitte kunagi

@@ -153,11 +153,23 @@ function machineBody() {
   if (S.token.state === "clear") link.clear_token = true;
   return { link, uart: Object.assign({}, m.uart), lamps: Object.assign({}, m.lamps), spindle: Object.assign({}, m.spindle) };
 }
+// The fields of the network pages that go to the node, one by one: what a page paints must be in this list (tests/check_panel_text.py compares them), or the page would show
+// a change that is never seen as one and is never sent. `sta.backup` is the list of backup networks: the list sent replaces the stored one, and an entry sent without a
+// password keeps the stored password of that network.
+const NETWORK_FIELDS = ["node.hostname", "node.name", "uplink", "ip.dhcp", "ip.address", "ip.netmask", "ip.gateway", "ip.dns1", "ip.dns2",
+  "ap.enabled", "ap.ssid", "ap.security", "ap.channel", "ap.hidden", "ap.password", "sta.enabled", "sta.ssid", "sta.password", "sta.backup",
+  "time.ntp_enabled", "time.ntp", "time.zone", "system.auto_restart_hours"];
 function networkBody() {
-  const c = S.cfg, ap = c.ap, sta = c.sta, body = { node: { hostname: c.node.hostname }, uplink: c.uplink, ip: Object.assign({}, c.ip),
-    ap: { enabled: ap.enabled, ssid: ap.ssid, security: ap.security, channel: ap.channel, hidden: ap.hidden }, sta: { enabled: sta.enabled, ssid: sta.ssid } };
-  if (typeof ap.password === "string") body.ap.password = ap.password;
-  if (typeof sta.password === "string") body.sta.password = sta.password;
+  const body = {};
+  NETWORK_FIELDS.forEach(path => {
+    const parts = path.split("."), key = parts.pop();
+    let from = S.cfg, to = body;
+    parts.forEach(k => { from = from ? from[k] : undefined; to = to[k] || (to[k] = {}); });
+    const value = from ? from[key] : undefined;
+    if (value === undefined) return;
+    if (key === "password" && typeof value !== "string") return;   // a password is sent only when one was typed
+    to[key] = path === "sta.backup" ? value.map(n => (typeof n.password === "string" ? { ssid: n.ssid, password: n.password } : { ssid: n.ssid })) : value;
+  });
   return body;
 }
 const isDirty = () => (S.page === "machine" && S.machine ? JSON.stringify(machineBody()) !== S.machineSaved : (S.page === "network" || S.page === "wifi") && S.cfg ? JSON.stringify(networkBody()) !== S.saved : false);
@@ -243,17 +255,94 @@ function field(labelKey, store, path, options = {}) {
 // ---- the save bar ---------------------------------------------------------------------------------------------------------------------
 
 let barNode = null;
+// The save bar is always there for an administrator: Save and Save and restart are on the pages that have settings (off until something changes, and the bar says so),
+// and Restart is always at hand.
 function refreshBar() {
   if (!barNode) return;
-  const dirty = isDirty();
-  const message = S.message || (dirty ? { kind: "warn", text: t("unsaved") } : S.restartNeeded ? { kind: "warn", text: t("savedRestart") } : null);
+  const dirty = isDirty(), admin = isAdmin(), edits = EDIT_PAGES.includes(S.page);
+  const message = S.message || (dirty ? { kind: "warn", text: t("unsaved") } : S.restartNeeded ? { kind: "warn", text: t("savedRestart") } : edits && admin ? { kind: "", text: t("saveNothing") } : null);
   barNode.replaceChildren(...[
     el("span", { class: "msg " + (message ? message.kind : ""), role: "status" }, message ? message.text : ""),
-    S.restartNeeded && !dirty ? el("button", { class: "b danger", type: "button", onclick: () => confirm(t("confirmAsk")) && reboot() }, t("restart")) : null,
     dirty ? el("button", { class: "b", type: "button", onclick: discard }, t("discard")) : null,
-    dirty ? el("button", { class: "b primary", type: "button", disabled: S.busy, onclick: () => save(false) }, t("save")) : null,
-    dirty ? el("button", { class: "b danger", type: "button", disabled: S.busy, onclick: () => save(true) }, t("saveRestart")) : null].filter(Boolean));
-  barNode.hidden = !(message || dirty || S.restartNeeded);
+    edits && admin ? el("button", { class: "b primary", type: "button", disabled: S.busy || !dirty, onclick: () => save(false) }, t("save")) : null,
+    edits && admin ? el("button", { class: "b danger", type: "button", disabled: S.busy || !dirty, onclick: () => save(true) }, t("saveRestart")) : null,
+    admin ? el("button", { class: "b danger", type: "button", disabled: S.busy, onclick: () => confirm(t("confirmAsk")) && reboot() }, t("restart")) : null].filter(Boolean));
+  barNode.hidden = !(message || admin);
+}
+
+// ---- the backup of the settings: a file with all of them, and the file loaded back into the forms --------------------------------------------------
+
+async function exportConfig() {
+  const r = await api("GET", "config/export");
+  if (!r.ok || !r.data.config) { S.message = { kind: "bad", text: errorText((r.data && r.data.error) || "network") }; render(); return; }
+  const blob = new Blob([JSON.stringify(r.data.config, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = el("a", { href: url, download: "eh3d-" + ((r.data.config.node && r.data.config.node.id) || "node") + ".json" });
+  document.body.appendChild(link); link.click(); link.remove();
+  URL.revokeObjectURL(url);
+}
+
+// Copies into `into` the values of `from` that `into` already has, of the same kind: nothing the panel does not know is taken, and the flags `*_set` are never touched.
+function mergeKnown(into, from) {
+  if (!into || typeof into !== "object" || !from || typeof from !== "object") return;
+  Object.keys(into).forEach(key => {
+    if (/_set$/.test(key) || !(key in from)) return;
+    const a = into[key], b = from[key];
+    if (a && typeof a === "object" && !Array.isArray(a)) mergeKnown(a, b);
+    else if (!Array.isArray(a) && typeof a === typeof b) into[key] = b;
+  });
+}
+
+// The network forms take what the file says of them, except who the node is (its id, name and host name) and the passwords the file does not carry.
+function importNetwork(doc) {
+  NETWORK_FIELDS.forEach(path => {
+    if (path.startsWith("node.") || path === "sta.backup") return;
+    const parts = path.split("."), key = parts.pop();
+    let from = doc, into = S.cfg;
+    parts.forEach(k => { from = from && typeof from === "object" ? from[k] : undefined; into = into ? into[k] : undefined; });
+    if (!into || !from || typeof from !== "object" || from[key] === undefined) return;
+    if (key === "password") { if (typeof from[key] === "string" && from[key]) into[key] = from[key]; return; }
+    if (typeof from[key] === typeof into[key]) into[key] = from[key];
+  });
+  const backup = doc.sta && doc.sta.backup;
+  if (Array.isArray(backup)) S.cfg.sta.backup = backup.slice(0, MAX_BACKUP_NETWORKS).filter(n => n && typeof n.ssid === "string").map(n => ({ ssid: n.ssid, password: typeof n.password === "string" ? n.password : "" }));
+}
+
+// Loads a file made by Export on top of the forms, and sends nothing: each page that now shows changes is saved with its own Save, as any edit.
+function importConfig(file) {
+  const reader = new FileReader();
+  reader.onload = async () => {
+    let doc;
+    try { doc = JSON.parse(String(reader.result)); } catch (error) { doc = null; }
+    if (doc && doc.config && typeof doc.config === "object") doc = doc.config;
+    if (!doc || typeof doc !== "object" || Array.isArray(doc) || !(doc.node || doc.ip || doc.ap || doc.sta || DEVICE_KEY in doc)) { S.message = { kind: "bad", text: t("importBadFile") }; render(); return; }
+    if (!S.cfg) await loadConfig();
+    if (!DEVICE_LOADED()) await DEVICE_LOAD();
+    if (S.cfg) importNetwork(doc);
+    importDevice(doc);
+    S.message = { kind: "warn", text: t("importLoaded") + (doc.ip && doc.ip.dhcp === false ? " " + t("importFixedAddress") : "") };
+    render();
+  };
+  reader.onerror = () => { S.message = { kind: "bad", text: t("importBadFile") }; render(); };
+  reader.readAsText(file);
+}
+
+function backupCard() {
+  return card(t("configBackupTitle"), note(t("configBackupNote"), "info"),
+    el("div", { class: "actions" }, el("button", { class: "b", type: "button", onclick: exportConfig }, t("exportConfig")),
+      el("label", { class: "b" + (isAdmin() ? "" : " disabled") }, t("importConfig"), el("input", { type: "file", accept: "application/json,.json", hidden: true, disabled: !isAdmin(),
+        onchange: e => { if (e.target.files[0]) importConfig(e.target.files[0]); e.target.value = ""; } }))));
+}
+
+const EDIT_PAGES = ["machine", "network", "wifi"];
+const DEVICE_KEY = "machine";
+const DEVICE_LOADED = () => !!S.machine;
+const DEVICE_LOAD = loadMachine;
+function importDevice(doc) {
+  const m = doc.machine;
+  if (!m || typeof m !== "object" || !S.machine) return;
+  ["link", "uart", "lamps", "spindle"].forEach(k => mergeKnown(S.machine[k], m[k]));
+  if (m.link && typeof m.link.token === "string" && m.link.token) S.token = { state: "set", value: m.link.token };   // the token is write-only here: a new one is sent with Save
 }
 
 // The panel's language also lives in the node's settings (ui.language): choosing it here saves it there at once, with no restart. Only an administrator can change settings.
@@ -719,6 +808,13 @@ function githubCard() {
     note(t("githubUpdateNote"), "info"));
 }
 
+// The zones of the list, and the one the node has when it is not among them (it was set by hand).
+function zoneOptions() {
+  const rules = TIME_ZONES.map(z => [z[0], z[1] + " (" + z[0] + ")"]);
+  const now = S.cfg.time.zone;
+  return rules.some(r => r[0] === now) || !now ? rules : [[now, now]].concat(rules);
+}
+
 function networkPage() {
   if (!S.cfg) return el("p", { class: "muted" }, t("loading"));
   const cfg = S.cfg, wired = isWired(), ap = cfg.ap;
@@ -726,7 +822,11 @@ function networkPage() {
   return el("div", {}, note(t("netRestartNote"), "info"),
     el("div", { class: "grid wide" },
       currentNetworkCard(),
-      card(t("nodeTitle"), field("hostname", "cfg", "node.hostname", { max: 32, hint: t("hostnameHint") })),
+      card(t("nodeTitle"), field("nodeName", "cfg", "node.name", { max: 48 }), field("hostname", "cfg", "node.hostname", { max: 32, hint: t("hostnameHint") })),
+      cfg.time && cfg.system ? card(t("clockTitle"), field("ntpEnabled", "cfg", "time.ntp_enabled", { type: "checkbox", rerender: true }),
+        cfg.time.ntp_enabled ? field("ntpServer", "cfg", "time.ntp", { max: 64 }) : null,
+        field("timeZone", "cfg", "time.zone", { type: "select", options: zoneOptions() }),
+        field("autoRestart", "cfg", "system.auto_restart_hours", { type: "select", number: true, options: [[0, t("autoRestartNever")]].concat([1, 2, 3, 4, 6, 12, 24, 48].map(h => [h, h + " h"])) })) : null,
       card(t("netTitle"),
         hasEthernet() ? field("uplink", "cfg", "uplink", { type: "select", rerender: true, options: [["ethernet", t("uplinkEthernet")], ["wifi", t("uplinkWifi")]] }) : null,
         field("dhcp", "cfg", "ip.dhcp", { type: "checkbox", rerender: true }),
@@ -876,6 +976,7 @@ function systemPage() {
   const m = S.ms, confirmBox = el("input", { id: "reset-confirm", placeholder: "RESET", autocomplete: "off", "aria-describedby": "reset-help" });
   return el("div", { class: "grid wide" },
     card(t("stNode"), kv([[t("nodeId"), S.session.node_id], [t("firmware"), m ? m.version : "—"], [t("uptime"), m ? formatUptime(m.uptime_s) : "—"], [t("address"), m && m.ip ? m.ip : "—"], [t("mac"), S.session.mac || "—"], [t("author"), "JuanenRac · Electro Hobby 3D"], [t("license"), "GPL-3.0-or-later"]])),
+    backupCard(),
     card(t("maintenance"), el("div", { class: "actions" }, el("button", { class: "b", type: "button", disabled: !isAdmin(), onclick: () => confirm(t("confirmAsk")) && reboot() }, t("rebootNode"))),
       el("h3", {}, t("factoryTitle")), el("p", { class: "muted", id: "reset-help" }, t("factoryHelp")),
       el("div", { class: "actions" }, el("label", { class: "sr-only", for: "reset-confirm" }, t("factoryTitle")), confirmBox, el("button", { class: "b danger", type: "button", disabled: !isAdmin(), onclick: async () => {

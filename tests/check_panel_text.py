@@ -167,6 +167,35 @@ def check_firmware_codes(table, problems):
     return len(codes) + len(stations)
 
 
+def check_bodies(app, problems):
+    """What a page paints, the node must be sent: a field that is edited and is not in the body shows no change and is lost (found for real with the backup Wi-Fi networks)."""
+    match = re.search(r"const NETWORK_FIELDS = \[(.*?)\];", app, re.S)
+    if not match:
+        problems.append("app.js has no list NETWORK_FIELDS for the body of the network pages")
+        return
+    sent = set(re.findall(r'"([^"]+)"', match.group(1)))
+    for painted in re.finditer(r'\bfield\("[A-Za-z0-9_]+", "cfg", (?:"([^"]+)"|base \+ "[^"]+")', app):
+        path = painted.group(1) or "sta.backup"
+        if path not in sent:
+            problems.append(f"the network pages paint the field \"{path}\" and networkBody() does not send it")
+    for path in sent:
+        if not any(p.group(1) == path for p in re.finditer(r'\bfield\("[A-Za-z0-9_]+", "cfg", "([^"]+)"', app)) and path not in ("sta.backup", "ap.password", "sta.password"):
+            problems.append(f"networkBody() sends \"{path}\" and no page paints it")
+    if "function machineBody" in app:
+        link = re.search(r"const link = \{(.*?)\};", app, re.S)
+        keys = set(re.findall(r"(\w+):", link.group(1))) if link else set()
+        sections = {"uart", "lamps", "spindle"}   # these go as they are read
+        paths = [m.group(1) for m in re.finditer(r'\bfield\("[A-Za-z0-9_]+", "machine", "([^"]+)"', app)]
+        paths += [m.group(1) for m in re.finditer(r'\bpinField\("[A-Za-z0-9_]+", "([^"]+)"', app)]
+        for path in paths:
+            head, _, rest = path.partition(".")
+            if head == "link":
+                if rest not in keys:
+                    problems.append(f"the machine page paints \"{path}\" and machineBody() does not send it")
+            elif head not in sections:
+                problems.append(f"the machine page paints \"{path}\" and machineBody() does not send its section")
+
+
 def main():
     problems = []
     text = (PANEL / "text.js").read_text(encoding="utf-8")
@@ -199,6 +228,7 @@ def main():
         if "e_" + code not in table:
             problems.append(f"e_{code} is missing")
     codes = check_firmware_codes(table, problems)
+    check_bodies(app, problems)
 
     packed = sum(len(gzip.compress(data, 9, mtime=0)) for data in (
         (PANEL / "index.html").read_bytes(),

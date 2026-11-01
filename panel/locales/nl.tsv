@@ -433,3 +433,16 @@ e_short_read	Het downloaden eindigde voordat het bestand compleet was.
 e_source_invalid	De draaiende firmware kon niet worden geverifieerd, dus hij is niet gekopieerd.
 e_up_to_date	De firmware is al up-to-date.
 e_version_mismatch	De versie van het bestand is niet die van de release.
+saveNothing	Nog niets om op te slaan: wijzig een instelling en Opslaan wordt actief
+exportConfig	Instellingen exporteren
+importConfig	Instellingen importeren
+configBackupTitle	Back-up van de instellingen
+configBackupNote	Het bestand bevat alle instellingen van deze node, met de wifi-wachtwoorden en het toegangstoken: bewaar het waar alleen jij het kunt lezen. Importeren laadt het bestand in de formulieren van de pagina's Netwerk, Wifi en machine zonder iets te verzenden; controleer ze en druk op elke pagina op Opslaan. De identiteit van de node (id, naam en hostnaam) wordt nooit door een import gewijzigd.
+importBadFile	Het bestand is geen instellingenbestand van een EH3D-node
+importLoaded	Het bestand is in de formulieren geladen, er is nog niets verzonden. Controleer de pagina's en druk op Opslaan op elke pagina die wijzigingen toont.
+importFixedAddress	Het bestand bevat een vast adres: twee nodes in één netwerk kunnen dat niet delen.
+clockTitle	Klok en herstarts
+ntpEnabled	De tijd van een tijdserver halen (NTP)
+ntpServer	Tijdserver (NTP)
+autoRestart	Zichzelf herstarten elke
+autoRestartNever	Nooit

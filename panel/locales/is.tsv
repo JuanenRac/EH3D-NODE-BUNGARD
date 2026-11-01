@@ -433,3 +433,16 @@ e_short_read	Niðurhalinu lauk áður en skráin var fullgerð.
 e_source_invalid	Ekki tókst að staðfesta fastbúnaðinn sem er í gangi og því var hann ekki afritaður.
 e_up_to_date	Fastbúnaðurinn er þegar uppfærður.
 e_version_mismatch	Útgáfa skrárinnar er ekki útgáfa útgáfunnar.
+saveNothing	Ekkert að vista ennþá: breyttu stillingu og Vista verður virkt
+exportConfig	Flytja út stillingar
+importConfig	Flytja inn stillingar
+configBackupTitle	Öryggisafrit af stillingunum
+configBackupNote	Skráin inniheldur allar stillingar þessa hnúts, með Wi-Fi lykilorðum og aðgangslykli: geymdu hana þar sem aðeins þú getur lesið hana. Innflutningur hleður skránni í eyðublöð síðnanna Net, Wi-Fi og vél án þess að senda neitt; athugaðu þau og ýttu á Vista á hverri síðu. Innflutningur breytir aldrei auðkenni hnútsins (auðkenni, nafni og hýsilnafni).
+importBadFile	Skráin er ekki stillingaskrá EH3D-hnúts
+importLoaded	Skráin er hlaðin í eyðublöðin, ekkert hefur verið sent enn. Athugaðu síðurnar og ýttu á Vista á hverri sem sýnir breytingar.
+importFixedAddress	Skráin ber fast vistfang: tveir hnútar á einu neti geta ekki deilt því.
+clockTitle	Klukka og endurræsingar
+ntpEnabled	Sækja tímann frá tímaþjóni (NTP)
+ntpServer	Tímaþjónn (NTP)
+autoRestart	Endurræsa sig sjálfur á hverjum
+autoRestartNever	Aldrei

@@ -433,3 +433,16 @@ e_short_read	Nedladdningen avslutades innan filen var komplett.
 e_source_invalid	Firmwaren som körs kunde inte verifieras, så den kopierades inte.
 e_up_to_date	Firmwaren är redan uppdaterad.
 e_version_mismatch	Filens version är inte releasens.
+saveNothing	Inget att spara ännu: ändra en inställning så blir Spara aktiv
+exportConfig	Exportera inställningar
+importConfig	Importera inställningar
+configBackupTitle	Säkerhetskopia av inställningarna
+configBackupNote	Filen innehåller alla inställningar för den här noden, med Wi-Fi-lösenord och åtkomsttoken: förvara den där bara du kan läsa den. Import läser in filen i formulären på sidorna Nätverk, Wi-Fi och maskin utan att skicka något; kontrollera dem och tryck på Spara på varje sida. Nodens identitet (id, namn och värdnamn) ändras aldrig av en import.
+importBadFile	Filen är ingen inställningsfil för en EH3D-nod
+importLoaded	Filen är inläst i formulären, inget har skickats ännu. Kontrollera sidorna och tryck på Spara på varje som visar ändringar.
+importFixedAddress	Filen har en fast adress: två noder i ett nätverk kan inte dela den.
+clockTitle	Klocka och omstarter
+ntpEnabled	Hämta tiden från en tidsserver (NTP)
+ntpServer	Tidsserver (NTP)
+autoRestart	Starta om sig själv var
+autoRestartNever	Aldrig
