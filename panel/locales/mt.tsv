@@ -446,3 +446,4 @@ ntpEnabled	Ħu l-ħin minn server tal-ħin (NTP)
 ntpServer	Server tal-ħin (NTP)
 autoRestart	Erġa' ibda waħdu kull
 autoRestartNever	Qatt
+copyToken	Ikkopja t-token

@@ -446,3 +446,4 @@ ntpEnabled	Tomar a hora dun servidor de hora (NTP)
 ntpServer	Servidor de hora (NTP)
 autoRestart	Reiniciarse só cada
 autoRestartNever	Nunca
+copyToken	Copiar o token

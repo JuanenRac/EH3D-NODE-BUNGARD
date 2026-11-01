@@ -446,3 +446,4 @@ ntpEnabled	Faigh an t-am ó fhreastalaí ama (NTP)
 ntpServer	Freastalaí ama (NTP)
 autoRestart	Atosaigh é féin gach
 autoRestartNever	Choíche
+copyToken	Cóipeáil an chomhartha

@@ -446,3 +446,4 @@ ntpEnabled	Hae aika aikapalvelimelta (NTP)
 ntpServer	Aikapalvelin (NTP)
 autoRestart	Käynnisty itse uudelleen joka
 autoRestartNever	Ei koskaan
+copyToken	Kopioi tunniste

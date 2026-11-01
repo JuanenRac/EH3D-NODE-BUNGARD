@@ -446,3 +446,4 @@ ntpEnabled	Sækja tímann frá tímaþjóni (NTP)
 ntpServer	Tímaþjónn (NTP)
 autoRestart	Endurræsa sig sjálfur á hverjum
 autoRestartNever	Aldrei
+copyToken	Afrita táknið

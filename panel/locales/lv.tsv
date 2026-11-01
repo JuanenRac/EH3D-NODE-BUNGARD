@@ -446,3 +446,4 @@ ntpEnabled	Ņemt laiku no laika servera (NTP)
 ntpServer	Laika serveris (NTP)
 autoRestart	Pašam restartēties ik pēc
 autoRestartNever	Nekad
+copyToken	Kopēt marķieri

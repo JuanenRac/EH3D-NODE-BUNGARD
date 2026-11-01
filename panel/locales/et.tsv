@@ -446,3 +446,4 @@ ntpEnabled	Võta aeg ajaserverist (NTP)
 ntpServer	Ajaserver (NTP)
 autoRestart	Taaskäivita ennast iga
 autoRestartNever	Mitte kunagi
+copyToken	Kopeeri luba

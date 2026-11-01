@@ -446,3 +446,4 @@ ntpEnabled	Merr orën nga një server ore (NTP)
 ntpServer	Serveri i orës (NTP)
 autoRestart	Rindizu vetë çdo
 autoRestartNever	Kurrë
+copyToken	Kopjo tokenin

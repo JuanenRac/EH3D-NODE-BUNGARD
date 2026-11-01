@@ -446,3 +446,4 @@ ntpEnabled	Ia ora de la un server de timp (NTP)
 ntpServer	Server de timp (NTP)
 autoRestart	Repornește singur la fiecare
 autoRestartNever	Niciodată
+copyToken	Copiază tokenul

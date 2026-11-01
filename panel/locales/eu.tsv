@@ -446,3 +446,4 @@ ntpEnabled	Hartu ordua ordu-zerbitzari batetik (NTP)
 ntpServer	Ordu-zerbitzaria (NTP)
 autoRestart	Berrabiarazi bere kabuz hainbatero
 autoRestartNever	Inoiz ez
+copyToken	Kopiatu tokena

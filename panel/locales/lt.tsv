@@ -446,3 +446,4 @@ ntpEnabled	Gauti laiką iš laiko serverio (NTP)
 ntpServer	Laiko serveris (NTP)
 autoRestart	Pats paleisti iš naujo kas
 autoRestartNever	Niekada
+copyToken	Kopijuoti raktą

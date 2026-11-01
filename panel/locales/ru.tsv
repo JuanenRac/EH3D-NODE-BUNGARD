@@ -446,3 +446,4 @@ ntpEnabled	Брать время с сервера времени (NTP)
 ntpServer	Сервер времени (NTP)
 autoRestart	Перезапускаться сам каждые
 autoRestartNever	Никогда
+copyToken	Копировать токен

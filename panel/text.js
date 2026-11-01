@@ -279,6 +279,7 @@ const L = {
   switchAsk: ["Restart the node and boot {0} (version {1})?", "¿Reiniciar el nodo y arrancar {0} (versión {1})?", "Knoten neu starten und {0} (Version {1}) booten?", "Redémarrer le nœud et démarrer {0} (version {1}) ?", "Riavviare il nodo e avviare {0} (versione {1})?", "ノードを再起動して {0}（バージョン {1}）で起動しますか？", "重启节点并从 {0}（版本 {1}）启动？", "Reiniciar o nó e arrancar {0} (versão {1})?"],
   logTitle: ["Log of the node", "Registro del nodo", "Protokoll des Knotens", "Journal du nœud", "Registro del nodo", "ノードのログ", "节点日志", "Registo do nó"],
   copyLog: ["Copy the log", "Copiar el registro", "Protokoll kopieren", "Copier le journal", "Copia il registro", "ログをコピー", "复制日志", "Copiar o registo"],
+  copyToken: ["Copy the token", "Copiar el token", "Token kopieren", "Copier le jeton", "Copia il token", "トークンをコピー", "复制令牌", "Copiar o token"],
   copied: ["Copied", "Copiado", "Kopiert", "Copié", "Copiato", "コピーしました", "已复制", "Copiado"],
   copyFailed: ["Could not copy - select the text and copy it by hand", "No se pudo copiar: selecciona el texto y cópialo a mano", "Kopieren nicht möglich - Text markieren und von Hand kopieren", "Copie impossible - sélectionne le texte et copie-le à la main", "Copia non riuscita: seleziona il testo e copialo a mano", "コピーできません。テキストを選択して手動でコピーしてください", "无法复制：请选中文本后手动复制", "Não foi possível copiar - selecione o texto e copie-o à mão"],
   maintenance: ["Maintenance", "Mantenimiento", "Wartung", "Maintenance", "Manutenzione", "メンテナンス", "维护", "Manutenção"],

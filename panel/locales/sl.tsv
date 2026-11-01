@@ -446,3 +446,4 @@ ntpEnabled	Čas jemlji s časovnega strežnika (NTP)
 ntpServer	Časovni strežnik (NTP)
 autoRestart	Sam se ponovno zaženi vsakih
 autoRestartNever	Nikoli
+copyToken	Kopiraj žeton

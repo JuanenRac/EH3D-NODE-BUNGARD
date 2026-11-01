@@ -446,3 +446,4 @@ ntpEnabled	Idő lekérése időszerverről (NTP)
 ntpServer	Időszerver (NTP)
 autoRestart	Újraindul magától minden
 autoRestartNever	Soha
+copyToken	Token másolása

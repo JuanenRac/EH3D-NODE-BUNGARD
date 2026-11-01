@@ -565,7 +565,8 @@ function tokenField() {
   const state = pending === "set" ? t("tokenWillChange") : pending === "clear" ? t("tokenWillClear") : link.token_set ? t("tokenIsSet") : t("tokenNotSet");
   return el("div", { class: "field" }, el("label", { for: "token-input" }, t("fToken")),
     el("p", { class: "token-state", id: "token-state", role: "status" }, pill(state, pending ? "warn" : link.token_set ? "ok" : "bad")),
-    pending === "set" && S.generated ? el("p", { class: "note info" }, t("tokenShown"), " ", el("code", { class: "mono" }, S.token.value)) : null,
+    pending === "set" && S.generated ? el("p", { class: "note info" }, t("tokenShown"), " ", el("code", { class: "mono" }, S.token.value), " ", copyButton(() => S.token.value, t("copyToken"))) : null,
+    pending === "set" && !S.generated ? el("p", { class: "actions" }, copyButton(() => S.token.value, t("copyToken"))) : null,
     draft, el("span", { class: "hint", id: "token-hint" }, t("fTokenHint")), el("span", { class: "err", id: "token-err" }, problem ? problemText(problem) : ""),
     isAdmin() ? el("div", { class: "actions" },
       el("button", { class: "b", type: "button", onclick: setIt }, t("tokenSet")),
@@ -959,12 +960,12 @@ function copyText(text, button) {
   if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(() => done(true), fallback); else fallback();
 }
 
-function copyButton(getText) {
+function copyButton(getText, label = t("copyLog")) {
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("viewBox", "0 0 24 24"); svg.setAttribute("width", "16"); svg.setAttribute("height", "16"); svg.setAttribute("aria-hidden", "true");
   svg.setAttribute("fill", "none"); svg.setAttribute("stroke", "currentColor"); svg.setAttribute("stroke-width", "1.8"); svg.setAttribute("stroke-linecap", "round"); svg.setAttribute("stroke-linejoin", "round");
   svg.innerHTML = '<rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>';
-  return el("button", { class: "b copy-btn", type: "button", "aria-label": t("copyLog"), title: t("copyLog"), onclick: e => copyText(getText(), e.currentTarget) }, svg, el("span", { class: "copy-note", role: "status" }));
+  return el("button", { class: "b copy-btn", type: "button", "aria-label": label, title: label, onclick: e => copyText(getText(), e.currentTarget) }, svg, el("span", { class: "copy-note", role: "status" }));
 }
 
 function logPage() {

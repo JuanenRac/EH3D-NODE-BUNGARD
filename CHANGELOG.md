@@ -2,9 +2,17 @@
 
 ## [Unreleased]
 
-## [0.0.4] - A panel like the ARMOR nodes have it, and the update from GitHub
-
+- **A button to copy the access token** next to the one that is generated (and next to a typed one), also over plain HTTP, where the clipboard of the browser is not there; the text says whether it was copied.
 - **The panel in 37 languages:** Bulgarian, Croatian, Czech, Danish, Dutch, Estonian, Finnish, Greek, Hungarian, Irish, Latvian, Lithuanian, Maltese, Polish, Romanian, Slovak, Slovenian, Swedish, Norwegian, Icelandic, Ukrainian, Russian, Serbian, Albanian, Catalan, Galician, Basque, Brazilian Portuguese and Canadian French join the first eight. The words of the new ones are in `panel/locales/CODE.tsv` and are packed into one file, `/langs.js`, that the browser asks for only when one of them is chosen (about 250 KB packed; the panel of the first eight languages is as light as before); a text that a language does not have is shown in English, or in Portuguese or French for the two variants. The node accepts the new codes in `ui.language`. `tests/check_panel_text.py` checks the files (known keys, placeholders, all the texts, the size). The translations are the work of the model and wait for a review by native speakers.
+- **A send to the program never waits for ever:** the loop of the link gives a send one second (`core/send_loop.hpp`, tested with a stand-in socket), then drops the connection like any lost link; the socket also has a send timeout of 200 ms and keep-alive probes, so a cable that is cut is noticed and the idle timeout, the drain and the stop button of the panel keep running.
+- **The documented overrun after a stop is the real one:** up to 128 bytes (about 33 ms at 38400 baud) already in the transmit FIFO of the chip still go out before the `0xC0`.
+- **A save bar that is always there:** Save and Save and restart show on every page with settings (off, with a note, until something changes) and Restart is always at hand for an administrator; before, the buttons appeared only after a change and the whole bar was hidden otherwise.
+- **Backup of the settings from the panel:** the System page exports every setting to a `.json` file (it holds the Wi-Fi passwords and the token) and imports one back into the forms without sending anything, so each page is saved with its own Save; the id, name and host name of the node are never changed by an import.
+- **The backup Wi-Fi networks are saved:** `networkBody()` did not carry `sta.backup`, so adding or removing one showed no change and was never sent. The fields the network pages send are now one list (`NETWORK_FIELDS`) and `tests/check_panel_text.py` fails when a page paints a field that is not in it (or the machine body lacks one it paints).
+- **More of the node's settings in the panel:** the Network page edits the name of the node, the time server and its use, the time zone and the periodic restart (the firmware already had them).
+- **Texts:** thirteen new texts in the 37 languages. Written for the browser and tried only on a computer, not on a board.
+
+## [0.0.4] - A panel like the ARMOR nodes have it, and the update from GitHub
 
 - **The panel of the node as the nodes of A.R.M.O.R. have it:** the menu in groups with the language and the sign-out at its foot, the Summary, the Wi-Fi page with up to three backup networks, the complete Help and the About page.
 - **The update from GitHub and the copy of a slot:** the node looks for the newest release of its project, checks the SHA-256 that the release publishes, installs it in the other slot and restarts (an administrator asks for each step); `core/release_assets.hpp` picks the image of the board and refuses any address that is not a file of the repository's own releases; the running firmware can be copied into the other slot. The releases are not signed yet.
@@ -18,13 +26,6 @@
 - **The build, build-test and test scripts show a live panel:** a banner with the name and version, one line per step with its time, the number of tests that passed and a summary at the end, with the whole output kept in a log file. `test.sh` and `test.bat` run only the tests and never change the version; without `tools/pretty_run.py` the scripts behave as they always did.
 - **The layout of the README is checked in the CI:** the validator runs `tools/universal_readme_check.py` and lists, as a warning, what differs from the universal layout of the README.
 - **The panel has its menu on the left, like the panels of the ARMOR nodes:** on a wide screen the pages are a column on the left (with an icon each), the brand, the language, the theme and the sign-out above them; on a narrow screen, a phone, the menu goes on top as a row that slides sideways. The Machine page keeps the parameters of the Bungard machine (control link, RS-232 unit, lamps and spindle).
-- **A send to the program never waits for ever:** the loop of the link gives a send one second (`core/send_loop.hpp`, tested with a stand-in socket), then drops the connection like any lost link; the socket also has a send timeout of 200 ms and keep-alive probes, so a cable that is cut is noticed and the idle timeout, the drain and the stop button of the panel keep running.
-- **The documented overrun after a stop is the real one:** up to 128 bytes (about 33 ms at 38400 baud) already in the transmit FIFO of the chip still go out before the `0xC0`.
-- **A save bar that is always there:** Save and Save and restart show on every page with settings (off, with a note, until something changes) and Restart is always at hand for an administrator; before, the buttons appeared only after a change and the whole bar was hidden otherwise.
-- **Backup of the settings from the panel:** the System page exports every setting to a `.json` file (it holds the Wi-Fi passwords and the token) and imports one back into the forms without sending anything, so each page is saved with its own Save; the id, name and host name of the node are never changed by an import.
-- **The backup Wi-Fi networks are saved:** `networkBody()` did not carry `sta.backup`, so adding or removing one showed no change and was never sent. The fields the network pages send are now one list (`NETWORK_FIELDS`) and `tests/check_panel_text.py` fails when a page paints a field that is not in it (or the machine body lacks one it paints).
-- **More of the node's settings in the panel:** the Network page edits the name of the node, the time server and its use, the time zone and the periodic restart (the firmware already had them).
-- **Texts:** thirteen new texts in the 37 languages. Written for the browser and tried only on a computer, not on a board.
 
 ## [0.0.2] - Settings, web panel, update with rollback, stop button and finishing the held job
 

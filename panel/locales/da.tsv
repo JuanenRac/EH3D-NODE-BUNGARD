@@ -446,3 +446,4 @@ ntpEnabled	Hent tiden fra en tidsserver (NTP)
 ntpServer	Tidsserver (NTP)
 autoRestart	Genstart af sig selv hver
 autoRestartNever	Aldrig
+copyToken	Kopiér token

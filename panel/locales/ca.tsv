@@ -446,3 +446,4 @@ ntpEnabled	Pren l'hora d'un servidor d'hora (NTP)
 ntpServer	Servidor d'hora (NTP)
 autoRestart	Reinicia't sol cada
 autoRestartNever	Mai
+copyToken	Copia el token

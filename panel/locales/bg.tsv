@@ -446,3 +446,4 @@ ntpEnabled	Вземане на часа от сървър за време (NTP)
 ntpServer	Сървър за време (NTP)
 autoRestart	Рестарт сам на всеки
 autoRestartNever	Никога
+copyToken	Копиране на токена

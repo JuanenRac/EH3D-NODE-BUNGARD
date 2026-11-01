@@ -446,3 +446,4 @@ ntpEnabled	Узимај време са временског сервера (NTP
 ntpServer	Временски сервер (NTP)
 autoRestart	Сам се поново покрени сваких
 autoRestartNever	Никад
+copyToken	Копирај токен

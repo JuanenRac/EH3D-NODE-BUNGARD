@@ -446,3 +446,4 @@ ntpEnabled	Pobieraj czas z serwera czasu (NTP)
 ntpServer	Serwer czasu (NTP)
 autoRestart	Uruchamiaj się ponownie co
 autoRestartNever	Nigdy
+copyToken	Kopiuj token

@@ -446,3 +446,4 @@ ntpEnabled	Brát čas z časového serveru (NTP)
 ntpServer	Časový server (NTP)
 autoRestart	Restartovat se sám každých
 autoRestartNever	Nikdy
+copyToken	Zkopírovat token

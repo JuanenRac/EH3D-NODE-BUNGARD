@@ -446,3 +446,4 @@ ntpEnabled	Λήψη ώρας από διακομιστή ώρας (NTP)
 ntpServer	Διακομιστής ώρας (NTP)
 autoRestart	Επανεκκίνηση από μόνο του κάθε
 autoRestartNever	Ποτέ
+copyToken	Αντιγραφή του διακριτικού
