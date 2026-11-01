@@ -16,15 +16,19 @@ MIN_STACK = 3072                       # no task of the node has less
 BUFFER_LIMIT = 1024                    # a local array above this goes to the heap
 # What a task needs at least, by its name. Every number is the size it has now or more: shrinking one has to be a decision, not an accident.
 NEEDS = {
-    "telemetry": (6144, "builds and publishes the whole telemetry JSON and the settings"),
-    "heartbeat": (4096, "builds the node info JSON"),
-    "mqtt-link": (6144, "TLS and the MQTT client"),
-    "mqtt-out": (4096, "queue to the broker"),
+    "eh3d-link": (6144, "the control link: frames, the session and the replies (the decoder and the reply buffer are static)"),
+    "eh3d-uart-tx": (3072, "writes the queue to the UART"),
+    "clock-sync": (3072, "asks the time servers"),
     "github-check": (12288, "TLS and the release JSON"),
     "github-ota": (12288, "TLS, the download and the signature check"),
     "slot-copy": (6144, "copies a firmware slot"),
-    "ble-worker": (16384, "NimBLE requests that apply a whole settings document"),
-    "radar": (6144, "parses the sensor frames"),
+    "improv": (5120, "the Wi-Fi setup over USB"),
+    "net-rescue": (6144, "brings the network back"),
+    "setup-hint": (3072, "the lamp of the setup mode"),
+    "boot-button": (3072, "the button of the board"),
+    "confirm": (3072, "the confirm button"),
+    "node-guard": (4096, "watches the other tasks"),
+    "mem-watch": (3072, "watches the memory"),
 }
 SAFE = ("task-stack-ok:",)
 KEYWORDS = {"if", "for", "while", "switch", "catch", "return", "sizeof", "else", "do", "static_cast", "reinterpret_cast", "const_cast", "dynamic_cast", "decltype", "alignof", "defined"}
@@ -150,6 +154,8 @@ def analyse(root: Path) -> tuple[list[tuple[str, int, str, str]], list[str]]:
                 problems.append(f"{where}: the stack of task '{name}' is not a number ({size_text.strip()!r}): write it as a literal so it can be checked")
                 continue
             tasks.append((name, size, function, path.name))
+            if name not in NEEDS:
+                problems.append(f"{where}: task '{name}' is not in the table of tasks: say what stack its job needs")
             need, why = NEEDS.get(name, (MIN_STACK, "default minimum"))
             if size < max(need, MIN_STACK):
                 problems.append(f"{where}: task '{name}' has a {size}-byte stack, below the {max(need, MIN_STACK)} it needs ({why})")
