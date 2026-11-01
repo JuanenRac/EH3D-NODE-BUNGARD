@@ -104,11 +104,12 @@ class Decoder {
   // Frames thrown away because of a bad length or a bad CRC.
   std::uint32_t damaged() const { return damaged_; }
 
+  // Forget everything read so far (a static decoder starts each connection clean).
+  void reset() { start_ = end_ = 0; state_ = State::Sync; }
+
  private:
   enum class State { Sync, Type, LenLo, LenHi, Payload, CrcLo, CrcHi };
   static constexpr std::size_t kBuffer = 2 * kMaxFrameBytes;
-
-  void reset() { start_ = end_ = 0; state_ = State::Sync; }
 
   void compact() {
     // drop what is already consumed and no longer needed: bytes before the frame being read
