@@ -398,7 +398,7 @@ function statusPage() {
     el("div", { class: "span-all" }, note(t("statusNoControl"), "info")),
     el("div", { class: "span-all", id: "st-lost" }),
     el("div", { class: "span-all", id: "st-draining" }),
-    isAdmin() ? el("div", { class: "span-all actions" }, el("button", { class: "b danger", type: "button", id: "st-stop", onclick: stopMachine }, t("stStop")), el("span", { class: "hint" }, t("stStopHint"))) : null,
+    el("div", { class: "span-all actions" }, el("button", { class: "b danger", type: "button", id: "st-stop", onclick: stopMachine }, t("stStop")), el("span", { class: "hint" }, t("stStopHint"))),
     card(t("stLink"), el("div", { class: "pills" }, el("span", { id: "st-p-link" }), el("span", { id: "st-p-client" }), el("span", { id: "st-p-auth" }), el("span", { id: "st-p-armed" })),
       el("h3", { id: "st-queue-label" }, t("stQueue")), barBox("st-queue", "st-queue-label"),
       kv([[t("stQueueBytes"), el("span", { id: "st-queue-n" }, "—")], [t("stSent"), el("span", { id: "st-sent" }, "—")]])),

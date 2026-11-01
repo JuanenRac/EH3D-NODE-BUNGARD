@@ -479,11 +479,11 @@ esp_err_t get_machine_pins(httpd_req_t* r) {
   return send_json(r, 200, api::pins_json());
 }
 
-// The stop button: an administrator stops the machine now (queue emptied, spindle and drivers off), also when no program is connected and when the node is finishing the job it holds.
+// The stop button: anyone signed in stops the machine now (queue emptied, spindle and drivers off), also when no program is connected and when the node is finishing the job it holds.
 // It is the only thing the panel does to the machine, and it can only make it safer. It is not refused while the machine is armed.
 esp_err_t post_machine_stop(httpd_req_t* r) {
   Who who;
-  if (!require(r, who, true, false)) return ESP_OK;
+  if (!require(r, who, false, false)) return ESP_OK;
   if (header(r, "X-Requested-With") != "eh3d") return send_error(r, 403, "forbidden");
   ESP_LOGW(kTag, "stop button pressed by \"%s\"", who.user.c_str());
   link_emergency_stop();

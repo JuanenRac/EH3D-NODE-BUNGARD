@@ -65,12 +65,11 @@ void writer_task(void*) {
   std::uint8_t buf[kChunk];
   for (;;) {
     std::size_t n = 0;
-    Event due[kMaxEvents];
-    std::size_t due_count = 0;
     xSemaphoreTake(g_lock, portMAX_DELAY);
-    // the spindle commands whose turn has come go before the next byte
+    // the spindle commands whose turn has come go before the next byte; they are applied while the lock is held, so that a stop
+    // (which flushes under the same lock and then sets the spindle to zero) can never be followed by an old command
     while (g_event_count > 0 && g_events[0].at <= g_pop_total) {
-      due[due_count++] = g_events[0];
+      spindle_set(g_events[0].rpm, g_events[0].reverse);
       for (std::size_t i = 1; i < g_event_count; ++i) g_events[i - 1] = g_events[i];
       --g_event_count;
     }
@@ -82,7 +81,6 @@ void writer_task(void*) {
     // idle: start counting from zero again, so the counters never wrap
     if (n == 0 && g_event_count == 0 && g_queue->size() == 0) { g_enq_total = 0; g_pop_total = 0; }
     xSemaphoreGive(g_lock);
-    for (std::size_t i = 0; i < due_count; ++i) spindle_set(due[i].rpm, due[i].reverse);
     if (n > 0) {
       uart_write_bytes(kPort, reinterpret_cast<const char*>(buf), n);
       g_sent.fetch_add(static_cast<std::uint32_t>(n));

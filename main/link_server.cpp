@@ -224,7 +224,11 @@ void server_task(void*) {
     sockaddr_in peer{};
     socklen_t len = sizeof peer;
     const int fd = ::accept(listener, reinterpret_cast<sockaddr*>(&peer), &len);
-    if (g_stop_request.exchange(false)) g_drain.abort(g_drain_hardware);
+    if (g_stop_request.exchange(false)) {
+      // with nobody connected the stop still empties the queue, sends the drivers off and sets the spindle to zero
+      g_drain.abort(g_drain_hardware);
+      g_drain_hardware.stop_all();
+    }
     g_drain.tick(now_ms(), g_drain_hardware);
     g_draining = g_drain.active();
     if (fd < 0) { vTaskDelay(pdMS_TO_TICKS(50)); continue; }
