@@ -14,22 +14,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 MIN_STACK = 3072                       # no task of the node has less
 BUFFER_LIMIT = 1024                    # a local array above this goes to the heap
-# What a task needs at least, by its name. Every number is the size it has now or more: shrinking one has to be a decision, not an accident.
-NEEDS = {
-    "eh3d-link": (6144, "the control link: frames, the session and the replies (the decoder and the reply buffer are static)"),
-    "eh3d-uart-tx": (3072, "writes the queue to the UART"),
-    "clock-sync": (3072, "asks the time servers"),
-    "github-check": (12288, "TLS and the release JSON"),
-    "github-ota": (12288, "TLS, the download and the signature check"),
-    "slot-copy": (6144, "copies a firmware slot"),
-    "improv": (5120, "the Wi-Fi setup over USB"),
-    "net-rescue": (6144, "brings the network back"),
-    "setup-hint": (3072, "the lamp of the setup mode"),
-    "boot-button": (3072, "the button of the board"),
-    "confirm": (3072, "the confirm button"),
-    "node-guard": (4096, "watches the other tasks"),
-    "mem-watch": (3072, "watches the memory"),
-}
+# What a task needs at least, by its name: the table of the node, in task_needs.py next to this script (the script is shared by the nodes, the tasks are not).
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from task_needs import NEEDS  # noqa: E402
 SAFE = ("task-stack-ok:",)
 KEYWORDS = {"if", "for", "while", "switch", "catch", "return", "sizeof", "else", "do", "static_cast", "reinterpret_cast", "const_cast", "dynamic_cast", "decltype", "alignof", "defined"}
 
