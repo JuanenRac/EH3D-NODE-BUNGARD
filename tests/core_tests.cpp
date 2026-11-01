@@ -607,6 +607,106 @@ static void send_loop_tests() {
   CHECK(send_within(data.data(), 0, 1000, never, now, pause));
 }
 
+// ---- the safety invariants, with a model of the spindle that turns only when the hardware is told to ----
+
+// The hardware as the machine is: the queue sends bytes a few at a time, a spindle command in the queue is applied when the bytes before it are sent, a flush throws away what
+// has not gone out (and the commands with it), and the spindle turns at the last speed it was given. What the session believes is not consulted: only this is.
+struct PhysicalHardware : Hardware {
+  std::vector<std::uint8_t> bytes;
+  std::uint64_t written = 0, sent = 0;
+  struct Event { std::uint64_t at; std::uint32_t rpm; bool reverse; };
+  std::vector<Event> events;
+  std::uint32_t rpm = 0;
+  bool drivers_on = false;
+  int drains = 0;
+  std::size_t queue_free() override { return 64 - bytes.size(); }
+  bool enqueue(const std::uint8_t* d, std::size_t n) override {
+    if (n > queue_free()) return false;
+    bytes.insert(bytes.end(), d, d + n);
+    written += n;
+    drivers_on = true;
+    return true;
+  }
+  void flush_queue() override { bytes.clear(); events.clear(); written = sent; }
+  void send_drivers_off() override { drivers_on = false; }
+  void set_dtr(bool) override {}
+  void set_spindle(std::uint32_t r, bool) override { rpm = r; }
+  bool spindle_event(std::uint32_t r, bool reverse) override {
+    if (events.size() >= 8) return false;
+    events.push_back({written, r, reverse});
+    return true;
+  }
+  bool begin_drain() override { return false; }
+  void abort_drain() override {}
+  void reply(Type, const std::uint8_t*, std::size_t) override {}
+  // The writer sends `n` bytes and applies the commands that were queued before them.
+  void send(std::size_t n) {
+    for (std::size_t i = 0; i < n && !bytes.empty(); ++i) { bytes.erase(bytes.begin()); ++sent; }
+    std::vector<Event> left;
+    for (const Event& e : events) {
+      if (e.at <= sent) rpm = e.rpm; else left.push_back(e);
+    }
+    events = left;
+  }
+};
+
+static void safety_invariants() {
+  Info info;
+  info.queue_capacity = 64;
+  std::uint32_t seed = 12345;
+  auto next = [&seed](std::uint32_t n) { seed = seed * 1664525u + 1013904223u; return (seed >> 8) % n; };
+  auto rpm_payload = [](unsigned v, int dir, bool queued) {
+    std::vector<std::uint8_t> p = {static_cast<std::uint8_t>(v & 0xFF), static_cast<std::uint8_t>(v >> 8), static_cast<std::uint8_t>(dir < 0 ? 0 : dir), static_cast<std::uint8_t>(queued ? 1 : 0)};
+    return p;
+  };
+  int stops_checked = 0;
+  for (int run = 0; run < 40; ++run) {
+    PhysicalHardware hw;
+    Session s({"t", false, 3000}, info, hw);
+    s.on_frame(frame_of(Type::Hello, text("t")), 0);
+    std::uint32_t now = 0;
+    for (int step = 0; step < 400; ++step) {
+      now += 10 + next(40);
+      bool stopped = false;
+      switch (next(14)) {
+        case 0: s.on_frame(frame_of(Type::Arm), now); break;
+        case 1: case 2: s.on_frame(frame_of(Type::Write, std::vector<std::uint8_t>(1 + next(6), 0x43)), now); break;
+        case 3: s.on_frame(frame_of(Type::Spindle, rpm_payload(1000 + next(20000), static_cast<int>(next(2)), false)), now); break;
+        case 4: case 5: s.on_frame(frame_of(Type::Spindle, rpm_payload(1000 + next(20000), static_cast<int>(next(2)), true)), now); break;
+        case 6: s.on_frame(frame_of(Type::Spindle, rpm_payload(0, 0, next(2) == 0)), now); break;
+        case 7: case 8: hw.send(1 + next(8)); break;
+        case 9: s.on_frame(frame_of(Type::Abort), now); stopped = true; break;
+        case 10: s.on_frame(frame_of(Type::Disarm), now); stopped = true; break;
+        case 11: s.on_frame(frame_of(Type::StopOnHome, {7}), now); s.on_inputs(7); stopped = true; break;
+        case 12: s.on_tick(now + 4000); stopped = s.armed() == false; break;   // a quiet link: stopped when it was armed
+        default: s.emergency_stop(); stopped = true; break;
+      }
+      if (stopped) {
+        ++stops_checked;
+        // after any way of stopping, the spindle is not turning and nothing waiting in the queue can start it
+        CHECK(hw.rpm == 0);
+        CHECK(hw.events.empty());
+        CHECK(hw.bytes.empty());
+        // and nothing that the writer sends afterwards starts it
+        hw.send(64);
+        CHECK(hw.rpm == 0);
+        now += 100;
+      }
+    }
+  }
+  CHECK(stops_checked > 1000);
+  // the stop reaches the hardware even when the session believes the spindle is already stopped (its copy of the state cannot be trusted)
+  FakeHardware fh;
+  Session s({"t", false, 3000}, info, fh);
+  s.on_frame(frame_of(Type::Hello, text("t")), 0);
+  s.on_frame(frame_of(Type::Arm), 1);
+  s.on_frame(frame_of(Type::Abort), 2);
+  CHECK(!fh.spindle.empty() && fh.spindle.back().first == 0);
+  const std::size_t after_abort = fh.spindle.size();
+  s.on_frame(frame_of(Type::Disarm), 3);
+  CHECK(fh.spindle.size() == after_abort + 1 && fh.spindle.back().first == 0);
+}
+
 int main() {
   send_loop_tests();
   frame_tests();
@@ -616,6 +716,7 @@ int main() {
   home_tests();
   drain_tests();
   queued_spindle_tests();
+  safety_invariants();
   std::printf("%d checks, %d failed\n", g_checks, g_failed);
   return g_failed == 0 ? 0 : 1;
 }

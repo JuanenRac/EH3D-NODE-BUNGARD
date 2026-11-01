@@ -90,7 +90,7 @@ class Session {
       case Type::Disarm:
         armed_ = false;
         hw_.flush_queue();
-        stop_spindle();
+        stop_spindle(true);
         stop_mask_ = 0;
         queued_rpm_ = 0;
         queued_stop_at_valid_ = false;
@@ -119,7 +119,7 @@ class Session {
     if (stop_mask_ != 0 && (lamps & stop_mask_) != 0) {
       stop_mask_ = 0;
       hw_.flush_queue();
-      stop_spindle();   // the flush may have thrown away a queued stop
+      stop_spindle(true);   // the flush may have thrown away a queued stop
       hw_.reply(Type::HomeSeen, &lamps, 1);
     }
   }
@@ -181,15 +181,17 @@ class Session {
     enqueued_ = 0;
     hw_.flush_queue();
     hw_.send_drivers_off();
-    stop_spindle();
+    stop_spindle(true);
     stop_mask_ = 0;
     armed_ = false;
   }
 
   // The spindle never keeps turning when the machine is stopped, disarmed or the link is lost.
   // A start that went through the queue is applied by the writer, not by this session, so it counts too: it may be turning with spindle_rpm_ at 0.
-  void stop_spindle() {
-    if (spindle_rpm_ == 0 && !queued_started_) return;
+  // `force` is for every way the machine is stopped: the order to stop goes to the hardware whatever this copy of the state says, so the stop never depends on the copy
+  // being right (a stop is cheap and the same order twice does no harm).
+  void stop_spindle(bool force = false) {
+    if (!force && spindle_rpm_ == 0 && !queued_started_) return;
     const bool reverse = queued_started_ ? queued_reverse_ : spindle_reverse_;
     queued_started_ = false;
     spindle_rpm_ = 0;
