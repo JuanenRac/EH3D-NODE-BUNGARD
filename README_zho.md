@@ -197,6 +197,8 @@ python -I tools/ci_validate.py
 
 主机测试（`build.bat` 或 `./build.sh`，然后 `ctest`）共 10 个程序，全部通过：`core_tests`（104 项检查：帧和会话规则）、`test_base`（382）、`test_clock`（输出 ok）、`test_settings`（392）、`test_machine`（75）、`test_shared`（627）和 `test_shared_eth`（629，以太网板子配置）——统计到 24,910 项检查——另有 `panel_text`（8 种语言共 315 行、使用 265 个键、36 个带文本的固件错误码）和 `task_safety`（10 个任务，小栈上没有设置的大副本）。它们覆盖 CRC 和损坏后重新同步的解码器、令牌登录、上膛、沉默时停止、主轴规则（上限、不反转、延时）、设置及其范围、引脚冲突和保留引脚、用户和会话、网络方案、时钟和 JSON。面板还在浏览器中对 `tools/panel_mock.mjs` 做过测试，那是一个不需要电路板就能提供面板的替身节点。CI 运行 `python -I tools/ci_validate.py` 以及在 Linux 上把警告视为错误的主机测试。两个固件镜像（ESP-IDF 5.5.5）的编译是手工完成的，不属于 CI；没有任何东西在电路板上运行。
 
+节点接上硬件当天的自检：`python tools/selftest.py --host 节点 --token TOKEN` 读取节点（版本、状态、设置导出、备用网络、主轴、控制链路），每步一行写入报告；加上 `--active` 并手动输入确认后，还会武装链路、转动主轴并测量停止时间，且总是让节点保持停止状态。其测试在 CI 中对一个玩具节点运行（`python -I -m unittest discover -s tools -p "test_*.py"`）。手动步骤见 [docs/HARDWARE_CHECKLIST.md](docs/HARDWARE_CHECKLIST.md)。
+
 ## 🏗️ 构建与发布
 
 版本号位于 `eh3d.project.json` 和构建中，每个版本在 [CHANGELOG.md](CHANGELOG.md) 中都有条目。`build.sh` / `build.bat` 编译并运行主机测试，`test.sh` / `test.bat` 只运行测试，都在实时面板中进行；两者都不会更改版本。固件镜像由 `tools/build_node.sh`（Windows 上用 ESP-IDF 5.5.5）生成，名为 `eh3d-node-bungard-<版本>-<板子>-{app,complete}.bin`。尚未发布任何版本，也没有烧录过任何镜像。来自 GitHub 的更新已构建，但从未在电路板上对真实的 GitHub 运行过；发布版本没有签名，所以它信任发布所公布的哈希。

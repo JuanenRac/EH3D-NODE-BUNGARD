@@ -197,6 +197,8 @@ python -I tools/ci_validate.py
 
 ホスト テスト（`build.bat` または `./build.sh` のあと `ctest`）は 10 本のプログラムで、すべて通ります。`core_tests`（104 件：フレームとセッション規則）、`test_base`（382）、`test_clock`（ok を出力）、`test_settings`（392）、`test_machine`（75）、`test_shared`（627）、`test_shared_eth`（629、Ethernet 基板プロファイル）で数えられた検査は 24,910 件、さらに `panel_text`（37 言語 315 行、使用キー 265、文言のあるファームウェア エラー コード 36）と `task_safety`（10 タスク、小さなスタックに設定の大きなコピーを置かない）です。CRC と破損後に再同期するデコーダー、トークン ログイン、アーミング、無言時の停止、スピンドルの規則（上限、反転禁止、遅延）、設定とその範囲、ピンの競合と予約ピン、ユーザーとセッション、ネットワーク計画、時計、JSON を網羅します。パネルは、基板なしで配信する代替ノード `tools/panel_mock.mjs` に対してブラウザーでも動作確認しています。CI は `python -I tools/ci_validate.py` と、警告をエラーとして Linux 上でホスト テストを実行します。2 つのファームウェア イメージのビルド（ESP-IDF 5.5.5）は手作業で、CI には含まれません。基板上では何も動いていません。
 
+ノードが実機につながる日のためのセルフテスト：`python tools/selftest.py --host ノード --token TOKEN` がノード（バージョン、状態、設定のエクスポート、予備ネットワーク、スピンドル、制御リンク）を読み、1 ステップ 1 行のレポートを書きます。`--active` と入力による確認があれば、リンクを有効にしてスピンドルを回し、停止時間も測り、最後は必ずノードを停止状態にします。テストは CI でおもちゃのノードを相手に実行されます（`python -I -m unittest discover -s tools -p "test_*.py"`）。手作業の手順は [docs/HARDWARE_CHECKLIST.md](docs/HARDWARE_CHECKLIST.md) にあります。
+
 ## 🏗️ ビルドとリリース
 
 バージョンは `eh3d.project.json` とビルドにあり、各バージョンには [CHANGELOG.md](CHANGELOG.md) の項目があります。`build.sh` / `build.bat` はホスト テストをビルドして実行し、`test.sh` / `test.bat` はテストだけを実行します。いずれもライブ パネルで動き、バージョンは変えません。ファームウェア イメージは `tools/build_node.sh`（Windows では ESP-IDF 5.5.5）で作られ、`eh3d-node-bungard-<バージョン>-<基板>-{app,complete}.bin` という名前になります。リリースはまだ公開しておらず、イメージを書き込んだこともありません。GitHub からの更新は実装済みですが、基板で本物の GitHub に対して動かしたことはありません。リリースは署名されておらず、公開されているハッシュを信頼します。
