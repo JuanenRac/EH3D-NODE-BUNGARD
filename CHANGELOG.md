@@ -1,6 +1,7 @@
 # Changelog
 
 ## [Unreleased]
+- **Firmware builds in GitHub Actions:** `.github/workflows/firmware-build.yml` (manual, owner only) builds the images in the pinned ESP-IDF container, writes `SHA256SUMS`, a build manifest and a provenance attestation, checks the version inside every image, opens an issue `build-failed` when it fails and prepares an unsigned draft release only after the owner approves it; the signature stays on the maintainer's computer. See `docs/NODE_FIRMWARE.md`.
 - **Shared checks updated:** the validator also compares the badge and the Version row of the README with the manifest, fails when one of its checks cannot run, and the CHANGELOG step of the workflow reads the base branch from the environment.
 
 - **A self-test for the day the node meets the hardware:** `tools/selftest.py` reads the node through its panel API and the control link (version, state, settings, the settings export compared with itself and never applied, backup networks, OTA state, spindle state, link idle state) and writes `selftest_bungard_<time>.txt` with one line per step. With `--active` and a typed confirmation (or `--yes`) it arms the link, turns the spindle by the queue, and times the Abort and the panel's stop; every active step ends with the spindle stopped and the link disarmed, and the end of the run checks it with a new connection. Nothing is written to the node without `--active`; the token and the password are never printed. Its tests run against a toy node in the CI.
