@@ -5,6 +5,7 @@
 - **A self-test for the day the node meets the hardware:** `tools/selftest.py` reads the node through its panel API and the control link (version, state, settings, the settings export compared with itself and never applied, backup networks, OTA state, spindle state, link idle state) and writes `selftest_bungard_<time>.txt` with one line per step. With `--active` and a typed confirmation (or `--yes`) it arms the link, turns the spindle by the queue, and times the Abort and the panel's stop; every active step ends with the spindle stopped and the link disarmed, and the end of the run checks it with a new connection. Nothing is written to the node without `--active`; the token and the password are never printed. Its tests run against a toy node in the CI.
 - **`docs/HARDWARE_CHECKLIST.md`:** the steps to do by hand on the bench, with what must happen and where to write the result.
 - **More host tests:** the queue of bytes, versions, node names, the retries of a send, the addresses the web server answers and the frames of the control link read from a noisy line.
+- **The workflows are hardened:** every action is pinned by its commit with its version in a comment, and the checkouts keep no credentials.
 
 ## [0.0.5] - A save bar that is always there, a backup of the settings and a stop that stops the spindle on every path
 
