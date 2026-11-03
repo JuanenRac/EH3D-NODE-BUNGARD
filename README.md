@@ -18,7 +18,7 @@
 
 ---
 
-**Honesty check - what actually runs today:** firmware in C++17 for the ESP32-S3 (ESP-IDF 5.5) that turns the RS-232 port of the control unit of a Bungard CCD machine into a network port: a program connects over TCP with an access token, arms the machine and sends the bytes of a move, which the node queues and puts on the line at the line's own pace. It also reads the machine's lamps (HOME X, Y and Z, ENABLE, TOOL), drives a spindle through a 0-10 V speed signal and run/direction lines, and has a web panel with a side menu (37 languages) for set-up, users, network, update and the machine's own settings. The rules of the link and the settings are tested on a computer (10 test programs, 24,910 checks counted) and the firmware builds without warnings for both boards. **It has not been flashed or run on a board yet**, nothing has been connected to a machine, and the carrier board that brings the RS-232 converter, the lamp inputs and the spindle's drive together is a design on paper.
+**Honesty check - what actually runs today:** firmware in C++17 for the ESP32-S3 (ESP-IDF 5.5) that turns the RS-232 port of the control unit of a Bungard CCD machine into a network port: a program connects over TCP with an access token, arms the machine and sends the bytes of a move, which the node queues and puts on the line at the line's own pace. It also reads the machine's lamps (HOME X, Y and Z, ENABLE, TOOL), drives a spindle through a 0-10 V speed signal and run/direction lines, and has a web panel with a side menu (37 languages) for set-up, users, network, update and the machine's own settings. The rules of the link and the settings are tested on a computer (10 test programs, 25,286 checks counted) and the firmware builds without warnings for both boards. **It has not been flashed or run on a board yet**, nothing has been connected to a machine, and the carrier board that brings the RS-232 converter, the lamp inputs and the spindle's drive together is a design on paper.
 
 ---
 
@@ -30,7 +30,7 @@
 |---|---|
 | Version | `0.0.5` |
 | Maturity | Scaffolding |
-| Tests | 10 host test programs (24,910 checks counted) |
+| Tests | 11 host test programs (25,286 checks counted) |
 | Stack | C++17, ESP-IDF 5.5, ESP32-S3 |
 | On real hardware | No: both firmware images build, but nothing has been flashed or run on a board, and nothing has been connected to a machine |
 
@@ -45,7 +45,7 @@ Each line is one part of this repository and the light says how far it is today.
 | Area | State | What it means here |
 |---|---|---|
 | Software | 🟡 | The firmware for the ESP32-S3 (ESP-IDF 5.5, C++17) builds without warnings for both boards, Ethernet and Wi-Fi; no image has been flashed. |
-| Tests | 🟡 | 10 host test programs pass (`ctest`): 24,910 checks counted in the link, settings, machine rules and the shared base, plus the check of the panel texts (315 rows in 8 languages) and of the task stacks (10 tasks). |
+| Tests | 🟡 | 11 host test programs pass (`ctest`): 25,286 checks counted in the link, settings, machine rules and the shared base, plus the check of the panel texts (315 rows in 8 languages) and of the task stacks (10 tasks). |
 | Control link | 🟡 | The framed protocol (CRC, token login, arming, byte queue, stop when the session goes quiet) is covered by the host tests; no program has talked to a real node. |
 | Web panel | 🟡 | The web panel (side menu, 37 languages: set-up, machine, network, users, update, log, system) has its texts checked and is exercised against a mock of the node in a browser; it has never been served from a board. |
 | Spindle and lamps | 🟠 | The 0-10 V speed signal, the run and direction lines (no reversing while turning) and the five lamp inputs are tested on the host; no spindle drive or machine has been connected. |
@@ -195,7 +195,7 @@ python -I tools/ci_validate.py
 
 ## 🧪 Testing
 
-The host tests (`build.bat` or `./build.sh`, then `ctest`) are 10 programs and all pass: `core_tests` (22,749 checks: the frames and the session rules), `test_base` (382), `test_clock` (prints ok), `test_settings` (422), `test_machine` (75), `test_shared` (627) and `test_shared_eth` (629, the Ethernet board profile) - 24,910 checks counted - plus `panel_text` (315 rows in 8 languages, 265 keys used, 36 firmware error codes with a text) and `task_safety` (10 tasks, no big copy of the settings on a small stack). They cover the CRC and the decoder that resynchronises after damage, token login, arming, the stop on silence, the spindle rules (cap, no reversing, delay), the settings and their ranges, pin conflicts and reserved pins, users and sessions, the network plan, the clock and JSON. The panel has also been exercised in a browser against `tools/panel_mock.mjs`, a stand-in node that serves it without a board. The CI runs `python -I tools/ci_validate.py` and the host tests on Linux with the warnings as errors. Building the two firmware images (ESP-IDF 5.5.5) is done by hand and is not part of the CI; nothing runs on a board.
+The host tests (`build.bat` or `./build.sh`, then `ctest`) are 11 programs and all pass: `core_tests` (22,749 checks: the frames and the session rules), `test_base` (382), `test_clock` (prints ok), `test_settings` (422), `test_machine` (75), `test_shared` (627) and `test_shared_eth` (629, the Ethernet board profile) - 25,286 checks counted - plus `panel_text` (315 rows in 8 languages, 265 keys used, 36 firmware error codes with a text) and `task_safety` (10 tasks, no big copy of the settings on a small stack). They cover the CRC and the decoder that resynchronises after damage, token login, arming, the stop on silence, the spindle rules (cap, no reversing, delay), the settings and their ranges, pin conflicts and reserved pins, users and sessions, the network plan, the clock and JSON. The panel has also been exercised in a browser against `tools/panel_mock.mjs`, a stand-in node that serves it without a board. The CI runs `python -I tools/ci_validate.py` and the host tests on Linux with the warnings as errors. Building the two firmware images (ESP-IDF 5.5.5) is done by hand and is not part of the CI; nothing runs on a board.
 
 Self-test for the day the node meets the hardware: `python tools/selftest.py --host NODE --token TOKEN` reads the node (version, state, settings export, backup networks, spindle, control link) and writes a report with one line per step; with `--active` and a typed confirmation it also arms the link, turns the spindle and times the stops, and it always leaves the node stopped. Its tests run in the CI against a toy node (`python -I -m unittest discover -s tools -p "test_*.py"`). The steps to do by hand are in [docs/HARDWARE_CHECKLIST.md](docs/HARDWARE_CHECKLIST.md).
 
