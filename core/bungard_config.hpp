@@ -66,11 +66,20 @@ struct SpindleSetting {
   int reverse_delay_ms = 3000;  // how long the spindle must have been stopped before it may turn the other way
 };
 
+// The self-check (core/self_check.hpp): the node judges its own status and says it with codes. The limits are here, never in the code.
+struct SelfCheckSetting {
+  bool enabled = true;
+  int queue_percent = 90;     // the queue for the control unit this full is reported (50..100)
+  int idle_ms_max = 10000;    // an idle time of the link longer than this is reported (200..60000)
+  int grace_s = 30;           // after the start the network and the link get this long before their absence is reported (0..600)
+};
+
 struct MachineSettings {
   LinkSetting link;
   UartSetting uart;
   LampsSetting lamps;
   SpindleSetting spindle;
+  SelfCheckSetting selfcheck;
 };
 
 struct Settings : NodeSettings {   // what every node has (core/node_settings.hpp) and the machine's own
@@ -136,6 +145,13 @@ inline void machine_read(const json::Value& machine, MachineSettings& m, Problem
     read_bool(*spindle, "outputs_active_low", m.spindle.outputs_active_low, p + "outputs_active_low", problems);
     read_int(*spindle, "reverse_delay_ms", m.spindle.reverse_delay_ms, 0, 3600000, p + "reverse_delay_ms", problems);
   } else if (machine.get("spindle") != nullptr) bad(problems, prefix + "spindle", "invalid");
+  if (const json::Value* check = machine.get("selfcheck"); check != nullptr && check->is_object()) {
+    const std::string p = prefix + "selfcheck.";
+    read_bool(*check, "enabled", m.selfcheck.enabled, p + "enabled", problems);
+    read_int(*check, "queue_percent", m.selfcheck.queue_percent, 50, 100, p + "queue_percent", problems);
+    read_int(*check, "idle_ms_max", m.selfcheck.idle_ms_max, 200, 60000, p + "idle_ms_max", problems);
+    read_int(*check, "grace_s", m.selfcheck.grace_s, 0, 600, p + "grace_s", problems);
+  } else if (machine.get("selfcheck") != nullptr) bad(problems, prefix + "selfcheck", "invalid");
 }
 
 // Applies the members present in `document` on top of `s`; whatever the document omits stays as it was. The result is checked with validate(): read_settings() only reports a member of the
@@ -215,6 +231,8 @@ inline void machine_write(json::Writer& w, const MachineSettings& m, bool secret
   w.key("spindle").begin_object().field("max_rpm", m.spindle.max_rpm).field("pwm_pin", m.spindle.pwm_pin).field("pwm_hz", m.spindle.pwm_hz).field("pwm_inverted", m.spindle.pwm_inverted)
       .field("fwd_pin", m.spindle.fwd_pin).field("rev_pin", m.spindle.rev_pin).field("dir_single", m.spindle.dir_single).field("outputs_active_low", m.spindle.outputs_active_low)
       .field("reverse_delay_ms", m.spindle.reverse_delay_ms).end_object();
+  w.key("selfcheck").begin_object().field("enabled", m.selfcheck.enabled).field("queue_percent", m.selfcheck.queue_percent).field("idle_ms_max", m.selfcheck.idle_ms_max)
+      .field("grace_s", m.selfcheck.grace_s).end_object();
 }
 
 // The `machine` object on its own, as GET /api/v1/machine answers it (never with the token) or as flash keeps it (with it).
@@ -264,6 +282,7 @@ inline void clear_live_settings(Settings& s) {
   s.machine.link.finish_on_loss = false;
   s.machine.link.max_drain_s = 0;
   s.machine.spindle.reverse_delay_ms = 0;
+  s.machine.selfcheck = SelfCheckSetting{};   // judged at every status request
 }
 
 }  // namespace eh3d::config
