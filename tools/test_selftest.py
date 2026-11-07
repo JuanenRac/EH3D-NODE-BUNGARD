@@ -128,6 +128,7 @@ class ToyNode:
 
     def __init__(self, link=None, mode="ok"):
         self.mode, self.link, self.writes = mode, link, []
+        self.selfcheck, self.selfcheck_codes = "ok", ""
         node = self
 
         class H(http.server.BaseHTTPRequestHandler):
@@ -159,7 +160,7 @@ class ToyNode:
                     "/api/v1/config": {"node": {"name": "toy"}, "sta": {"enabled": True}},
                     "/api/v1/config/export": {"node": {"name": "toy"}, "sta": {"enabled": True, "password": WIFI_SECRET, "backup": [{"ssid": "workshop", "password": WIFI_SECRET}]}},
                     "/api/v1/machine": {"link": {"port": 5800, "token_set": True}},
-                    "/api/v1/machine/status": {"armed": bool(node.link.armed) if node.link else False, "spindle_rpm": node.link.rpm if node.link else 0, "queue": 0, "draining": False},
+                    "/api/v1/machine/status": {"armed": bool(node.link.armed) if node.link else False, "spindle_rpm": node.link.rpm if node.link else 0, "queue": 0, "draining": False, "selfcheck": node.selfcheck, "selfcheck_codes": node.selfcheck_codes},
                     "/api/v1/ota/progress": {"state": "idle"},
                 }
                 if path == "/api/v1/log":
@@ -240,6 +241,21 @@ class SelfTest(unittest.TestCase):
             self.assertNotIn(st.T_SPINDLE, link.seen)
         finally:
             node.close(); link.close()
+
+    def test_the_node_own_check_is_read(self):
+        node = ToyNode(ToyLink())
+        try:
+            code, out, report = run(base(node, node.link))
+            self.assertIn("OK       panel: the node's own check | selfcheck=ok codes=none", report)
+            node.selfcheck, node.selfcheck_codes = "warn", "BND-S01"
+            code, out, report = run(base(node, node.link))
+            self.assertIn("OK       panel: the node's own check | selfcheck=warn codes=BND-S01", report)
+            node.selfcheck, node.selfcheck_codes = "fail", "BND-P01"
+            code, out, report = run(base(node, node.link))
+            self.assertIn("FALLO    panel: the node's own check | the node reports a fault: BND-P01", report)
+            self.assertNotEqual(code, 0)
+        finally:
+            node.link.close(); node.close()
 
     def test_secrets_are_never_printed(self):
         link, node = ToyLink(), None

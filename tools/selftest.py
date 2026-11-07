@@ -565,6 +565,20 @@ def main(argv=None, ask=input):
 
     rep.step("panel: machine settings and state (spindle stopped)", machine)
 
+    def own_check():
+        # the node judges itself (docs/SELF_CHECK.md): a fail is a failed step, a warn is shown; an older firmware has no such key
+        if not http_.cookie:
+            raise Skip("needs the panel login")
+        st = http_.get_json("/api/v1/machine/status")
+        verdict = st.get("selfcheck")
+        if verdict is None:
+            raise Skip("this firmware has no self-check")
+        if verdict == "fail":
+            raise Fail("the node reports a fault: %s" % (st.get("selfcheck_codes") or "no code"))
+        return "selfcheck=%s codes=%s" % (verdict, st.get("selfcheck_codes") or "none")
+
+    rep.step("panel: the node's own check", own_check)
+
     def guard():
         d = (status or {})
         keys = [k for k in d if "guard" in k.lower() or "heart" in k.lower() or "watchdog" in k.lower()]
