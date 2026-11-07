@@ -65,6 +65,20 @@
         },
         {
           "desc": {
+            "en": "the node's judgement on itself, with codes",
+            "es": "el juicio del nodo sobre sí mismo, con códigos",
+            "it": "il giudizio del nodo su sé stesso, con codici",
+            "de": "die Selbstbeurteilung des Knotens mit Codes",
+            "fr": "le jugement du nœud sur lui-même, avec des codes",
+            "pt": "o juízo do nó sobre si próprio, com códigos",
+            "zh": "节点对自身状态的判断及其代码",
+            "ja": "ノード自身の状態判定とそのコード"
+          },
+          "name": "self_check.hpp",
+          "tree_name": "self_check.hpp"
+        },
+        {
+          "desc": {
             "en": "settings and users (shared base)",
             "es": "ajustes y usuarios (base común)",
             "de": "Einstellungen, Benutzer (Basis)",
@@ -311,6 +325,20 @@
         },
         {
           "desc": {
+            "en": "the self-check and the page of its codes",
+            "es": "la autocomprobación y la página de sus códigos",
+            "it": "l'autocontrollo e la pagina dei suoi codici",
+            "de": "die Selbstprüfung und die Seite ihrer Codes",
+            "fr": "l'autocontrôle et la page de ses codes",
+            "pt": "a autoverificação e a página dos seus códigos",
+            "zh": "自检及其代码页面",
+            "ja": "自己診断とそのコードのページ"
+          },
+          "name": "test_self_check.cpp",
+          "tree_name": "test_self_check.cpp"
+        },
+        {
+          "desc": {
             "en": "the panel's texts and the stacks of the tasks",
             "es": "los textos del panel y las pilas de las tareas",
             "de": "die Paneltexte und die Stacks der Tasks",
@@ -366,14 +394,14 @@
       "rows": [
         {
           "desc": {
-            "en": "protocol, firmware, wiring, board",
-            "es": "protocolo, firmware, cableado, placa",
-            "de": "Protokoll, Firmware, Verdrahtung, Platine",
-            "fr": "protocole, firmware, câblage, carte",
-            "it": "protocollo, firmware, cablaggio, scheda",
-            "ja": "プロトコル、ファームウェア、配線、基板",
-            "zh": "协议、固件、接线、载板",
-            "pt": "protocolo, firmware, cablagem, placa"
+            "en": "protocol, firmware, wiring, board, self-check codes",
+            "es": "protocolo, firmware, cableado, placa, códigos de autocomprobación",
+            "de": "Protokoll, Firmware, Verdrahtung, Platine, Selbstprüfungs-Codes",
+            "fr": "protocole, firmware, câblage, carte, codes d'autocontrôle",
+            "it": "protocollo, firmware, cablaggio, scheda, codici di autocontrollo",
+            "ja": "プロトコル、ファームウェア、配線、基板、自己診断コード",
+            "zh": "协议、固件、接线、载板、自检代码",
+            "pt": "protocolo, firmware, cablagem, placa, códigos de autoverificação"
           },
           "name": "docs/"
         },
