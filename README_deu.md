@@ -18,7 +18,7 @@
 
 ---
 
-**Ehrlichkeitscheck - was heute tatsächlich läuft:** Firmware in C++17 für den ESP32-S3 (ESP-IDF 5.5), das den RS-232-Anschluss der Steuereinheit einer Bungard-CCD-Maschine zu einem Netzwerkanschluss macht: Ein Programm verbindet sich per TCP mit einem Zugriffstoken, schaltet die Maschine scharf und sendet die Bytes einer Bewegung, die der Knoten in eine Warteschlange legt und im eigenen Takt der Leitung ausgibt. Es liest außerdem die Lampen der Maschine (HOME X, Y und Z, ENABLE, TOOL), steuert eine Spindel über ein 0-10-V-Drehzahlsignal und Lauf-/Richtungsleitungen und hat ein Web-Panel mit Seitenmenü (37 Sprachen) für Einrichtung, Benutzer, Netzwerk, Update und die Maschineneinstellungen. Die Regeln der Verbindung und die Einstellungen sind auf einem Computer getestet (11 Testprogramme, 25.286 gezählte Prüfungen), und die Firmware baut für beide Platinen ohne Warnungen. **Sie wurde noch nicht auf eine Platine geflasht oder dort ausgeführt**, nichts wurde an eine Maschine angeschlossen, und die Trägerplatine, die RS-232-Wandler, Lampeneingänge und Spindelantrieb zusammenbringt, ist ein Entwurf auf Papier.
+**Ehrlichkeitscheck - was heute tatsächlich läuft:** Firmware in C++17 für den ESP32-S3 (ESP-IDF 5.5), das den RS-232-Anschluss der Steuereinheit einer Bungard-CCD-Maschine zu einem Netzwerkanschluss macht: Ein Programm verbindet sich per TCP mit einem Zugriffstoken, schaltet die Maschine scharf und sendet die Bytes einer Bewegung, die der Knoten in eine Warteschlange legt und im eigenen Takt der Leitung ausgibt. Es liest außerdem die Lampen der Maschine (HOME X, Y und Z, ENABLE, TOOL), steuert eine Spindel über ein 0-10-V-Drehzahlsignal und Lauf-/Richtungsleitungen und hat ein Web-Panel mit Seitenmenü (37 Sprachen) für Einrichtung, Benutzer, Netzwerk, Update und die Maschineneinstellungen. Die Regeln der Verbindung und die Einstellungen sind auf einem Computer getestet (11 Testprogramme, 25.383 gezählte Prüfungen), und die Firmware baut für beide Platinen ohne Warnungen. **Sie wurde noch nicht auf eine Platine geflasht oder dort ausgeführt**, nichts wurde an eine Maschine angeschlossen, und die Trägerplatine, die RS-232-Wandler, Lampeneingänge und Spindelantrieb zusammenbringt, ist ein Entwurf auf Papier.
 
 ---
 
@@ -30,7 +30,7 @@
 |---|---|
 | Version | `0.0.6` |
 | Reifegrad | Gerüst |
-| Tests | 11 Host-Testprogramme (25.286 gezählte Prüfungen) |
+| Tests | 12 Host-Testprogramme (25.383 gezählte Prüfungen) |
 | Technologie-Stack | C++17, ESP-IDF 5.5, ESP32-S3 |
 | Auf echter Hardware | Nein: beide Firmware-Abbilder bauen, aber nichts wurde auf eine Platine geflasht oder dort ausgeführt, und nichts wurde an eine Maschine angeschlossen |
 
@@ -45,7 +45,7 @@ Jede Zeile ist ein Teil dieses Repositorys, und die Ampel sagt, wie weit er heut
 | Bereich | Stand | Was das hier bedeutet |
 |---|---|---|
 | Software | 🟡 | Die Firmware für den ESP32-S3 (ESP-IDF 5.5, C++17) baut für beide Platinen, Ethernet und WLAN, ohne Warnungen; kein Abbild wurde geflasht. |
-| Tests | 🟡 | 11 Host-Testprogramme bestehen (`ctest`): 25.286 gezählte Prüfungen zu Verbindung, Einstellungen, Maschinenregeln und gemeinsamer Basis, dazu die Prüfung der Paneltexte (315 Zeilen in 8 Sprachen) und der Task-Stacks (10 Tasks). |
+| Tests | 🟡 | 12 Host-Testprogramme bestehen (`ctest`): 25.383 gezählte Prüfungen zu Verbindung, Einstellungen, Maschinenregeln und gemeinsamer Basis, dazu die Prüfung der Paneltexte (315 Zeilen in 8 Sprachen) und der Task-Stacks (10 Tasks). |
 | Steuerverbindung | 🟡 | Das gerahmte Protokoll (CRC, Token-Anmeldung, Scharfschalten, Byte-Warteschlange, Stopp bei stiller Sitzung) ist von den Host-Tests abgedeckt; kein Programm hat mit einem echten Knoten gesprochen. |
 | Web-Panel | 🟡 | Das Web-Panel (Seitenmenü, 37 Sprachen: Einrichtung, Maschine, Netzwerk, Benutzer, Update, Protokoll, System) hat geprüfte Texte und wird in einem Browser gegen eine Attrappe des Knotens erprobt; es wurde nie von einer Platine ausgeliefert. |
 | Spindel und Lampen | 🟠 | Das 0-10-V-Drehzahlsignal, die Lauf- und Richtungsleitungen (kein Umkehren während des Drehens) und die fünf Lampeneingänge sind auf dem Host getestet; kein Spindelantrieb und keine Maschine wurden angeschlossen. |
@@ -61,6 +61,7 @@ Jede Zeile ist ein Teil dieses Repositorys, und die Ampel sagt, wie weit er heut
 * Die **Lampen**: HOME X, HOME Y, HOME Z, ENABLE und TOOL werden über einen Pufferttransistor gelesen, im Status und im Panel angezeigt, und eine Anfrage kann den Knoten den Rest einer Suche verwerfen lassen, sobald eine Achse in Referenz ist, sodass das Programm die Home-Leitung nicht mehr mitten im Datenstrom lesen muss.
 * Die **Spindel**: ein Drehzahl-PWM für einen 0-10-V-Wandler (standardmäßig 24000 U/min bei vollem Signal, für einen Frequenzumrichter wie den Huanyang HY02D223B) und Leitungen für Vorwärts-/Rückwärtslauf, ohne Richtungswechsel während der Drehung oder gleich nach dem Stillstand und mit Stopp, wann immer die Maschine gestoppt wird.
 * **Der Stopp ist überall derselbe:** Jede Art, die Maschine anzuhalten (Abort, Disarm, eine stumme Verbindung, der Stopp beim Referenzieren, der Stopp des Panels), weist die Hardware an, die Spindel auszuschalten, was die Sitzung auch glaubt; ein Stopp hängt also nie davon ab, dass eine Kopie des Zustands stimmt. Ein Test mit einem Spindelmodell (ein Befehl in der Warteschlange startet sie, wenn die Bytes davor gesendet sind; ein Leeren verwirft, was nicht gesendet ist) und tausenden Zufallsfolgen prüft, dass nach jedem Stopp die Spindel aus ist und nichts in der Warteschlange sie starten kann.
+* **Ein Knoten, der sich selbst beurteilt:** `GET /api/v1/machine/status` trägt ein Urteil (`selfcheck`: ok, warn, fail) und die Codes dahinter (`selfcheck_codes`: das Netz ist nicht aktiv, kein Token, offene Steuerung an, eine zu lange Ruhezeit, die Warteschlange fast voll, die Spindel über ihrer Höchstdrehzahl ...). Die Grenzen sind die Einstellungen `machine.selfcheck` und gelten ohne Neustart; die Codes stehen in [docs/SELF_CHECK.md](docs/SELF_CHECK.md), und ein Test hält die Seite und die Firmware gleich. Auf einem Computer mit einem Ersatz für die Hardware getestet; nicht auf einer Platine gelaufen.
 * Das **Panel** (HTTP und HTTPS, 37 Sprachen, das Menü links auf einem breiten Bildschirm und oben auf einem Telefon): Ersteinrichtung mit einem Code auf der USB-Konsole, Benutzer, Ethernet oder WLAN, die Steuerverbindung, die RS-232-Pins, die Lampen und die Spindel, ein Protokoll und Updates durch Hochladen in einen von zwei Firmware-Slots mit Rückfall. Nichts Geheimes ist in das Abbild einkompiliert.
 * Der **Selbstschutz**: ein Wächter, der Tasks und Speicher beobachtet, ein Tor an der Tür des Panels bei Speichermangel und die Bestätigung eines neuen Abbilds, sobald der Knoten erreichbar ist.
 * Die **Platinen**: das Waveshare ESP32-S3-ETH (W5500-Ethernet) und ein ESP32-S3-WROOM-1 N16R8 (WLAN), je ein Abbild. Der Entwurf der Trägerplatine (100 x 100 mm) steht in `docs/BOARD.md`.
@@ -195,7 +196,7 @@ python -I tools/ci_validate.py
 
 ## 🧪 Tests
 
-Die Host-Tests (`build.bat` oder `./build.sh`, dann `ctest`) sind 11 Programme, und alle bestehen: `core_tests` (22.749 Prüfungen: die Rahmen und die Sitzungsregeln), `test_base` (382), `test_clock` (gibt ok aus), `test_settings` (422), `test_machine` (75), `test_shared` (627) und `test_shared_eth` (629, das Profil der Ethernet-Platine) - 25.286 gezählte Prüfungen - sowie `panel_text` (315 Zeilen in 8 Sprachen, 265 verwendete Schlüssel, 36 Firmware-Fehlercodes mit Text) und `task_safety` (10 Tasks, keine große Kopie der Einstellungen auf einem kleinen Stack). Sie decken CRC und den Decoder ab, der sich nach Beschädigung neu synchronisiert, Token-Anmeldung, Scharfschalten, den Stopp bei Stille, die Spindelregeln (Begrenzung, kein Umkehren, Verzögerung), die Einstellungen und ihre Bereiche, Pin-Konflikte und reservierte Pins, Benutzer und Sitzungen, den Netzplan, die Uhr und JSON. Das Panel wurde außerdem in einem Browser gegen `tools/panel_mock.mjs` erprobt, einen Ersatzknoten, der es ohne Platine ausliefert. Die CI führt `python -I tools/ci_validate.py` und die Host-Tests unter Linux mit Warnungen als Fehlern aus. Das Bauen der beiden Firmware-Abbilder (ESP-IDF 5.5.5) geschieht von Hand und gehört nicht zur CI; nichts läuft auf einer Platine.
+Die Host-Tests (`build.bat` oder `./build.sh`, dann `ctest`) sind 12 Programme, und alle bestehen: `core_tests` (22.749 Prüfungen: die Rahmen und die Sitzungsregeln), `test_base` (382), `test_clock` (gibt ok aus), `test_settings` (422), `test_machine` (75), `test_self_check` (97), `test_shared` (627) und `test_shared_eth` (629, das Profil der Ethernet-Platine) - 25.383 gezählte Prüfungen - sowie `panel_text` (315 Zeilen in 8 Sprachen, 265 verwendete Schlüssel, 36 Firmware-Fehlercodes mit Text) und `task_safety` (10 Tasks, keine große Kopie der Einstellungen auf einem kleinen Stack). Sie decken CRC und den Decoder ab, der sich nach Beschädigung neu synchronisiert, Token-Anmeldung, Scharfschalten, den Stopp bei Stille, die Spindelregeln (Begrenzung, kein Umkehren, Verzögerung), die Einstellungen und ihre Bereiche, Pin-Konflikte und reservierte Pins, Benutzer und Sitzungen, den Netzplan, die Uhr und JSON. Das Panel wurde außerdem in einem Browser gegen `tools/panel_mock.mjs` erprobt, einen Ersatzknoten, der es ohne Platine ausliefert. Die CI führt `python -I tools/ci_validate.py` und die Host-Tests unter Linux mit Warnungen als Fehlern aus. Das Bauen der beiden Firmware-Abbilder (ESP-IDF 5.5.5) geschieht von Hand und gehört nicht zur CI; nichts läuft auf einer Platine.
 
 Selbsttest für den Tag, an dem der Knoten auf die Hardware trifft: `python tools/selftest.py --host KNOTEN --token TOKEN` liest den Knoten (Version, Zustand, Export der Einstellungen, Ersatznetzwerke, Spindel, Steuerverbindung) und schreibt einen Bericht mit einer Zeile pro Schritt; mit `--active` und einer eingetippten Bestätigung schärft er außerdem die Verbindung, dreht die Spindel und misst die Stopps und lässt den Knoten immer gestoppt zurück. Seine Tests laufen in der CI gegen einen Spielzeug-Knoten (`python -I -m unittest discover -s tools -p "test_*.py"`). Die manuellen Schritte stehen in [docs/HARDWARE_CHECKLIST.md](docs/HARDWARE_CHECKLIST.md).
 
@@ -231,6 +232,7 @@ EH3D-NODE-BUNGARD/
 │   ├── frame.hpp session.hpp                    Rahmen und Sitzungsregeln
 │   ├── byte_queue.hpp drain.hpp                 Byte-Queue, Auftragsende
 │   ├── bungard_config.hpp                       Maschineneinstellungen, Pins
+│   ├── self_check.hpp                           die Selbstbeurteilung des Knotens mit Codes
 │   ├── node_settings.hpp auth.hpp               Einstellungen, Benutzer (Basis)
 │   ├── netplan.hpp json.hpp                     Netzplan und JSON (Basis)
 │   └── release_assets.hpp semver.hpp            welche Datei eines Releases das Image dieser Platine ist
@@ -246,7 +248,7 @@ EH3D-NODE-BUNGARD/
 │   ├── app.js text.js                           die Seiten und die Texte in 37 Sprachen
 │   └── locales/                                 die Wörter von 29 weiteren Sprachen, je eine Datei
 ├── tests/                                       Host-Tests von Verbindung, Einstellungen, gemeinsamer Basis und Paneltexten
-├── docs/                                        Protokoll, Firmware, Verdrahtung, Platine
+├── docs/                                        Protokoll, Firmware, Verdrahtung, Platine, Selbstprüfungs-Codes
 ├── tools/                                       Build, Panel-Pack, Prüfungen, Ersatzknoten
 ├── CMakeLists.txt                               das ESP-IDF-Projekt
 ├── partitions.csv                               der Flash mit zwei Slots

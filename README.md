@@ -18,7 +18,7 @@
 
 ---
 
-**Honesty check - what actually runs today:** firmware in C++17 for the ESP32-S3 (ESP-IDF 5.5) that turns the RS-232 port of the control unit of a Bungard CCD machine into a network port: a program connects over TCP with an access token, arms the machine and sends the bytes of a move, which the node queues and puts on the line at the line's own pace. It also reads the machine's lamps (HOME X, Y and Z, ENABLE, TOOL), drives a spindle through a 0-10 V speed signal and run/direction lines, and has a web panel with a side menu (37 languages) for set-up, users, network, update and the machine's own settings. The rules of the link and the settings are tested on a computer (10 test programs, 25,286 checks counted) and the firmware builds without warnings for both boards. **It has not been flashed or run on a board yet**, nothing has been connected to a machine, and the carrier board that brings the RS-232 converter, the lamp inputs and the spindle's drive together is a design on paper.
+**Honesty check - what actually runs today:** firmware in C++17 for the ESP32-S3 (ESP-IDF 5.5) that turns the RS-232 port of the control unit of a Bungard CCD machine into a network port: a program connects over TCP with an access token, arms the machine and sends the bytes of a move, which the node queues and puts on the line at the line's own pace. It also reads the machine's lamps (HOME X, Y and Z, ENABLE, TOOL), drives a spindle through a 0-10 V speed signal and run/direction lines, and has a web panel with a side menu (37 languages) for set-up, users, network, update and the machine's own settings. The rules of the link and the settings are tested on a computer (10 test programs, 25,383 checks counted) and the firmware builds without warnings for both boards. **It has not been flashed or run on a board yet**, nothing has been connected to a machine, and the carrier board that brings the RS-232 converter, the lamp inputs and the spindle's drive together is a design on paper.
 
 ---
 
@@ -30,7 +30,7 @@
 |---|---|
 | Version | `0.0.6` |
 | Maturity | Scaffolding |
-| Tests | 11 host test programs (25,286 checks counted) |
+| Tests | 12 host test programs (25,383 checks counted) |
 | Stack | C++17, ESP-IDF 5.5, ESP32-S3 |
 | On real hardware | No: both firmware images build, but nothing has been flashed or run on a board, and nothing has been connected to a machine |
 
@@ -45,7 +45,7 @@ Each line is one part of this repository and the light says how far it is today.
 | Area | State | What it means here |
 |---|---|---|
 | Software | 🟡 | The firmware for the ESP32-S3 (ESP-IDF 5.5, C++17) builds without warnings for both boards, Ethernet and Wi-Fi; no image has been flashed. |
-| Tests | 🟡 | 11 host test programs pass (`ctest`): 25,286 checks counted in the link, settings, machine rules and the shared base, plus the check of the panel texts (315 rows in 8 languages) and of the task stacks (10 tasks). |
+| Tests | 🟡 | 12 host test programs pass (`ctest`): 25,383 checks counted in the link, settings, machine rules and the shared base, plus the check of the panel texts (315 rows in 8 languages) and of the task stacks (10 tasks). |
 | Control link | 🟡 | The framed protocol (CRC, token login, arming, byte queue, stop when the session goes quiet) is covered by the host tests; no program has talked to a real node. |
 | Web panel | 🟡 | The web panel (side menu, 37 languages: set-up, machine, network, users, update, log, system) has its texts checked and is exercised against a mock of the node in a browser; it has never been served from a board. |
 | Spindle and lamps | 🟠 | The 0-10 V speed signal, the run and direction lines (no reversing while turning) and the five lamp inputs are tested on the host; no spindle drive or machine has been connected. |
@@ -61,6 +61,7 @@ Each line is one part of this repository and the light says how far it is today.
 * The **lamps**: HOME X, HOME Y, HOME Z, ENABLE and TOOL are read through a buffer transistor, shown in the status and on the panel, and a request can make the node drop the rest of a search the moment an axis is home, so the program no longer has to read the home line in the middle of the stream.
 * The **spindle**: a speed PWM for a 0-10 V converter (24000 rpm at full signal by default, for a variable-frequency drive such as the Huanyang HY02D223B) and run forward / reverse lines, with no change of direction while it turns or right after it stops, and a stop whenever the machine is stopped.
 * **The stop is the same everywhere:** every way the machine is stopped (Abort, Disarm, a silent link, the home stop, the panel's stop) tells the hardware to switch the spindle off whatever the session believes about it, so a stop never depends on a copy of the state being right. A test with a model of the spindle (a command in the queue starts it when the bytes before it have gone out, a flush drops what has not gone) and thousands of random sequences checks that after any stop the spindle is off and nothing left in the queue can start it.
+* **A node that judges itself:** `GET /api/v1/machine/status` carries a verdict (`selfcheck`: ok, warn, fail) and the codes behind it (`selfcheck_codes`: the network is not up, no token, open control on, an idle time that is too long, the queue almost full, the spindle above its top speed ...). The limits are the `machine.selfcheck` settings, taken without a restart; the codes are listed in [docs/SELF_CHECK.md](docs/SELF_CHECK.md) and a test keeps the page and the firmware equal. Tested on a computer with a stand-in for the hardware; not run on a board.
 * The **panel** (HTTP and HTTPS, 37 languages, the menu on the left of a wide screen and on top of a phone): first-run set-up with a code shown on the USB console, users, Ethernet or Wi-Fi, the control link, the RS-232 pins, the lamps and the spindle, a log, and updates by upload into one of two firmware slots with rollback. Nothing secret is compiled into the image.
 * The **self-protection**: a guard that watches the tasks and the memory, a gate at the door of the panel when memory is short, and the confirmation of a new image once the node can be reached.
 * The **boards**: the Waveshare ESP32-S3-ETH (W5500 Ethernet) and an ESP32-S3-WROOM-1 N16R8 (Wi-Fi), one image for each. The design of the carrier board (100 x 100 mm) is in `docs/BOARD.md`.
@@ -195,7 +196,7 @@ python -I tools/ci_validate.py
 
 ## 🧪 Testing
 
-The host tests (`build.bat` or `./build.sh`, then `ctest`) are 11 programs and all pass: `core_tests` (22,749 checks: the frames and the session rules), `test_base` (382), `test_clock` (prints ok), `test_settings` (422), `test_machine` (75), `test_shared` (627) and `test_shared_eth` (629, the Ethernet board profile) - 25,286 checks counted - plus `panel_text` (315 rows in 8 languages, 265 keys used, 36 firmware error codes with a text) and `task_safety` (10 tasks, no big copy of the settings on a small stack). They cover the CRC and the decoder that resynchronises after damage, token login, arming, the stop on silence, the spindle rules (cap, no reversing, delay), the settings and their ranges, pin conflicts and reserved pins, users and sessions, the network plan, the clock and JSON. The panel has also been exercised in a browser against `tools/panel_mock.mjs`, a stand-in node that serves it without a board. The CI runs `python -I tools/ci_validate.py` and the host tests on Linux with the warnings as errors. Building the two firmware images (ESP-IDF 5.5.5) is done by hand and is not part of the CI; nothing runs on a board.
+The host tests (`build.bat` or `./build.sh`, then `ctest`) are 12 programs and all pass: `core_tests` (22,749 checks: the frames and the session rules), `test_base` (382), `test_clock` (prints ok), `test_settings` (422), `test_machine` (75), `test_self_check` (97), `test_shared` (627) and `test_shared_eth` (629, the Ethernet board profile) - 25,383 checks counted - plus `panel_text` (315 rows in 8 languages, 265 keys used, 36 firmware error codes with a text) and `task_safety` (10 tasks, no big copy of the settings on a small stack). They cover the CRC and the decoder that resynchronises after damage, token login, arming, the stop on silence, the spindle rules (cap, no reversing, delay), the settings and their ranges, pin conflicts and reserved pins, users and sessions, the network plan, the clock and JSON. The panel has also been exercised in a browser against `tools/panel_mock.mjs`, a stand-in node that serves it without a board. The CI runs `python -I tools/ci_validate.py` and the host tests on Linux with the warnings as errors. Building the two firmware images (ESP-IDF 5.5.5) is done by hand and is not part of the CI; nothing runs on a board.
 
 Self-test for the day the node meets the hardware: `python tools/selftest.py --host NODE --token TOKEN` reads the node (version, state, settings export, backup networks, spindle, control link) and writes a report with one line per step; with `--active` and a typed confirmation it also arms the link, turns the spindle and times the stops, and it always leaves the node stopped. Its tests run in the CI against a toy node (`python -I -m unittest discover -s tools -p "test_*.py"`). The steps to do by hand are in [docs/HARDWARE_CHECKLIST.md](docs/HARDWARE_CHECKLIST.md).
 
@@ -231,6 +232,7 @@ EH3D-NODE-BUNGARD/
 │   ├── frame.hpp session.hpp                    frames and session rules
 │   ├── byte_queue.hpp drain.hpp                 byte queue, held-job finish
 │   ├── bungard_config.hpp                       machine settings and pin rules
+│   ├── self_check.hpp                           the node's judgement on itself, with codes
 │   ├── node_settings.hpp auth.hpp               settings and users (shared base)
 │   ├── netplan.hpp json.hpp                     network plan and JSON (shared base)
 │   └── release_assets.hpp semver.hpp            which file of a release is this board's image
@@ -246,7 +248,7 @@ EH3D-NODE-BUNGARD/
 │   ├── app.js text.js                           the pages and the texts in 37 languages
 │   └── locales/                                 the words of 29 more languages, one file each
 ├── tests/                                       host tests of the link, the settings, the shared base and the panel's texts
-├── docs/                                        protocol, firmware, wiring, board
+├── docs/                                        protocol, firmware, wiring, board, self-check codes
 ├── tools/                                       image build, panel pack, checks, mock node
 ├── CMakeLists.txt                               the ESP-IDF project
 ├── partitions.csv                               the flash layout with two slots

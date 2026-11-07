@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+- **The node judges itself:** `core/self_check.hpp` turns a snapshot of the node (network, queue, spindle speed, draining) and its settings into a verdict (`selfcheck`: `ok`, `warn`, `fail` or `off`) and the stable codes behind it (`selfcheck_codes`, `BND-N01` to `BND-D01`: the network is not up, no token and open control off, open control on, the node finishes a held job when the program goes away, an idle time of the link that is too long, the queue almost full, the spindle above its top speed, no spindle output, a job being finished). Both keys are in `GET /api/v1/machine/status`, and `docs/SELF_CHECK.md` lists every code with its severity. The check touches no hardware, so it is tested on a computer, through a real control session on a stand-in for the hardware; it has not run on a board.
+- **The limits of the check are settings:** the `machine.selfcheck` section (`enabled`, `queue_percent` 50 to 100, `idle_ms_max` 200 to 60000, `grace_s` 0 to 600) is read, checked, written to flash and taken at the next status request without a restart. The panel does not show this section yet; it travels in the settings document and in the backup.
+- **The self-test shows the verdict:** `tools/selftest.py` has a step for the node's own check and fails it when the node says `fail`; its toy node answers `ok`, `warn` and `fail` in the tests.
+- **A host test keeps the page and the firmware equal:** `tests/test_self_check.cpp` reads `docs/SELF_CHECK.md` and fails when a code or its severity is on one side and not on the other.
+
 ## [0.0.6] - Shared firmware base and checks brought up to date
 
 - **Brand:** Add the application icon and the logos of the program.

@@ -18,7 +18,7 @@
 
 ---
 
-**Verificação de honestidade - o que funciona hoje:** firmware em C++17 para o ESP32-S3 (ESP-IDF 5.5) que transforma a porta RS-232 da unidade de controlo de uma máquina Bungard CCD numa porta de rede: um programa liga-se por TCP com um token de acesso, arma a máquina e envia os bytes de um movimento, que o nó põe em fila e envia para a linha ao ritmo próprio da linha. Também lê os LED da máquina (HOME X, Y e Z, ENABLE, TOOL), comanda um fuso com um sinal de velocidade de 0-10 V e linhas de marcha e sentido, e tem um painel web com menu lateral (37 línguas) para a configuração inicial, os utilizadores, a rede, a atualização e as definições da própria máquina. As regras da ligação e as definições são testadas num computador (11 programas de teste, 25286 verificações contadas) e o firmware compila sem avisos para as duas placas. **Ainda não foi gravado nem executado numa placa**, nada foi ligado a uma máquina, e a placa de suporte que reúne o conversor RS-232, as entradas dos LED e o variador do fuso é um projeto em papel.
+**Verificação de honestidade - o que funciona hoje:** firmware em C++17 para o ESP32-S3 (ESP-IDF 5.5) que transforma a porta RS-232 da unidade de controlo de uma máquina Bungard CCD numa porta de rede: um programa liga-se por TCP com um token de acesso, arma a máquina e envia os bytes de um movimento, que o nó põe em fila e envia para a linha ao ritmo próprio da linha. Também lê os LED da máquina (HOME X, Y e Z, ENABLE, TOOL), comanda um fuso com um sinal de velocidade de 0-10 V e linhas de marcha e sentido, e tem um painel web com menu lateral (37 línguas) para a configuração inicial, os utilizadores, a rede, a atualização e as definições da própria máquina. As regras da ligação e as definições são testadas num computador (11 programas de teste, 25383 verificações contadas) e o firmware compila sem avisos para as duas placas. **Ainda não foi gravado nem executado numa placa**, nada foi ligado a uma máquina, e a placa de suporte que reúne o conversor RS-232, as entradas dos LED e o variador do fuso é um projeto em papel.
 
 ---
 
@@ -30,7 +30,7 @@
 |---|---|
 | Versão | `0.0.6` |
 | Maturidade | Estrutura inicial |
-| Testes | 11 programas de teste no computador (25286 verificações contadas) |
+| Testes | 12 programas de teste no computador (25383 verificações contadas) |
 | Tecnologias | C++17, ESP-IDF 5.5, ESP32-S3 |
 | Em hardware real | Não: as duas imagens de firmware compilam, mas nada foi gravado nem executado numa placa e nada foi ligado a uma máquina |
 
@@ -45,7 +45,7 @@ Cada linha é uma parte deste repositório e a luz diz até onde chega hoje. É 
 | Área | Estado | O que significa aqui |
 |---|---|---|
 | Software | 🟡 | O firmware para o ESP32-S3 (ESP-IDF 5.5, C++17) compila sem avisos para as duas placas, Ethernet e Wi-Fi; nenhuma imagem foi gravada. |
-| Testes | 🟡 | Passam 11 programas de teste no computador (`ctest`): 25286 verificações contadas na ligação, nas definições, nas regras da máquina e na base partilhada, mais a verificação dos textos do painel (315 linhas em 8 idiomas) e das pilhas das tarefas (10 tarefas). |
+| Testes | 🟡 | Passam 12 programas de teste no computador (`ctest`): 25383 verificações contadas na ligação, nas definições, nas regras da máquina e na base partilhada, mais a verificação dos textos do painel (315 linhas em 8 idiomas) e das pilhas das tarefas (10 tarefas). |
 | Ligação de controlo | 🟡 | O protocolo com tramas (CRC, início de sessão com token, armamento, fila de bytes, paragem quando a sessão se cala) está coberto pelos testes no computador; nenhum programa falou com um nó real. |
 | Painel web | 🟡 | O painel web (menu lateral, 37 línguas: configuração inicial, máquina, rede, utilizadores, atualização, registo, sistema) tem os textos verificados e é exercitado contra uma simulação do nó num navegador; nunca foi servido a partir de uma placa. |
 | Fuso e LED | 🟠 | O sinal de velocidade de 0-10 V, as linhas de marcha e sentido (sem inverter enquanto roda) e as cinco entradas de LED são testados no computador; nenhum variador nem máquina foi ligado. |
@@ -61,6 +61,7 @@ Cada linha é uma parte deste repositório e a luz diz até onde chega hoje. É 
 * Os **LED**: HOME X, HOME Y, HOME Z, ENABLE e TOOL são lidos através de um transístor separador, mostrados no estado e no painel, e um pedido pode fazer o nó abandonar o resto de uma procura assim que um eixo chega a casa, de modo que o programa já não tem de ler a linha de casa a meio do fluxo.
 * O **fuso**: um PWM de velocidade para um conversor de 0-10 V (24000 rpm a sinal máximo por omissão, para um variador de frequência como o Huanyang HY02D223B) e linhas de marcha para a frente / para trás, sem mudança de sentido enquanto roda nem logo depois de parar, e uma paragem sempre que a máquina pára.
 * **A paragem é a mesma em todo o lado:** cada forma de parar a máquina (Abort, Disarm, uma ligação em silêncio, a paragem no home, a paragem do painel) manda o hardware desligar o fuso seja o que for que a sessão acredite, de modo que uma paragem nunca depende de uma cópia do estado estar certa. Um teste com um modelo do fuso (um comando na fila arranca-o quando saem os bytes anteriores, um esvaziamento deita fora o que não saiu) e milhares de sequências aleatórias verifica que após qualquer paragem o fuso está desligado e nada do que fica na fila o pode arrancar.
+* **Um nó que se julga a si próprio:** `GET /api/v1/machine/status` traz um veredicto (`selfcheck`: ok, warn, fail) e os códigos que o explicam (`selfcheck_codes`: a rede não está ativa, falta de token, controlo aberto ligado, um tempo de inatividade demasiado longo, a fila quase cheia, o fuso acima da sua velocidade máxima ...). Os limites são as definições `machine.selfcheck`, tomadas sem reiniciar; os códigos estão em [docs/SELF_CHECK.md](docs/SELF_CHECK.md) e um teste mantém iguais a página e o firmware. Testado num computador com um substituto do hardware; não executado numa placa.
 * O **painel** (HTTP e HTTPS, 37 línguas, o menu à esquerda num ecrã largo e em cima num telemóvel): configuração inicial com um código mostrado na consola USB, utilizadores, Ethernet ou Wi-Fi, a ligação de controlo, os pinos RS-232, os LED e o fuso, um registo e atualizações por carregamento para um dos dois espaços de firmware com reversão. Nada de secreto é compilado na imagem.
 * A **autoproteção**: um guarda que vigia as tarefas e a memória, um portão à porta do painel quando falta memória e a confirmação de uma imagem nova assim que o nó é alcançável.
 * As **placas**: a Waveshare ESP32-S3-ETH (Ethernet W5500) e uma ESP32-S3-WROOM-1 N16R8 (Wi-Fi), uma imagem para cada uma. O projeto da placa de suporte (100 x 100 mm) está em `docs/BOARD.md`.
@@ -195,7 +196,7 @@ python -I tools/ci_validate.py
 
 ## 🧪 Testes
 
-Os testes no computador (`build.bat` ou `./build.sh`, depois `ctest`) são 11 programas e todos passam: `core_tests` (22749 verificações: as tramas e as regras de sessão), `test_base` (382), `test_clock` (imprime ok), `test_settings` (422), `test_machine` (75), `test_shared` (627) e `test_shared_eth` (629, o perfil da placa Ethernet) - 25286 verificações contadas - mais `panel_text` (315 linhas em 8 idiomas, 265 chaves usadas, 36 códigos de erro do firmware com texto) e `task_safety` (10 tarefas, nenhuma cópia grande das definições numa pilha pequena). Cobrem o CRC e o descodificador que se ressincroniza após dano, o início de sessão com token, o armamento, a paragem por silêncio, as regras do fuso (limite, sem inversão, atraso), as definições e as suas gamas, conflitos de pinos e pinos reservados, utilizadores e sessões, o plano de rede, o relógio e JSON. O painel também foi exercitado num navegador contra `tools/panel_mock.mjs`, um nó de substituição que o serve sem placa. A CI executa `python -I tools/ci_validate.py` e os testes no computador em Linux com os avisos como erros. A compilação das duas imagens de firmware (ESP-IDF 5.5.5) faz-se à mão e não faz parte da CI; nada corre numa placa.
+Os testes no computador (`build.bat` ou `./build.sh`, depois `ctest`) são 12 programas e todos passam: `core_tests` (22749 verificações: as tramas e as regras de sessão), `test_base` (382), `test_clock` (imprime ok), `test_settings` (422), `test_machine` (75), `test_self_check` (97), `test_shared` (627) e `test_shared_eth` (629, o perfil da placa Ethernet) - 25383 verificações contadas - mais `panel_text` (315 linhas em 8 idiomas, 265 chaves usadas, 36 códigos de erro do firmware com texto) e `task_safety` (10 tarefas, nenhuma cópia grande das definições numa pilha pequena). Cobrem o CRC e o descodificador que se ressincroniza após dano, o início de sessão com token, o armamento, a paragem por silêncio, as regras do fuso (limite, sem inversão, atraso), as definições e as suas gamas, conflitos de pinos e pinos reservados, utilizadores e sessões, o plano de rede, o relógio e JSON. O painel também foi exercitado num navegador contra `tools/panel_mock.mjs`, um nó de substituição que o serve sem placa. A CI executa `python -I tools/ci_validate.py` e os testes no computador em Linux com os avisos como erros. A compilação das duas imagens de firmware (ESP-IDF 5.5.5) faz-se à mão e não faz parte da CI; nada corre numa placa.
 
 Autoteste para o dia em que o nó encontra o hardware: `python tools/selftest.py --host NO --token TOKEN` lê o nó (versão, estado, exportação das definições, redes de reserva, fuso, ligação de controlo) e escreve um relatório com uma linha por passo; com `--active` e uma confirmação escrita também arma a ligação, faz rodar o fuso e mede as paragens, e deixa sempre o nó parado. Os seus testes correm na CI contra um nó de brincar (`python -I -m unittest discover -s tools -p "test_*.py"`). Os passos manuais estão em [docs/HARDWARE_CHECKLIST.md](docs/HARDWARE_CHECKLIST.md).
 
@@ -231,6 +232,7 @@ EH3D-NODE-BUNGARD/
 │   ├── frame.hpp session.hpp                    tramas e regras de sessão
 │   ├── byte_queue.hpp drain.hpp                 fila de bytes, fim do trabalho
 │   ├── bungard_config.hpp                       definições da máquina e pinos
+│   ├── self_check.hpp                           o juízo do nó sobre si próprio, com códigos
 │   ├── node_settings.hpp auth.hpp               definições, utilizadores (base)
 │   ├── netplan.hpp json.hpp                     plano de rede e JSON (base)
 │   └── release_assets.hpp semver.hpp            qual ficheiro de uma versão é a imagem desta placa
@@ -246,7 +248,7 @@ EH3D-NODE-BUNGARD/
 │   ├── app.js text.js                           as páginas e os textos em 37 línguas
 │   └── locales/                                 as palavras de mais 29 línguas, um ficheiro cada
 ├── tests/                                       testes no computador da ligação, das definições, da base partilhada e dos textos do painel
-├── docs/                                        protocolo, firmware, cablagem, placa
+├── docs/                                        protocolo, firmware, cablagem, placa, códigos de autoverificação
 ├── tools/                                       compilação, painel, verificações, nó simulado
 ├── CMakeLists.txt                               o projeto ESP-IDF
 ├── partitions.csv                               a flash com dois espaços
