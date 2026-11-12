@@ -311,6 +311,20 @@
         },
         {
           "desc": {
+            "en": "the frames of the link against the shared test vectors",
+            "es": "las tramas del enlace contra los vectores de prueba compartidos",
+            "de": "die Rahmen der Verbindung gegen die gemeinsamen Testvektoren",
+            "fr": "les trames du lien contre les vecteurs de test partagés",
+            "it": "i frame del collegamento contro i vettori di prova condivisi",
+            "ja": "リンクのフレームを共有テストベクターで検証",
+            "zh": "用共享测试向量检验链路帧",
+            "pt": "as tramas da ligação contra os vetores de teste partilhados"
+          },
+          "name": "test_frames.cpp  testdata/",
+          "tree_name": "test_frames.cpp testdata/"
+        },
+        {
+          "desc": {
             "en": "the settings and what every node shares",
             "es": "los ajustes y lo que comparte todo nodo",
             "de": "die Einstellungen und was jeder Knoten teilt",
