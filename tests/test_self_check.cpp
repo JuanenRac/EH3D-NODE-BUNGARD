@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-#include "../core/bungard_config.hpp"
+#include "../core/node_config.hpp"
 #include "../core/json.hpp"
 #include "../core/self_check.hpp"
 #include "../core/session.hpp"

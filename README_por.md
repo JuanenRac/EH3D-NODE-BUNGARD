@@ -231,7 +231,7 @@ EH3D-NODE-BUNGARD/
 ├── core/
 │   ├── frame.hpp session.hpp                    tramas e regras de sessão
 │   ├── byte_queue.hpp drain.hpp                 fila de bytes, fim do trabalho
-│   ├── bungard_config.hpp                       definições da máquina e pinos
+│   ├── node_config.hpp                          definições da máquina e pinos
 │   ├── self_check.hpp                           o juízo do nó sobre si próprio, com códigos
 │   ├── node_settings.hpp auth.hpp               definições, utilizadores (base)
 │   ├── netplan.hpp json.hpp                     plano de rede e JSON (base)

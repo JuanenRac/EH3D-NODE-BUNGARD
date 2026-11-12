@@ -8,7 +8,7 @@
 #include <string>
 #include <string_view>
 
-#include "bungard_config.hpp"
+#include "node_config.hpp"
 
 namespace eh3d::webpolicy {
 

@@ -257,6 +257,10 @@ InstallResult install(const char* repo, const CheckResult& offer) {
     result.error = "wrong_firmware";
     return result;
   }
+  if (!nodeguard::image_board_ok(target, got)) {   // the image is for the other board of this project
+    result.error = "wrong_firmware";
+    return result;
+  }
   const std::string image_version = description.version;
   if (!offer.latest_version.empty() && image_version != offer.latest_version) {
     ESP_LOGE(kTag, "the image says it is %s and the release says %s: refused", image_version.c_str(), offer.latest_version.c_str());

@@ -3,7 +3,7 @@
 #pragma once
 #include <string>
 
-#include "core/bungard_config.hpp"
+#include "core/node_config.hpp"
 
 namespace eh3d::web {
 

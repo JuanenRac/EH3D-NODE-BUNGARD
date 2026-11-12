@@ -4,7 +4,7 @@
 #include <cstdio>
 #include <string>
 
-#include "../core/bungard_config.hpp"
+#include "../core/node_config.hpp"
 #include "../core/json.hpp"
 
 static int failures = 0;

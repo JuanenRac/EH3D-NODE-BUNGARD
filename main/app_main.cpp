@@ -11,6 +11,7 @@
  * setup: it opens the network "EH3D-SETUP-xxxxxx" and shows a setup code on its USB console. The firmware can be replaced from the panel; a new image that does not come up is rolled
  * back by the boot loader.
  */
+#include <cstdint>
 #include <cstdio>
 #include <cstring>
 extern "C" {
@@ -32,6 +33,7 @@ extern "C" {
 #include "link_server.hpp"
 #include "log_buffer.hpp"
 #include "network.hpp"
+#include "node_guard.hpp"
 #include "node_store.hpp"
 #include "psram_mem.hpp"
 #include "spindle.hpp"
@@ -76,6 +78,9 @@ void boot_button_task(void*) {
 
 // A freshly installed firmware is on probation: once the panel is up and has stayed up for a while, it is confirmed; if the panel could not start, the
 // boot loader is told to go back to the previous image now.
+// What a new image must have started before it is confirmed (core/node_guard.hpp): the panel and the three parts that drive the machine.
+constexpr std::uint32_t kRequiredSubsystems = eh3d::nodeguard::kSubPanel | eh3d::nodeguard::kSubControlLink | eh3d::nodeguard::kSubSpindle | eh3d::nodeguard::kSubUart;
+
 void confirm_firmware_task(void* argument) {
   const bool panel_ok = argument != nullptr;
   const esp_partition_t* running = esp_ota_get_running_partition();
@@ -86,6 +91,13 @@ void confirm_firmware_task(void* argument) {
       esp_ota_mark_app_invalid_rollback_and_reboot();
     }
     vTaskDelay(pdMS_TO_TICKS(30000));
+    // The subsystems that drive the machine must be up as well: an image whose spindle output, control line or control link did not start would be confirmed with a machine it cannot drive, and
+    // the previous image (which did start them) is the better one to stay on.
+    const std::uint32_t missing = eh3d::nodeguard::missing_subsystems(kRequiredSubsystems, eh3d::nodeguard::subsystems_up());
+    if (missing != 0) {
+      ESP_LOGE(kTag, "the new firmware did not start %s: going back to the previous one", eh3d::nodeguard::subsystem_text(missing).c_str());
+      esp_ota_mark_app_invalid_rollback_and_reboot();
+    }
     // A panel that is up is not enough: a node that cannot be reached (no address from the network, no access point of its own) would stay that way and need a cable to be rescued. The image
     // is confirmed once the node can be reached, and goes back to the previous one when five minutes pass without.
     bool reachable = false;
@@ -122,8 +134,11 @@ extern "C" void app_main() {
   // The machine's outputs first: spindle and DTR are off from the first moment, whatever the network does. The pins and the rest are the settings' (machine.*).
   const eh3d::config::MachineSettings& machine = settings.machine;
   eh3d::lamps_start(machine.lamps);
+  eh3d::nodeguard::subsystem_up(eh3d::nodeguard::kSubLamps);
   if (!eh3d::spindle_start(machine.spindle)) ESP_LOGE(kTag, "the spindle output did not start");
+  else eh3d::nodeguard::subsystem_up(eh3d::nodeguard::kSubSpindle);
   if (!eh3d::uart_start(machine.uart, static_cast<std::size_t>(machine.link.queue_bytes))) ESP_LOGE(kTag, "the control unit line did not start");
+  else eh3d::nodeguard::subsystem_up(eh3d::nodeguard::kSubUart);
 
   const eh3d::netplan::Plan plan = eh3d::netplan::plan_network(settings, setup, eh3d::store::setup_code(), eh3d::store::mac_tail(), eh3d::store::mac_sum());
   const bool network_ok = eh3d::network::start(settings, plan);
@@ -132,10 +147,13 @@ extern "C" void app_main() {
     eh3d::network::arm_rescue(eh3d::netplan::plan_network(settings, true, eh3d::store::setup_code(), eh3d::store::mac_tail(), eh3d::store::mac_sum()), 90);
   }
   if (!network_ok) ESP_LOGE(kTag, "the network could not be started: the node stays local");
+  else eh3d::nodeguard::subsystem_up(eh3d::nodeguard::kSubNetwork);
   eh3d::clocksync::start(settings);
   eh3d::improv_serial::start();   // Improv Wi-Fi over the USB cable (ESP Web Tools)
   if (!eh3d::link_start(machine.link)) ESP_LOGE(kTag, "the control link did not start");
+  else eh3d::nodeguard::subsystem_up(eh3d::nodeguard::kSubControlLink);
   const bool panel_ok = network_ok && eh3d::web::start(settings);
+  if (panel_ok) eh3d::nodeguard::subsystem_up(eh3d::nodeguard::kSubPanel);
 
   // A periodic, unconditional restart the panel can turn on (0: never) - a board left running for weeks without anyone touching it. It waits while the machine is armed.
   if (settings.auto_restart_hours > 0) eh3d::web::restart_after(static_cast<unsigned>(settings.auto_restart_hours) * 3600u * 1000u);

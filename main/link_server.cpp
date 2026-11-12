@@ -164,6 +164,7 @@ void serve(int fd) {
 
   g_client = true;
   while (hw.ok()) {
+    nodeguard::beat("eh3d-link");
     const int n = ::recv(fd, rx, sizeof rx, 0);
     if (n == 0) break;  // closed by the program
     if (n < 0 && errno != EAGAIN && errno != EWOULDBLOCK && errno != ETIMEDOUT) break;
@@ -234,6 +235,7 @@ void server_task(void*) {
   for (;;) {
     sockaddr_in peer{};
     socklen_t len = sizeof peer;
+    nodeguard::beat("eh3d-link");
     const int fd = ::accept(listener, reinterpret_cast<sockaddr*>(&peer), &len);
     if (g_stop_request.exchange(false)) {
       // with nobody connected the stop still empties the queue, sends the drivers off and sets the spindle to zero

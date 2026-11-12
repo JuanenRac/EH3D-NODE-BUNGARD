@@ -231,7 +231,7 @@ EH3D-NODE-BUNGARD/
 ├── core/
 │   ├── frame.hpp session.hpp                    フレームとセッション規則
 │   ├── byte_queue.hpp drain.hpp                 バイト キューとジョブ終了
-│   ├── bungard_config.hpp                       機械の設定とピン規則
+│   ├── node_config.hpp                          機械の設定とピン規則
 │   ├── self_check.hpp                           ノード自身の状態判定とそのコード
 │   ├── node_settings.hpp auth.hpp               設定とユーザー（共有基盤）
 │   ├── netplan.hpp json.hpp                     ネットワーク計画と JSON（共有基盤）

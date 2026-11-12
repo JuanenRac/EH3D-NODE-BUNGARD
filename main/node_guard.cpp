@@ -7,6 +7,7 @@
 #include <mutex>
 #include <new>
 #include <string>
+#include <utility>
 #include <vector>
 extern "C" {
 #include "esp_attr.h"
@@ -17,6 +18,13 @@ extern "C" {
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 }
+#include "core/board_mark.hpp"
+#include "core/board_s3.hpp"
+#include "esp_partition.h"
+#if __has_include("esp_core_dump.h") && defined(CONFIG_ESP_COREDUMP_ENABLE_TO_FLASH)
+#include "esp_core_dump.h"
+#define EH3D_HAS_COREDUMP 1
+#endif
 #include "psram_mem.hpp"
 #include "web_server.hpp"
 
@@ -41,6 +49,14 @@ std::once_flag g_boot_once;
 
 std::atomic<bool> g_gate_closed{false};
 std::atomic<bool> g_writing_firmware{false};
+std::atomic<std::uint32_t> g_subsystems_up{0};
+
+// The mark of the board this image is for: it is in the image, where the next node that is asked to install it reads it (image_board_ok).
+const char kBoardMark[] __attribute__((used)) = EH3D_BOARD_MARK_TEXT;
+
+// The heartbeats: the count of each task that calls beat(), kept apart from the guard's lock of expected tasks so that a beat never waits for it.
+std::mutex g_beat_lock;
+std::vector<std::pair<std::string, std::uint32_t>> g_beats;
 
 std::uint64_t now_ms() { return static_cast<std::uint64_t>(esp_timer_get_time()) / 1000ULL; }
 std::uint32_t uptime_s() { return static_cast<std::uint32_t>(static_cast<std::uint64_t>(esp_timer_get_time()) / 1000000ULL); }
@@ -90,6 +106,18 @@ std::vector<std::string> missing_tasks() {
   return missing;
 }
 
+std::vector<std::pair<std::string, std::uint32_t>> beat_counts() {
+  std::lock_guard<std::mutex> guard(g_beat_lock);
+  return g_beats;
+}
+
+// A crash leaves its report in the partition of core dumps; the first thing a person asks after a crash is what it was, so the log tells that one is there.
+void report_core_dump() {
+#ifdef EH3D_HAS_COREDUMP
+  if (esp_core_dump_image_check() == ESP_OK) ESP_LOGE(kTag, "a core dump of the last crash is in the flash (read it with idf.py coredump-info)");
+#endif
+}
+
 void restart_cleanly() {
   g_ledger.note_restart(uptime_s());
   save_ledger();
@@ -100,6 +128,7 @@ void restart_cleanly() {
 void guard_task(void*) {
   State state;
   Gate gate;
+  std::vector<BeatWatch> watches;
   for (;;) {
     vTaskDelay(pdMS_TO_TICKS(kLookEveryMs));
     const membudget::Snapshot memory = memory::snapshot();
@@ -115,15 +144,17 @@ void guard_task(void*) {
 
     // Tasks that are missing and memory that stays low.
     const std::vector<std::string> missing = missing_tasks();
+    const std::vector<std::string> stalled = find_stalled(watches, beat_counts(), now);
     Inputs in;
     in.now_ms = now;
     in.internal_free = memory.internal_free;
     in.internal_largest = memory.internal_largest;
     in.missing_tasks = static_cast<unsigned>(missing.size());
+    in.stalled_tasks = static_cast<unsigned>(stalled.size());
     const bool may_restart = g_ledger.may_restart(uptime_s());
     const Action action = step(state, in, may_restart);
     if (action == Action::kNone) continue;
-    const std::string reason = reason_text(missing, in, state.memory_low);
+    const std::string reason = reason_text(missing, in, state.memory_low, stalled);
     ESP_LOGE(kTag, "%s", reason.c_str());
     if (action == Action::kAlertAndRestart) restart_cleanly();
     else ESP_LOGE(kTag, "no restart: the limit of %u in an hour is used up, the node stays up and says so again in ten minutes", kMaxRestartsPerHour);
@@ -138,6 +169,38 @@ void expect_task(const char* name) {
   g_expected.push_back(name);
 }
 
+void beat(const char* name) {
+  if (name == nullptr || *name == '\0') return;
+  std::lock_guard<std::mutex> guard(g_beat_lock);
+  for (auto& known : g_beats) if (known.first == name) { ++known.second; return; }
+  g_beats.emplace_back(name, 1u);
+}
+
+void subsystem_up(std::uint32_t bit) { g_subsystems_up.fetch_or(bit); }
+std::uint32_t subsystems_up() { return g_subsystems_up.load(); }
+
+bool image_board_ok(const esp_partition_t* partition, std::size_t length) {
+  if (partition == nullptr || length == 0) return false;
+  // A buffer of its own, not a `new`: while an image is written a failed allocation aborts (see out_of_memory), and the check must answer "no" instead. One image is written at a time.
+  constexpr std::size_t kPiece = 2048;
+  static std::uint8_t piece[kPiece];
+  static std::mutex piece_lock;
+  std::lock_guard<std::mutex> guard(piece_lock);
+  boardmark::Scanner scan;
+  bool read_ok = true;
+  for (std::size_t at = 0; at < length && read_ok; at += kPiece) {
+    const std::size_t n = length - at < kPiece ? length - at : kPiece;
+    read_ok = esp_partition_read(partition, at, piece, n) == ESP_OK;
+    if (read_ok) scan.feed(piece, n);
+  }
+  scan.end();
+  if (!read_ok) return false;
+  const boardmark::Verdict result = boardmark::verdict(scan, board::kId);
+  if (result == boardmark::Verdict::kWrongBoard) ESP_LOGE(kTag, "the image is for the board \"%s\" and this node is a \"%s\": refused", scan.conflict() ? "(two different marks)" : scan.board().c_str(), board::kId);
+  else if (result == boardmark::Verdict::kNoMark) ESP_LOGW(kTag, "the image carries no board mark (made before the mark existed)%s", boardmark::kRequireMark ? ": refused" : ": accepted");
+  return boardmark::accept(result);
+}
+
 BootInfo boot_info() {
   std::call_once(g_boot_once, load_ledger);
   return g_boot;
@@ -145,6 +208,7 @@ BootInfo boot_info() {
 
 void start() {
   boot_info();
+  report_core_dump();
   std::set_new_handler(out_of_memory);
   // No flash is touched here (a log line, a message to the queue, a timer), so the stack can be in the external RAM.
   memory::start_task(guard_task, "node-guard", 4096, nullptr, 3);

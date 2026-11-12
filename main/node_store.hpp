@@ -1,14 +1,14 @@
 // EH3D-NODE-BUNGARD - what the node keeps in flash: its settings and its panel users.
 // Copyright (C) 2026 JuanenRac (Electro Hobby 3D). GPL-3.0-or-later.
 //
-// Both are one JSON document each in the NVS partition, written only after they were checked. The factory defaults (core/bungard_config.hpp) are the FIRST
+// Both are one JSON document each in the NVS partition, written only after they were checked. The factory defaults (core/node_config.hpp) are the FIRST
 // settings (used while the flash holds none); after that the flash is the truth and the panel is how it changes.
 #pragma once
 #include <string>
 #include <string_view>
 
 #include "core/auth.hpp"
-#include "core/bungard_config.hpp"
+#include "core/node_config.hpp"
 
 namespace eh3d::store {
 

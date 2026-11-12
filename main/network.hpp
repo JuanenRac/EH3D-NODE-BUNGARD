@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "core/netplan.hpp"
-#include "core/bungard_config.hpp"
+#include "core/node_config.hpp"
 
 namespace eh3d::network {
 

@@ -20,7 +20,7 @@ extern "C" {
 }
 
 #include "core/byte_queue.hpp"
-#include "core/bungard_config.hpp"
+#include "core/node_config.hpp"
 #include "node_guard.hpp"
 #include "spindle.hpp"
 
@@ -64,6 +64,7 @@ bool read_input(int pin) { return pin >= 0 && (gpio_get_level(static_cast<gpio_n
 void writer_task(void*) {
   std::uint8_t buf[kChunk];
   for (;;) {
+    nodeguard::beat("eh3d-uart-tx");   // a writer that stops coming round is stuck on its lock: the guard tells it
     std::size_t n = 0;
     xSemaphoreTake(g_lock, portMAX_DELAY);
     // the spindle commands whose turn has come go before the next byte; they are applied while the lock is held, so that a stop

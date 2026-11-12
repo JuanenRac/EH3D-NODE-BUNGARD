@@ -16,7 +16,7 @@ endchoice
 
 # Almost everything a node needs is set in its web panel and stored in flash: its identity, its Wi-Fi, the access token of the control link, the pins and the spindle. The values below are
 # only the FIRST settings of a freshly flashed node (used while the flash holds no configuration), and a build with all of them empty is a generic image that is configured entirely
-# from the panel. The factory values of the machine settings (pins, port, spindle) are in core/bungard_config.hpp.
+# from the panel. The factory values of the machine settings (pins, port, spindle) are in core/node_config.hpp.
 
 config EH3D_NODE_ID
     string "First node identifier (empty: bungard-<last three bytes of the MAC>)"

@@ -1,12 +1,14 @@
 // EH3D-NODE-BUNGARD - host tests of what every node shares and that has no hardware: the schedule of retries, Improv Wi-Fi over serial and the stack report.
 // Copyright (C) 2026 JuanenRac (Electro Hobby 3D). GPL-3.0-or-later.
 // Nothing was run on a board; the packets are the ones the standard (https://www.improv-wifi.com/serial/) describes.
+#include <algorithm>
 #include <cstdio>
 #include <string>
 #include <vector>
 
 #include "../core/admin_sources.hpp"
 #include "../core/auth.hpp"
+#include "../core/board_mark.hpp"
 #include "../core/backoff.hpp"
 #include "../core/improv.hpp"
 #include "../core/json.hpp"
@@ -609,7 +611,95 @@ static void test_node_guard_probation() {
   CHECK(!settings_reverted(7, 7) && settings_reverted(7, 8));
 }
 
+// A task that is there but does not move: the guard sees it by its heartbeat.
+static void test_node_guard_heartbeats() {
+  using namespace eh3d::nodeguard;
+  std::vector<BeatWatch> watches;
+  using Counts = std::vector<std::pair<std::string, std::uint32_t>>;
+  // the first look only learns the count; a task that keeps beating is never stalled
+  CHECK(find_stalled(watches, Counts{{"link", 5}, {"uart", 9}}, 1000).empty());
+  CHECK(find_stalled(watches, Counts{{"link", 6}, {"uart", 10}}, 20000).empty());
+  // the uart task stops beating: it is stalled only after kStallMs without a change, the link goes on
+  CHECK(find_stalled(watches, Counts{{"link", 7}, {"uart", 10}}, 20000 + kStallMs - 1).empty());
+  const std::vector<std::string> stalled = find_stalled(watches, Counts{{"link", 8}, {"uart", 10}}, 20000 + kStallMs);
+  CHECK(stalled.size() == 1 && stalled[0] == "uart");
+  // a beat that is seen again clears it
+  CHECK(find_stalled(watches, Counts{{"link", 9}, {"uart", 11}}, 20000 + kStallMs + 1000).empty());
+  // a task that did not report this time is not judged (the rule of the missing tasks is the one that speaks)
+  CHECK(find_stalled(watches, Counts{{"link", 10}}, 200000).empty());
+  // the clock going back does not make a task stalled
+  CHECK(find_stalled(watches, Counts{{"link", 10}}, 5).empty());
+  // a stalled task is trouble for the guard like a missing one: a minute, then a clean restart
+  State s;
+  Inputs in;
+  in.now_ms = 0;
+  in.internal_free = 60u * 1024u;
+  in.stalled_tasks = 1;
+  CHECK(step(s, in, true) == Action::kNone && s.trouble);
+  in.now_ms = kTroubleForMs;
+  CHECK(step(s, in, true) == Action::kAlertAndRestart);
+  // what the log says
+  const Inputs quiet;
+  CHECK(reason_text({}, quiet, false, {"uart"}) == "guard: task uart stalled");
+  CHECK(reason_text({"link"}, quiet, false, {"uart"}) == "guard: task link missing; task uart stalled");
+  CHECK(reason_text({}, quiet, false) == "guard:");
+  CHECK(reason_text({}, quiet, false, {"a", "b", "c", "d"}).find("tasks a,b,c,...") != std::string::npos);
+}
+
+// A new image is confirmed only when the subsystems the machine needs are up.
+static void test_node_guard_subsystems() {
+  using namespace eh3d::nodeguard;
+  const std::uint32_t need = kSubPanel | kSubSpindle | kSubUart | kSubControlLink;
+  CHECK(missing_subsystems(need, need) == 0 && missing_subsystems(need, kSubPanel | kSubUart) == (kSubSpindle | kSubControlLink));
+  CHECK(missing_subsystems(0, 0) == 0);   // a node that needs none is confirmed as before
+  CHECK(image_may_be_confirmed(60, true, true, need, need));
+  CHECK(!image_may_be_confirmed(60, true, true, need, need & ~kSubSpindle));   // the spindle output did not start: not confirmed, the old image comes back
+  CHECK(!image_may_be_confirmed(59, true, true, need, need) && !image_may_be_confirmed(60, false, true, need, need) && !image_may_be_confirmed(60, true, false, need, need));
+  CHECK(image_may_be_confirmed(60, true, true, need, need | kSubCamera));    // more up than needed is fine
+  CHECK(subsystem_text(kSubSpindle | kSubUart) == "spindle,uart" && subsystem_text(0) == "none");
+}
+
+// The mark of the board an image carries, and the check of an image before it is installed.
+static void test_board_mark() {
+  using namespace eh3d::boardmark;
+  auto scan = [](const std::string& image, std::size_t piece = 0) {
+    Scanner s;
+    if (piece == 0) s.feed(reinterpret_cast<const std::uint8_t*>(image.data()), image.size());
+    else for (std::size_t at = 0; at < image.size(); at += piece) s.feed(reinterpret_cast<const std::uint8_t*>(image.data()) + at, std::min(piece, image.size() - at));
+    s.end();
+    return s;
+  };
+  const std::string pad(300, '\x11');
+  const std::string eth = pad + std::string("EH3D-BOARD-MARK:s3-eth\0", 23) + pad;
+  { Scanner s = scan(eth); CHECK(s.found() && s.board() == "s3-eth" && !s.conflict()); }
+  // a mark across two reads is found, whatever the size of the pieces
+  for (std::size_t piece : {1u, 2u, 7u, 16u, 17u, 23u, 64u}) { Scanner s = scan(eth, piece); CHECK(s.found() && s.board() == "s3-eth"); }
+  // a mark at the very end of the image with no zero after it
+  { Scanner s = scan(pad + "EH3D-BOARD-MARK:s3-wifi"); CHECK(s.found() && s.board() == "s3-wifi"); }
+  // the prefix by itself (the scanner's own text in the image) is not a mark; a half prefix and noise are not either
+  { Scanner s = scan(pad + std::string("EH3D-BOARD-MARK:\0", 17) + "EH3D-BOARD-MAR" + "EEH3D-BOARD-MARK" + pad); CHECK(!s.found() && !s.conflict()); }
+  // the prefix by itself followed by the real mark: the real one counts
+  { Scanner s = scan(std::string("EH3D-BOARD-MARK:\0", 17) + "EH3D-BOARD-MARK:s3-eth\0"); CHECK(s.found() && s.board() == "s3-eth"); }
+  // a name too long is not a board
+  { Scanner s = scan("EH3D-BOARD-MARK:" + std::string(60, 'x') + '\0'); CHECK(!s.found()); }
+  // two marks that disagree
+  { Scanner s = scan(eth + std::string("EH3D-BOARD-MARK:s3-wifi\0", 24)); CHECK(s.found() && s.conflict()); }
+  // the verdicts
+  { Scanner s = scan(eth); CHECK(verdict(s, "s3-eth") == Verdict::kOk && verdict(s, "s3-wifi") == Verdict::kWrongBoard); }
+  { Scanner s = scan(pad); CHECK(verdict(s, "s3-eth") == Verdict::kNoMark); }
+  { Scanner s = scan(eth + std::string("EH3D-BOARD-MARK:s3-wifi\0", 24)); CHECK(verdict(s, "s3-eth") == Verdict::kWrongBoard && verdict(s, "s3-wifi") == Verdict::kWrongBoard); }
+  CHECK(accept(Verdict::kOk) && !accept(Verdict::kWrongBoard));
+  CHECK(accept(Verdict::kNoMark, false) && !accept(Verdict::kNoMark, true));   // an image from before the mark is accepted unless the node is told to require it
+  CHECK(!kRequireMark);
+  // the text a build writes names the board it is made for
+  CHECK(std::string(EH3D_BOARD_MARK_TEXT).rfind(kPrefix, 0) == 0);
+  { Scanner s = scan(std::string(EH3D_BOARD_MARK_TEXT) + '\0'); CHECK(s.found()); }
+}
+
 int main() {
+  test_node_guard_heartbeats();
+  test_node_guard_subsystems();
+  test_board_mark();
   test_node_guard_gate_and_streams();
   test_node_guard_out_of_memory();
   test_node_guard_probation();

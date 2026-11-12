@@ -231,7 +231,7 @@ EH3D-NODE-BUNGARD/
 ├── core/
 │   ├── frame.hpp session.hpp                    Rahmen und Sitzungsregeln
 │   ├── byte_queue.hpp drain.hpp                 Byte-Queue, Auftragsende
-│   ├── bungard_config.hpp                       Maschineneinstellungen, Pins
+│   ├── node_config.hpp                          Maschineneinstellungen, Pins
 │   ├── self_check.hpp                           die Selbstbeurteilung des Knotens mit Codes
 │   ├── node_settings.hpp auth.hpp               Einstellungen, Benutzer (Basis)
 │   ├── netplan.hpp json.hpp                     Netzplan und JSON (Basis)

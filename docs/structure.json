@@ -61,7 +61,7 @@
             "zh": "机床设置和引脚规则",
             "pt": "definições da máquina e pinos"
           },
-          "name": "bungard_config.hpp"
+          "name": "node_config.hpp"
         },
         {
           "desc": {

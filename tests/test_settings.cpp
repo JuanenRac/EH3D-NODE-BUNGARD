@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "../core/board_s3.hpp"
-#include "../core/bungard_config.hpp"
+#include "../core/node_config.hpp"
 #include "../core/config_common.hpp"
 #include "../core/json.hpp"
 #include "../core/node_settings.hpp"

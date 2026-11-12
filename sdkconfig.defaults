@@ -52,3 +52,9 @@ CONFIG_ESP_MAIN_TASK_STACK_SIZE=16384
 
 # Bluetooth is not part of this firmware: its stack would take internal memory the machine link and the panel need.
 CONFIG_BT_ENABLED=n
+
+# A crash leaves its report in the partition of core dumps (partitions.csv): the log tells at the next start that one is there, and idf.py coredump-info reads it. A report that does not fit the
+# partition is not kept (the crash itself is handled as before).
+CONFIG_ESP_COREDUMP_ENABLE_TO_FLASH=y
+CONFIG_ESP_COREDUMP_DATA_FORMAT_ELF=y
+CONFIG_ESP_COREDUMP_CHECKSUM_CRC32=y

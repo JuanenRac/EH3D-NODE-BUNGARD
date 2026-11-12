@@ -12,6 +12,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace eh3d::nodeguard {
@@ -30,6 +31,7 @@ struct Inputs {
   std::uint32_t internal_free = 0;   // 0 together with internal_largest 0: the heap could not be read, which is not trouble
   std::uint32_t internal_largest = 0;
   unsigned missing_tasks = 0;        // tasks registered as needed that FreeRTOS does not know
+  unsigned stalled_tasks = 0;        // tasks that are there but whose heartbeat has not moved for `kStallMs` (see BeatWatch)
 };
 
 enum class Action {
@@ -54,7 +56,7 @@ inline bool memory_is_low(const Inputs& in, bool was_low) {
 // One look. `may_restart` is the answer of the ledger below. The state keeps what a single look cannot know: since when the trouble lasts and whether it was already said.
 inline Action step(State& state, const Inputs& in, bool may_restart) {
   const bool low = memory_is_low(in, state.memory_low);
-  const bool trouble = low || in.missing_tasks > 0;
+  const bool trouble = low || in.missing_tasks > 0 || in.stalled_tasks > 0;
   state.memory_low = low;
   if (!trouble) {
     state.trouble = false;
@@ -82,20 +84,57 @@ inline Action step(State& state, const Inputs& in, bool may_restart) {
 }
 
 // What the node tells (the log line; kept short, 90 characters at most).
-inline std::string reason_text(const std::vector<std::string>& missing_names, const Inputs& in, bool memory_low) {
+inline std::string reason_text(const std::vector<std::string>& missing_names, const Inputs& in, bool memory_low, const std::vector<std::string>& stalled_names = {}) {
   std::string text = "guard:";
-  if (!missing_names.empty()) {
-    text += missing_names.size() > 1 ? " tasks " : " task ";
-    for (std::size_t i = 0; i < missing_names.size() && i < 3; ++i) text += (i ? "," : "") + missing_names[i];
-    if (missing_names.size() > 3) text += ",...";
-    text += " missing";
+  auto list = [&text](const std::vector<std::string>& names, const char* what) {
+    text += names.size() > 1 ? " tasks " : " task ";
+    for (std::size_t i = 0; i < names.size() && i < 3; ++i) text += (i ? "," : "") + names[i];
+    if (names.size() > 3) text += ",...";
+    text += what;
+  };
+  if (!missing_names.empty()) list(missing_names, " missing");
+  if (!stalled_names.empty()) {
+    if (!missing_names.empty()) text += ";";
+    list(stalled_names, " stalled");
   }
   if (memory_low) {
-    if (!missing_names.empty()) text += ";";
+    if (!missing_names.empty() || !stalled_names.empty()) text += ";";
     text += " internal memory " + std::to_string((in.internal_free + 512u) / 1024u) + " KB for over a minute";
   }
   if (text.size() > 90) text.resize(90);
   return text;
+}
+
+// ---- the heartbeats of the tasks that must keep moving ------------------------------------------------------------------------------------------------------
+// A task that is in the list of FreeRTOS but blocked for ever (a lock nobody releases, a wait without a timeout) is not "missing", and the task watchdog only watches the tasks that signed in with it. A
+// task that must keep moving counts a beat each time round its loop (`nodeguard::beat(name)`); the guard compares the counts it reads with the ones it saw before and calls a task stalled when its count
+// has not changed for `kStallMs`. A task is looked at only after its first beat (one that never started is the "missing" rule's), and a beat that is seen again clears it.
+constexpr std::uint64_t kStallMs = 30u * 1000u;   // the slowest loop of a node (the control link waiting for a client) beats every second or two; 30 s is a task that is stuck
+
+struct BeatWatch {
+  std::string name;
+  std::uint32_t last_count = 0;
+  std::uint64_t changed_ms = 0;
+};
+
+// `counts` are the (task, beats so far) the node reads now. Returns the names that have not moved for `stall_ms`; `watches` is the memory between two looks.
+inline std::vector<std::string> find_stalled(std::vector<BeatWatch>& watches, const std::vector<std::pair<std::string, std::uint32_t>>& counts, std::uint64_t now_ms, std::uint64_t stall_ms = kStallMs) {
+  std::vector<std::string> stalled;
+  for (const auto& count : counts) {
+    BeatWatch* watch = nullptr;
+    for (BeatWatch& known : watches) if (known.name == count.first) { watch = &known; break; }
+    if (watch == nullptr) {
+      watches.push_back(BeatWatch{count.first, count.second, now_ms});
+      continue;
+    }
+    if (watch->last_count != count.second) {
+      watch->last_count = count.second;
+      watch->changed_ms = now_ms;
+    } else if (now_ms >= watch->changed_ms && now_ms - watch->changed_ms >= stall_ms) {
+      stalled.push_back(count.first);
+    }
+  }
+  return stalled;
 }
 
 // The restarts the guard has made, in seconds of RUNNING time (the sum of the uptimes of the boots), so that the count survives restarts but not a power cut. At most `kMaxRestartsPerHour` are kept.
@@ -251,6 +290,28 @@ inline std::string oom_text(const OomRecord& r) { return "oom heap=" + std::to_s
 constexpr std::uint32_t kValidationWindowS = 60;
 constexpr std::uint32_t kSettingsCheckDelayS = 15;
 inline bool image_may_be_confirmed(std::uint32_t seconds_running_ok, bool panel_up, bool reachable) { return panel_up && reachable && seconds_running_ok >= kValidationWindowS; }
+
+// The subsystems of the machine a node must have running before a new image is confirmed (one bit each; a node says which it needs and each reports itself up when it starts). An image whose
+// spindle output or control line did not start goes back to the previous one instead of being confirmed with a machine that cannot be driven.
+constexpr std::uint32_t kSubPanel = 1u << 0;
+constexpr std::uint32_t kSubNetwork = 1u << 1;
+constexpr std::uint32_t kSubControlLink = 1u << 2;
+constexpr std::uint32_t kSubSpindle = 1u << 3;
+constexpr std::uint32_t kSubUart = 1u << 4;
+constexpr std::uint32_t kSubLamps = 1u << 5;
+constexpr std::uint32_t kSubCamera = 1u << 6;
+constexpr std::uint32_t kSubSensors = 1u << 7;
+constexpr std::uint32_t kSubOutputs = 1u << 8;
+inline std::uint32_t missing_subsystems(std::uint32_t required, std::uint32_t up) { return required & ~up; }
+inline bool image_may_be_confirmed(std::uint32_t seconds_running_ok, bool panel_up, bool reachable, std::uint32_t required, std::uint32_t up) {
+  return image_may_be_confirmed(seconds_running_ok, panel_up, reachable) && missing_subsystems(required, up) == 0;
+}
+inline std::string subsystem_text(std::uint32_t mask) {
+  static const char* const kNames[] = {"panel", "network", "control-link", "spindle", "uart", "lamps", "camera", "sensors", "outputs"};
+  std::string text;
+  for (unsigned bit = 0; bit < sizeof kNames / sizeof kNames[0]; ++bit) if (mask & (1u << bit)) text += (text.empty() ? "" : ",") + std::string(kNames[bit]);
+  return text.empty() ? "none" : text;
+}
 inline bool settings_reverted(std::uint32_t first_read_hash, std::uint32_t later_read_hash) { return first_read_hash != later_read_hash; }
 
 }  // namespace eh3d::nodeguard

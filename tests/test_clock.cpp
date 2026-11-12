@@ -3,7 +3,7 @@
 #include <cstdio>
 #include <string>
 
-#include "../core/bungard_config.hpp"
+#include "../core/node_config.hpp"
 #include "../core/civil_time.hpp"
 
 using namespace eh3d;

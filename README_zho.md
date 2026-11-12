@@ -231,7 +231,7 @@ EH3D-NODE-BUNGARD/
 ├── core/
 │   ├── frame.hpp session.hpp                    帧和会话规则
 │   ├── byte_queue.hpp drain.hpp                 字节队列和作业完成
-│   ├── bungard_config.hpp                       机床设置和引脚规则
+│   ├── node_config.hpp                          机床设置和引脚规则
 │   ├── self_check.hpp                           节点对自身状态的判断及其代码
 │   ├── node_settings.hpp auth.hpp               设置和用户（共享基础）
 │   ├── netplan.hpp json.hpp                     网络方案和 JSON（共享基础）

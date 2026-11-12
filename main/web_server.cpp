@@ -709,6 +709,7 @@ esp_err_t post_ota(httpd_req_t* r) {
   if (esp_ota_end(handle) != ESP_OK) return send_error(r, 422, "image_invalid");
   esp_app_desc_t description{};
   if (esp_ota_get_partition_description(target, &description) != ESP_OK || std::strcmp(description.project_name, esp_app_get_description()->project_name) != 0) return send_error(r, 422, "wrong_firmware");
+  if (!nodeguard::image_board_ok(target, total)) return send_error(r, 422, "wrong_firmware");   // the image is for the other board of this project
   if (esp_ota_set_boot_partition(target) != ESP_OK) return send_error(r, 500, "ota_boot");
   ESP_LOGW(kTag, "firmware %s (%u bytes) installed in %s by \"%s\"; restarting", description.version, static_cast<unsigned>(total), target->label, who.user.c_str());
   json::Writer w;
