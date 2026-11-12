@@ -696,7 +696,69 @@ static void test_board_mark() {
   { Scanner s = scan(std::string(EH3D_BOARD_MARK_TEXT) + '\0'); CHECK(s.found()); }
 }
 
+// The scanner of the board mark against a plain search: images of random bytes with the mark planted at a random place (or not), read in pieces of random sizes.
+static void test_board_mark_against_a_plain_search() {
+  using namespace eh3d::boardmark;
+  std::uint32_t seed = 12345u;
+  auto next = [&seed]() { seed = seed * 1664525u + 1013904223u; return seed >> 8; };
+  const char* boards[] = {"s3-eth", "s3-wifi", "p4"};
+  int planted = 0;
+  for (int round = 0; round < 400; ++round) {
+    std::string image;
+    const std::size_t length = 50 + next() % 400;
+    for (std::size_t i = 0; i < length; ++i) image += static_cast<char>(next() % 256);
+    std::string expected;
+    if (next() % 3 != 0) {
+      expected = boards[next() % 3];
+      image.insert(next() % (image.size() + 1), std::string(kPrefix) + expected + std::string(1, '\0'));
+      ++planted;
+    }
+    Scanner scan;
+    for (std::size_t at = 0; at < image.size();) {
+      const std::size_t piece = std::min<std::size_t>(1 + next() % 40, image.size() - at);
+      scan.feed(reinterpret_cast<const std::uint8_t*>(image.data()) + at, piece);
+      at += piece;
+    }
+    scan.end();
+    CHECK(scan.found() == !expected.empty());
+    CHECK(scan.board() == expected);
+    CHECK(!scan.conflict());
+    CHECK(verdict(scan, expected.empty() ? "s3-eth" : expected) == (expected.empty() ? Verdict::kNoMark : Verdict::kOk));
+  }
+  CHECK(planted > 200 && planted < 330);
+}
+
+// The heartbeats against a plain model: a task is stalled when its count stays the same for the stall time, and a count that moves clears it.
+static void test_heartbeats_against_a_plain_model() {
+  using namespace eh3d::nodeguard;
+  std::uint32_t seed = 777u;
+  auto next = [&seed]() { seed = seed * 1664525u + 1013904223u; return seed >> 8; };
+  std::vector<BeatWatch> watches;
+  std::uint32_t count[3] = {0, 0, 0};
+  std::uint32_t known[3] = {0, 0, 0};
+  std::uint64_t last_change[3] = {0, 0, 0};
+  bool known_set[3] = {false, false, false};
+  const char* names[3] = {"a", "b", "c"};
+  std::uint64_t now = 0;
+  for (int step = 0; step < 2000; ++step) {
+    now += 500 + next() % 4000;
+    std::vector<std::pair<std::string, std::uint32_t>> reading;
+    std::vector<std::string> model;
+    for (int i = 0; i < 3; ++i) {
+      if (next() % 4 != 0) count[i] += next() % 3;   // a task that sometimes does not move
+      if (next() % 10 == 0) continue;               // and a look that does not report it
+      reading.emplace_back(names[i], count[i]);
+      if (!known_set[i]) { known_set[i] = true; known[i] = count[i]; last_change[i] = now; }
+      else if (known[i] != count[i]) { known[i] = count[i]; last_change[i] = now; }
+      else if (now - last_change[i] >= kStallMs) model.push_back(names[i]);
+    }
+    CHECK(find_stalled(watches, reading, now) == model);
+  }
+}
+
 int main() {
+  test_board_mark_against_a_plain_search();
+  test_heartbeats_against_a_plain_model();
   test_node_guard_heartbeats();
   test_node_guard_subsystems();
   test_board_mark();
