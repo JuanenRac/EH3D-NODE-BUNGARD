@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- **The build in GitHub Actions lists the biggest stack frames:** with `EH3D_STACK_REPORT=1` (set only by that build) the compiler writes the stack use of every function and the build prints the twenty biggest of `main/` and `core/` in its summary, with a warning on any above 2048 bytes; the image does not change.
+
 - **The frames of the link are tested against shared vectors:** `tests/testdata/frames.json` holds the bytes of a frame of every type, of a payload with the sync byte inside, and of damaged streams (a wrong CRC, a length beyond the maximum, noise and a false start before a good frame), and `tests/test_frames.cpp` checks that the node writes those bytes and that the decoder reads them back; the Rust side of the link reads the same file.
 
 - **The settings header no longer carries the name of a machine:** `core/bungard_config.hpp` is now `core/node_config.hpp`, the header the shared firmware base includes, and the base and the copies in the nodes are kept equal by `tools/sync_firmware_base.py`.
