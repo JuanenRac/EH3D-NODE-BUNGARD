@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- **The validation of the CI is the reusable one of the documentation hub:** the job `validate` calls `validate.yml` of EH3D-DOCS (pinned by commit) and what the repository checks besides it is in jobs of their own, with the check of the CHANGELOG.
+
 ## [0.0.7] - Self-check, stuck-task guard, board mark and core dump
 
 - **The build in GitHub Actions lists the biggest stack frames:** with `EH3D_STACK_REPORT=1` (set only by that build) the compiler writes the stack use of every function and the build prints the twenty biggest of `main/` and `core/` in its summary, with a warning on any above 2048 bytes; the image does not change.
