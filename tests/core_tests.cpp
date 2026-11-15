@@ -707,6 +707,45 @@ static void safety_invariants() {
   CHECK(fh.spindle.size() == after_abort + 1 && fh.spindle.back().first == 0);
 }
 
+// The link fails in the middle of work (the cable is cut, the program dies, the Wi-Fi drops): whatever the machine was doing, it stops, and the next connection works.
+// A fixed seed, so the run is the same every time.
+static void link_cut_tests() {
+  Info info;
+  info.queue_capacity = 64;
+  std::uint32_t seed = 777;
+  auto next = [&seed](std::uint32_t n) { seed = seed * 1664525u + 1013904223u; return (seed >> 8) % n; };
+  for (int run = 0; run < 25; ++run) {
+    PhysicalHardware hw;
+    Session s({"t", false, 3000}, info, hw);
+    std::uint32_t now = 0;
+    bool stopped = true;
+    bool back = true;
+    bool writes = true;
+    for (int cut = 0; cut < 6; ++cut) {
+      s.on_frame(frame_of(Type::Hello, text("t")), now);
+      s.on_frame(frame_of(Type::Arm), now);
+      for (int i = 0; i < 12; ++i) {
+        now += 10 + next(40);
+        if (next(3) == 0) s.on_frame(frame_of(Type::Spindle, {0x10, 0x27}), now);
+        else s.on_frame(frame_of(Type::Write, std::vector<std::uint8_t>(1 + next(6), 0x43)), now);
+        hw.send(next(4));
+      }
+      s.on_disconnect();
+      stopped = stopped && hw.rpm == 0 && hw.events.empty() && hw.bytes.empty() && !hw.drivers_on && !s.armed() && !s.authenticated();
+      // the program comes back: it signs in, arms and its bytes are accepted again
+      now += 50;
+      s.on_frame(frame_of(Type::Hello, text("t")), now);
+      s.on_frame(frame_of(Type::Arm), now);
+      s.on_frame(frame_of(Type::Write, {0x43, 0x43, 0x43}), now);
+      back = back && s.authenticated() && s.armed();
+      writes = writes && hw.bytes.size() == 3;
+    }
+    CHECK(stopped);
+    CHECK(back);
+    CHECK(writes);
+  }
+}
+
 int main() {
   send_loop_tests();
   frame_tests();
@@ -717,6 +756,7 @@ int main() {
   drain_tests();
   queued_spindle_tests();
   safety_invariants();
+  link_cut_tests();
   std::printf("%d checks, %d failed\n", g_checks, g_failed);
   return g_failed == 0 ? 0 : 1;
 }
