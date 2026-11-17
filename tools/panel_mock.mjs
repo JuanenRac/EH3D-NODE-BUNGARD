@@ -54,7 +54,7 @@ const config = {
 };
 // the machine settings (GET/PUT machine)
 const machine = {
-  link: { port: 5800, token_set: true, allow_open: false, idle_ms: 3000, queue_bytes: 262144, finish_on_loss: false, max_drain_s: 600 },
+  link: { port: 5800, token_set: true, allow_open: false, idle_ms: 3000, hello_timeout_ms: 5000, max_bad_hellos: 5, queue_bytes: 262144, finish_on_loss: false, max_drain_s: 600 },
   uart: { tx: 17, rx: 18, dtr: 15, dcd: 16, ri: 21, cts: -1, dsr: -1, rs232_inverted: true },
   lamps: { home_x: 1, home_y: 2, home_z: 7, enable: 8, tool: 38, active_low: true },
   spindle: { max_rpm: 24000, pwm_pin: 4, pwm_hz: 2000, pwm_inverted: false, fwd_pin: 5, rev_pin: 6, dir_single: false, outputs_active_low: false, reverse_delay_ms: 3000 },
@@ -63,7 +63,7 @@ let token = "mock-token";
 
 // ---- the checks of the machine settings, with the firmware's codes ------------------------------------------------------------------------------------------
 
-const NUMBERS = { "link.port": [1, 65535], "link.idle_ms": [500, 60000], "link.queue_bytes": [1024, 4194304], "link.max_drain_s": [10, 3600], "spindle.max_rpm": [0, 60000], "spindle.pwm_hz": [100, 40000], "spindle.reverse_delay_ms": [0, 60000] };
+const NUMBERS = { "link.port": [1, 65535], "link.idle_ms": [500, 60000], "link.hello_timeout_ms": [0, 60000], "link.max_bad_hellos": [0, 100], "link.queue_bytes": [1024, 4194304], "link.max_drain_s": [10, 3600], "spindle.max_rpm": [0, 60000], "spindle.pwm_hz": [100, 40000], "spindle.reverse_delay_ms": [0, 60000] };
 const PINS = [["uart.tx", false], ["uart.rx", true], ["uart.dtr", false], ["uart.dcd", false], ["uart.ri", false], ["uart.cts", true], ["uart.dsr", true],
   ["lamps.home_x", true], ["lamps.home_y", true], ["lamps.home_z", true], ["lamps.enable", true], ["lamps.tool", true], ["spindle.pwm_pin", true], ["spindle.fwd_pin", true], ["spindle.rev_pin", true]];
 const reserved = gpio => gpio === 19 || gpio === 20 || (gpio >= 26 && gpio <= 37) || (wired && gpio >= 9 && gpio <= 14);

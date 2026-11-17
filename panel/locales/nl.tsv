@@ -447,3 +447,5 @@ ntpServer	Tijdserver (NTP)
 autoRestart	Zichzelf herstarten elke
 autoRestartNever	Nooit
 copyToken	Token kopiëren
+fHelloTimeout	Tijd om de Hello te sturen (ms, 0 = geen limiet)
+fBadHellos	Foute Hello's voor verbreken (0 = geen limiet)

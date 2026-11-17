@@ -447,3 +447,5 @@ ntpServer	Časovni strežnik (NTP)
 autoRestart	Sam se ponovno zaženi vsakih
 autoRestartNever	Nikoli
 copyToken	Kopiraj žeton
+fHelloTimeout	Čas za pošiljanje Hello (ms, 0 = brez omejitve)
+fBadHellos	Napačni Hello pred prekinitvijo (0 = brez omejitve)

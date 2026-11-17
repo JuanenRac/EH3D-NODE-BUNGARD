@@ -447,3 +447,5 @@ ntpServer	Aikapalvelin (NTP)
 autoRestart	Käynnisty itse uudelleen joka
 autoRestartNever	Ei koskaan
 copyToken	Kopioi tunniste
+fHelloTimeout	Aika Hellon lähettämiseen (ms, 0 = ei rajaa)
+fBadHellos	Vääriä Helloja ennen katkaisua (0 = ei rajaa)

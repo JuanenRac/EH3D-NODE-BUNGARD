@@ -447,3 +447,5 @@ ntpServer	Server tal-ħin (NTP)
 autoRestart	Erġa' ibda waħdu kull
 autoRestartNever	Qatt
 copyToken	Ikkopja t-token
+fHelloTimeout	Ħin biex tibgħat il-Hello (ms, 0 = bla limitu)
+fBadHellos	Hello żbaljati qabel jingħalaq (0 = bla limitu)

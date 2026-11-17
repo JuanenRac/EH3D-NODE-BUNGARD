@@ -447,3 +447,5 @@ ntpServer	Serveri i orës (NTP)
 autoRestart	Rindizu vetë çdo
 autoRestartNever	Kurrë
 copyToken	Kopjo tokenin
+fHelloTimeout	Koha për të dërguar Hello (ms, 0 = pa kufi)
+fBadHellos	Hello të gabuara para mbylljes (0 = pa kufi)

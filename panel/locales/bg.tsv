@@ -447,3 +447,5 @@ ntpServer	Сървър за време (NTP)
 autoRestart	Рестарт сам на всеки
 autoRestartNever	Никога
 copyToken	Копиране на токена
+fHelloTimeout	Време за изпращане на Hello (мс, 0 = без ограничение)
+fBadHellos	Грешни Hello преди прекъсване (0 = без ограничение)

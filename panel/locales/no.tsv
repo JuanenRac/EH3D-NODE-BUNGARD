@@ -447,3 +447,5 @@ ntpServer	Tidsserver (NTP)
 autoRestart	Start på nytt av seg selv hver
 autoRestartNever	Aldri
 copyToken	Kopier token
+fHelloTimeout	Tid til å sende Hello (ms, 0 = ingen grense)
+fBadHellos	Feil Hello før frakobling (0 = ingen grense)

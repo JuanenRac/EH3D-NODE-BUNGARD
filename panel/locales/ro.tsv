@@ -447,3 +447,5 @@ ntpServer	Server de timp (NTP)
 autoRestart	Repornește singur la fiecare
 autoRestartNever	Niciodată
 copyToken	Copiază tokenul
+fHelloTimeout	Timp pentru trimiterea Hello (ms, 0 = fără limită)
+fBadHellos	Hello greșite înainte de închidere (0 = fără limită)
