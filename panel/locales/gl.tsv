@@ -447,3 +447,5 @@ ntpServer	Servidor de hora (NTP)
 autoRestart	Reiniciarse só cada
 autoRestartNever	Nunca
 copyToken	Copiar o token
+fHelloTimeout	Prazo para enviar o Hello (ms, 0 = sen límite)
+fBadHellos	Hello erróneos antes de pechar (0 = sen límite)

@@ -447,3 +447,5 @@ ntpServer	Сервер часу (NTP)
 autoRestart	Перезапускатися сам кожні
 autoRestartNever	Ніколи
 copyToken	Копіювати токен
+fHelloTimeout	Час на надсилання Hello (мс, 0 = без обмеження)
+fBadHellos	Хибні Hello перед закриттям (0 = без обмеження)

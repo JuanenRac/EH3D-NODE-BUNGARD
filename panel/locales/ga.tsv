@@ -447,3 +447,5 @@ ntpServer	Freastalaí ama (NTP)
 autoRestart	Atosaigh é féin gach
 autoRestartNever	Choíche
 copyToken	Cóipeáil an chomhartha
+fHelloTimeout	Am chun an Hello a sheoladh (ms, 0 = gan teorainn)
+fBadHellos	Helloanna míchearta roimh dhúnadh (0 = gan teorainn)

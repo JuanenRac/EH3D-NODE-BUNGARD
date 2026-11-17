@@ -148,7 +148,7 @@ function setValue(store, path, value) {
 // What the node is sent. The machine's settings go as they are read; the network's go as the parts the panel edits, so nothing else is overwritten.
 function machineBody() {
   const m = S.machine;
-  const link = { port: m.link.port, allow_open: m.link.allow_open, idle_ms: m.link.idle_ms, queue_bytes: m.link.queue_bytes, finish_on_loss: m.link.finish_on_loss, max_drain_s: m.link.max_drain_s };
+  const link = { port: m.link.port, allow_open: m.link.allow_open, idle_ms: m.link.idle_ms, hello_timeout_ms: m.link.hello_timeout_ms, max_bad_hellos: m.link.max_bad_hellos, queue_bytes: m.link.queue_bytes, finish_on_loss: m.link.finish_on_loss, max_drain_s: m.link.max_drain_s };
   if (S.token.state === "set") link.token = S.token.value;
   if (S.token.state === "clear") link.clear_token = true;
   return { link, uart: Object.assign({}, m.uart), lamps: Object.assign({}, m.lamps), spindle: Object.assign({}, m.spindle) };
@@ -176,7 +176,7 @@ const isDirty = () => (S.page === "machine" && S.machine ? JSON.stringify(machin
 
 // ---- checking the machine's settings in the browser, before anything is sent ---------------------------------------------------------------
 
-const NUMBERS = { "link.port": [1, 65535], "link.idle_ms": [500, 60000], "link.queue_bytes": [1024, 4194304], "link.max_drain_s": [10, 3600], "spindle.max_rpm": [0, 60000], "spindle.pwm_hz": [100, 40000], "spindle.reverse_delay_ms": [0, 60000] };
+const NUMBERS = { "link.port": [1, 65535], "link.idle_ms": [500, 60000], "link.hello_timeout_ms": [0, 60000], "link.max_bad_hellos": [0, 100], "link.queue_bytes": [1024, 4194304], "link.max_drain_s": [10, 3600], "spindle.max_rpm": [0, 60000], "spindle.pwm_hz": [100, 40000], "spindle.reverse_delay_ms": [0, 60000] };
 // every pin of the machine settings, and whether -1 (not wired) is allowed for it
 const PINS = [["uart.tx", false], ["uart.rx", true], ["uart.dtr", false], ["uart.dcd", false], ["uart.ri", false], ["uart.cts", true], ["uart.dsr", true],
   ["lamps.home_x", true], ["lamps.home_y", true], ["lamps.home_z", true], ["lamps.enable", true], ["lamps.tool", true],
@@ -188,7 +188,7 @@ function validateMachine() {
   Object.entries(NUMBERS).forEach(([path, [low, high]]) => {
     const v = getValue("machine", path);
     if (typeof v !== "number" || !Number.isInteger(v)) found[path] = "not_a_number";
-    else if (v < low || v > high) found[path] = "out_of_range";
+    else if (v < low || v > high || (path === "link.hello_timeout_ms" && v > 0 && v < 1000)) found[path] = "out_of_range";   // 0 is no limit; otherwise 1000 to 60000
   });
   PINS.forEach(([path, none]) => {
     const v = getValue("machine", path);
@@ -586,6 +586,8 @@ function machinePage() {
         el("div", { class: "row" }, field("fPort", "machine", "link.port", { type: "number", min: 1, max: 65535, placeholder: "5800", hint: t("fPortHint") }),
           field("fIdle", "machine", "link.idle_ms", { type: "number", min: 0.5, max: 60, step: "any", factor: 1000, placeholder: "3", hint: t("fIdleHint") }),
           field("fQueue", "machine", "link.queue_bytes", { type: "number", min: 1024, max: 4194304, placeholder: "262144", hint: t("fQueueHint") })),
+        el("div", { class: "row" }, field("fHelloTimeout", "machine", "link.hello_timeout_ms", { type: "number", min: 0, max: 60000, placeholder: "5000" }),
+          field("fBadHellos", "machine", "link.max_bad_hellos", { type: "number", min: 0, max: 100, placeholder: "5" })),
         field("fFinish", "machine", "link.finish_on_loss", { type: "checkbox", rerender: true, hint: t("fFinishHint") }),
         m.link.finish_on_loss ? note(t("finishWarn"), "bad") : null,
         m.link.finish_on_loss ? field("fDrain", "machine", "link.max_drain_s", { type: "number", min: 10, max: 3600, placeholder: "600", hint: t("fDrainHint") }) : null,

@@ -447,3 +447,5 @@ ntpServer	Laiko serveris (NTP)
 autoRestart	Pats paleisti iš naujo kas
 autoRestartNever	Niekada
 copyToken	Kopijuoti raktą
+fHelloTimeout	Laikas išsiųsti Hello (ms, 0 = be apribojimo)
+fBadHellos	Neteisingi Hello prieš atjungiant (0 = be apribojimo)

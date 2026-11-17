@@ -447,3 +447,5 @@ ntpServer	Laika serveris (NTP)
 autoRestart	Pašam restartēties ik pēc
 autoRestartNever	Nekad
 copyToken	Kopēt marķieri
+fHelloTimeout	Laiks Hello nosūtīšanai (ms, 0 = bez ierobežojuma)
+fBadHellos	Nepareizi Hello pirms atvienošanas (0 = bez ierobežojuma)

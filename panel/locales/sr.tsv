@@ -447,3 +447,5 @@ ntpServer	Временски сервер (NTP)
 autoRestart	Сам се поново покрени сваких
 autoRestartNever	Никад
 copyToken	Копирај токен
+fHelloTimeout	Време за слање Hello (мс, 0 = без ограничења)
+fBadHellos	Погрешни Hello пре затварања (0 = без ограничења)

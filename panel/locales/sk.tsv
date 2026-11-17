@@ -447,3 +447,5 @@ ntpServer	Časový server (NTP)
 autoRestart	Reštartovať sa sám každých
 autoRestartNever	Nikdy
 copyToken	Kopírovať token
+fHelloTimeout	Čas na odoslanie Hello (ms, 0 = bez obmedzenia)
+fBadHellos	Chybné Hello pred odpojením (0 = bez obmedzenia)

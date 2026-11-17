@@ -447,3 +447,5 @@ ntpServer	Ajaserver (NTP)
 autoRestart	Taaskäivita ennast iga
 autoRestartNever	Mitte kunagi
 copyToken	Kopeeri luba
+fHelloTimeout	Hello saatmise aeg (ms, 0 = piiranguta)
+fBadHellos	Valed Hellod enne katkestust (0 = piiranguta)

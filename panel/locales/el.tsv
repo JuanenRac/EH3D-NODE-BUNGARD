@@ -447,3 +447,5 @@ ntpServer	Διακομιστής ώρας (NTP)
 autoRestart	Επανεκκίνηση από μόνο του κάθε
 autoRestartNever	Ποτέ
 copyToken	Αντιγραφή του διακριτικού
+fHelloTimeout	Χρόνος αποστολής του Hello (ms, 0 = χωρίς όριο)
+fBadHellos	Λανθασμένα Hello πριν το κλείσιμο (0 = χωρίς όριο)

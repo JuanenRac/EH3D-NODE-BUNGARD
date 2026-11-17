@@ -447,3 +447,5 @@ ntpServer	Időszerver (NTP)
 autoRestart	Újraindul magától minden
 autoRestartNever	Soha
 copyToken	Token másolása
+fHelloTimeout	A Hello elküldésének ideje (ms, 0 = korlátlan)
+fBadHellos	Hibás Hellók a bontás előtt (0 = korlátlan)

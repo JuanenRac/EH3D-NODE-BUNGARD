@@ -447,3 +447,5 @@ ntpServer	Ordu-zerbitzaria (NTP)
 autoRestart	Berrabiarazi bere kabuz hainbatero
 autoRestartNever	Inoiz ez
 copyToken	Kopiatu tokena
+fHelloTimeout	Hello bidaltzeko denbora (ms, 0 = mugarik gabe)
+fBadHellos	Hello okerrak itxi aurretik (0 = mugarik gabe)

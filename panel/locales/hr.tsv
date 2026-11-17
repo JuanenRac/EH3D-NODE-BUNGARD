@@ -447,3 +447,5 @@ ntpServer	Vremenski poslužitelj (NTP)
 autoRestart	Sam se ponovno pokreni svakih
 autoRestartNever	Nikad
 copyToken	Kopiraj token
+fHelloTimeout	Vrijeme za slanje Hella (ms, 0 = bez ograničenja)
+fBadHellos	Pogrešni Helloi prije prekida (0 = bez ograničenja)
