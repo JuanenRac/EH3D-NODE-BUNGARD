@@ -45,6 +45,8 @@ struct Settings {
   std::string token;           // empty: no token set
   bool allow_open = false;     // accept control with no token (a bench build only)
   std::uint32_t idle_ms = 3000;  // an armed session that sends nothing for this long is stopped
+  std::uint32_t hello_timeout_ms = 5000;  // a connection that has not sent a good Hello after this long is closed; 0 = no limit
+  std::uint32_t max_bad_hellos = 5;       // a connection that sends this many wrong Hellos is closed; 0 = no limit
   std::uint32_t max_rpm = 24000;  // the speed of the spindle at full signal; 0 = this node has no spindle output
   std::uint32_t reverse_delay_ms = 3000;  // how long a spindle must have been stopped before it may turn the other way
   bool finish_on_loss = false;   // when the program goes away, finish the job already in the queue instead of stopping at once
@@ -67,6 +69,8 @@ class Session {
   bool authenticated() const { return authenticated_; }
   bool armed() const { return armed_; }
   bool draining() const { return draining_; }
+  // The link must close this connection: no good Hello in time, or too many wrong ones.
+  bool close_requested() const { return close_requested_; }
   std::uint32_t spindle_rpm() const { return spindle_rpm_; }
   std::uint8_t stop_on_home() const { return stop_mask_; }
   bool spindle_reverse() const { return spindle_reverse_; }
@@ -127,6 +131,12 @@ class Session {
   // Call regularly (every tens of milliseconds).
   void on_tick(std::uint32_t now_ms) {
     now_ms_ = now_ms;
+    if (!started_) { started_ = true; start_ms_ = now_ms; }
+    if (!authenticated_ && settings_.hello_timeout_ms != 0 &&
+        static_cast<std::uint32_t>(now_ms - start_ms_) > settings_.hello_timeout_ms) {
+      if (!close_requested_) error(Error::NotAuthenticated);
+      close_requested_ = true;
+    }
     if (armed_ && static_cast<std::uint32_t>(now_ms - last_ms_) > settings_.idle_ms) {
       lose_the_program();
       error(Error::IdleTimeout);
@@ -152,7 +162,11 @@ class Session {
         const std::uint8_t got = i < f.length ? f.payload[i] : 0;
         diff |= static_cast<unsigned>(got ^ static_cast<std::uint8_t>(settings_.token[i]));
       }
-      if (diff != 0) { error(Error::BadToken); return; }
+      if (diff != 0) {
+        error(Error::BadToken);
+        if (settings_.max_bad_hellos != 0 && ++bad_hellos_ >= settings_.max_bad_hellos) close_requested_ = true;
+        return;
+      }
     }
     authenticated_ = true;
     last_ms_ = now_ms;
@@ -261,6 +275,10 @@ class Session {
   Info info_;
   Hardware& hw_;
   bool authenticated_ = false;
+  bool close_requested_ = false;
+  bool started_ = false;
+  std::uint32_t start_ms_ = 0;
+  std::uint32_t bad_hellos_ = 0;
   bool armed_ = false;
   std::uint32_t last_ms_ = 0;
   std::uint32_t now_ms_ = 0;

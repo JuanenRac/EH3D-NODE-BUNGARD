@@ -47,6 +47,7 @@ static void test_defaults() {
   CHECK(config::validate(s).empty());
   CHECK(s.machine.link.port == 5800 && s.machine.link.token.empty() && !s.machine.link.allow_open);
   CHECK(s.machine.link.idle_ms == 3000 && s.machine.link.queue_bytes == 262144);
+  CHECK(s.machine.link.hello_timeout_ms == 5000 && s.machine.link.max_bad_hellos == 5);
   CHECK(!s.machine.link.finish_on_loss && s.machine.link.max_drain_s == 600);
   CHECK(s.machine.uart.tx == 17 && s.machine.uart.rx == 18 && s.machine.uart.dtr == 15 && s.machine.uart.dcd == 16 && s.machine.uart.ri == 21);
   CHECK(s.machine.uart.cts == -1 && s.machine.uart.dsr == -1 && s.machine.uart.rs232_inverted);
@@ -134,6 +135,9 @@ static void test_ranges() {
   CHECK(!apply("{\"machine\":{\"link\":{\"port\":70000}}}", s, problems) && !problems.empty());
   CHECK(!apply("{\"machine\":{\"link\":{\"idle_ms\":100}}}", s, problems) && has(problems, "machine.link.idle_ms", "range"));
   CHECK(!apply("{\"machine\":{\"link\":{\"idle_ms\":70000}}}", s, problems) && has(problems, "machine.link.idle_ms", "range"));
+  CHECK(!apply("{\"machine\":{\"link\":{\"hello_timeout_ms\":500}}}", s, problems) && has(problems, "machine.link.hello_timeout_ms", "range"));
+  CHECK(!apply("{\"machine\":{\"link\":{\"max_bad_hellos\":101}}}", s, problems) && has(problems, "machine.link.max_bad_hellos", "range"));
+  CHECK(apply("{\"machine\":{\"link\":{\"hello_timeout_ms\":0,\"max_bad_hellos\":0}}}", s, problems) && s.machine.link.hello_timeout_ms == 0);
   CHECK(apply("{\"machine\":{\"link\":{\"idle_ms\":200}}}", s, problems) && apply("{\"machine\":{\"link\":{\"idle_ms\":60000}}}", s, problems));
   CHECK(!apply("{\"machine\":{\"link\":{\"queue_bytes\":512}}}", s, problems) && has(problems, "machine.link.queue_bytes", "range"));
   CHECK(!apply("{\"machine\":{\"link\":{\"queue_bytes\":5000000}}}", s, problems) && has(problems, "machine.link.queue_bytes", "range"));

@@ -198,6 +198,35 @@ static void session_tests() {
     CHECK(hw.replies.back().second[2] == 1);
     CHECK(hw.replies.back().second[3] == (38400 & 0xFF) && hw.replies.back().second[4] == ((38400 >> 8) & 0xFF));
   }
+  {  // a silent client is cut after the time for the Hello, one that guesses after the wrong Hellos allowed
+    FakeHardware hw;
+    Settings st;
+    st.token = "secret";
+    Session silent(st, info, hw);
+    silent.on_tick(0);
+    silent.on_tick(st.hello_timeout_ms);
+    CHECK(!silent.close_requested());
+    silent.on_tick(st.hello_timeout_ms + 1);
+    CHECK(silent.close_requested() && hw.last_error() == Error::NotAuthenticated);
+    Session guessing(st, info, hw);
+    for (std::uint32_t i = 0; i + 1 < st.max_bad_hellos; ++i) guessing.on_frame(frame_of(Type::Hello, text("wrong!")), i);
+    CHECK(!guessing.close_requested());
+    guessing.on_frame(frame_of(Type::Hello, text("wrong!")), 10);
+    CHECK(guessing.close_requested() && !guessing.authenticated());
+    Session greeted(st, info, hw);
+    greeted.on_tick(0);
+    greeted.on_frame(frame_of(Type::Hello, text("secret")), 100);
+    greeted.on_tick(st.hello_timeout_ms * 10);
+    CHECK(greeted.authenticated() && !greeted.close_requested());
+    Settings off = st;
+    off.hello_timeout_ms = 0;
+    off.max_bad_hellos = 0;
+    Session patient(off, info, hw);
+    patient.on_tick(0);
+    for (int i = 0; i < 50; ++i) patient.on_frame(frame_of(Type::Hello, text("wrong!")), 1);
+    patient.on_tick(1000000);
+    CHECK(!patient.close_requested());
+  }
   {  // a node with no token refuses control unless the build allows open control
     FakeHardware hw;
     Session closed({"", false, 3000}, info, hw);
