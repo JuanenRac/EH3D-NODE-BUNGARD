@@ -36,6 +36,7 @@ Status is sent every 200 ms to a logged-in program.
 ## Rules that keep the machine from moving by accident
 
 - Nothing but Hello is accepted before a Hello with the right token. A node with no token refuses control unless the setting `machine.link.allow_open` is on (a bench setting, off by default). The token, the port, the idle time and the queue are settings of the panel, not compiled into the image.
+- A connection that does not send a good Hello within `machine.link.hello_timeout_ms` (five seconds by default; 0 = no limit) is closed, and so is one that sends `machine.link.max_bad_hellos` wrong Hellos (five by default; 0 = no limit), so a silent or guessing client cannot hold the only connection of the node for ever.
 - Bytes for the control unit are accepted only while armed, and only if the whole frame fits in the queue (`QueueFull` otherwise: the program waits for the Status to show room).
 - An armed session that sends nothing for `machine.link.idle_ms` (three seconds by default) is stopped, and so is one whose connection drops: the queue is emptied and `0xC0` (stepper drivers off) is sent. A lost cable cannot leave the machine running the rest of a move. Send Ping while a long move is queued and nothing else is being sent.
 - The bytes that the UART task had already written into the transmit FIFO of the chip still go out after a stop: up to 128 bytes, about 33 ms at 38400 baud. The queue itself is emptied at once; the `0xC0` follows the FIFO.

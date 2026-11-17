@@ -147,6 +147,8 @@ void serve(int fd) {
       settings.token = stored->machine.link.token;
       settings.allow_open = stored->machine.link.allow_open;
       settings.idle_ms = static_cast<std::uint32_t>(stored->machine.link.idle_ms);
+      settings.hello_timeout_ms = static_cast<std::uint32_t>(stored->machine.link.hello_timeout_ms);
+      settings.max_bad_hellos = static_cast<std::uint32_t>(stored->machine.link.max_bad_hellos);
       settings.reverse_delay_ms = static_cast<std::uint32_t>(stored->machine.spindle.reverse_delay_ms);
       settings.finish_on_loss = stored->machine.link.finish_on_loss;
       g_max_drain_ms = static_cast<std::uint32_t>(stored->machine.link.max_drain_s) * 1000u;
@@ -163,7 +165,7 @@ void serve(int fd) {
   std::uint32_t last_status = now_ms();
 
   g_client = true;
-  while (hw.ok()) {
+  while (hw.ok() && !session.close_requested()) {
     nodeguard::beat("eh3d-link");
     const int n = ::recv(fd, rx, sizeof rx, 0);
     if (n == 0) break;  // closed by the program

@@ -26,6 +26,8 @@ struct LinkSetting {
   std::string token;          // write-only: empty means the node refuses to be controlled (unless allow_open)
   bool allow_open = false;    // accept control with no token (a bench setting)
   int idle_ms = 3000;         // an armed session that sends nothing for this long is stopped
+  int hello_timeout_ms = 5000;   // a connection with no good Hello after this long is closed (0: no limit)
+  int max_bad_hellos = 5;     // a connection that sends this many wrong Hellos is closed (0: no limit)
   int queue_bytes = 262144;   // what the node can hold for the control unit (kept in the external RAM: a job of a minute or two)
   bool finish_on_loss = false;   // when the program goes away, finish the job already in the queue instead of stopping at once
   int max_drain_s = 600;      // the most seconds it may go on alone
@@ -109,6 +111,8 @@ inline void machine_read(const json::Value& machine, MachineSettings& m, Problem
     read_secret(*link, "token", m.link.token, p + "token", problems);
     read_bool(*link, "allow_open", m.link.allow_open, p + "allow_open", problems);
     read_int(*link, "idle_ms", m.link.idle_ms, 1, 3600000, p + "idle_ms", problems);
+    read_int(*link, "hello_timeout_ms", m.link.hello_timeout_ms, 0, 3600000, p + "hello_timeout_ms", problems);
+    read_int(*link, "max_bad_hellos", m.link.max_bad_hellos, 0, 1000, p + "max_bad_hellos", problems);
     read_int(*link, "queue_bytes", m.link.queue_bytes, 1, 4 * 1024 * 1024, p + "queue_bytes", problems);
     read_bool(*link, "finish_on_loss", m.link.finish_on_loss, p + "finish_on_loss", problems);
     read_int(*link, "max_drain_s", m.link.max_drain_s, 1, 86400, p + "max_drain_s", problems);
@@ -177,6 +181,8 @@ inline void machine_validate(const MachineSettings& m, Problems& problems, const
   if (m.link.port < 1024 || m.link.port > 65535) bad(problems, prefix + "link.port", "range");
   if (!m.link.token.empty() && !token_is_valid(m.link.token)) bad(problems, prefix + "link.token", m.link.token.size() < 8 ? "too_short" : "invalid");
   if (m.link.idle_ms < 200 || m.link.idle_ms > 60000) bad(problems, prefix + "link.idle_ms", "range");
+  if (m.link.hello_timeout_ms != 0 && (m.link.hello_timeout_ms < 1000 || m.link.hello_timeout_ms > 60000)) bad(problems, prefix + "link.hello_timeout_ms", "range");
+  if (m.link.max_bad_hellos < 0 || m.link.max_bad_hellos > 100) bad(problems, prefix + "link.max_bad_hellos", "range");
   if (m.link.queue_bytes < 1024 || m.link.queue_bytes > 4194304) bad(problems, prefix + "link.queue_bytes", "range");
   if (m.link.max_drain_s < 10 || m.link.max_drain_s > 3600) bad(problems, prefix + "link.max_drain_s", "range");
 
@@ -222,7 +228,8 @@ inline Problems validate(const Settings& s) {
 inline void machine_write(json::Writer& w, const MachineSettings& m, bool secrets) {
   w.key("link").begin_object().field("port", m.link.port);
   if (secrets) w.field("token", m.link.token); else w.field("token_set", !m.link.token.empty());
-  w.field("allow_open", m.link.allow_open).field("idle_ms", m.link.idle_ms).field("queue_bytes", m.link.queue_bytes)
+  w.field("allow_open", m.link.allow_open).field("idle_ms", m.link.idle_ms).field("hello_timeout_ms", m.link.hello_timeout_ms)
+      .field("max_bad_hellos", m.link.max_bad_hellos).field("queue_bytes", m.link.queue_bytes)
       .field("finish_on_loss", m.link.finish_on_loss).field("max_drain_s", m.link.max_drain_s).end_object();
   w.key("uart").begin_object().field("tx", m.uart.tx).field("rx", m.uart.rx).field("dtr", m.uart.dtr).field("dcd", m.uart.dcd).field("ri", m.uart.ri)
       .field("cts", m.uart.cts).field("dsr", m.uart.dsr).field("rs232_inverted", m.uart.rs232_inverted).end_object();
@@ -270,7 +277,7 @@ inline bool load(std::string_view text, const Settings& base, Settings& out, Pro
 // ---- what a change needs ---------------------------------------------------------------------------------------------------------------
 
 // Blanks the settings that are applied as soon as they are saved, so that two sets of settings that differ only in those need no restart: the display name, the language, the time zone
-// and what the control link reads at every connection (the token, open control, the idle time and the settling time between spindle directions). Everything else - the port, the pins, the
+// and what the control link reads at every connection (the token, open control, the idle time, the time to say Hello, the wrong Hellos allowed and the settling time between spindle directions). Everything else - the port, the pins, the
 // queue, the speed scale - is taken when the node starts.
 inline void clear_live_settings(Settings& s) {
   s.node_name.clear();
@@ -279,6 +286,8 @@ inline void clear_live_settings(Settings& s) {
   s.machine.link.token.clear();
   s.machine.link.allow_open = false;
   s.machine.link.idle_ms = 0;
+  s.machine.link.hello_timeout_ms = 0;
+  s.machine.link.max_bad_hellos = 0;
   s.machine.link.finish_on_loss = false;
   s.machine.link.max_drain_s = 0;
   s.machine.spindle.reverse_delay_ms = 0;
