@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- **A stop can no longer be followed by bytes of the chunk the writer was sending:** the UART writer takes a chunk out of the queue and writes it after letting go of the queue lock, so a stop that fell in between sent the drivers-off byte and then 32 old bytes. The writer now holds a transmit lock from taking the chunk until it is written, and the stop takes the same lock around emptying the queue and writing `0xC0`, so the order on the line is the order of the decisions. This is a change of the firmware that the host tests do not cover; it has not run on a board.
+
 - **The control link cuts a client that stays silent or guesses the token:** a connection that has not sent a good Hello within `machine.link.hello_timeout_ms` (5000 by default) or that sends `machine.link.max_bad_hellos` wrong Hellos (5 by default) is closed, so it can no longer hold the only connection of the node for ever or try tokens at the speed of the network. Both settings take effect at the next connection and 0 turns each limit off (the earlier behaviour). Tests cover the silent client, the guessing client, a client that greets in time and the limits turned off.
 
 - **A link cut and its recovery are tested with a seeded run:** `link_cut_tests` in `tests/core_tests.cpp` cuts the link in the middle of work 150 times (random writes and spindle commands on a hardware stand-in that sends a few bytes at a time) and checks that, each time, the spindle is stopped, the drivers are off, the queue and the commands waiting in it are gone and the session is closed, and that the next Hello and Arm are accepted and the bytes written are queued again. The same seed gives the same run. Not run on a machine.

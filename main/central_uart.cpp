@@ -33,6 +33,7 @@ constexpr std::size_t kChunk = 32;  // bytes taken from the queue at a time; aft
 
 eh3d::bungard::ByteQueue* g_queue = nullptr;
 SemaphoreHandle_t g_lock = nullptr;
+SemaphoreHandle_t g_tx = nullptr;   // held by the writer from taking a chunk out of the queue until it is written, and by the stop around its 0xC0: the order on the line is the order of the decisions
 std::atomic<std::uint32_t> g_sent{0};
 
 // Spindle commands that wait in the queue. `at` is how many bytes had been queued before the command (counted from the last time the queue was
@@ -66,6 +67,7 @@ void writer_task(void*) {
   for (;;) {
     nodeguard::beat("eh3d-uart-tx");   // a writer that stops coming round is stuck on its lock: the guard tells it
     std::size_t n = 0;
+    xSemaphoreTake(g_tx, portMAX_DELAY);
     xSemaphoreTake(g_lock, portMAX_DELAY);
     // the spindle commands whose turn has come go before the next byte; they are applied while the lock is held, so that a stop
     // (which flushes under the same lock and then sets the spindle to zero) can never be followed by an old command
@@ -85,9 +87,9 @@ void writer_task(void*) {
     if (n > 0) {
       uart_write_bytes(kPort, reinterpret_cast<const char*>(buf), n);
       g_sent.fetch_add(static_cast<std::uint32_t>(n));
-    } else {
-      vTaskDelay(1);
     }
+    xSemaphoreGive(g_tx);
+    if (n == 0) vTaskDelay(1);
   }
 }
 }  // namespace
@@ -96,7 +98,8 @@ bool uart_start(const config::UartSetting& pins, std::size_t queue_bytes) {
   g_pins = pins;
   g_queue = new eh3d::bungard::ByteQueue(queue_bytes);
   g_lock = xSemaphoreCreateMutex();
-  if (g_lock == nullptr) return false;
+  g_tx = xSemaphoreCreateMutex();
+  if (g_lock == nullptr || g_tx == nullptr) return false;
 
   uart_config_t cfg{};
   cfg.baud_rate = kBaud;
@@ -180,9 +183,12 @@ void flush_queue() {
 }
 
 void send_drivers_off() {
+  // a chunk the writer already took out of the queue is written before the 0xC0, never after it
+  if (g_tx != nullptr) xSemaphoreTake(g_tx, portMAX_DELAY);
   flush_queue();
   const std::uint8_t off = 0xC0;
   uart_write_bytes(kPort, reinterpret_cast<const char*>(&off), 1);
+  if (g_tx != nullptr) xSemaphoreGive(g_tx);
 }
 
 void set_dtr(bool on) {
