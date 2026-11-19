@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.0.8] - Newest improvements of the drill node
+
 - **The panel edits the time allowed for the first Hello and the number of wrong Hellos:** the machine page has two new fields next to the idle timeout, `machine.link.hello_timeout_ms` (0 = no limit, otherwise 1000 to 60000) and `machine.link.max_bad_hellos` (0 = no limit, up to 100), checked in the browser before saving and sent with the rest of the link settings, in the 37 languages of the panel.
 
 - **A stop can no longer be followed by bytes of the chunk the writer was sending:** the UART writer takes a chunk out of the queue and writes it after letting go of the queue lock, so a stop that fell in between sent the drivers-off byte and then 32 old bytes. The writer now holds a transmit lock from taking the chunk until it is written, and the stop takes the same lock around emptying the queue and writing `0xC0`, so the order on the line is the order of the decisions. This is a change of the firmware that the host tests do not cover; it has not run on a board.
