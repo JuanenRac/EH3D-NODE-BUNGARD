@@ -198,7 +198,7 @@ python -I tools/ci_validate.py
 
 主机测试（`build.bat` 或 `./build.sh`，然后 `ctest`）共 13 个程序，全部通过：`core_tests`（104 项检查：帧和会话规则）、`test_base`（382）、`test_clock`（输出 ok）、`test_settings`（392）、`test_machine`（75）、`test_self_check`（97）、`test_shared`（627）和 `test_shared_eth`（629，以太网板子配置）——统计到 29,222 项检查——另有 `panel_text`（8 种语言共 315 行、使用 265 个键、36 个带文本的固件错误码）和 `task_safety`（11 个任务，小栈上没有设置的大副本）。它们覆盖 CRC 和损坏后重新同步的解码器、令牌登录、上膛、沉默时停止、主轴规则（上限、不反转、延时）、设置及其范围、引脚冲突和保留引脚、用户和会话、网络方案、时钟和 JSON。面板还在浏览器中对 `tools/panel_mock.mjs` 做过测试，那是一个不需要电路板就能提供面板的替身节点。CI 运行 `python -I tools/ci_validate.py` 以及在 Linux 上把警告视为错误的主机测试。两个固件镜像（ESP-IDF 5.5.5）的编译是手工完成的，不属于 CI；没有任何东西在电路板上运行。一次固定种子的运行在工作中途把链路切断 150 次（电缆、程序、Wi-Fi），每次都检查主轴已停、驱动器已断电、队列已清空，并且下一次连接能登录、上电并重新接受其字节。
 
-节点接上硬件当天的自检：`python tools/selftest.py --host 节点 --token TOKEN` 读取节点（版本、状态、设置导出、备用网络、主轴、控制链路），每步一行写入报告；加上 `--active` 并手动输入确认后，还会武装链路、转动主轴并测量停止时间，且总是让节点保持停止状态。其测试在 CI 中对一个玩具节点运行（`python -I -m unittest discover -s tools -p "test_*.py"`）。手动步骤见 [docs/HARDWARE_CHECKLIST.md](docs/HARDWARE_CHECKLIST.md)。
+节点接上硬件当天的自检：`python tools/selftest.py --host 节点 --token TOKEN` 读取节点（版本、状态、设置导出、备用网络、主轴、控制链路），每步一行写入报告；加上 `--active` 并手动输入确认后，还会武装链路、转动主轴并测量停止时间，且总是让节点保持停止状态。其测试在 CI 中对一个玩具节点运行（`python -I -m unittest discover -s tools -p "test_*.py"`）。同一文件夹还有无需电路板即可运行的契约测试（`tools/test_link_contract.py`）：将控制链路的帧、错误代码和默认值与本文档对照，并且在 EH3D-DRILLPRO 位于本仓库旁边时，与驱动该节点的程序对照。手动步骤见 [docs/HARDWARE_CHECKLIST.md](docs/HARDWARE_CHECKLIST.md)。
 
 ## 🏗️ 构建与发布
 

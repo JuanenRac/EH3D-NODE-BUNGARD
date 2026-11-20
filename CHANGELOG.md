@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- **Contract tests of the control link, run without the board:** `tools/test_link_contract.py` recomputes the CRC of every shared test vector with a second implementation, checks that the types and the error codes of `core/frame.hpp` are the ones `docs/PROTOCOL.md` documents, that the defaults the page names (port 5800, hello timeout, wrong Hellos, idle time, 24000 rpm) are the ones of `core/node_config.hpp` and that the safety switches start closed, and, when EH3D-DRILLPRO and EH3D-COMMON sit next to this repository, that the program that drives the node has the same sync byte, largest payload, frame types and error codes, reads the same test vectors, names the same port, and that the top speed the server expects of the spindle with a drive is the default of this node. Nothing was tried on a node on a machine.
+
 ## [0.0.8] - Newest improvements of the drill node
 
 - **The panel edits the time allowed for the first Hello and the number of wrong Hellos:** the machine page has two new fields next to the idle timeout, `machine.link.hello_timeout_ms` (0 = no limit, otherwise 1000 to 60000) and `machine.link.max_bad_hellos` (0 = no limit, up to 100), checked in the browser before saving and sent with the rest of the link settings, in the 37 languages of the panel.

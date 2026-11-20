@@ -32,5 +32,6 @@ It asks you to type `SI` before it arms the link, turns the spindle (1000 rpm fo
 | 8 | Pull the network cable while the spindle turns | The spindle stops within the idle time (3 s by default) | |
 | 9 | From the program send a homing command (`$H` in the GRBL-style G-code) | The axes search their switches and stop; the lamps show HOME | |
 | 10 | Restart the node | It comes back disarmed with the spindle off | |
+| 11 | Open the link from EH3D-DRILLPRO (or send the frames of `tests/testdata/frames.json`) and read Info, Status and a provoked Error (a Write before Arm) | The version, the baud rate and the queue size are the ones of the panel, Status arrives every 200 ms, and the Error code is the one of docs/PROTOCOL.md | |
 
 A FAIL on steps 5 to 8 means: do not run a job on this node.
