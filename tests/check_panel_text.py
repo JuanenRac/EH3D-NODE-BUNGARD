@@ -8,7 +8,10 @@ The panel shows `e_<code>` for an error the node answers with and `p_<code>` nex
 The codes are read from the C++ (`send_error(r, N, "code")`, `error = "code"` and the problem codes of the machine settings), so a new code cannot be added without its eight translations.
 """
 import gzip
+import json
 import re
+import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -114,6 +117,49 @@ def check_locales(problems):
             problems.append(f"panel/{name} asks for langs.js: there are no other languages")
 
 
+def check_language_choice(text, app, problems):
+    """The language the panel opens in: the former variants are their main languages, and a hostile or unknown text never selects anything but English (run with node when it is there)."""
+    for needle in ('code === "pt-br"', 'code === "fr-ca"'):
+        if needle not in app:
+            problems.append(f"app.js does not read the former variant ({needle})")
+    node = shutil.which("node")
+    match = re.search(r"function pickLanguage\(preferred\) \{.*?\n\}\n", app.replace("\r\n", "\n"), re.S)
+    langs = re.search(r"^const LANGS = .*;$", text.replace("\r\n", "\n"), re.M)
+    if not (match and langs):
+        problems.append("pickLanguage() or LANGS could not be found to be tried")
+        return
+    if not node:
+        return   # the static checks above are all there is without node
+    cases = [
+        ("pt-br", "", "en-US", "pt"), ("PT-BR", "", "en-US", "pt"), ("fr-ca", "", "en-US", "fr"), ("FR-CA", "", "en-US", "fr"),
+        ("pt", "", "en-US", "pt"), ("zh", "", "en-US", "zh"), ("ja", "", "en-US", "ja"), ("pl", "", "en-US", "en"), ("ru", "", "en-US", "en"),
+        ("bg", "", "de-DE", "en"), ("", "", "de-DE", "de"), ("", "", "pt-BR", "pt"), ("", "", "zh-TW", "zh"), ("", "", "pl-PL", "en"), ("", "", "", "en"),
+        ("", "fr-ca", "en-US", "fr"), ("", "pt-br", "en-US", "pt"), ("", "xx", "de-DE", "en"), (" pt", "", "de-DE", "en"), ("<script>", "", "de-DE", "en"),
+        ("constructor", "", "de-DE", "en"), ("__proto__", "", "de-DE", "en"), ("pt-br\u0000x", "", "de-DE", "en"), ("e" * 5000, "", "de-DE", "en"),
+    ]
+    script = (langs.group(0) + "\nlet lang = 0;\nconst document = { documentElement: {} };\nlet stored = '', fail = false;\n"
+              "const localStorage = { getItem: () => { if (fail) throw new Error('blocked'); return stored; } };\n"
+              "let navigator = { language: 'en-US' };\n" + match.group(0) + "\n"
+              "const out = [];\nfor (const [s, p, n] of " + json.dumps(cases) + ".map(c => c.slice(0, 3))) {\n"
+              "  stored = s; navigator = { language: n }; pickLanguage(p || undefined);\n  out.push(LANGS[lang][0] + '/' + document.documentElement.lang);\n}\n"
+              "fail = true; navigator = { language: 'it-IT' }; pickLanguage(undefined); out.push(LANGS[lang][0]);\n"
+              "console.log(JSON.stringify(out));\n")
+    try:
+        done = subprocess.run([node, "-e", script], capture_output=True, text=True, timeout=60, check=False)
+    except (OSError, subprocess.SubprocessError) as error:
+        problems.append(f"node could not try the language choice: {error}")
+        return
+    if done.returncode != 0:
+        problems.append(f"the language choice could not be run: {done.stderr.strip()[:300]}")
+        return
+    got = json.loads(done.stdout)
+    for case, result in zip(cases, got, strict=False):
+        if result != case[3] + "/" + case[3]:
+            problems.append(f"the panel opens in {result} for stored={case[0][:20]!r} preferred={case[1]!r} browser={case[2]!r}, expected {case[3]}")
+    if got[-1] != "it":
+        problems.append(f"with the storage blocked the browser language is used: got {got[-1]}, expected it")
+
+
 def check_firmware_codes(table, problems):
     """Every error code the firmware can answer with has its e_ row (when the firmware sources are there)."""
     codes = set()
@@ -176,6 +222,7 @@ def main():
     check_languages(text, problems)
     check_rows(table, problems)
     check_locales(problems)
+    check_language_choice(text, app, problems)
 
     for name in ("index.html", "app.js", "style.css", "text.js"):
         body = (PANEL / name).read_text(encoding="utf-8")

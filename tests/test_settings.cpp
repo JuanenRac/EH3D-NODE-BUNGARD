@@ -183,6 +183,10 @@ static void test_node_helpers() {
   for (const char* code : {"pt-br", "fr-ca"}) CHECK(language_is_known(code));
   for (const char* code : {"bg", "ru", "uk", "fi", "pl", "nl", "ca"}) CHECK(!language_is_known(code));
   for (const char* code : {"", "EN", "e", "eng", "pt-PT", "pt-BR", "xx", "es-MX"}) CHECK(!language_is_known(code));
+  // hostile codes: padding, a NUL after a good code, markup, a path, a list, a very long text, other alphabets, full-width letters, the usual long tags and a good code with a suffix are all refused
+  CHECK(!language_is_known(std::string_view("en\0", 3)) && !language_is_known(std::string_view("\0", 1)) && !language_is_known(std::string_view("pt-br\0x", 7)));
+  for (const char* code : {" en", "en ", "en\n", "\ten", "en-", "-en", "en,es", "en;es", "<script>", "../en", "en/../es", "\"en\"", "%65n", "\xEF\xBD\x85\xEF\xBD\x8E", "\xE6\x97\xA5\xE6\x9C\xAC\xE8\xAA\x9E", "ru-RU", "zh-CN", "ja-JP", "pt_br", "fr_ca", "Pt-Br", "FR-CA", "pt-br ", "fr-ca\n", "pt-br-x", "fr-ca-x", "pt-pt", "en-US", "constructor", "__proto__"}) CHECK(!language_is_known(code));
+  CHECK(!language_is_known(std::string(5000, 'e')) && !language_is_known(std::string(256, 'p') + "t"));
   for (const int hours : {0, 1, 2, 3, 4, 6, 12, 24, 48}) CHECK(auto_restart_hours_is_valid(hours));
   for (const int hours : {-1, 5, 7, 8, 13, 23, 25, 47, 49, 100}) CHECK(!auto_restart_hours_is_valid(hours));
   AccessPoint ap;
