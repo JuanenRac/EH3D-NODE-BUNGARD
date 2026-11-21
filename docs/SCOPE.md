@@ -4,7 +4,7 @@ Status: **host-test**. EH3D-NODE-BUNGARD is the firmware, in C++17 for the ESP32
 
 ## Purpose
 
-The node between the network and the control unit of the drill: a program connects over TCP with an access token, arms the machine and sends the bytes of a move; the node queues them and puts them on the line at the line's own pace, reads the lamps of the machine, drives the spindle through a 0-10 V signal and run and direction lines, and offers a web panel with a menu (in 37 languages) for set-up, users, network, update and the machine's own settings.
+The node between the network and the control unit of the drill: a program connects over TCP with an access token, arms the machine and sends the bytes of a move; the node queues them and puts them on the line at the line's own pace, reads the lamps of the machine, drives the spindle through a 0-10 V signal and run and direction lines, and offers a web panel with a menu (in 8 languages) for set-up, users, network, update and the machine's own settings.
 
 ## What it does
 
