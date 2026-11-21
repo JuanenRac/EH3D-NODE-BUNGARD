@@ -538,6 +538,19 @@
           }
         },
         {
+          "name": "AGENTS.md",
+          "desc": {
+            "en": "the rules for anyone who changes the repository",
+            "es": "las reglas para quien cambie el repositorio",
+            "de": "die Regeln für alle, die das Repository ändern",
+            "fr": "les règles pour qui modifie le dépôt",
+            "it": "le regole per chi modifica il repository",
+            "ja": "リポジトリを変更する人のための規則",
+            "zh": "修改本仓库的人需要遵守的规则",
+            "pt": "as regras para quem altera o repositório"
+          }
+        },
+        {
           "name": "SECURITY.md  SUPPORT.md",
           "tree_name": "SECURITY.md SUPPORT.md",
           "desc": {

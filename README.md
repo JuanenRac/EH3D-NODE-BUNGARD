@@ -18,7 +18,7 @@
 
 ---
 
-**Honesty check - what actually runs today:** firmware in C++17 for the ESP32-S3 (ESP-IDF 5.5) that turns the RS-232 port of the control unit of a Bungard CCD machine into a network port: a program connects over TCP with an access token, arms the machine and sends the bytes of a move, which the node queues and puts on the line at the line's own pace. It also reads the machine's lamps (HOME X, Y and Z, ENABLE, TOOL), drives a spindle through a 0-10 V speed signal and run/direction lines, and has a web panel with a side menu (37 languages) for set-up, users, network, update and the machine's own settings. The rules of the link and the settings are tested on a computer (11 test programs, 29,222 checks counted) and the firmware builds without warnings for both boards. **It has not been flashed or run on a board yet**, nothing has been connected to a machine, and the carrier board that brings the RS-232 converter, the lamp inputs and the spindle's drive together is a design on paper.
+**Honesty check - what actually runs today:** firmware in C++17 for the ESP32-S3 (ESP-IDF 5.5) that turns the RS-232 port of the control unit of a Bungard CCD machine into a network port: a program connects over TCP with an access token, arms the machine and sends the bytes of a move, which the node queues and puts on the line at the line's own pace. It also reads the machine's lamps (HOME X, Y and Z, ENABLE, TOOL), drives a spindle through a 0-10 V speed signal and run/direction lines, and has a web panel with a side menu (37 languages) for set-up, users, network, update and the machine's own settings. The rules of the link and the settings are tested on a computer (13 test programs, 29,222 checks counted) and the firmware builds without warnings for both boards. **It has not been flashed or run on a board yet**, nothing has been connected to a machine, and the carrier board that brings the RS-232 converter, the lamp inputs and the spindle's drive together is a design on paper.
 
 ---
 
@@ -30,7 +30,7 @@
 |---|---|
 | Version | `0.0.8` |
 | Maturity | Scaffolding |
-| Tests | 12 host test programs (29,222 checks counted) |
+| Tests | 13 host test programs (29,222 checks counted) |
 | Stack | C++17, ESP-IDF 5.5, ESP32-S3 |
 | On real hardware | No: both firmware images build, but nothing has been flashed or run on a board, and nothing has been connected to a machine |
 
@@ -45,7 +45,7 @@ Each line is one part of this repository and the light says how far it is today.
 | Area | State | What it means here |
 |---|---|---|
 | Software | 🟡 | The firmware for the ESP32-S3 (ESP-IDF 5.5, C++17) builds without warnings for both boards, Ethernet and Wi-Fi; no image has been flashed. |
-| Tests | 🟡 | 12 host test programs pass (`ctest`): 29,222 checks counted in the link, settings, machine rules and the shared base, plus the check of the panel texts (315 rows in 8 languages) and of the task stacks (10 tasks). |
+| Tests | 🟡 | 13 host test programs pass (`ctest`): 29,222 checks counted in the link, settings, machine rules and the shared base, plus the check of the panel texts (315 rows in 8 languages) and of the task stacks (10 tasks). |
 | Control link | 🟡 | The framed protocol (CRC, token login, arming, byte queue, stop when the session goes quiet) is covered by the host tests; no program has talked to a real node. |
 | Web panel | 🟡 | The web panel (side menu, 37 languages: set-up, machine, network, users, update, log, system) has its texts checked and is exercised against a mock of the node in a browser; it has never been served from a board. |
 | Spindle and lamps | 🟠 | The 0-10 V speed signal, the run and direction lines (no reversing while turning) and the five lamp inputs are tested on the host; no spindle drive or machine has been connected. |
@@ -258,6 +258,7 @@ EH3D-NODE-BUNGARD/
 ├── build.sh build.bat                           build and run the host tests in a live panel
 ├── eh3d.project.json                            manifest: version, role, maturity and build command
 ├── CHANGELOG.md                                 what changed in each version
+├── AGENTS.md                                    the rules for anyone who changes the repository
 ├── SECURITY.md SUPPORT.md                       how to report a vulnerability and where to ask
 └── CONTRIBUTING.md CODE_OF_CONDUCT.md LICENSE   how to contribute, the code of conduct and the licence
 ```
@@ -300,6 +301,11 @@ README and texts exist in English, Spanish, French, Italian, German, Chinese, Ja
 * [Wiring](docs/WIRING.md): the RS-232 port, the lamps and the spindle's drive.
 * [The carrier board](docs/BOARD.md): the design to draw the schematic from.
 * [Changelog](CHANGELOG.md)
+* [Scope](docs/SCOPE.md): what the program is for, what it will not do and what it never decides.
+* [Requirements](docs/REQUIREMENTS.md): the register of capabilities, the state of each and the test that shows it.
+* [Status](docs/STATUS.md): what exists, what is missing and what is still open.
+* [Not yet](docs/NOT_YET.md): good ideas that are left out of this version.
+* [Rules for changing the repository](AGENTS.md): the rules for anyone who changes the repository.
 
 ## 🤝 Contributing & Community
 

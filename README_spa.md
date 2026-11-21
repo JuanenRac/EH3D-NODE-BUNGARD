@@ -258,6 +258,7 @@ EH3D-NODE-BUNGARD/
 ├── build.sh build.bat                           compila y ejecuta las pruebas en el ordenador con un panel en vivo
 ├── eh3d.project.json                            manifiesto: versión, rol, madurez y comando de compilación
 ├── CHANGELOG.md                                 qué cambió en cada versión
+├── AGENTS.md                                    las reglas para quien cambie el repositorio
 ├── SECURITY.md SUPPORT.md                       cómo informar de una vulnerabilidad y dónde preguntar
 └── CONTRIBUTING.md CODE_OF_CONDUCT.md LICENSE   cómo contribuir, el código de conducta y la licencia
 ```
@@ -300,6 +301,11 @@ El README y los textos existen en inglés, español, francés, italiano, alemán
 * [Cableado](docs/WIRING.md): el puerto RS-232, los LED y el variador del husillo.
 * [La placa portadora](docs/BOARD.md): el diseño a partir del cual dibujar el esquema.
 * [Registro de cambios](CHANGELOG.md)
+* [Alcance](docs/SCOPE.md): para qué sirve el programa, qué no hará y qué no decide nunca.
+* [Requisitos](docs/REQUIREMENTS.md): el registro de capacidades, el estado de cada una y la prueba que la muestra.
+* [Estado](docs/STATUS.md): qué existe, qué falta y qué sigue abierto.
+* [Todavía no](docs/NOT_YET.md): buenas ideas que quedan fuera de esta versión.
+* [Reglas para cambiar el repositorio](AGENTS.md): las reglas para quien cambie el repositorio.
 
 ## 🤝 Contribuir y comunidad
 
