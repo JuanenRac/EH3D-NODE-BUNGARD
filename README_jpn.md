@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/Stack-C%2B%2B17%20%2B%20ESP--IDF-00599C.svg" alt="C++17 and ESP-IDF">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
   <img src="https://img.shields.io/badge/Version-0.0.8-0f6cbd.svg" alt="Version">
-  <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
+  <img src="https://img.shields.io/badge/Maturity-functional-4CAF50.svg" alt="Maturity">
 </p>
 
 ---
@@ -29,7 +29,7 @@
 | | |
 |---|---|
 | バージョン | `0.0.8` |
-| 成熟度 | 足場 |
+| 成熟度 | 機能する |
 | テスト | ホスト テスト 13 本（数えられた検査 29,227 件） |
 | 技術スタック | C++17, ESP-IDF 5.5, ESP32-S3 |
 | 実機での動作 | いいえ：2 つのファームウェア イメージはビルドできますが、基板への書き込みや実行はなく、機械にも接続していません |

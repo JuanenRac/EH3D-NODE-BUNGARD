@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/Stack-C%2B%2B17%20%2B%20ESP--IDF-00599C.svg" alt="C++17 and ESP-IDF">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
   <img src="https://img.shields.io/badge/Version-0.0.8-0f6cbd.svg" alt="Version">
-  <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
+  <img src="https://img.shields.io/badge/Maturity-functional-4CAF50.svg" alt="Maturity">
 </p>
 
 ---
@@ -29,7 +29,7 @@
 | | |
 |---|---|
 | Versión | `0.0.8` |
-| Madurez | Andamiaje |
+| Madurez | Funcional |
 | Pruebas | 13 programas de prueba en el ordenador (29227 comprobaciones contadas) |
 | Pila tecnológica | C++17, ESP-IDF 5.5, ESP32-S3 |
 | En hardware real | No: las dos imágenes de firmware compilan, pero nada se ha grabado ni ejecutado en una placa y nada se ha conectado a una máquina |

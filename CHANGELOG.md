@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- The shared checks (`tools/ci_validate.py` version 6, `tools/status_lights.py`, `tools/lessons_lint.py`) are the current ones of the documentation hub: the validation now also runs the workflow checker and the lessons of past CI failures against their baselines, and a README that states another maturity than the manifest fails.
+- **The README files say the maturity of the manifest (functional):** the badge and the At a glance row of the eight languages still said scaffolding, and the notes of the manifest said that the firmware had not been built.
 - **The limit of wrong tokens holds within one read (security):** once the node had decided to close a connection (too many wrong Hellos, or no good one in time) it still obeyed the frames already received behind that one, so a program could try many more tokens in one packet than `max_bad_hellos` allows and send orders behind a right one. They are ignored now; only Abort and Disarm of a program that was already let in are still taken. Checked on a computer, not on a node on a machine.
 - **The shared firmware base is taken again:** `core/node_settings.hpp` is the copy of the base of EH3D-COMMON, which now knows the eight languages of the project only.
 
