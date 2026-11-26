@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- **The shared lessons check reads only what is part of the repository:** what git ignores, and folders such as `managed_components` that a firmware build downloads, are no longer analysed, so the local validation no longer fails over downloaded code.
+
 ## [0.0.9] - Safer connection handling - firmware not tested on hardware
 
 - The shared checks (`tools/ci_validate.py` version 6, `tools/status_lights.py`, `tools/lessons_lint.py`) are the current ones of the documentation hub: the validation now also runs the workflow checker and the lessons of past CI failures against their baselines, and a README that states another maturity than the manifest fails.
