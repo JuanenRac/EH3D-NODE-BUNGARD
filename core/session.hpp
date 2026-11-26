@@ -18,6 +18,30 @@
 
 namespace eh3d::bungard {
 
+// The control unit can also run its own spindle: bytes of the stream write its output latches. What follows is read from the program that came with the
+// machine and is NOT CONFIRMED on a machine: a byte with bit 7 set and bit 6 clear writes the first latch, whose bit 4 is the run bit of the spindle and
+// bits 0-3 its speed level; 0xC0 (drivers off) goes to the other latch and does not reach them. This keeps the first latch as the bytes that went out on
+// the line leave it, so a stop can release a run bit that the bytes set, and sends nothing when they never set it.
+class SpindleLatch {
+ public:
+  // The bytes handed to the line, in order (bytes dropped from the queue never count).
+  void sent(const std::uint8_t* data, std::size_t n) {
+    for (std::size_t i = 0; i < n; ++i)
+      if ((data[i] & 0xC0) == 0x80) latch_ = data[i];
+  }
+  // True, with the byte to put on the line in `out`, when the run bit is set: the run bit and the speed level go, the other outputs stay as they are
+  // (one of them holds the chuck). The byte counts as sent.
+  bool release(std::uint8_t& out) {
+    if ((latch_ & 0x10) == 0) return false;
+    latch_ = static_cast<std::uint8_t>(latch_ & ~0x1F);
+    out = latch_;
+    return true;
+  }
+
+ private:
+  std::uint8_t latch_ = 0x80;
+};
+
 // What the session needs from the hardware (a stand-in in the tests, the UART in the firmware).
 class Hardware {
  public:
@@ -25,8 +49,11 @@ class Hardware {
   virtual std::size_t queue_free() = 0;
   virtual bool enqueue(const std::uint8_t* data, std::size_t n) = 0;
   virtual void flush_queue() = 0;
-  // The byte that switches the stepper drivers off (0xC0 for the Bungard control unit), sent ahead of the queue.
+  // The byte that switches the stepper drivers off (0xC0 for the Bungard control unit), sent ahead of the queue, followed by the release of the
+  // control unit's own spindle when the bytes sent had set its run bit (see SpindleLatch).
   virtual void send_drivers_off() = 0;
+  // Only that release (nothing when the run bit is not set).
+  virtual void release_unit_spindle() = 0;
   virtual void set_dtr(bool on) = 0;
   // The spindle: speed in rpm (0 = stopped) and the direction. The firmware turns it into the 0-10 V speed signal and the direction outputs.
   virtual void set_spindle(std::uint32_t rpm, bool reverse) = 0;
@@ -97,6 +124,7 @@ class Session {
       case Type::Disarm:
         armed_ = false;
         hw_.flush_queue();
+        hw_.release_unit_spindle();   // the flush may have thrown away the bytes that stop it
         stop_spindle(true);
         stop_mask_ = 0;
         queued_rpm_ = 0;

@@ -84,6 +84,7 @@ class LinkHardware final : public bungard::Hardware {
   bool enqueue(const std::uint8_t* d, std::size_t n) override { return eh3d::enqueue(d, n); }
   void flush_queue() override { eh3d::flush_queue(); }
   void send_drivers_off() override { eh3d::send_drivers_off(); }
+  void release_unit_spindle() override { eh3d::release_unit_spindle(); }
   void set_dtr(bool on) override { eh3d::set_dtr(on); }
   void set_spindle(std::uint32_t rpm, bool reverse) override { eh3d::spindle_set(rpm, reverse); }
   bool spindle_event(std::uint32_t rpm, bool reverse) override { return eh3d::enqueue_spindle_event(rpm, reverse); }
