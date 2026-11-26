@@ -213,6 +213,29 @@ static void session_tests() {
     CHECK(!guessing.close_requested());
     guessing.on_frame(frame_of(Type::Hello, text("wrong!")), 10);
     CHECK(guessing.close_requested() && !guessing.authenticated());
+    {  // what arrived behind the last wrong Hello in the same read is not obeyed: not the right token, not an order
+      const std::size_t replies = hw.replies.size();
+      guessing.on_frame(frame_of(Type::Hello, text("secret")), 11);
+      guessing.on_frame(frame_of(Type::Arm), 11);
+      guessing.on_frame(frame_of(Type::Write, {0x43}), 11);
+      CHECK(!guessing.authenticated() && !guessing.armed() && hw.queue.size() == 0 && hw.replies.size() == replies);
+    }
+    {  // the same after the time for the Hello has run out
+      silent.on_frame(frame_of(Type::Hello, text("secret")), st.hello_timeout_ms + 2);
+      CHECK(!silent.authenticated());
+    }
+    {  // a program that was let in and then sends wrong Hellos can still stop the machine, and nothing else
+      FakeHardware own;
+      Session in(st, info, own);
+      in.on_frame(frame_of(Type::Hello, text("secret")), 0);
+      in.on_frame(frame_of(Type::Arm), 0);
+      for (std::uint32_t i = 0; i < st.max_bad_hellos; ++i) in.on_frame(frame_of(Type::Hello, text("wrong!")), 1);
+      CHECK(in.close_requested() && in.armed());
+      in.on_frame(frame_of(Type::Write, {0x43}), 2);
+      CHECK(own.queue.size() == 0);
+      in.on_frame(frame_of(Type::Abort), 2);
+      CHECK(!in.armed() && own.drivers_off == 1);
+    }
     Session greeted(st, info, hw);
     greeted.on_tick(0);
     greeted.on_frame(frame_of(Type::Hello, text("secret")), 100);

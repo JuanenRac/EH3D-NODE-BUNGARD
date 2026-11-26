@@ -76,6 +76,9 @@ class Session {
   bool spindle_reverse() const { return spindle_reverse_; }
 
   void on_frame(const Frame& f, std::uint32_t now_ms) {
+    // The link closes this connection: what was already received behind the frame that decided it is not obeyed (the limit of wrong Hellos would otherwise count for nothing when
+    // many of them, or a right one with orders behind it, arrive in one read). A program that was let in may still stop the machine.
+    if (close_requested_ && !(authenticated_ && (f.type == Type::Abort || f.type == Type::Disarm))) return;
     if (f.type == Type::Hello) { hello(f, now_ms); return; }
     if (!authenticated_) { error(Error::NotAuthenticated); return; }
     last_ms_ = now_ms;

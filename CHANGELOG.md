@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- **The limit of wrong tokens holds within one read (security):** once the node had decided to close a connection (too many wrong Hellos, or no good one in time) it still obeyed the frames already received behind that one, so a program could try many more tokens in one packet than `max_bad_hellos` allows and send orders behind a right one. They are ignored now; only Abort and Disarm of a program that was already let in are still taken. Checked on a computer, not on a node on a machine.
 - **The shared firmware base is taken again:** `core/node_settings.hpp` is the copy of the base of EH3D-COMMON, which now knows the eight languages of the project only.
 
 - **Contract tests of the control link, run without the board:** `tools/test_link_contract.py` recomputes the CRC of every shared test vector with a second implementation, checks that the types and the error codes of `core/frame.hpp` are the ones `docs/PROTOCOL.md` documents, that the defaults the page names (port 5800, hello timeout, wrong Hellos, idle time, 24000 rpm) are the ones of `core/node_config.hpp` and that the safety switches start closed, and, when EH3D-DRILLPRO and EH3D-COMMON sit next to this repository, that the program that drives the node has the same sync byte, largest payload, frame types and error codes, reads the same test vectors, names the same port, and that the top speed the server expects of the spindle with a drive is the default of this node. Nothing was tried on a node on a machine.
