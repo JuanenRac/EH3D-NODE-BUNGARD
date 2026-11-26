@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/Stack-C%2B%2B17%20%2B%20ESP--IDF-00599C.svg" alt="C++17 and ESP-IDF">
   <img src="https://img.shields.io/badge/Languages-8-00E5FF.svg" alt="Languages">
   <img src="https://img.shields.io/badge/Version-0.0.8-0f6cbd.svg" alt="Version">
-  <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
+  <img src="https://img.shields.io/badge/Maturity-functional-4CAF50.svg" alt="Maturity">
 </p>
 
 ---
@@ -29,7 +29,7 @@
 | | |
 |---|---|
 | 版本 | `0.0.8` |
-| 成熟度 | 脚手架 |
+| 成熟度 | 可用 |
 | 测试 | 13 个主机测试程序（统计到 29,227 项检查） |
 | 技术栈 | C++17, ESP-IDF 5.5, ESP32-S3 |
 | 真实硬件 | 否：两个固件镜像都能编译，但没有烧录或在电路板上运行过，也没有接到机床上 |
