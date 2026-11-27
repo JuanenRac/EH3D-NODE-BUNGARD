@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.1.1] - A stop of the spindle clears a queued start - firmware not tested on hardware
+
 - **A stop of the spindle also drops the starts still waiting in the queue (safety):** `Spindle` with 0 rpm stopped the output, but a start queued before it was applied afterwards, and further stops were ignored. Built in CI, not tried on a board or a machine.
 - **The direction rules of the spindle hold across queued commands and connections (safety):** an immediate command no longer turns round a spindle started through the queue, a queued start the other way waits the settling time after an immediate stop, and a new connection waits it too after a spindle that an earlier one had just stopped. New host tests with a stand-in for the hardware.
 
