@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- **Third-party notices:** `docs/THIRD_PARTY_NOTICES` holds the licences and copyright notices of ESP-IDF, of the third-party code inside it and of the components the firmware is built with, made by `tools/third_party_notices.py` from the build of every board. The CI fails when a declared dependency is not listed.
+
 ## [0.1.1] - A stop of the spindle clears a queued start - firmware not tested on hardware
 
 - **A stop of the spindle also drops the starts still waiting in the queue (safety):** `Spindle` with 0 rpm stopped the output, but a start queued before it was applied afterwards, and further stops were ignored. Built in CI, not tried on a board or a machine.
