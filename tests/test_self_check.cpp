@@ -57,6 +57,7 @@ struct Stand : Hardware {
   bool enqueue(const std::uint8_t*, std::size_t n) override { if (n > capacity - held) return false; held += n; return true; }
   void flush_queue() override { held = 0; }
   void send_drivers_off() override {}
+  void release_unit_spindle() override {}
   void set_dtr(bool) override {}
   void set_spindle(std::uint32_t r, bool) override { rpm = r; }
   bool spindle_event(std::uint32_t, bool) override { return true; }

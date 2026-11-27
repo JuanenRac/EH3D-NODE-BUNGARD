@@ -147,6 +147,7 @@ struct FakeHardware : Hardware {
   bool enqueue(const std::uint8_t* d, std::size_t n) override { return queue.push(d, n); }
   void flush_queue() override { ++flushes; queue.clear(); }
   void send_drivers_off() override { ++drivers_off; }
+  void release_unit_spindle() override {}
   void set_dtr(bool on) override { dtr.push_back(on); }
   std::vector<std::pair<std::uint32_t, bool>> spindle;
   void set_spindle(std::uint32_t rpm, bool reverse) override { spindle.push_back({rpm, reverse}); }
@@ -681,6 +682,7 @@ struct PhysicalHardware : Hardware {
   }
   void flush_queue() override { bytes.clear(); events.clear(); written = sent; }
   void send_drivers_off() override { drivers_on = false; }
+  void release_unit_spindle() override {}
   void set_dtr(bool) override {}
   void set_spindle(std::uint32_t r, bool) override { rpm = r; }
   bool spindle_event(std::uint32_t r, bool reverse) override {
@@ -798,6 +800,87 @@ static void link_cut_tests() {
   }
 }
 
+// The line to the control unit as the writer of the firmware drives it: the bytes of the queue go out in order and a stop writes its own bytes after
+// them. It keeps every byte that reached the line.
+struct LineHardware : FakeHardware {
+  SpindleLatch latch;
+  std::vector<std::uint8_t> line;
+  void send(std::size_t n) {
+    std::uint8_t buf[64];
+    const std::size_t got = queue.pop(buf, n < sizeof buf ? n : sizeof buf);
+    latch.sent(buf, got);
+    line.insert(line.end(), buf, buf + got);
+  }
+  void send_drivers_off() override {
+    FakeHardware::send_drivers_off();
+    queue.clear();
+    line.push_back(0xC0);
+    release_unit_spindle();
+  }
+  void release_unit_spindle() override {
+    std::uint8_t byte = 0;
+    if (latch.release(byte)) line.push_back(byte);
+  }
+};
+
+static void unit_spindle_tests() {
+  using Bytes = std::vector<std::uint8_t>;
+  Info info;
+  info.queue_capacity = 64;
+  // the start of the control unit's spindle (enables, run bit, speed level 5) and one step byte
+  const Bytes start{0xE8, 0x90, 0x95, 0x03};
+  auto armed = [&](LineHardware& hw, Session& s, const Bytes& bytes) {
+    s.on_frame(frame_of(Type::Hello, text("t")), 0);
+    s.on_frame(frame_of(Type::Arm), 1);
+    s.on_frame(frame_of(Type::Write, bytes), 2);
+    CHECK(hw.line.empty());
+  };
+  for (int how = 0; how < 4; ++how) {  // Abort, a quiet link, a dropped connection, the panel's stop: the same two bytes
+    LineHardware hw;
+    Session s({"t", false, 3000}, info, hw);
+    armed(hw, s, start);
+    hw.send(64);
+    if (how == 0) s.on_frame(frame_of(Type::Abort), 3);
+    if (how == 1) s.on_tick(9000);
+    if (how == 2) s.on_disconnect();
+    if (how == 3) s.emergency_stop();
+    CHECK((hw.line == Bytes{0xE8, 0x90, 0x95, 0x03, 0xC0, 0x80}));
+    // a second stop has nothing left to release
+    s.emergency_stop();
+    CHECK((hw.line == Bytes{0xE8, 0x90, 0x95, 0x03, 0xC0, 0x80, 0xC0}));
+  }
+  {  // Disarm flushes what had not gone out and releases the spindle, with no drivers-off byte of its own
+    LineHardware hw;
+    Session s({"t", false, 3000}, info, hw);
+    armed(hw, s, Bytes{0xE8, 0x90, 0x95, 0x80});
+    hw.send(3);  // the byte that would have released it is still in the queue
+    s.on_frame(frame_of(Type::Disarm), 3);
+    CHECK((hw.line == Bytes{0xE8, 0x90, 0x95, 0x80}));
+    CHECK(hw.queue.size() == 0);
+  }
+  {  // the auxiliary output (it holds the chuck) stays as it was
+    LineHardware hw;
+    Session s({"t", false, 3000}, info, hw);
+    armed(hw, s, Bytes{0xB7});
+    hw.send(64);
+    s.on_frame(frame_of(Type::Abort), 3);
+    CHECK((hw.line == Bytes{0xB7, 0xC0, 0xA0}));
+  }
+  {  // a run byte that never left the queue, a spindle the program released and a stream with no latch byte: only the drivers-off byte
+    const Bytes streams[] = {Bytes{0xE8, 0x90}, Bytes{0x90, 0x80}, Bytes{0x03, 0x43, 0xD0}};
+    const std::size_t sent[] = {1, 2, 3};
+    const Bytes want[] = {Bytes{0xE8, 0xC0}, Bytes{0x90, 0x80, 0xC0}, Bytes{0x03, 0x43, 0xD0, 0xC0}};
+    for (int i = 0; i < 3; ++i) {
+      LineHardware hw;
+      Session s({"t", false, 3000}, info, hw);
+      armed(hw, s, streams[i]);
+      hw.send(sent[i]);
+      s.on_frame(frame_of(Type::Abort), 3);
+      CHECK(hw.line == want[i]);
+    }
+  }
+}
+
 int main() {
   send_loop_tests();
   frame_tests();
@@ -809,6 +892,7 @@ int main() {
   queued_spindle_tests();
   safety_invariants();
   link_cut_tests();
+  unit_spindle_tests();
   std::printf("%d checks, %d failed\n", g_checks, g_failed);
   return g_failed == 0 ? 0 : 1;
 }

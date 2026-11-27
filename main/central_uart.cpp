@@ -21,6 +21,7 @@ extern "C" {
 
 #include "core/byte_queue.hpp"
 #include "core/node_config.hpp"
+#include "core/session.hpp"
 #include "node_guard.hpp"
 #include "spindle.hpp"
 
@@ -35,6 +36,7 @@ eh3d::bungard::ByteQueue* g_queue = nullptr;
 SemaphoreHandle_t g_lock = nullptr;
 SemaphoreHandle_t g_tx = nullptr;   // held by the writer from taking a chunk out of the queue until it is written, and by the stop around its 0xC0: the order on the line is the order of the decisions
 std::atomic<std::uint32_t> g_sent{0};
+eh3d::bungard::SpindleLatch g_latch;   // the first latch of the control unit as the bytes sent leave it; touched only while g_tx is held
 
 // Spindle commands that wait in the queue. `at` is how many bytes had been queued before the command (counted from the last time the queue was
 // empty and idle), so the writer applies it just before it sends the byte with that number.
@@ -62,6 +64,12 @@ void configure_input(int pin) {
 
 bool read_input(int pin) { return pin >= 0 && (gpio_get_level(static_cast<gpio_num_t>(pin)) != 0) == level_for(true); }
 
+// Call with g_tx held.
+void write_spindle_release() {
+  std::uint8_t byte = 0;
+  if (g_latch.release(byte)) uart_write_bytes(kPort, reinterpret_cast<const char*>(&byte), 1);
+}
+
 void writer_task(void*) {
   std::uint8_t buf[kChunk];
   for (;;) {
@@ -85,6 +93,7 @@ void writer_task(void*) {
     if (n == 0 && g_event_count == 0 && g_queue->size() == 0) { g_enq_total = 0; g_pop_total = 0; }
     xSemaphoreGive(g_lock);
     if (n > 0) {
+      g_latch.sent(buf, n);   // before the write: a byte that fails half way may have arrived
       uart_write_bytes(kPort, reinterpret_cast<const char*>(buf), n);
       g_sent.fetch_add(static_cast<std::uint32_t>(n));
     }
@@ -188,6 +197,14 @@ void send_drivers_off() {
   flush_queue();
   const std::uint8_t off = 0xC0;
   uart_write_bytes(kPort, reinterpret_cast<const char*>(&off), 1);
+  // 0xC0 does not reach the latch where the control unit's own spindle was told to run
+  write_spindle_release();
+  if (g_tx != nullptr) xSemaphoreGive(g_tx);
+}
+
+void release_unit_spindle() {
+  if (g_tx != nullptr) xSemaphoreTake(g_tx, portMAX_DELAY);
+  write_spindle_release();
   if (g_tx != nullptr) xSemaphoreGive(g_tx);
 }
 

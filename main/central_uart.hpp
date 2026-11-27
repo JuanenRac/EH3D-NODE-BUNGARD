@@ -22,6 +22,8 @@ bool queue_busy();
 void flush_queue();
 // Empties the queue and sends the byte that switches the stepper drivers off (0xC0), ahead of anything else.
 void send_drivers_off();
+// Releases the run bit of the control unit's own spindle, when the bytes sent had set it.
+void release_unit_spindle();
 void set_dtr(bool on);
 // CTS 1, DSR 2, RI 4, DCD 8 (inputs that are not wired read 0).
 std::uint8_t input_lines();
