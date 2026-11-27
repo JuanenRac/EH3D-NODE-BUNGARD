@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- **A stop also releases the run bit of the control unit's own spindle (safety):** a program that runs that spindle with bytes of the stream left it with its run bit set after an Abort, a quiet link, a dropped connection or the panel's stop, because the node only sent `0xC0`. The node now follows that latch in the bytes it puts on the line and, when the bit is set, sends the latch with the run bit cleared after `0xC0`, and also on Disarm; the auxiliary output stays as it is. The meaning of these bits is not confirmed on a machine, the firmware has not been flashed, and tests state the exact bytes against a stand-in of the line.
+
 ## [0.0.9] - Safer connection handling - firmware not tested on hardware
 
 - The shared checks (`tools/ci_validate.py` version 6, `tools/status_lights.py`, `tools/lessons_lint.py`) are the current ones of the documentation hub: the validation now also runs the workflow checker and the lessons of past CI failures against their baselines, and a README that states another maturity than the manifest fails.
