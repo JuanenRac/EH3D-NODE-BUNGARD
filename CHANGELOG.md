@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- **A stop of the spindle also drops the starts still waiting in the queue (safety):** `Spindle` with 0 rpm stopped the output, but a start queued before it was applied afterwards, and further stops were ignored. Built in CI, not tried on a board or a machine.
+- **The direction rules of the spindle hold across queued commands and connections (safety):** an immediate command no longer turns round a spindle started through the queue, a queued start the other way waits the settling time after an immediate stop, and a new connection waits it too after a spindle that an earlier one had just stopped. New host tests with a stand-in for the hardware.
+
 ## [0.1.0] - Release the spindle output on stop - firmware not tested on hardware
 
 - **The shared lessons check reads only what is part of the repository:** what git ignores, and folders such as `managed_components` that a firmware build downloads, are no longer analysed, so the local validation no longer fails over downloaded code.

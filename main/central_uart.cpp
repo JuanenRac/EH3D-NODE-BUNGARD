@@ -175,6 +175,13 @@ bool enqueue_spindle_event(std::uint32_t rpm, bool reverse) {
   return ok;
 }
 
+void drop_spindle_events() {
+  if (g_lock == nullptr) return;
+  xSemaphoreTake(g_lock, portMAX_DELAY);
+  g_event_count = 0;
+  xSemaphoreGive(g_lock);
+}
+
 bool queue_busy() {
   if (g_lock == nullptr) return false;
   xSemaphoreTake(g_lock, portMAX_DELAY);

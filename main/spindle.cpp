@@ -9,12 +9,16 @@
 
 #include <algorithm>
 #include <atomic>
+#include <mutex>
 
 extern "C" {
 #include "driver/gpio.h"
 #include "driver/ledc.h"
 #include "esp_log.h"
+#include "esp_timer.h"
 }
+
+#include "core/session.hpp"
 
 namespace eh3d {
 namespace {
@@ -26,6 +30,8 @@ std::uint32_t g_max_duty = 4095;
 bool g_started = false;
 std::atomic<std::uint32_t> g_now_rpm{0};
 std::atomic<bool> g_now_reverse{false};
+std::mutex g_memory_lock;
+eh3d::bungard::SpindleMemory g_memory;   // what the output has done, for the direction rules of a new connection
 
 void out_level(int gpio, bool active) {
   if (gpio < 0) return;
@@ -77,12 +83,21 @@ std::uint32_t spindle_max_rpm() { return g_cfg.max_rpm > 0 ? static_cast<std::ui
 std::uint32_t spindle_rpm_now() { return g_now_rpm.load(); }
 bool spindle_reverse_now() { return g_now_reverse.load(); }
 
+bool spindle_stopped_since(bool& reverse, std::uint32_t& stopped_ms) {
+  std::lock_guard<std::mutex> guard(g_memory_lock);
+  return g_memory.stopped_since(reverse, stopped_ms);
+}
+
 void spindle_set(std::uint32_t rpm, bool reverse) {
   if (!g_started) return;
   const std::uint32_t top = static_cast<std::uint32_t>(g_cfg.max_rpm);
   rpm = std::min<std::uint32_t>(rpm, top);
   g_now_rpm = rpm;
   if (rpm > 0) g_now_reverse = reverse;
+  {
+    std::lock_guard<std::mutex> guard(g_memory_lock);
+    g_memory.applied(rpm, reverse, static_cast<std::uint32_t>(esp_timer_get_time() / 1000));
+  }
   if (rpm == 0) {
     // stop: the speed first, then the run lines
     ledc_set_duty(kMode, kChannel, 0);

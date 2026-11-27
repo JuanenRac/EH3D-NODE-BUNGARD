@@ -17,6 +17,7 @@
 #include "../core/release_assets.hpp"
 #include "../core/semver.hpp"
 #include "../core/send_loop.hpp"
+#include "../core/session.hpp"
 #include "../core/web_policy.hpp"
 
 static int failures = 0;
@@ -146,6 +147,21 @@ struct Fake : bungard::DrainHardware {
   bool busy() override { return is_busy; }
   void stop_all() override { ++stops; is_busy = false; }
 };
+
+static void the_spindle_memory_remembers_the_way_and_the_moment_of_the_stop() {
+  eh3d::bungard::SpindleMemory memory;
+  bool reverse = false;
+  std::uint32_t at = 0;
+  CHECK(!memory.stopped_since(reverse, at));   // it never turned
+  memory.applied(0, true, 10);
+  CHECK(!memory.stopped_since(reverse, at));   // an order to stop does not count as a turn
+  memory.applied(8000, true, 20);
+  CHECK(!memory.stopped_since(reverse, at));   // it turns now
+  memory.applied(0, false, 30);
+  CHECK(memory.stopped_since(reverse, at) && reverse && at == 30);
+  memory.applied(0, false, 900);               // the same order again does not move the moment
+  CHECK(memory.stopped_since(reverse, at) && at == 30);
+}
 
 static void drain_waits_for_the_machine_and_stops_it_once() {
   Fake hw;
@@ -513,6 +529,7 @@ int main() {
   every_day_from_1899_to_2101_is_one_more_than_the_one_before();
   known_moments();
   the_offset_of_a_time_zone_from_the_local_and_the_utc_clock();
+  the_spindle_memory_remembers_the_way_and_the_moment_of_the_stop();
   drain_waits_for_the_machine_and_stops_it_once();
   drain_ends_when_the_machine_goes_idle_and_survives_the_wrap_of_the_clock();
   drain_abort_and_zero_time();

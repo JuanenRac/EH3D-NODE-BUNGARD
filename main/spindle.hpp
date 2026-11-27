@@ -14,6 +14,8 @@ std::uint32_t spindle_max_rpm();
 // Speed in rpm (0 = stopped) and direction. The speed becomes a PWM duty cycle: 0 % at 0 rpm, 100 % at the top speed of the settings,
 // which an external PWM to 0-10 V converter turns into the 0-10 V speed signal of the spindle's control unit.
 void spindle_set(std::uint32_t rpm, bool reverse);
+// What the output has done since the node started (core/session.hpp, SpindleMemory); `stopped_ms` is on the clock of esp_timer in milliseconds.
+bool spindle_stopped_since(bool& reverse, std::uint32_t& stopped_ms);
 // The speed and the direction the output has now (a command that waits in the queue has not changed them yet).
 std::uint32_t spindle_rpm_now();
 bool spindle_reverse_now();

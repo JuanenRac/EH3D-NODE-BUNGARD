@@ -42,6 +42,33 @@ class SpindleLatch {
   std::uint8_t latch_ = 0x80;
 };
 
+// What the spindle output of the node has done since the node started, whoever ordered it (a session, a queued command, a finished job, the panel): a connection that
+// is new knows nothing of it, and the direction rules must not be passed by connecting again. Not thread safe: the firmware guards it with a mutex.
+class SpindleMemory {
+ public:
+  void applied(std::uint32_t rpm, bool reverse, std::uint32_t now_ms) {
+    if (rpm > 0) {
+      turned_ = true;
+      turning_ = true;
+      reverse_ = reverse;
+    } else if (turning_) {
+      turning_ = false;
+      stopped_ms_ = now_ms;
+    }
+  }
+  // True when the output has turned at least once and is stopped now: `reverse` the way it last turned, `stopped_ms` since when.
+  bool stopped_since(bool& reverse, std::uint32_t& stopped_ms) const {
+    if (!turned_ || turning_) return false;
+    reverse = reverse_;
+    stopped_ms = stopped_ms_;
+    return true;
+  }
+
+ private:
+  bool turned_ = false, turning_ = false, reverse_ = false;
+  std::uint32_t stopped_ms_ = 0;
+};
+
 // What the session needs from the hardware (a stand-in in the tests, the UART in the firmware).
 class Hardware {
  public:
@@ -59,6 +86,14 @@ class Hardware {
   virtual void set_spindle(std::uint32_t rpm, bool reverse) = 0;
   // A spindle command that waits in the queue: it is applied when the bytes queued before it have gone out.
   virtual bool spindle_event(std::uint32_t rpm, bool reverse) = 0;
+  // Drops the spindle commands still waiting in the queue: a stop ordered now is not followed by an older start.
+  virtual void drop_spindle_events() {}
+  // What SpindleMemory says of the output (false: it has not turned, or it turns now). `stopped_ms` is on the clock of the session.
+  virtual bool spindle_stopped_since(bool& reverse, std::uint32_t& stopped_ms) {
+    (void)reverse;
+    (void)stopped_ms;
+    return false;
+  }
   // The program went away with the machine armed and the setting `link.finish_on_loss` on: asks the firmware to finish what it holds. False
   // when there is nothing left to finish (the session then stops the machine as usual).
   virtual bool begin_drain() = 0;
@@ -243,8 +278,21 @@ class Session {
     stopped_ms_ = now_ms_;
     stopped_valid_ = true;
     queued_rpm_ = 0;
+    queued_stop_at_valid_ = false;   // stopped now: the pause before a start the other way is counted in time, not in queued bytes
     hw_.set_spindle(0, reverse);
   }
+
+  // Whether the output itself has been stopped long enough to turn `reverse`. A stamp a little ahead of the session's time (set by another task) counts as just now.
+  bool output_settled(bool reverse) {
+    bool was = false;
+    std::uint32_t since = 0;
+    if (!hw_.spindle_stopped_since(was, since) || was == reverse) return true;
+    const std::uint32_t passed = static_cast<std::uint32_t>(now_ms_ - since);
+    return passed >= settings_.reverse_delay_ms && passed < 0xFFFF0000u;
+  }
+
+  // Whether the session's own stop is old enough for a start the other way.
+  bool session_settled() const { return !stopped_valid_ || static_cast<std::uint32_t>(now_ms_ - stopped_ms_) >= settings_.reverse_delay_ms; }
 
   // Payload: rpm (u16 LE) and optionally the direction (0 forward, 1 reverse; left out: the last one used).
   void spindle(const Frame& f) {
@@ -252,16 +300,22 @@ class Session {
     if (settings_.max_rpm == 0) { error(Error::NoSpindle); return; }
     std::uint32_t rpm = static_cast<std::uint32_t>(f.payload[0]) | (static_cast<std::uint32_t>(f.payload[1]) << 8);
     if (f.length >= 4 && (f.payload[3] & 1) != 0) { queued_spindle(rpm, f); return; }
-    if (rpm == 0) { stop_spindle(); return; }
-    if (!armed_) { error(Error::NotArmed); return; }
-    const bool reverse = f.length >= 3 ? f.payload[2] != 0 : spindle_reverse_;
-    if (reverse != spindle_reverse_) {
-      if (spindle_rpm_ != 0 || queued_started_) { error(Error::SpindleDirection); return; }
-      if (stopped_valid_ && static_cast<std::uint32_t>(now_ms_ - stopped_ms_) < settings_.reverse_delay_ms) {
-        error(Error::SpindleSettling);
-        return;
-      }
+    if (rpm == 0) {
+      hw_.drop_spindle_events();   // a start still waiting in the queue must not follow this stop
+      stop_spindle();
+      return;
     }
+    if (!armed_) { error(Error::NotArmed); return; }
+    // a start that came through the queue says which way the spindle turns
+    const bool turning = spindle_rpm_ != 0 || queued_started_;
+    const bool current = queued_started_ ? queued_reverse_ : spindle_reverse_;
+    const bool reverse = f.length >= 3 ? f.payload[2] != 0 : current;
+    if (turning && reverse != current) { error(Error::SpindleDirection); return; }
+    if (!turning && ((reverse != current && !session_settled()) || !output_settled(reverse))) {
+      error(Error::SpindleSettling);
+      return;
+    }
+    queued_stop_at_valid_ = false;
     if (rpm > settings_.max_rpm) rpm = settings_.max_rpm;  // never above what the spindle was configured for
     spindle_rpm_ = rpm;
     spindle_reverse_ = reverse;
@@ -289,6 +343,11 @@ class Session {
         error(Error::SpindleSettling);
         return;
       }
+    }
+    // no stop is waiting in the queue: the spindle may have been stopped just now, by this session or by an earlier one
+    if (queued_rpm_ == 0 && !queued_stop_at_valid_ && ((!queued_started_ && reverse != spindle_reverse_ && !session_settled()) || !output_settled(reverse))) {
+      error(Error::SpindleSettling);
+      return;
     }
     if (rpm > settings_.max_rpm) rpm = settings_.max_rpm;
     if (!hw_.spindle_event(rpm, reverse)) { error(Error::QueueFull); return; }

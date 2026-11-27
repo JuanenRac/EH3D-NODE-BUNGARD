@@ -88,6 +88,8 @@ class LinkHardware final : public bungard::Hardware {
   void set_dtr(bool on) override { eh3d::set_dtr(on); }
   void set_spindle(std::uint32_t rpm, bool reverse) override { eh3d::spindle_set(rpm, reverse); }
   bool spindle_event(std::uint32_t rpm, bool reverse) override { return eh3d::enqueue_spindle_event(rpm, reverse); }
+  void drop_spindle_events() override { eh3d::drop_spindle_events(); }
+  bool spindle_stopped_since(bool& reverse, std::uint32_t& stopped_ms) override { return eh3d::spindle_stopped_since(reverse, stopped_ms); }
   bool begin_drain() override {
     g_max_drain_ms = g_max_drain_ms == 0 ? 1 : g_max_drain_ms;
     const bool started = g_drain.begin(now_ms(), g_drain_hardware);

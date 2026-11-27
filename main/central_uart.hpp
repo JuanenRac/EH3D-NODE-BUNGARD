@@ -18,6 +18,7 @@ bool enqueue(const std::uint8_t* data, std::size_t n);
 // A spindle command that waits in the queue: it is applied when every byte queued before it has gone out. False when the list of commands is full.
 bool enqueue_spindle_event(std::uint32_t rpm, bool reverse);
 // True while bytes, or spindle commands among them, are still waiting.
+void drop_spindle_events();   // the spindle commands still waiting in the queue; the bytes stay
 bool queue_busy();
 void flush_queue();
 // Empties the queue and sends the byte that switches the stepper drivers off (0xC0), ahead of anything else.

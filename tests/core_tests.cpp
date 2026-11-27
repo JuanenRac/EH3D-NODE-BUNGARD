@@ -562,6 +562,82 @@ static void drain_tests() {
   }
 }
 
+// The spindle across the immediate and the queued commands, and across connections.
+static void spindle_safety_tests() {
+  struct HistoryHardware : FakeHardware {
+    bool turned = false, was_reverse = false;
+    std::uint32_t stopped_at = 0;
+    void drop_spindle_events() { events.clear(); }
+    bool spindle_stopped_since(bool& reverse, std::uint32_t& at) {
+      if (!turned) return false;
+      reverse = was_reverse;
+      at = stopped_at;
+      return true;
+    }
+  };
+  Info info;
+  info.queue_capacity = 4096;
+  auto now_cmd = [](unsigned rpm, int dir) { return std::vector<std::uint8_t>{static_cast<std::uint8_t>(rpm & 0xFF), static_cast<std::uint8_t>(rpm >> 8), static_cast<std::uint8_t>(dir)}; };
+  auto later_cmd = [](unsigned rpm, int dir) { return std::vector<std::uint8_t>{static_cast<std::uint8_t>(rpm & 0xFF), static_cast<std::uint8_t>(rpm >> 8), static_cast<std::uint8_t>(dir), 1}; };
+  auto armed = [&](Session& s) {
+    s.on_frame(frame_of(Type::Hello, text("t")), 1000);
+    s.on_frame(frame_of(Type::Arm), 1001);
+  };
+  {  // a stop ordered now is not followed by a start that was still waiting in the queue
+    HistoryHardware hw;
+    Session s({"t", false, 60000}, info, hw);
+    armed(s);
+    s.on_frame(frame_of(Type::Spindle, later_cmd(8000, 0)), 1002);
+    s.on_frame(frame_of(Type::Spindle, now_cmd(0, 0)), 1003);
+    CHECK(hw.events.empty() && !hw.spindle.empty() && hw.spindle.back().first == 0);
+  }
+  {  // a spindle started the other way through the queue is not turned round by an immediate command
+    HistoryHardware hw;
+    Session s({"t", false, 60000}, info, hw);
+    armed(s);
+    s.on_frame(frame_of(Type::Spindle, later_cmd(8000, 1)), 1002);
+    s.on_frame(frame_of(Type::Spindle, now_cmd(8000, 0)), 1003);
+    CHECK(hw.last_error() == Error::SpindleDirection && hw.spindle.empty());
+  }
+  {  // a stop ordered now, then a queued start the other way: the settling time still counts
+    HistoryHardware hw;
+    Session s({"t", false, 60000}, info, hw);
+    armed(s);
+    s.on_frame(frame_of(Type::Spindle, now_cmd(8000, 0)), 1002);
+    s.on_frame(frame_of(Type::Spindle, now_cmd(0, 0)), 1003);
+    s.on_frame(frame_of(Type::Spindle, later_cmd(8000, 1)), 1004);
+    CHECK(hw.last_error() == Error::SpindleSettling && hw.events.empty());
+    s.on_frame(frame_of(Type::Spindle, later_cmd(8000, 1)), 4500);
+    CHECK(hw.events.size() == 1);
+  }
+  {  // a new connection does not forget which way the spindle was just turning
+    HistoryHardware hw;
+    hw.turned = true;
+    hw.stopped_at = 900;
+    Session s({"t", false, 60000}, info, hw);
+    armed(s);
+    s.on_frame(frame_of(Type::Spindle, now_cmd(8000, 1)), 1002);
+    CHECK(hw.last_error() == Error::SpindleSettling && hw.spindle.empty());
+    s.on_frame(frame_of(Type::Spindle, later_cmd(8000, 1)), 1003);
+    CHECK(hw.events.empty());
+    s.on_frame(frame_of(Type::Spindle, now_cmd(8000, 1)), 4000);
+    CHECK(hw.spindle.size() == 1 && hw.spindle.back().second);
+  }
+  {  // the same direction needs no wait, and a stamp a little ahead of the session's clock counts as just now
+    HistoryHardware hw;
+    hw.turned = true;
+    hw.was_reverse = true;
+    hw.stopped_at = 1010;
+    Session s({"t", false, 60000}, info, hw);
+    armed(s);
+    s.on_frame(frame_of(Type::Spindle, now_cmd(8000, 0)), 1002);
+    CHECK(hw.last_error() == Error::SpindleSettling && hw.spindle.empty());
+    hw.was_reverse = false;
+    s.on_frame(frame_of(Type::Spindle, now_cmd(8000, 0)), 1003);
+    CHECK(hw.spindle.size() == 1);
+  }
+}
+
 static void queued_spindle_tests() {
   Info info;
   info.queue_capacity = 4096;
@@ -890,6 +966,7 @@ int main() {
   home_tests();
   drain_tests();
   queued_spindle_tests();
+  spindle_safety_tests();
   safety_invariants();
   link_cut_tests();
   unit_spindle_tests();
